@@ -1,0 +1,605 @@
+{
+  "name": "DOCKER",
+  "rules": {
+    "docker_file": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "parser_directive"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "comment"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "parser_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "#"
+        },
+        {
+          "type": "PATTERN",
+          "value": " *"
+        },
+        {
+          "type": "FIELD",
+          "name": "directive_key",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_parser_directive_key"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "FIELD",
+          "name": "directive_value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_parser_directive_value"
+          }
+        }
+      ]
+    },
+    "_parser_directive_key": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+      }
+    },
+    "_parser_directive_value": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[^\\s]+"
+      }
+    },
+    "comment": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "#"
+        },
+        {
+          "type": "PATTERN",
+          "value": ".*"
+        }
+      ]
+    },
+    "directive": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "directive_add"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "directive_arg"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "directive_cmd"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "directive_copy"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "directive_entrypoint"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "directive_env"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "directive_expose"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "directive_from"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "directive_healthcheck"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "directive_label"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "directive_maintainer"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "directive_onbuild"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "directive_run"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "directive_shell"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "directive_stopsignal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "directive_user"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "directive_volume"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "directive_workdir"
+        }
+      ]
+    },
+    "directive_add": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "ADD[\t\u000b\f\r ]*"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_maybe_json_to_list"
+        }
+      ]
+    },
+    "directive_arg": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "ARG[\t\u000b\f\r ]*"
+        },
+        {
+          "type": "PATTERN",
+          "value": ".*"
+        }
+      ]
+    },
+    "directive_cmd": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "CMD[\t\u000b\f\r ]*"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_maybe_json"
+        }
+      ]
+    },
+    "directive_copy": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "COPY[\t\u000b\f\r ]*"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_maybe_json_to_list"
+        }
+      ]
+    },
+    "directive_entrypoint": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "ENTRYPOINT[\t\u000b\f\r ]*"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_maybe_json"
+        }
+      ]
+    },
+    "directive_env": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "ENV[\t\u000b\f\r ]*"
+        },
+        {
+          "type": "PATTERN",
+          "value": ".*"
+        }
+      ]
+    },
+    "directive_expose": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "EXPOSE[\t\u000b\f\r ]*"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_strings_whitespace_delim"
+        }
+      ]
+    },
+    "directive_from": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "FROM[\t\u000b\f\r ]*"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_strings_whitespace_delim"
+        }
+      ]
+    },
+    "directive_healthcheck": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "HEALTHCHECK[\t\u000b\f\r ]*"
+        },
+        {
+          "type": "PATTERN",
+          "value": ".*"
+        }
+      ]
+    },
+    "directive_label": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "LABEL[\t\u000b\f\r ]*"
+        },
+        {
+          "type": "PATTERN",
+          "value": ".*"
+        }
+      ]
+    },
+    "directive_maintainer": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "MAINTAINER[\t\u000b\f\r ]*"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[^ ]+"
+        }
+      ]
+    },
+    "directive_onbuild": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "ONBUILD[\t\u000b\f\r ]*"
+        },
+        {
+          "type": "PATTERN",
+          "value": ".*"
+        }
+      ]
+    },
+    "directive_run": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "RUN[\t\u000b\f\r ]*"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_maybe_json"
+        }
+      ]
+    },
+    "directive_shell": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "SHELL[\t\u000b\f\r ]*"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_maybe_json"
+        }
+      ]
+    },
+    "directive_stopsignal": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "STOPSIGNAL[\t\u000b\f\r ]*"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[^ ]+"
+        }
+      ]
+    },
+    "directive_user": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "USER[\t\u000b\f\r ]*"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[^ ]+"
+        }
+      ]
+    },
+    "directive_volume": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "VOLUME[\t\u000b\f\r ]*"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_maybe_json_to_list"
+        }
+      ]
+    },
+    "directive_workdir": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "WORKDIR[\t\u000b\f\r ]*"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[^ ]+"
+        }
+      ]
+    },
+    "_maybe_json_to_list": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_json"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_strings_whitespace_delim"
+        }
+      ]
+    },
+    "_maybe_json": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_json"
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": -1,
+            "content": {
+              "type": "PATTERN",
+              "value": "([^\\\\\\n]\\\\\\n|[^\\\\\\n])+"
+            }
+          }
+        }
+      ]
+    },
+    "_json": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_json_value"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "_json_value"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
+    "_json_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "\""
+            },
+            {
+              "type": "STRING",
+              "value": "\""
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "\""
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_json_string_content"
+            },
+            {
+              "type": "STRING",
+              "value": "\""
+            }
+          ]
+        }
+      ]
+    },
+    "_json_string_content": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "PATTERN",
+              "value": "[^\\\\\"\\n]"
+            }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_json_escape_sequence"
+          }
+        ]
+      }
+    },
+    "_json_escape_sequence": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "\\"
+          },
+          {
+            "type": "PATTERN",
+            "value": "(\\\"|\\\\|\\/|b|n|r|t|u)"
+          }
+        ]
+      }
+    },
+    "_strings_whitespace_delim": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_token_whitespace"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "TOKEN",
+            "content": {
+              "type": "PATTERN",
+              "value": "[^\\s]+"
+            }
+          }
+        ]
+      }
+    },
+    "_token_comment": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "#.*"
+      }
+    },
+    "_token_whitespace": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[\\t\\v\\f\\r ]+"
+      }
+    }
+  },
+  "extras": [
+    {
+      "type": "PATTERN",
+      "value": "\\s"
+    }
+  ],
+  "conflicts": [],
+  "externals": [],
+  "inline": [],
+  "supertypes": []
+}
+
