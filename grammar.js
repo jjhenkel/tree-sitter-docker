@@ -1,128 +1,153 @@
+let FROM_PART_REGEX = /[^\$\s\/"':@]+/;
+
 module.exports = grammar({
   name: 'DOCKER',
+  
+  extras: $ => [
+    $.comment,
+    /\\?\s/,
+  ],
+
+  conflicts: $ => [ 
+    [ $.repository ],
+    [ $._port_spec_1 ]
+  ],
 
   rules: {
-    // Top-level
-    // A docker file is a sequence of (possible zero) parser
-    // directives and then an arbitrary number of comments/directives
-    docker_file: $ => seq(
-      repeat($.parser_directive),
-      repeat(choice($.directive, $.comment))
-    ),
-    
-    // Parser Directives (key=value)
-    parser_directive: $ => seq(
-      '#',
-      / */,
-      field('key', $._parser_directive_key),
-      '=',
-      field('value', $._parser_directive_value),
-    ),
-    _parser_directive_key: $ => token(
-      /[a-zA-Z_][a-zA-Z0-9_]*/
-    ),
-    _parser_directive_value: $ => token(
-      /[^\s]+/
+    dockerfile: $ => seq(
+      repeat1($._directives)
     ),
 
-    // Comments 
-    comment: $ => seq(
-      '#',
-      /.*/
+    _directives: $ => choice(
+      $.expose,
+      $.from
     ),
 
-    // Many different directives we can use at any point in
-    // the Dockerfile
-    directive: $ => choice(
-      $.directive_add,
-      $.directive_arg,
-      $.directive_cmd,
-      $.directive_copy,
-      $.directive_entrypoint,
-      $.directive_env,
-      $.directive_expose,
-      $.directive_from,
-      $.directive_healthcheck,
-      $.directive_label,
-      $.directive_maintainer,
-      $.directive_onbuild,
-      $.directive_run,
-      $.directive_shell,
-      $.directive_stopsignal,
-      $.directive_user,
-      $.directive_volume,
-      $.directive_workdir
-    ),
-    
-    // DIRECTIVES:
-    directive_add: $ => directive('ADD', $._maybe_json_to_list),
-    directive_arg: $ => directive('ARG', /.*/),
-    directive_cmd: $ => directive('CMD', $._maybe_json),
-    directive_copy: $ => directive('COPY', $._maybe_json_to_list),
-    directive_entrypoint: $ => directive('ENTRYPOINT', $._maybe_json),
-    directive_env: $ => directive('ENV', /.*/),
-    directive_expose: $ => directive('EXPOSE', $._strings_whitespace_delim),
-    directive_from: $ => directive('FROM', $._strings_whitespace_delim),
-    directive_healthcheck: $ => directive('HEALTHCHECK', /.*/),
-    directive_label: $ => directive('LABEL', /.*/),
-    directive_maintainer: $ => directive('MAINTAINER', $._just_string),
-    directive_onbuild: $ => directive('ONBUILD', /.*/),
-    directive_run: $ => directive('RUN', $._maybe_json),
-    directive_shell: $ => directive('SHELL', $._maybe_json),
-    directive_stopsignal: $ => directive('STOPSIGNAL', $._just_string),
-    directive_user: $ => directive('USER', $._just_string),
-    directive_volume: $ => directive('VOLUME', $._maybe_json_to_list),
-    directive_workdir: $ => directive('WORKDIR', $._just_string),
+    from: $ => seq(
+      any_case('FROM'),
+      choice(
+        $.image,
+        seq($.image, ':', $.tag),
+        seq($.repository, '/', $.image),
+        seq($.repository, '/', $.image, ':', $.tag),
+        
+        seq($.image, '@', $.digest),
+        seq($.image, ':', $.tag, '@', $.digest),
+        seq($.repository, '/', $.image, '@', $.digest),
+        seq($.repository, '/', $.image, ':', $.tag, '@', $.digest),
 
-    _maybe_json_to_list: $ => choice(
-      $._json,
-      $._strings_whitespace_delim 
+        seq($.image, any_case('AS'), $.as_name),
+        seq($.image, ':', $.tag, any_case('AS'), $.as_name),
+        seq($.repository, '/', $.image, any_case('AS'), $.as_name),
+        seq($.repository, '/', $.image, ':', $.tag, any_case('AS'), $.as_name),
+        
+        seq($.image, '@', $.digest, any_case('AS'), $.as_name),
+        seq($.image, ':', $.tag, '@', $.digest, any_case('AS'), $.as_name),
+        seq($.repository, '/', $.image, '@', $.digest, any_case('AS'), $.as_name),
+        seq($.repository, '/', $.image, ':', $.tag, '@', $.digest, any_case('AS'), $.as_name),
+      ),
     ),
 
-    _maybe_json: $ => choice(
-      $._json,
-      token(prec(-1, /([^\\\n]\\\n|[^\\\n])+/))
+    repository: $ => maybe_double_quoted(
+      seq(
+        choice(FROM_PART_REGEX, $.docker_variable),
+        repeat(
+          choice(token.immediate(FROM_PART_REGEX), $.docker_variable)
+        ),
+        /(:\d+)?/,
+        repeat(seq(
+          '/',
+          repeat1(
+            choice(token.immediate(FROM_PART_REGEX), $.docker_variable)
+          )
+        ))
+      )
+    ),
+    image: $ => maybe_double_quoted(
+      string_interpolation(FROM_PART_REGEX, $.docker_variable)
+    ),
+    tag: $ => maybe_double_quoted(
+      string_interpolation(FROM_PART_REGEX, $.docker_variable)
+    ),
+    digest: $ => string_interpolation(
+      /[^\$\s\/"']+/, $.docker_variable
+    ),
+    as_name: $ => token(
+      /[^\s\/"']+/
     ),
 
-    _json: $ => seq(
-      "[", commanSep($._json_value), "]"
+    expose: $ => seq(
+      any_case('EXPOSE'),
+      choice(
+        repeat1(maybe_double_quoted($.port_spec)),
+        maybe_double_quoted(seq(':', $.port_part))
+      )
     ),
-    _json_value: $ => choice(
-      seq('"', '"'),
-      seq('"', $._json_string_content, '"')
+
+    port_spec: $ => seq(
+      $._port_spec_1,
+      optional(
+        seq(':', $._port_spec_1)
+      )
     ),
-    _json_string_content: $ => repeat1(choice(
-      token.immediate(/[^\\"\n]/),
-      $._json_escape_sequence
-    )),
-    _json_escape_sequence: $ => token.immediate(seq(
-      '\\',
-      /(\"|\\|\/|b|n|r|t|u)/
+
+    _port_spec_1: $ => maybe_double_quoted(seq(
+      $.port_part, optional(seq('-', $.port_part))
     )),
 
-    _strings_whitespace_delim: $ => repeat1(
-      seq(optional($._token_whitespace), token(/[^\s]+/))
+    port_part: $ => seq(
+      choice(
+        /\d+/,
+        $.docker_variable
+      ),
+      optional($.port_protocol)
     ),
 
-    _just_string: $ => token(/^[\s]+/),
+    port_protocol: $ => seq('/', choice(
+      'udp', 'tcp', 'UDP', 'TCP', $.docker_variable
+    )),
 
-    _token_comment: $ => token(
-      /#.*/
+    docker_variable: $ => choice(
+      seq('$', $._docker_variable),
+      seq(
+        '${',
+        $._docker_variable,
+        optional($.variable_default_value),
+        '}'
+      )
     ),
+
+    _docker_variable: $ => token(/[^\/\}\{\$"\s:]+/),
+
+    variable_default_value: $ => seq(
+      ':-',
+      /[^\}\{\$"\n]+/
+    ),
+
+    comment: $ => token(prec(-10, /#.*/)),
 
     _token_whitespace: $ => token(
       /[\t\v\f\r ]+/
-    ),
+    )
 
   }
 });
 
-function commanSep (rule) {
-  return optional(seq(rule, repeat(seq(",", rule))));
+function string_interpolation (regex, variable) {
+  return seq(
+    choice(regex, variable),
+    repeat(
+      choice(token.immediate(regex), variable)
+    )
+  );
 }
 
-function directive (token, rule) {
-  return seq(
-    new RegExp(token + '[\t\v\f\r ]*'), rule
-  );
+function any_case (token) { 
+  return new RegExp(token.split('').map(
+    c => '(' + c + '|' + c.toLowerCase() + ')'
+  ).join(''));
+} 
+
+function maybe_double_quoted (rule) { 
+  return choice(seq('"', rule, '"'), rule);
 }

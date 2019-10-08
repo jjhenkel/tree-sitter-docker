@@ -1,184 +1,6 @@
 [
   {
-    "type": "comment",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "directive",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "directive_add",
-          "named": true
-        },
-        {
-          "type": "directive_arg",
-          "named": true
-        },
-        {
-          "type": "directive_cmd",
-          "named": true
-        },
-        {
-          "type": "directive_copy",
-          "named": true
-        },
-        {
-          "type": "directive_entrypoint",
-          "named": true
-        },
-        {
-          "type": "directive_env",
-          "named": true
-        },
-        {
-          "type": "directive_expose",
-          "named": true
-        },
-        {
-          "type": "directive_from",
-          "named": true
-        },
-        {
-          "type": "directive_healthcheck",
-          "named": true
-        },
-        {
-          "type": "directive_label",
-          "named": true
-        },
-        {
-          "type": "directive_maintainer",
-          "named": true
-        },
-        {
-          "type": "directive_onbuild",
-          "named": true
-        },
-        {
-          "type": "directive_run",
-          "named": true
-        },
-        {
-          "type": "directive_shell",
-          "named": true
-        },
-        {
-          "type": "directive_stopsignal",
-          "named": true
-        },
-        {
-          "type": "directive_user",
-          "named": true
-        },
-        {
-          "type": "directive_volume",
-          "named": true
-        },
-        {
-          "type": "directive_workdir",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "directive_add",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "directive_arg",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "directive_cmd",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "directive_copy",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "directive_entrypoint",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "directive_env",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "directive_expose",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "directive_from",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "directive_healthcheck",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "directive_label",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "directive_maintainer",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "directive_onbuild",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "directive_run",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "directive_shell",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "directive_stopsignal",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "directive_user",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "directive_volume",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "directive_workdir",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "docker_file",
+    "type": "digest",
     "named": true,
     "fields": {},
     "children": {
@@ -186,58 +8,253 @@
       "required": false,
       "types": [
         {
-          "type": "comment",
-          "named": true
-        },
-        {
-          "type": "directive",
-          "named": true
-        },
-        {
-          "type": "parser_directive",
+          "type": "docker_variable",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "parser_directive",
+    "type": "docker_variable",
     "named": true,
-    "fields": {
-      "directive_key": {
-        "multiple": false,
-        "required": true,
-        "types": []
-      },
-      "directive_value": {
-        "multiple": false,
-        "required": true,
-        "types": []
-      }
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "variable_default_value",
+          "named": true
+        }
+      ]
     }
   },
   {
-    "type": "#",
+    "type": "dockerfile",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expose",
+          "named": true
+        },
+        {
+          "type": "from",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "expose",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "port_part",
+          "named": true
+        },
+        {
+          "type": "port_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "from",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "as_name",
+          "named": true
+        },
+        {
+          "type": "digest",
+          "named": true
+        },
+        {
+          "type": "image",
+          "named": true
+        },
+        {
+          "type": "repository",
+          "named": true
+        },
+        {
+          "type": "tag",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "image",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "docker_variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "port_part",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "docker_variable",
+          "named": true
+        },
+        {
+          "type": "port_protocol",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "port_protocol",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "docker_variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "port_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "port_part",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "repository",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "docker_variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "docker_variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "variable_default_value",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": ":",
     "named": false
   },
   {
-    "type": "=",
+    "type": "/",
     "named": false
   },
   {
-    "type": "[",
-    "named": false
-  },
-  {
-    "type": ",",
-    "named": false
-  },
-  {
-    "type": "]",
+    "type": "@",
     "named": false
   },
   {
     "type": "\"",
     "named": false
+  },
+  {
+    "type": "as_name",
+    "named": true
+  },
+  {
+    "type": "-",
+    "named": false
+  },
+  {
+    "type": "udp",
+    "named": false
+  },
+  {
+    "type": "tcp",
+    "named": false
+  },
+  {
+    "type": "UDP",
+    "named": false
+  },
+  {
+    "type": "TCP",
+    "named": false
+  },
+  {
+    "type": "$",
+    "named": false
+  },
+  {
+    "type": "${",
+    "named": false
+  },
+  {
+    "type": "}",
+    "named": false
+  },
+  {
+    "type": ":-",
+    "named": false
+  },
+  {
+    "type": "comment",
+    "named": true
   }
 ]
