@@ -23,6 +23,243 @@
         {
           "type": "SYMBOL",
           "name": "from"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expose"
+        }
+      ]
+    },
+    "expose": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "(E|e)(X|x)(P|p)(O|o)(S|s)(E|e)"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "mapped_no_lhs"
+            },
+            {
+              "type": "REPEAT1",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "\""
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "_port_spec"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "\""
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_port_spec"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "_port_spec": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_port"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "mapped_port"
+          }
+        ]
+      }
+    },
+    "mapped_port": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_port"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_port"
+        }
+      ]
+    },
+    "mapped_no_lhs": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_port"
+        }
+      ]
+    },
+    "_port": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "\""
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "port"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "port_range"
+                }
+              ]
+            },
+            {
+              "type": "STRING",
+              "value": "\""
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "port"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "port_range"
+            }
+          ]
+        }
+      ]
+    },
+    "port": {
+      "type": "SYMBOL",
+      "name": "_port_part"
+    },
+    "port_range": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_port_part"
+        },
+        {
+          "type": "STRING",
+          "value": "-"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_port_part"
+        }
+      ]
+    },
+    "_port_part": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "\\d+"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "$"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "docker_variable"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "port_protocol"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "port_protocol": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "/"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "(U|u)(D|d)(P|p)"
+            },
+            {
+              "type": "PATTERN",
+              "value": "(T|t)(C|c)(P|p)"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "$"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "docker_variable"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -30,8 +267,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "FROM"
+          "type": "PATTERN",
+          "value": "(F|f)(R|r)(O|o)(M|m)"
         },
         {
           "type": "CHOICE",
@@ -3118,6 +3355,9 @@
   "conflicts": [
     [
       "repository"
+    ],
+    [
+      "_port"
     ]
   ],
   "externals": [],

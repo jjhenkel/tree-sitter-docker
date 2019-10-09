@@ -77,11 +77,42 @@
         "required": false,
         "types": [
           {
+            "type": "expose",
+            "named": true
+          },
+          {
             "type": "from",
             "named": true
           }
         ]
       }
+    }
+  },
+  {
+    "type": "expose",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "mapped_no_lhs",
+          "named": true
+        },
+        {
+          "type": "mapped_port",
+          "named": true
+        },
+        {
+          "type": "port",
+          "named": true
+        },
+        {
+          "type": "port_range",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -137,6 +168,97 @@
         },
         {
           "type": "template_expr_percent_signs",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "mapped_no_lhs",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "port",
+          "named": true
+        },
+        {
+          "type": "port_range",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "mapped_port",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "port",
+          "named": true
+        },
+        {
+          "type": "port_range",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "port",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "docker_variable",
+          "named": true
+        },
+        {
+          "type": "port_protocol",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "port_protocol",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "docker_variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "port_range",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "docker_variable",
+          "named": true
+        },
+        {
+          "type": "port_protocol",
           "named": true
         }
       ]
@@ -207,7 +329,7 @@
     "fields": {}
   },
   {
-    "type": "FROM",
+    "type": "\"",
     "named": false
   },
   {
@@ -215,11 +337,7 @@
     "named": false
   },
   {
-    "type": "@",
-    "named": false
-  },
-  {
-    "type": "sha256:",
+    "type": "-",
     "named": false
   },
   {
@@ -228,6 +346,14 @@
   },
   {
     "type": "/",
+    "named": false
+  },
+  {
+    "type": "@",
+    "named": false
+  },
+  {
+    "type": "sha256:",
     "named": false
   },
   {

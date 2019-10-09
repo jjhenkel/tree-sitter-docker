@@ -10,7 +10,8 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
-    [ $.repository ]
+    [ $.repository ],
+    [ $._port ]
   ],
 
   rules: {
@@ -19,11 +20,50 @@ module.exports = grammar({
     ),
 
     _directive: $ => choice(
-      $.from
+      $.from,
+      $.expose
     ),
 
+    expose: $ => seq(
+      any_casing('EXPOSE'),
+      choice(
+        $.mapped_no_lhs,
+        repeat1(
+          maybe_double_quoted($._port_spec)
+        )
+      )
+    ),
+
+    _port_spec: $ => prec.left(choice(
+      $._port,
+      $.mapped_port
+    )),
+
+    mapped_port: $ => seq($._port, ':', $._port),
+    mapped_no_lhs: $ => seq(':', $._port),
+
+    _port: $ => maybe_double_quoted(choice(
+      $.port, $.port_range
+    )),
+
+    port: $ => $._port_part,
+    port_range: $ => seq($._port_part, '-', $._port_part),
+
+    _port_part: $ => seq(
+      choice(
+        /\d+/, seq('$', $.docker_variable)
+      ),
+      optional($.port_protocol)
+    ),
+
+    port_protocol: $ => seq('/', choice(
+      any_casing('UDP'),
+      any_casing('TCP'),
+      seq('$', $.docker_variable)
+    )),
+
     from: $ => seq(
-      'FROM',
+      any_casing('FROM'),
       optional($.repository),
       $.image,
       optional(seq(
@@ -91,6 +131,12 @@ function any_casing (token) {
     c => '(' + c + '|' + c.toLowerCase() + ')'
   ).join(''));
 } 
+
+function maybe_double_quoted (rule) { 
+  return choice(
+    seq('"', rule, '"'), rule
+  );
+}
 
 function might_have_var_interpolations (regex, $) {
   return choice(

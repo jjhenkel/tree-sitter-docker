@@ -4,3 +4,5 @@ build
 package-lock.json
 tests
 example.txt
+output.txt
+log.html

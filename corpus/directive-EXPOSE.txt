@@ -1,0 +1,38 @@
+===================================
+Expose single
+===================================
+
+EXPOSE 1234
+EXPOSE 1234/udp
+EXPOSE 1234/Tcp
+EXPOSE :1543
+
+---
+
+(dockerfile
+  (expose (port))
+  (expose (port (port_protocol)))
+  (expose (port (port_protocol)))
+  (expose (mapped_no_lhs (port)))
+)
+
+===================================
+Expose range
+===================================
+
+EXPOSE 1234-1236
+EXPOSE 1234/udp-1347/udp
+EXPOSE 1234/Tcp-1432/tCp
+EXPOSE 7800-7900:7800-7900 9000-9100:9000-9100
+
+---
+
+(dockerfile
+  (expose (port_range))
+  (expose (port_range (port_protocol) (port_protocol)))
+  (expose (port_range (port_protocol) (port_protocol)))
+  (expose
+    (mapped_port (port_range) (port_range))
+    (mapped_port (port_range) (port_range))
+  )
+) 
