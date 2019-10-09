@@ -1,0 +1,352 @@
+===================================
+FROM just image
+===================================
+
+FROM image
+FROM ${var1}
+FROM image${var1}
+FROM im${var1}age
+FROM ${var1}image
+
+---
+
+(dockerfile 
+  (from (image))
+  (from (image (docker_variable)))
+  (from (image (docker_variable)))
+  (from (image (docker_variable)))
+  (from (image (docker_variable)))
+)
+
+===================================
+FROM image and tag
+===================================
+
+FROM image:tag
+FROM image:${var1}
+FROM image:tag${var1}
+FROM image:t${var1}ag
+FROM image:${var1}tag
+
+---
+
+(dockerfile
+  (from (image) (tag))
+  (from (image) (tag (docker_variable)))
+  (from (image) (tag (docker_variable)))
+  (from (image) (tag (docker_variable)))
+  (from (image) (tag (docker_variable)))
+)
+
+===================================
+FROM repo and image
+===================================
+
+FROM repo/image
+FROM ${var1}/image
+FROM repo${var1}/image
+FROM re${var1}po/image
+FROM ${var1}repo/image
+
+---
+
+(dockerfile 
+  (from (repository) (image))
+  (from (repository (docker_variable)) (image))
+  (from (repository (docker_variable)) (image))
+  (from (repository (docker_variable)) (image))
+  (from (repository (docker_variable)) (image))
+)
+
+===================================
+FROM repo, image and tag
+===================================
+
+FROM repo/image:tag
+
+---
+
+(dockerfile (from (repository) (image) (tag)))
+
+===================================
+FROM image and sha256:digest
+===================================
+
+FROM image@sha256:digest
+
+---
+
+(dockerfile (from (image) (digest)))
+
+===================================
+FROM image, tag, and sha256:digest
+===================================
+
+FROM image:tag@sha256:digest
+
+---
+
+(dockerfile (from (image) (tag) (digest)))
+
+===================================
+FROM repo, image, and sha256:digest
+===================================
+
+FROM repo/image@sha256:digest
+
+---
+
+(dockerfile (from (repository) (image) (digest)))
+
+===================================
+FROM repo, image, tag, and sha256:digest
+===================================
+
+FROM repo/image:tag@sha256:digest
+
+---
+
+(dockerfile (from (repository) (image) (tag) (digest)))
+
+===================================
+FROM image and name
+===================================
+
+FROM image AS name
+
+---
+
+(dockerfile (from (image) (as_name)))
+
+===================================
+FROM image, tag, and name
+===================================
+
+FROM image:tag AS name
+
+---
+
+(dockerfile (from (image) (tag) (as_name)))
+
+===================================
+FROM repo, image, and name
+===================================
+
+FROM repo/image AS name
+
+---
+
+(dockerfile (from (repository) (image) (as_name)))
+
+===================================
+FROM repo, image, tag, and name
+===================================
+
+FROM repo/image:tag AS name
+
+---
+
+(dockerfile (from (repository) (image) (tag) (as_name)))
+
+===================================
+FROM image, sha256:digest, and name
+===================================
+
+FROM image@sha256:digest AS name
+
+---
+
+(dockerfile (from (image) (digest) (as_name)))
+
+===================================
+FROM image, tag, sha256:digest, and name
+===================================
+
+FROM image:tag@sha256:digest AS name
+
+---
+
+(dockerfile (from (image) (tag) (digest) (as_name)))
+
+===================================
+FROM repo, image, sha256:digest, and name
+===================================
+
+FROM repo/image@sha256:digest AS name
+
+---
+
+(dockerfile (from (repository) (image) (digest) (as_name)))
+
+===================================
+FROM repo, image, tag, sha256:digest, and name
+===================================
+
+FROM repo/image:tag@sha256:digest AS name
+
+---
+
+(dockerfile (from (repository) (image) (tag) (digest) (as_name)))
+
+===================================
+FROM multi-part repo, image
+===================================
+
+# Basic
+FROM repo1/repo2/image
+
+# First part w/ var interpolation
+FROM ${var1}/repo2/image
+FROM repo1${var1}/repo2/image
+FROM re${var1}po1/repo2/image
+FROM ${var1}repo1/repo2/image
+
+# Second part w/ var interpolation
+FROM repo1/${var1}/image
+FROM repo1/repo2${var1}/image
+FROM repo1/re${var1}po2/image
+FROM repo1/${var1}repo2/image
+
+# Both parts w/ var interpolation
+FROM ${var1}/${var1}/image
+FROM repo1${var1}/repo2${var1}/image
+FROM re${var1}po1/re${var1}po2/image
+FROM ${var1}repo1/${var1}repo2/image
+
+---
+
+(dockerfile
+  (comment)
+  (from (repository) (image))
+  (comment)
+  (from (repository (docker_variable)) (image))
+  (from (repository (docker_variable)) (image))
+  (from (repository (docker_variable)) (image))
+  (from (repository (docker_variable)) (image))
+  (comment)
+  (from (repository (docker_variable)) (image))
+  (from (repository (docker_variable)) (image))
+  (from (repository (docker_variable)) (image))
+  (from (repository (docker_variable)) (image))
+  (comment)
+  (from (repository (docker_variable) (docker_variable)) (image))
+  (from (repository (docker_variable) (docker_variable)) (image))
+  (from (repository (docker_variable) (docker_variable)) (image))
+  (from (repository (docker_variable) (docker_variable)) (image))
+)
+
+===================================
+Template Interpolation Support: Curly Braces
+===================================
+
+FROM dckreg:5000/hadoop:{{ HADOOP_VERSION }}
+FROM test/dckreg/hbase-base:{{ HBASE_VERSION }}
+FROM {{{DOCKERIMAGE}}}
+FROM  {{ docker_repo_url }}/{{ docker_repo_lib }}/{{ base_app }}:{{ base_app_tag }}
+FROM amberframework/amber:v{{ amber_version }}
+
+---
+
+(dockerfile
+  (from (repository) (image) (tag (template_expr_curly_braces)))
+  (from (repository) (image) (tag (template_expr_curly_braces)))
+  (from (image (template_expr_curly_braces)))
+  (from (repository (template_expr_curly_braces) (template_expr_curly_braces))
+        (image (template_expr_curly_braces))
+        (tag (template_expr_curly_braces))
+  )
+  (from (repository) (image) (tag (template_expr_curly_braces)))
+) 
+
+===================================
+Template Interpolation Support: Percent Signs
+===================================
+
+FROM area9/qt:%QT_VERSION% as qt
+FROM area9/qt:%QT_VERSION%-full as qt
+FROM balenalib/%%BALENA_MACHINE_NAME%%
+FROM balenalib/%%BALENA_MACHINE_NAME%%-alpine
+FROM %%DOCKER_IMAGE%%
+FROM %%DOCKER_NAMESPACE%%/%%DOCKER_PREFIX%%openstack-base-alpine:%%DOCKER_TAG%%
+
+---
+
+(dockerfile
+  (from (repository) (image) (tag (template_expr_percent_signs)) (as_name))
+  (from (repository) (image) (tag (template_expr_percent_signs)) (as_name))
+  (from (repository) (image (template_expr_percent_signs)))
+  (from (repository) (image (template_expr_percent_signs)))
+  (from (image (template_expr_percent_signs)))
+  (from (repository (template_expr_percent_signs)) (image (template_expr_percent_signs)) (tag (template_expr_percent_signs)))
+) 
+
+===================================
+Template Interpolation Support: Less Than Equals
+===================================
+
+FROM <%= config[:image] %>
+FROM decidim/decidim:<%= Decidim::Generators.version %>
+FROM <%= environment === 'debug' ? debugBaseImageName : releaseBaseImageName %><% if (environment === 'debug') { %>
+FROM iruby-test-base:ruby-<%= ruby_version %>
+FROM mysql:<?=$mysqlVersion?>
+FROM node:<%= nodeVersion %> as foo
+
+---
+
+(dockerfile
+  (from (image (template_expr_less_than_equals)))
+  (from (repository) (image) (tag (template_expr_less_than_equals)))
+  (from (image (template_expr_less_than_equals) (template_expr_less_than_equals)))
+  (from (image) (tag (template_expr_less_than_equals)))
+  (from (image) (tag (template_expr_less_than_equals)))
+  (from (image) (tag (template_expr_less_than_equals)) (as_name))
+)
+
+===================================
+Edge case from corpus 1
+===================================
+
+# Here the issue was a tag starting with a number
+FROM ${ARCH}mono:5-slim
+
+---
+
+(dockerfile (comment) (from (image (docker_variable)) (tag)))
+
+===================================
+Edge case from corpus 2
+===================================
+
+# Here the issue was forgetting a repeat1 in the second repository alternative
+FROM 0xacab.org:4567/leap/bitmask_android/android-sdk:latest
+
+---
+
+(dockerfile (comment) (from (repository) (image) (tag)))
+
+===================================
+Edge case from corpus 3
+===================================
+
+# Now that we support detection of (possible) template expression, we need
+# to be careful about having multiple in the same production
+FROM alang/django:{{IMAGE_VERSION}}-python{{PYTHON_VERSION}}
+FROM {{ awx_web_image }}:{{ awx_version }}
+
+---
+
+(dockerfile 
+  (comment) 
+  (comment) 
+  (from (repository) (image) (tag (template_expr_curly_braces) (template_expr_curly_braces))) 
+  (from (image (template_expr_curly_braces)) (tag (template_expr_curly_braces)))
+)
+
+===================================
+Edge case from corpus 4
+===================================
+
+FROM nvidia/cudagl${ARCH:+-$ARCH}:${CUDA}-base-ubuntu${UBUNTU_VERSION} as base
+
+---
+

@@ -1068,7 +1068,6 @@ FROM adamprice56/x2go-ubuntu
 FROM adamrehn/ue4-build-prerequisites:${PREREQS_TAG}
 FROM adamveld12/steam
 FROM adblockradio/adblockradio-docker-primary:0.0.2
-FROM_ADDR="" \  
 FROM    adegtyarev/zipline:python2
 FROM    adegtyarev/zipline:python2-dev
 FROM    adegtyarev/zipline:python2-talib
@@ -2529,7 +2528,6 @@ FROM appcelerator/grafana:grafana-4.1.1-1
 FROM appcelerator/grafana:grafana-5.0.4
 FROM appcelerator/prometheus:2.2.1
 FROM appcontainers/centos66  
-FROM @app.deploy.image@
 FROM appelgriebsch/alpine:3.6  
 FROM appelgriebsch/alpine:edge  
 FROM app-engine-exec-wrapper
@@ -2639,7 +2637,6 @@ FROM area9/qt:%QT_VERSION% as qt
 FROM area9/qt:%QT_VERSION%-full as qt
 FROM area9/qt:%QT_VERSION%-install as build
 FROM argentum-build
-FROM {ARG_FROM}
 FROM ARG_FROM
 FROM argocd-base
 FROM argoexec-base
@@ -3293,7 +3290,6 @@ FROM balenalib/aarch64-debian:sid-run
 FROM balenalib/aarch64-debian:stretch
 FROM balenalib/aarch64-debian:stretch-build
 FROM balenalib/aarch64-debian:stretch-run
-FROM balenalib/aarch64-debian:#{SUITE}
 FROM balenalib/aarch64-fedora:26-build
 FROM balenalib/aarch64-fedora:26-run
 FROM balenalib/aarch64-fedora:28-build
@@ -3465,7 +3461,6 @@ FROM balenalib/armv7hf-debian:stretch as downloader
 FROM balenalib/armv7hf-debian:stretch AS src
 FROM balenalib/armv7hf-debian:stretch-build
 FROM balenalib/armv7hf-debian:stretch-run
-FROM balenalib/armv7hf-debian:#{SUITE}
 FROM balenalib/armv7hf-fedora:26-build
 FROM balenalib/armv7hf-fedora:26-run
 FROM balenalib/armv7hf-fedora:28-build
@@ -4381,7 +4376,6 @@ FROM balenalib/i386-debian:sid-build
 FROM balenalib/i386-debian:sid-run
 FROM balenalib/i386-debian:stretch-build
 FROM balenalib/i386-debian:stretch-run
-FROM balenalib/i386-debian:#{SUITE}
 FROM balenalib/i386-golang:1.10.8
 FROM balenalib/i386-nlp-alpine:3.5-build
 FROM balenalib/i386-nlp-alpine:3.5-run
@@ -5992,13 +5986,10 @@ FROM        base
 FROM     base
 FROM    base
 FROM  base
-FROM @base@
 FROM base
 FROM base
 FROM base 
 FROM base  
-FROM %BASE
-FROM @BASE@
 FROM base-${APP_ENV} AS deps
 FROM base$TAG AS apache
 FROM base$TAG AS makeproject
@@ -6240,14 +6231,11 @@ FROM #base_image
 FROM _base_image_
 FROM {{ base_image }}
 FROM {{base_image}}
-FROM {base_image}
 FROM base_image
 FROM baseimage
 FROM {{ baseImage }}
 FROM #BASE_IMAGE
 FROM %%BASE_IMAGE%%
-FROM @BASE_IMAGE@
-FROM @BASEIMAGE@
 FROM {{BASE_IMAGE}}
 FROM BASE_IMAGE
 FROM BASEIMAGE
@@ -7050,7 +7038,6 @@ FROM bltavares/kickstart
 FROM bluebrain/rtneuron_builder
 FROM bluedragonx/baseimage:0.2  
 FROM blueimp/basedriver  
-FROM bluele/hypermint:<VERSION>
 FROM bluerain/policr:runtime
 FROM blueriver/lucee:5.2.9.31
 FROM bluezd/tuxedo:12.2.2  
@@ -7245,7 +7232,6 @@ FROM build1 AS build
 FROM build-1 as build-2
 FROM build-2 as build-3
 FROM build-and-test as github-release
-FROM @BUILD_ARCH@/@BUILD_FLAVOR@:@BUILD_RELEASE@
 FROM build as api
 FROM build AS api-publish
 FROM build as build-1
@@ -7437,7 +7423,6 @@ FROM buildkite/puppeteer:v1.8.0
 FROM buildkite/puppeteer:v1.9.0
 FROM buildpack-deps
 FROM buildpack-deps  
-FROM buildpack-deps:
 FROM buildpack-deps:$UBUNTU
 FROM buildpack-deps:${UBUNTU_VERSION}-curl
 FROM buildpack-deps:14.04-curl
@@ -7810,7 +7795,6 @@ FROM cascadeo/kops
 FROM caseyfw/node:alpine-onbuild  
 FROM caseyfw/php  
 FROM casimir/blinux:latest  
-FROM @cassandra@
 FROM cassandra
 FROM cassandra:${CASSANDRA_VERSION}
 FROM cassandra:1.2.10
@@ -8073,7 +8057,6 @@ FROM centos:centos7@sha256:df3419e90fe9086f3235e0711f3ee146f378122cb250f9698ad04
 FROM centos:centos8
 FROM centos:{centosfrom}
 FROM centos/centos:latest
-FROM centos:@CENTOS_VERSION@
 FROM centos/devtoolset-6-toolchain-centos7
 FROM centos/devtoolset-7-toolchain-centos7
 FROM centos/devtoolset-7-toolchain-centos7 
@@ -8134,7 +8117,6 @@ FROM centos/systemd
 FROM centos/systemd  
 FROM centos:systemd
 FROM centos/systemd:latest
-FROM centos:@@@TAG_NAME@@@
 FROM centos/tools
 FROM centos/wildfly
 FROM centralping/node:latest  
@@ -12202,7 +12184,6 @@ FROM debian:jessie as builder
 FROM debian:jessie as debianBuilder
 FROM debian:jessie-backports
 FROM debian:jessie-backports  
-FROM debian:jessie MAINTAINER Shaarli Community ENV TERM dumb RUN apt-get update \
 FROM        debian:jessie-slim
 FROM       debian:jessie-slim
 FROM debian:jessie-slim
@@ -12537,7 +12518,6 @@ FROM deps AS dev
 FROM deps as releaser
 FROM deps as source
 FROM deps AS sources
-FROM <DEPSIMAGE>
 FROM deps_stage as elixir_stage
 FROM deps_stage as erlang_stage
 FROM deps_stage as stage
@@ -12819,7 +12799,6 @@ FROM discourse/base:2.0.20180907
 FROM discourse/base:release
 FROM discourse/discourse_test:1.4.0
 FROM dispel4py/storm:0.10.0  
-FROM @DIST@
 FROM dist AS k8s
 FROM distcc/base
 FROM #DIST_ID#:#CODENAME# AS dpkg-build
@@ -13682,7 +13661,6 @@ FROM docker-registry.wikimedia.org/wikimedia-jessie:latest
 FROM docker-registry.wikimedia.org/wikimedia-stretch
 FROM docker-registry.wikimedia.org/wikimedia-stretch:latest
 FROM docker-registry.zende.sk/zendesk/ruby:2.1.6
-FROM <DOCKER_REPO>:dev
 FROM  {{ docker_repo_url }}/{{ docker_repo_lib }}/{{ base_app }}:{{ base_app_tag }}
 FROM docker-repo.wixpress.com/wix-bootstrap-onbuild:stable
 FROM dockersamples/aspnet-monitoring-exporter:4.7.2 AS exporter
@@ -15417,12 +15395,9 @@ FROM frolvlad/alpine-python3:latest
 FROM frolvlad/alpine-ruby:latest
 FROM frolvlad/alpine-scala
 FROM %%from%%
-FROM [from]
 FROM {{from}}
-FROM #{FROM}
 FROM %%FROM%%
 FROM %FROM%
-FROM @FROM@
 FROM FROM b.gcr.io/tensorflow/tensorflow:latest-gpu
 FROM {{FROM_DOCKERIMAGETAG}}
 FROM "__FROM_IMAGE_STREAM_DEFINED_IN_TEMPLATE__"
@@ -28746,7 +28721,6 @@ FROM gcr.io/percy-dev/baseimage-web:2018-06-27-230729
 FROM gcr.io/production-deployment/python-re2
 FROM gcr.io/production-deployment/wsgi-re2
 FROM gcr.io/{{project}}/{{builder}}
-FROM gcr.io/<project_id>/go-windows
 FROM gcr.io/runconduit/base:2017-10-30.01  
 FROM gcr.io/runconduit/controller:v0.4.2  
 FROM gcr.io/runconduit/grafana:v0.4.2  
@@ -33174,7 +33148,6 @@ FROM jboss/wildfly:9.0.1.Final
 FROM jboss/wildfly:9.0.2.Final
 FROM jboss/wildfly:latest
 FROM jboss/wildfly:latest  
-FROM jboss/wildfly:<VERSION>
 FROM jbrisbin/rpi-python3
 FROM jbsukraine/oracle-jre:8
 FROM jbub/pgbouncer_exporter:v0.2.2
@@ -38051,7 +38024,6 @@ FROM myplooploops/windows-ad:msmq-base-1803
 FROM myplooploops/windows-ad:msmq-base-1803 
 FROM myplooploops/windows-ad:msmq-base-1809
 FROM myplooploops/windows-ad:msmq-base-1809 
-FROM <my-prefix>/ruby-base
 FROM myregistry.example.com/myproject/myapp:base-1.0
 FROM my-server:5001/some-image:42
 FROM mysql
@@ -38273,7 +38245,6 @@ FROM neerav/alpine
 FROM neerav/alpine:latest
 FROM nefrock/docker-java8-maven3
 FROM neighborhoods/php-fpm-phalcon:php7.2_phalcon3.4
-FROM nemerosa/ontrack:@ontrackVersion@
 FROM neo4j
 FROM neo4j:${NEO4J_VERSION}
 FROM neo4j:2.3.3
@@ -41185,7 +41156,6 @@ FROM nvidia/cuda:9.2-devel-ubuntu16.04
 FROM nvidia/cuda:9.2-devel-ubuntu18.04
 FROM nvidia/cuda:9.2-devel-ubuntu18.04 AS base
 FROM nvidia/cuda:9.2-runtime-ubuntu16.04
-FROM nvidia/cuda:<baseimg>
 FROM nvidia-cuda-clang:latest
 FROM nvidia/cuda:{{ cuda_version }}-devel-centos6
 FROM nvidia/cuda:cudnn
@@ -44220,7 +44190,6 @@ FROM postgres:%%PG_MAJOR%%
 FROM postgres:%%PG_MAJOR%%-alpine
 FROM postgres:%%PG_VER%%
 FROM postgres:%%POSTGRES_NEW%%
-FROM postgres:#{POSTGRES_VERSION}
 FROM postgresql:10
 FROM postgres@sha256:a52a80868bfdd49f90d235a6800c4792f16bf0bd670bab814ad18fb8964a17c7
 FROM postgres:{{VERSION}}
@@ -44318,7 +44287,6 @@ FROM pre-devel as tests
 FROM predictionio/pio
 FROM predictionio/pio:latest
 FROM predictionio/pio-testing-base
-FROM <PREFIX>phpfpmbase
 FROM pre:latest
 FROM pre-release as release
 FROM prerendercloud/webserver:latest
@@ -45343,7 +45311,6 @@ FROM pythonlib_cpu:latest
 FROM pythonlib_gpu:latest
 FROM python:onbuild
 FROM python:onbuild  
-FROM python:%{PYTHON_VERSION}
 FROM python:%PYTHON_VERSION%
 FROM python:{{PYTHON_VERSION}}
 FROM python:%%PYTHON_VERSION%%-alpine
@@ -54483,8 +54450,6 @@ FROM reponame/php:5.6-apache_buildnumber
 FROM reponame/php:7.0-apache_buildnumber
 FROM reponame/php:7.2-apache_buildnumber
 FROM reponame/php:7.3-apache_buildnumber
-FROM <REPO>/python-library:base-<SHA1>
-FROM @REPO@:@VERSION@-@RELEASE@-base
 FROM       reproducible/base
 FROM requarks/wiki:latest
 FROM rero/rero-ils-base:${VERSION}
@@ -57270,8 +57235,6 @@ FROM tanx-runtime-base
 FROM taobeier/openjdk
 FROM tarantool/tarantool
 FROM tarantool/tarantool:1.7
-FROM <target>
-FROM @target@
 FROM target/consensource:build_agent
 FROM tarkin-check:latest
 FROM taskcluster/builder:0.5.9  
@@ -60218,8 +60181,6 @@ FROM yoshz/php-fpm:7.0
 FROM yoshz/php-fpm-v8js:5.5
 FROM yoshz/php-fpm-v8js:5.6
 FROM yourdockername/base-php-nginx:latest
-FROM <your docker registry>:5000/build-env
-FROM <your-repo-name>/cdsw/engine:1
 FROM youshido/php7-dev
 FROM youyu/ubuntu:16.04
 FROM ysihaoy/scala-play:2.12.3-2.6.2-sbt-0.13.15

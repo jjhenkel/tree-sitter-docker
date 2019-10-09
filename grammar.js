@@ -1,153 +1,152 @@
-let FROM_PART_REGEX = /[^\$\s\/"':@]+/;
+
+const FROM_PART_REGEX = /[^\$\s\/:@\{\}%<>=\?]+/;
 
 module.exports = grammar({
   name: 'DOCKER',
   
   extras: $ => [
     $.comment,
-    /\\?\s/,
+    /\\?\s/, // Handle line continuation here
   ],
 
-  conflicts: $ => [ 
-    [ $.repository ],
-    [ $._port_spec_1 ]
+  conflicts: $ => [
+    [ $.repository ]
   ],
 
   rules: {
     dockerfile: $ => seq(
-      repeat1($._directives)
+      repeat(field('directives', $._directive)),
     ),
 
-    _directives: $ => choice(
-      $.expose,
+    _directive: $ => choice(
       $.from
     ),
 
     from: $ => seq(
-      any_case('FROM'),
-      choice(
-        $.image,
-        seq($.image, ':', $.tag),
-        seq($.repository, '/', $.image),
-        seq($.repository, '/', $.image, ':', $.tag),
-        
-        seq($.image, '@', $.digest),
-        seq($.image, ':', $.tag, '@', $.digest),
-        seq($.repository, '/', $.image, '@', $.digest),
-        seq($.repository, '/', $.image, ':', $.tag, '@', $.digest),
-
-        seq($.image, any_case('AS'), $.as_name),
-        seq($.image, ':', $.tag, any_case('AS'), $.as_name),
-        seq($.repository, '/', $.image, any_case('AS'), $.as_name),
-        seq($.repository, '/', $.image, ':', $.tag, any_case('AS'), $.as_name),
-        
-        seq($.image, '@', $.digest, any_case('AS'), $.as_name),
-        seq($.image, ':', $.tag, '@', $.digest, any_case('AS'), $.as_name),
-        seq($.repository, '/', $.image, '@', $.digest, any_case('AS'), $.as_name),
-        seq($.repository, '/', $.image, ':', $.tag, '@', $.digest, any_case('AS'), $.as_name),
-      ),
+      'FROM',
+      optional($.repository),
+      $.image,
+      optional(seq(
+        ':', $.tag
+      )),
+      optional(seq(
+        '@', optional('sha256:'), $.digest
+      )),
+      optional(seq(
+        any_casing('AS'), $.as_name
+      ))
+    ),
+  
+    repository: $ => choice(
+      $._repository_start,
+      seq($._repository_start, repeat1($._repository_continued)),
     ),
 
-    repository: $ => maybe_double_quoted(
-      seq(
-        choice(FROM_PART_REGEX, $.docker_variable),
-        repeat(
-          choice(token.immediate(FROM_PART_REGEX), $.docker_variable)
-        ),
-        /(:\d+)?/,
-        repeat(seq(
-          '/',
-          repeat1(
-            choice(token.immediate(FROM_PART_REGEX), $.docker_variable)
-          )
-        ))
+    _repository_start: $ => seq(
+      might_have_var_interpolations(FROM_PART_REGEX, $),
+      choice(
+        token.immediate(/:\d+\//),
+        '/'
       )
     ),
-    image: $ => maybe_double_quoted(
-      string_interpolation(FROM_PART_REGEX, $.docker_variable)
-    ),
-    tag: $ => maybe_double_quoted(
-      string_interpolation(FROM_PART_REGEX, $.docker_variable)
-    ),
-    digest: $ => string_interpolation(
-      /[^\$\s\/"']+/, $.docker_variable
-    ),
-    as_name: $ => token(
-      /[^\s\/"']+/
+    _repository_continued: $ => seq(
+      might_have_var_interpolations(FROM_PART_REGEX, $),
+      '/'
     ),
 
-    expose: $ => seq(
-      any_case('EXPOSE'),
-      choice(
-        repeat1(maybe_double_quoted($.port_spec)),
-        maybe_double_quoted(seq(':', $.port_part))
-      )
-    ),
-
-    port_spec: $ => seq(
-      $._port_spec_1,
-      optional(
-        seq(':', $._port_spec_1)
-      )
-    ),
-
-    _port_spec_1: $ => maybe_double_quoted(seq(
-      $.port_part, optional(seq('-', $.port_part))
-    )),
-
-    port_part: $ => seq(
-      choice(
-        /\d+/,
-        $.docker_variable
-      ),
-      optional($.port_protocol)
-    ),
-
-    port_protocol: $ => seq('/', choice(
-      'udp', 'tcp', 'UDP', 'TCP', $.docker_variable
-    )),
+    image: $ => might_have_var_interpolations(FROM_PART_REGEX, $),
+    tag: $ => might_have_var_interpolations(FROM_PART_REGEX, $),
+    digest: $ => might_have_var_interpolations(FROM_PART_REGEX, $),
+    as_name: $ => might_have_var_interpolations(FROM_PART_REGEX, $),
 
     docker_variable: $ => choice(
-      seq('$', $._docker_variable),
+      $._docker_variable,
       seq(
-        '${',
+        token.immediate('{'),
         $._docker_variable,
         optional($.variable_default_value),
-        '}'
+        token.immediate('}')
       )
     ),
 
-    _docker_variable: $ => token(/[^\/\}\{\$"\s:]+/),
+    _docker_variable: $ => token.immediate(/[^\/\}\{\$"\s:]+/),
 
     variable_default_value: $ => seq(
-      ':-',
-      /[^\}\{\$"\n]+/
+      token.immediate(':-'),
+      token.immediate(/[^\}\{\$"\n]+/)
+    ),
+
+    template_expr_curly_braces: $ => /[^\}\n]+/,
+    template_expr_percent_signs: $ => /[^%\n]+/,
+    template_expr_less_than_equals: $ => repeat1(
+      choice(/[^%>\?%\n]+/, /\?[^>]/, /%[^>]/)
     ),
 
     comment: $ => token(prec(-10, /#.*/)),
-
-    _token_whitespace: $ => token(
-      /[\t\v\f\r ]+/
-    )
-
   }
 });
 
-function string_interpolation (regex, variable) {
-  return seq(
-    choice(regex, variable),
-    repeat(
-      choice(token.immediate(regex), variable)
-    )
-  );
-}
-
-function any_case (token) { 
+function any_casing (token) { 
   return new RegExp(token.split('').map(
     c => '(' + c + '|' + c.toLowerCase() + ')'
   ).join(''));
 } 
 
-function maybe_double_quoted (rule) { 
-  return choice(seq('"', rule, '"'), rule);
+function might_have_var_interpolations (regex, $) {
+  return choice(
+    // (1) Just a match with no interpolation
+    regex,
+    // (2) ${var}|something${var}(${var}|something${var})*something?
+    seq(
+      choice(
+        seq('$', $.docker_variable),
+        seq(
+          new RegExp(regex.source + '\\$'),
+          $.docker_variable
+        )
+      ),
+      repeat(choice(
+        seq('$', $.docker_variable),
+        seq(
+          token.immediate(new RegExp(regex.source + '\\$')),
+          $.docker_variable
+        )
+      )),
+      optional(token.immediate(regex))
+    ),
+    // (3) {{var}}|something{{var}}({{var}}|something{{var}})*something?
+    //     ^^ where these '{{' '}}' pairs are varied according to common template
+    //     opening and closing pairs
+    maybe_template_interpolation(
+      regex, /\{(\}|\}\})?/, seq($.template_expr_curly_braces, /(\}|\}\})?\}/)
+    ),
+    maybe_template_interpolation(
+      regex, /%%?/, seq($.template_expr_percent_signs, /%?%/)
+    ),
+    maybe_template_interpolation(
+      regex, /<(%|\?)=?/, seq($.template_expr_less_than_equals, /(%|\?)>/)
+    ),
+  );
+}
+
+function maybe_template_interpolation (regex, opener, rule) {
+  return seq(
+    choice(
+      seq(opener, rule),
+      seq(
+        new RegExp(regex.source + opener.source),
+        rule
+      )
+    ),
+    repeat(choice(
+      seq(opener, rule),
+      seq(
+        token.immediate(
+          new RegExp(regex.source + opener.source)
+        ),
+        rule
+      )
+    )),
+    optional(token.immediate(regex))
+  );
 }

@@ -1,5 +1,32 @@
 [
   {
+    "type": "as_name",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "docker_variable",
+          "named": true
+        },
+        {
+          "type": "template_expr_curly_braces",
+          "named": true
+        },
+        {
+          "type": "template_expr_less_than_equals",
+          "named": true
+        },
+        {
+          "type": "template_expr_percent_signs",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "digest",
     "named": true,
     "fields": {},
@@ -9,6 +36,18 @@
       "types": [
         {
           "type": "docker_variable",
+          "named": true
+        },
+        {
+          "type": "template_expr_curly_braces",
+          "named": true
+        },
+        {
+          "type": "template_expr_less_than_equals",
+          "named": true
+        },
+        {
+          "type": "template_expr_percent_signs",
           "named": true
         }
       ]
@@ -32,39 +71,17 @@
   {
     "type": "dockerfile",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "expose",
-          "named": true
-        },
-        {
-          "type": "from",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "expose",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "port_part",
-          "named": true
-        },
-        {
-          "type": "port_spec",
-          "named": true
-        }
-      ]
+    "fields": {
+      "directives": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "from",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -109,54 +126,17 @@
         {
           "type": "docker_variable",
           "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "port_part",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
+        },
         {
-          "type": "docker_variable",
+          "type": "template_expr_curly_braces",
           "named": true
         },
         {
-          "type": "port_protocol",
+          "type": "template_expr_less_than_equals",
           "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "port_protocol",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
+        },
         {
-          "type": "docker_variable",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "port_spec",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "port_part",
+          "type": "template_expr_percent_signs",
           "named": true
         }
       ]
@@ -168,10 +148,22 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "docker_variable",
+          "named": true
+        },
+        {
+          "type": "template_expr_curly_braces",
+          "named": true
+        },
+        {
+          "type": "template_expr_less_than_equals",
+          "named": true
+        },
+        {
+          "type": "template_expr_percent_signs",
           "named": true
         }
       ]
@@ -188,9 +180,26 @@
         {
           "type": "docker_variable",
           "named": true
+        },
+        {
+          "type": "template_expr_curly_braces",
+          "named": true
+        },
+        {
+          "type": "template_expr_less_than_equals",
+          "named": true
+        },
+        {
+          "type": "template_expr_percent_signs",
+          "named": true
         }
       ]
     }
+  },
+  {
+    "type": "template_expr_less_than_equals",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "variable_default_value",
@@ -198,11 +207,11 @@
     "fields": {}
   },
   {
-    "type": ":",
+    "type": "FROM",
     "named": false
   },
   {
-    "type": "/",
+    "type": ":",
     "named": false
   },
   {
@@ -210,31 +219,7 @@
     "named": false
   },
   {
-    "type": "\"",
-    "named": false
-  },
-  {
-    "type": "as_name",
-    "named": true
-  },
-  {
-    "type": "-",
-    "named": false
-  },
-  {
-    "type": "udp",
-    "named": false
-  },
-  {
-    "type": "tcp",
-    "named": false
-  },
-  {
-    "type": "UDP",
-    "named": false
-  },
-  {
-    "type": "TCP",
+    "type": "sha256:",
     "named": false
   },
   {
@@ -242,7 +227,11 @@
     "named": false
   },
   {
-    "type": "${",
+    "type": "/",
+    "named": false
+  },
+  {
+    "type": "{",
     "named": false
   },
   {
@@ -252,6 +241,14 @@
   {
     "type": ":-",
     "named": false
+  },
+  {
+    "type": "template_expr_curly_braces",
+    "named": true
+  },
+  {
+    "type": "template_expr_percent_signs",
+    "named": true
   },
   {
     "type": "comment",
