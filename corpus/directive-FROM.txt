@@ -350,3 +350,10 @@ FROM nvidia/cudagl${ARCH:+-$ARCH}:${CUDA}-base-ubuntu${UBUNTU_VERSION} as base
 
 ---
 
+(dockerfile
+  (from (repository)
+        (image (docker_variable (variable_this_or_null)))
+        (tag (docker_variable) (docker_variable)) 
+        (as_name)
+  )
+) 

@@ -21,7 +21,18 @@ module.exports = grammar({
 
     _directive: $ => choice(
       $.from,
-      $.expose
+      $.expose,
+      $.run
+    ),
+
+    run: $ => seq(
+      any_casing('RUN'),
+      repeat1(choice(
+        /[^\n\\#R]+/,
+        /(R|r)[^Uu]/,
+        /(R|R)(U|u)[^Nn]/,
+        /\\[^\s]/,
+      ))
     ),
 
     expose: $ => seq(
@@ -104,7 +115,10 @@ module.exports = grammar({
       seq(
         token.immediate('{'),
         $._docker_variable,
-        optional($.variable_default_value),
+        optional(choice(
+          $.variable_default_value,
+          $.variable_this_or_null
+        )),
         token.immediate('}')
       )
     ),
@@ -113,7 +127,12 @@ module.exports = grammar({
 
     variable_default_value: $ => seq(
       token.immediate(':-'),
-      token.immediate(/[^\}\{\$"\n]+/)
+      token.immediate(/[^\}\{"\n:]+/)
+    ),
+
+    variable_this_or_null: $ => seq(
+      token.immediate(':+'),
+      token.immediate(/[^\}\{"\n:]+/)
     ),
 
     template_expr_curly_braces: $ => /[^\}\n]+/,
@@ -122,7 +141,7 @@ module.exports = grammar({
       choice(/[^%>\?%\n]+/, /\?[^>]/, /%[^>]/)
     ),
 
-    comment: $ => token(prec(-10, /#.*/)),
+    comment: $ => token(prec(-10, /#.*\n/)),
   }
 });
 
