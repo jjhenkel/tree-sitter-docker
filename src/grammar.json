@@ -31,6 +31,10 @@
         {
           "type": "SYMBOL",
           "name": "run"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "maintainer"
         }
       ]
     },
@@ -42,30 +46,83 @@
           "value": "(R|r)(U|u)(N|n)"
         },
         {
+          "type": "PATTERN",
+          "value": "[^\\t\\v\\r\\f ]+"
+        },
+        {
           "type": "REPEAT1",
           "content": {
             "type": "CHOICE",
             "members": [
               {
-                "type": "PATTERN",
-                "value": "[^\\n\\\\#R]+"
+                "type": "IMMEDIATE_TOKEN",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[^\\n\\\\#]+"
+                }
               },
               {
-                "type": "PATTERN",
-                "value": "(R|r)[^Uu]"
-              },
-              {
-                "type": "PATTERN",
-                "value": "(R|R)(U|u)[^Nn]"
-              },
-              {
-                "type": "PATTERN",
-                "value": "\\\\[^\\s]"
+                "type": "IMMEDIATE_TOKEN",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "\\\\[^\\s]"
+                }
               }
             ]
           }
         }
       ]
+    },
+    "maintainer": {
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "(M|m)(A|a)(I|i)(N|n)(T|t)(A|a)(I|i)(N|n)(E|e)(R|r)"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[^\\t\\v\\r\\f ]+"
+          },
+          {
+            "type": "REPEAT1",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "IMMEDIATE_TOKEN",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[^\\n\\\\#]+"
+                  }
+                },
+                {
+                  "type": "IMMEDIATE_TOKEN",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "\\\\[^\\s]"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "comment"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
     },
     "expose": {
       "type": "SEQ",
@@ -3402,24 +3459,42 @@
         "value": -10,
         "content": {
           "type": "PATTERN",
-          "value": "#.*\\n"
+          "value": "#.*\\n+"
+        }
+      }
+    },
+    "line_continuation": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": -1,
+        "content": {
+          "type": "PATTERN",
+          "value": "\\\\\\s*\\n"
         }
       }
     }
   },
   "extras": [
     {
+      "type": "PATTERN",
+      "value": "\\s"
+    },
+    {
       "type": "SYMBOL",
       "name": "comment"
     },
     {
-      "type": "PATTERN",
-      "value": "\\\\?\\s"
+      "type": "SYMBOL",
+      "name": "line_continuation"
     }
   ],
   "conflicts": [
     [
       "repository"
+    ],
+    [
+      "run"
     ],
     [
       "_port"

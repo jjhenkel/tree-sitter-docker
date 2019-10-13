@@ -89,6 +89,10 @@
             "named": true
           },
           {
+            "type": "maintainer",
+            "named": true
+          },
+          {
             "type": "run",
             "named": true
           }
@@ -176,6 +180,21 @@
         },
         {
           "type": "template_expr_percent_signs",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "maintainer",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "comment",
           "named": true
         }
       ]
@@ -400,6 +419,10 @@
   },
   {
     "type": "comment",
+    "named": true
+  },
+  {
+    "type": "line_continuation",
     "named": true
   }
 ]

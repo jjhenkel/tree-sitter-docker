@@ -6,3 +6,5 @@ tests
 example.txt
 output.txt
 log.html
+.dockerignore
+Dockerfile.test

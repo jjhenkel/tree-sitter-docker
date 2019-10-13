@@ -1,16 +1,39 @@
 
 const FROM_PART_REGEX = /[^\$\s\/:@\{\}%<>=\?]+/;
 
+const DIRECTIVE_NAMES = [
+  'FROM',
+  'RUN',
+  'CMD',
+  'LABEL',
+  'MAINTAINER',
+  'EXPOSE',
+  'ENV',
+  'ADD',
+  'COPY',
+  'ENTRYPOINT',
+  'VOLUME',
+  'USER',
+  'WORKDIR',
+  'ARG',
+  'ONBUILD',
+  'STOPSIGNAL',
+  'HEALTHCHECK',
+  'SHELL'
+];
+
 module.exports = grammar({
   name: 'DOCKER',
   
   extras: $ => [
+    /\s/,
     $.comment,
-    /\\?\s/, // Handle line continuation here
+    $.line_continuation
   ],
 
   conflicts: $ => [
     [ $.repository ],
+    [ $.run ],
     [ $._port ]
   ],
 
@@ -22,18 +45,28 @@ module.exports = grammar({
     _directive: $ => choice(
       $.from,
       $.expose,
-      $.run
+      $.run,
+      $.maintainer
     ),
 
     run: $ => seq(
       any_casing('RUN'),
+      /[^\t\v\r\f ]+/,
       repeat1(choice(
-        /[^\n\\#R]+/,
-        /(R|r)[^Uu]/,
-        /(R|R)(U|u)[^Nn]/,
-        /\\[^\s]/,
+        token.immediate(/[^\n\\#]+/),
+        token.immediate(/\\[^\s]/),
       ))
     ),
+
+    maintainer: $ => prec(1, seq(
+      any_casing('MAINTAINER'),
+      /[^\t\v\r\f ]+/,
+      repeat1(choice(
+        token.immediate(/[^\n\\#]+/),
+        token.immediate(/\\[^\s]/),
+      )),
+      optional($.comment)
+    )),
 
     expose: $ => seq(
       any_casing('EXPOSE'),
@@ -141,7 +174,9 @@ module.exports = grammar({
       choice(/[^%>\?%\n]+/, /\?[^>]/, /%[^>]/)
     ),
 
-    comment: $ => token(prec(-10, /#.*\n/)),
+    comment: $ => token(prec(-10, /#.*\n+/)),
+    line_continuation: $ => token(prec(-1, /\\\s*\n/)),
+
   }
 });
 
