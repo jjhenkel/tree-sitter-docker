@@ -48,8 +48,68 @@ module.exports = grammar({
       $.run,
       $.maintainer,
       $.cmd,
-      $.entrypoint
+      $.entrypoint,
+      $.workdir,
+      $.user,
+      $.volume,
+      $.shell,
+      $.stopsignal
     ),
+
+    stopsignal: $ => seq(
+      any_casing('STOPSIGNAL'),
+      $._space_no_newline,
+      choice(
+        $.signal_name, $.signal_num
+      )
+    ),
+
+    signal_name: $ => seq(
+      any_casing('SIG'),
+      /[a-zA-Z0-9]+/
+    ),
+
+    signal_num: $ => /\d\d?\d?/,
+
+    shell: $ => seq(
+      any_casing('SHELL'),
+      $._space_no_newline,
+      $.json_array
+    ),
+
+    volume: $ => seq(
+      any_casing('VOLUME'),
+      $._space_no_newline,
+      choice(
+        repeat1($.path),
+        $.json_array
+      )
+    ),
+
+    path: $ => choice(
+      /[^"\s][^"\s]*/,
+      seq('"', /[^"\n]+/, '"')
+    ),
+
+    workdir: $ => seq(
+      any_casing('WORKDIR'),
+      $._space_no_newline,
+      maybe_var_interpolation(/[^\n]+/, $)
+    ),
+
+    user: $ => seq(
+      any_casing('USER'),
+      $._space_no_newline,
+      choice(
+        seq($.user_name, optional(seq(':', $.user_group))),
+        seq($.user_id, optional(seq(':', $.user_group_id)))
+      )
+    ),
+
+    user_name: $ => /[a-zA-Z][^\s:]*/,
+    user_group: $ => /[a-zA-Z][^\s:]*/,
+    user_id: $ => /\d+/,
+    user_group_id: $ => /\d+/,
 
     cmd: $ => seq(
       any_casing('CMD'),
@@ -144,21 +204,21 @@ module.exports = grammar({
     ),
 
     _repository_start: $ => seq(
-      might_have_var_interpolations(FROM_PART_REGEX, $),
+      maybe_var_or_template_interpolation(FROM_PART_REGEX, $),
       choice(
         token.immediate(/:\d+\//),
         '/'
       )
     ),
     _repository_continued: $ => seq(
-      might_have_var_interpolations(FROM_PART_REGEX, $),
+      maybe_var_or_template_interpolation(FROM_PART_REGEX, $),
       '/'
     ),
 
-    image: $ => might_have_var_interpolations(FROM_PART_REGEX, $),
-    tag: $ => might_have_var_interpolations(FROM_PART_REGEX, $),
-    digest: $ => might_have_var_interpolations(FROM_PART_REGEX, $),
-    as_name: $ => might_have_var_interpolations(FROM_PART_REGEX, $),
+    image: $ => maybe_var_or_template_interpolation(FROM_PART_REGEX, $),
+    tag: $ => maybe_var_or_template_interpolation(FROM_PART_REGEX, $),
+    digest: $ => maybe_var_or_template_interpolation(FROM_PART_REGEX, $),
+    as_name: $ => maybe_var_or_template_interpolation(FROM_PART_REGEX, $),
 
     docker_variable: $ => choice(
       $._docker_variable,
@@ -259,7 +319,25 @@ function maybe_double_quoted (rule) {
   );
 }
 
-function might_have_var_interpolations (regex, $) {
+function maybe_var_or_template_interpolation (regex, $) {
+  return choice(
+    maybe_var_interpolation(regex, $),
+    // (3) {{var}}|something{{var}}({{var}}|something{{var}})*something?
+    //     ^^ where these '{{' '}}' pairs are varied according to common template
+    //     opening and closing pairs
+    maybe_template_interpolation(
+      regex, /\{(\}|\}\})?/, seq($.template_expr_curly_braces, /(\}|\}\})?\}/)
+    ),
+    maybe_template_interpolation(
+      regex, /%%?/, seq($.template_expr_percent_signs, /%?%/)
+    ),
+    maybe_template_interpolation(
+      regex, /<(%|\?)=?/, seq($.template_expr_less_than_equals, /(%|\?)>/)
+    ),
+  );
+}
+
+function maybe_var_interpolation (regex, $) {
   return choice(
     // (1) Just a match with no interpolation
     regex,
@@ -280,19 +358,7 @@ function might_have_var_interpolations (regex, $) {
         )
       )),
       optional(token.immediate(regex))
-    ),
-    // (3) {{var}}|something{{var}}({{var}}|something{{var}})*something?
-    //     ^^ where these '{{' '}}' pairs are varied according to common template
-    //     opening and closing pairs
-    maybe_template_interpolation(
-      regex, /\{(\}|\}\})?/, seq($.template_expr_curly_braces, /(\}|\}\})?\}/)
-    ),
-    maybe_template_interpolation(
-      regex, /%%?/, seq($.template_expr_percent_signs, /%?%/)
-    ),
-    maybe_template_interpolation(
-      regex, /<(%|\?)=?/, seq($.template_expr_less_than_equals, /(%|\?)>/)
-    ),
+    )
   );
 }
 

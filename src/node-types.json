@@ -118,6 +118,26 @@
           {
             "type": "run",
             "named": true
+          },
+          {
+            "type": "shell",
+            "named": true
+          },
+          {
+            "type": "stopsignal",
+            "named": true
+          },
+          {
+            "type": "user",
+            "named": true
+          },
+          {
+            "type": "volume",
+            "named": true
+          },
+          {
+            "type": "workdir",
+            "named": true
           }
         ]
       }
@@ -286,6 +306,11 @@
     }
   },
   {
+    "type": "path",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "platform",
     "named": true,
     "fields": {},
@@ -396,6 +421,45 @@
     }
   },
   {
+    "type": "shell",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "json_array",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "signal_name",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "stopsignal",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "signal_name",
+          "named": true
+        },
+        {
+          "type": "signal_num",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "tag",
     "named": true,
     "fields": {},
@@ -428,6 +492,53 @@
     "fields": {}
   },
   {
+    "type": "user",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "user_group",
+          "named": true
+        },
+        {
+          "type": "user_group_id",
+          "named": true
+        },
+        {
+          "type": "user_id",
+          "named": true
+        },
+        {
+          "type": "user_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "user_group",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "user_group_id",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "user_id",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "user_name",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "variable_default_value",
     "named": true,
     "fields": {}
@@ -438,7 +549,49 @@
     "fields": {}
   },
   {
+    "type": "volume",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "json_array",
+          "named": true
+        },
+        {
+          "type": "path",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "workdir",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "docker_variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "signal_num",
+    "named": true
+  },
+  {
     "type": "\"",
+    "named": false
+  },
+  {
+    "type": "$",
     "named": false
   },
   {
@@ -447,10 +600,6 @@
   },
   {
     "type": "-",
-    "named": false
-  },
-  {
-    "type": "$",
     "named": false
   },
   {
