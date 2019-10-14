@@ -1,0 +1,17 @@
+===================================
+USER basic syntax
+===================================
+
+USER username
+USER username:group
+USER 1435
+USER 1432:32
+
+---
+
+(dockerfile 
+    (user (user_name))
+    (user (user_name) (user_group))
+    (user (user_id))
+    (user (user_id) (user_group_id))
+)

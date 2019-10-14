@@ -1,0 +1,20 @@
+===================================
+STOPSIGNAL basic syntax
+===================================
+
+STOPSIGNAL SIGTERM # comment
+STOPSIGNAL SIGKILL
+STOPSIGNAL 1
+STOPSIGNAL \
+    13
+
+---
+
+(dockerfile 
+    (stopsignal (signal_name))
+    (comment)
+    (stopsignal (signal_name))
+    (stopsignal (signal_num))
+    (stopsignal (line_continuation) (signal_num))
+)
+

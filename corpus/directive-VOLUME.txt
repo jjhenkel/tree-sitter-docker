@@ -1,0 +1,16 @@
+===================================
+VOLUME basic syntax
+===================================
+
+VOLUME /a/b/c
+VOLUME "/a/b c/d" /a
+VOLUME [ "/a", "/b" ]
+
+---
+
+(dockerfile 
+    (volume (path))
+    (volume (path) (path))
+    (volume (json_array))
+)
+

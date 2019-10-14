@@ -1,0 +1,17 @@
+===================================
+WORKDIR basic syntax
+===================================
+
+WORKDIR /a
+WORKDIR b
+WORKDIR c
+WORKDIR $DIRPATH/$DIRNAME
+
+---
+
+(dockerfile 
+    (workdir)
+    (workdir)
+    (workdir)
+    (workdir)
+)
