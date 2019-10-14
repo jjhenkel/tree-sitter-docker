@@ -1,0 +1,91 @@
+===================================
+CMD json array (basic syntax)
+===================================
+
+# 15 random (json array) CMD statements taken from corpus
+CMD ["npm", "start"]
+CMD [ "./clover" ]
+CMD [ "nodemon", "--exec", "yarn", "run", "start" ]
+CMD [ "node", "server" ]
+CMD ["bundle", "exec", "unicorn", "-c", "config/unicorn.rb", "-l", "3000"]
+CMD ["/azeroth-server/bin/worldserver"]
+CMD [ "python", "./wallhaven-dl.py" ]
+CMD ["--help"]
+CMD ["rails", "s", "-b", "0.0.0.0"]
+CMD [ "trade", "--paper" ]
+CMD ["cat", "hterm_all.js"]
+CMD [ "npm", "start" ]
+CMD ["node", "server.js"]
+CMD ["/app/tests.sh"]
+CMD ["gunicorn", "app:app", "-b", "0.0.0.0:80", "--log-file", "-", "--access-logfile", "-", "--workers", "4", "--keep-alive", "0"]
+
+---
+
+(dockerfile 
+  (comment)
+  (cmd (json_array))
+  (cmd (json_array))
+  (cmd (json_array))
+  (cmd (json_array))
+  (cmd (json_array))
+  (cmd (json_array))
+  (cmd (json_array))
+  (cmd (json_array))
+  (cmd (json_array))
+  (cmd (json_array))
+  (cmd (json_array))
+  (cmd (json_array))
+  (cmd (json_array))
+  (cmd (json_array))
+  (cmd (json_array))
+)
+
+===================================
+CMD json-array-lookalike vs json array (odd chars)
+===================================
+
+CMD ["abc 123", "♥", "☃", "\" \\ \/ \b \f \n \r \t \u0000"]
+CMD "[\"echo\", \"Phew, I just managed to escaped those double quotes\"]"
+
+---
+
+(dockerfile
+  (cmd (json_array))
+  (cmd)
+)
+
+===================================
+CMD with line continuation
+===================================
+
+CMD [ \
+	"/usr/sbin/apache2ctl", "-DFOREGROUND" \
+	]
+CMD [ "/usr/sbin/apache2ctl", "-DFOREGROUND" \
+	]
+CMD [ \
+"/usr/sbin/apache2ctl", "-DFOREGROUND" \
+\
+]
+CMD [ \
+"/usr/sbin/apache2ctl", "-DFOREGROUND" ]
+
+---
+
+(dockerfile 
+  (cmd (json_array (line_continuation)))
+  (cmd (json_array (line_continuation)))
+  (cmd (json_array (line_continuation) (line_continuation)))
+  (cmd (json_array))
+)
+
+
+===================================
+CMD bug with just single token
+===================================
+
+CMD top
+
+---
+
+(dockerfile (cmd))

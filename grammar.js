@@ -46,25 +46,33 @@ module.exports = grammar({
       $.from,
       $.expose,
       $.run,
-      $.maintainer
+      $.maintainer,
+      $.cmd,
+      $.entrypoint
+    ),
+
+    cmd: $ => seq(
+      any_casing('CMD'),
+      $._space_no_newline,
+      $._anything_or_json_array
+    ),
+
+    entrypoint: $ => seq(
+      any_casing('ENTRYPOINT'),
+      $._space_no_newline,
+      $._anything_or_json_array
     ),
 
     run: $ => seq(
       any_casing('RUN'),
-      /[^\t\v\r\f ]+/,
-      repeat1(choice(
-        token.immediate(/[^\n\\#]+/),
-        token.immediate(/\\[^\s]/),
-      ))
+      $._space_no_newline,
+      $._anything_or_json_array
     ),
 
     maintainer: $ => prec(1, seq(
       any_casing('MAINTAINER'),
-      /[^\t\v\r\f ]+/,
-      repeat1(choice(
-        token.immediate(/[^\n\\#]+/),
-        token.immediate(/\\[^\s]/),
-      )),
+      $._space_no_newline,
+      $._anything,
       optional($.comment)
     )),
 
@@ -108,6 +116,10 @@ module.exports = grammar({
 
     from: $ => seq(
       any_casing('FROM'),
+      optional(seq(
+        '--platform=',
+        $.platform
+      )),
       optional($.repository),
       $.image,
       optional(seq(
@@ -121,6 +133,11 @@ module.exports = grammar({
       ))
     ),
   
+    platform: $ => choice(
+      seq('$', $.docker_variable),
+      FROM_PART_REGEX
+    ),
+
     repository: $ => choice(
       $._repository_start,
       seq($._repository_start, repeat1($._repository_continued)),
@@ -160,13 +177,47 @@ module.exports = grammar({
 
     variable_default_value: $ => seq(
       token.immediate(':-'),
-      token.immediate(/[^\}\{"\n:]+/)
+      token.immediate(/[^\}\{"\n]+/)
     ),
 
     variable_this_or_null: $ => seq(
       token.immediate(':+'),
-      token.immediate(/[^\}\{"\n:]+/)
+      token.immediate(/[^\}\{"\n]+/)
     ),
+
+    _anything: $ => repeat1(choice(
+      token.immediate(/[^\n\\#]+/),
+      token.immediate(/\\[^\s]/),
+    )),
+
+    _almost_json_prefix: $ => token.immediate(
+      /\[( |\t|\\\n)*[^\" \t\\\n]/,
+    ),
+
+    _json_prefix: $ => token.immediate(
+      /\[( |\t|\\\n)*\"/
+    ),
+
+    _not_json_prefix: $ => token.immediate(
+      /[^\n\\#\[]+/
+    ),
+
+    json_array: $ => seq(
+      $._json_prefix,
+      optional(
+        choice('"', seq($._json_string, '"'))
+      ),
+      repeat(seq(',', $._json_value)),
+      ']'
+    ),
+
+    _anything_or_json_array: $ => choice(
+      seq($._almost_json_prefix, $._anything),
+      $.json_array,
+      seq($._not_json_prefix, optional($._anything))
+    ),
+
+    _space_no_newline: $ => /[\t\f\r\v ]+/,
 
     template_expr_curly_braces: $ => /[^\}\n]+/,
     template_expr_percent_signs: $ => /[^%\n]+/,
@@ -176,6 +227,22 @@ module.exports = grammar({
 
     comment: $ => token(prec(-10, /#.*\n+/)),
     line_continuation: $ => token(prec(-1, /\\\s*\n/)),
+
+    // JSON excerpt
+    _json_value: $ => choice(
+      seq('"', '"'),
+      seq('"', $._json_string, '"')
+    ),
+
+    _json_string: $ => repeat1(choice(
+      token.immediate(/[^\\"\n]/),
+      $._json_escape_sequence
+    )),
+
+    _json_escape_sequence: $ => token.immediate(seq(
+      '\\',
+      /(\"|\\|\/|b|f|n|r|t|u)/
+    )),
 
   }
 });
