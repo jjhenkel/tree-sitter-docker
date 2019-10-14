@@ -13036,8 +13036,6 @@ FROM docker:1.9.1
 FROM docker:1.9-dind
 FROM docker4devs:builder
 FROM docker4labs/node-opencv  
-FROM @docker.account@/java-base
-FROM @docker.account@/jetty-base
 FROM docker.artifactory/docker-framework:latest
 FROM docker.artifactory/ubuntu:14.04
 FROM docker.artifactory/ubuntu:latest
@@ -13049,7 +13047,6 @@ FROM dockerbase/cron
 FROM dockerbase/devbase-nvm  
 FROM dockerbase/devbase-rvm  
 FROM DOCKER_BASE/dev-lang/golang/1.4
-FROM @docker.base.image@
 FROM docker-base-image
 FROM {{ .DOCKER_BASE_IMAGE }}
 FROM  dockerbase/java7
@@ -13110,7 +13107,6 @@ FROM docker-dev.yelpcorp.com/xenial_yelp
 FROM        docker:dind
 FROM docker:dind
 FROM docker:dind  
-FROM @DOCKER_DISTRO@:@DOCKER_DISTRO_VERSION@
 FROM ((docker-dz_cassandra-repository)):((docker-dz_cassandra-tag))((docker-additional-tag))
 FROM ((docker-dz_compose-repository)):((docker-dz_compose-tag))((docker-additional-tag))
 FROM ((docker-dz_spark-onbuild-repository)):((docker-dz_spark-onbuild-tag))((docker-additional-tag)) as BUILD
@@ -13344,7 +13340,6 @@ FROM docker.elastic.co/ml-dev/ml-linux-build:9
 FROM docker.elastic.co/ml-dev/ml-linux-musl-build:2
 FROM docker.elastic.co/ml-dev/ml-macosx-build:5
 FROM docker_eth-polygon
-FROM //docker/example:base
 FROM dockerfile/ansible
 FROM {dockerfile_base_image}
 FROM dockerfile/elasticsearch
@@ -14870,7 +14865,6 @@ FROM fedora:latest
 FROM fedora:latest  
 FROM fedora:latest as builder
 FROM fedora-modularity/libmodulemd-deps-rawhide
-FROM fedora-modularity/libmodulemd-deps-@RELEASE@
 FROM fedora:%%os_version%%
 FROM fedora/python  
 FROM fedora-python2
@@ -14996,7 +14990,6 @@ FROM flokkr/hadoop-runner:build
 FROM floopcz/tensorflow_cc:ubuntu-shared-cuda
 FROM flopes/spring-boot-docker:1.1
 FROM floriangeigl/datascience:latest
-FROM flow123d/@docker_image@
 FROM flowable/java8_server:8.181
 FROM flowci/flow-platform-base:latest
 FROM flowci/flow-web-base:latest
@@ -15398,10 +15391,8 @@ FROM %%from%%
 FROM {{from}}
 FROM %%FROM%%
 FROM %FROM%
-FROM FROM b.gcr.io/tensorflow/tensorflow:latest-gpu
 FROM {{FROM_DOCKERIMAGETAG}}
 FROM "__FROM_IMAGE_STREAM_DEFINED_IN_TEMPLATE__"
-FROM FROM s390x/ubuntu:16.04
 FROM FROM_SUBST
 FROM fsharp
 FROM fsharp:10.2.1
@@ -29820,7 +29811,6 @@ FROM gitlab/gitlab-ce:{IMAGE_TAG} as builder
 FROM gitlab/gitlab-ce:{IMAGE_TAG} as production
 FROM gitlab/gitlab-ce:latest
 FROM gitlab/gitlab-ce:{TAG}
-FROM gitlab/gitlab-ce:@VERSION@-ce.0
 FROM gitlab/gitlab-runner:alpine
 FROM gitlab/gitlab-runner:alpine  
 FROM gitlab/gitlab-runner:alpine-v11.10.0
@@ -29850,7 +29840,6 @@ FROM gjchen/wsproxy
 FROM gjovanov/node-alpine-edge
 FROM gjyoung1974/aws-cli-tools:latest 
 FROM gke-debian-openjdk:8-jre 
-FROM gke-jetty:@@jetty.version@@
 FROM glanf/base
 FROM glassfish
 FROM        glassfish:4.0-jdk7
@@ -32130,7 +32119,6 @@ FROM http as http-dev
 FROM httpd
 FROM httpd  
 FROM httpd:${APACHE_TAG}
-FROM httpd:${APACHE_VERSION:+${APACHE_VERSION}-}alpine
 FROM httpd:${HTTPD_VERSION}
 FROM httpd:2.2
 FROM httpd:2.2.31
@@ -32474,11 +32462,8 @@ FROM ignf/gilviewer
 FROM iis
 FROM ilagnev/alpine-nginx-lua
 FROM <%= image %>
-FROM @@image@@
-FROM @image@
 FROM {{ image }}
 FROM image
-FROM @IMAGE@
 FROM {{ image.base }}
 FROM imagedata/jupyter-docker:0.9.2
 FROM imagenbase:1
@@ -33430,7 +33415,6 @@ FROM jetbrains/teamcity-minimal-agent:latest
 FROM jetbrains/teamcity-minimal-agent:latest
 FROM jetbrains/teamcity-server:2017.2.1
 FROM jetbrains/teamcity-server:latest  
-FROM jetbrains/upsource:@VERSION@
 FROM jetty
 FROM jetty:9
 FROM jetty:9  
@@ -34551,7 +34535,6 @@ FROM lachlanevenson/k8s-kubectl:v1.11.0
 FROM lacion/alpine-base-image:latest
 FROM lacion/alpine-golang-buildimage:1.11 AS build-stage
 FROM lacion/docker-alpine:gobuildimage
-FROM lacion/docker-alpine:gobuildimage:1.10.3 AS build-stage
 FROM lacion/docker-alpine:latest
 FROM ladybugtools/ladybug
 FROM    laincloud/centos-lain
@@ -35358,7 +35341,6 @@ FROM marcelwiget/vmx-docker-light
 FROM marcoraddatz/homebridge
 FROM marcoraddatz/homebridge  
 FROM marhoy/balena-wpe
-FROM @mariadb@
 FROM mariadb
 FROM mariadb  
 FROM mariadb:${CODE_VERSION}
@@ -36216,7 +36198,6 @@ FROM melpon/wandbox:boost
 FROM melpon/wandbox:clang
 FROM melpon/wandbox:gcc
 FROM meltwater/rabbit-puppy:0.2.3
-FROM @memcached@
 FROM memcached
 FROM memcached:1
 FROM memcached:1.4
@@ -36749,8 +36730,6 @@ FROM microsoft/dotnet:${base_tag}
 FROM microsoft/dotnet:${base_tag} AS base
 FROM microsoft/dotnet:${build_base_tag} AS build
 FROM microsoft/dotnet:${buildimagetag} AS build
-FROM microsoft/dotnet:${DOTNET_RUNTIME_VERSION:2.2-aspnetcore-runtime-alpine}
-FROM microsoft/dotnet:${DOTNET_SDK_VERSION:2.2-sdk-alpine}
 FROM microsoft/dotnet:${runtime_base_tag} AS runtime
 FROM microsoft/dotnet:${runtimeimagetag}
 FROM microsoft/dotnet:0.0.1-alpha-onbuild
@@ -37525,7 +37504,6 @@ FROM monero-android
 FROM monetas/base-ot-dev
 FROM monetas/ot-android-dev
 FROM    mongo
-FROM @mongo@
 FROM mongo
 FROM mongo  
 FROM mongo:$BASE_TAG
@@ -40028,7 +40006,6 @@ FROM node:8.11.2-stretch
 FROM node:8.11.3
 FROM node:8.11.3-alpine
 FROM node:8.11.3-alpine as builder
-FROM node:8.11.3-alpine as run time
 FROM node:8.11.3-alpine as runtime
 FROM node:8.11.3-alpine@sha256:d743b4141b02fcfb8beb68f92b4cd164f60ee457bf2d053f36785bf86de16b0d AS node
 FROM node:8.11.3 as assets
@@ -40320,7 +40297,6 @@ FROM node:8 as builder
 FROM node:8 AS builder
 FROM node:8 as build-stage
 FROM node:8 as build-static
-FROM node:8 as build WORKDIR /app 
 FROM node:8 AS client
 FROM node:8 AS compiler
 FROM node:8 AS databaseInitiatorEtheroscope
@@ -41019,7 +40995,6 @@ FROM nvidia/cuda:10.0-devel-centos6
 FROM nvidia/cuda:10.0-devel-centos7
 FROM nvidia/cuda:10.0-devel-ubuntu16.04
 FROM nvidia/cuda:10.0-devel-ubuntu16.04 as cuda_devel
-FROM nvidia/cuda::10.0-devel-ubuntu18.04
 FROM nvidia/cuda:10.0-devel-ubuntu18.04
 FROM nvidia/cuda:10.0-devel-ubuntu18.04 as build_stage
 FROM nvidia/cuda:10.0-devel-ubuntu18.04 AS glvnd
@@ -42823,7 +42798,6 @@ FROM php:$PHP_TAG as base
 FROM php:$PHP_TAG as ext-builder
 FROM php:${PHP_VERSION}
 FROM php:${PHP_VERSION}  
-FROM php:${PHP_VERSION:+${PHP_VERSION}-}fpm-alpine
 FROM php:${PHP_VERSION}-alpine
 FROM "php:${PHP_VERSION}-apache"
 FROM php:${PHP_VERSION}-apache
@@ -43682,7 +43656,6 @@ FROM php:__PHP_VERSION__-apache
 FROM php:%%PHP_VERSION%%-cli-alpine
 FROM php:%%PHP_VERSION%%-%%VARIANT%%
 FROM phppm/nginx:latest
-FROM @@@PHP_REPO@@@:@@@PHP_REPO_TAG@@@
 FROM phpschool/workshop-manager
 FROM php@sha256:13813f20fec7ded7bf3a4305ea0ccd4df3cea900e263f7f86c3d5737f86669eb
 FROM phpstan/phpstan:latest
@@ -43788,7 +43761,6 @@ FROM phusion/passenger-ruby19
 FROM phusion/passenger-ruby20
 FROM phusion/passenger-ruby21
 FROM phusion/passenger-ruby21  
-FROM phusion/passenger-ruby21:
 FROM phusion/passenger-ruby21:0.9.10
 FROM phusion/passenger-ruby21:0.9.11
 FROM phusion/passenger-ruby21:0.9.12
@@ -43988,7 +43960,6 @@ FROM post-builder as pre-devel
 FROM post-builder as pre-release
 FROM postfix-forwarder-base
 FROM postfwd/postfwd:v2.00
-FROM @postgres@
 FROM postgres
 FROM postgres  
 FROM postgres:${baseimage_tag}
@@ -44002,7 +43973,6 @@ FROM postgres:$PG_VERSION
 FROM postgres:${PG_VERSION}-alpine
 FROM postgres:${PG_VERSION}-alpine AS oldversions
 FROM postgres:${POSTGRESQL_VERSION}
-FROM postgres:$POSTGRES_RELEASE@sha256:$POSTGRES_DIGEST
 FROM postgres:${POSTGRES_VERSION}
 FROM postgres:10
 FROM postgres:10  
@@ -53852,7 +53822,6 @@ FROM redhatcop/gows:busybox
 FROM redhatdeveloper/drupal-data:latest
 FROM redhat-openjdk-18/openjdk18-openshift:1.2
 FROM redhat/rhel7
-FROM @redis@
 FROM redis
 FROM redis
 FROM redis  
@@ -54562,7 +54531,6 @@ FROM resin/rpi-raspbian:jessie
 FROM resin/rpi-raspbian:jessie-20160525
 FROM resin/rpi-raspbian:jessie-20160831 
 FROM resin/rpi-raspbian:jessie-20161026
-FROM resin/rpi-raspbian:jessie:jessie-20180109
 FROM resin/rpi-raspbian:latest
 FROM resin/rpi-raspbian:latest
 FROM resin/rpi-raspbian:stretch
@@ -54643,7 +54611,6 @@ FROM rhscl/s2i-core-rhel7:1
 FROM rhub/fedora-gcc:latest
 FROM rhuss/docker-reveal:1.1.1
 FROM rhuss/docker-reveal:1.4.0
-FROM @riak@
 FROM ricejasonf/emscripten
 FROM ricejasonf/emscripten:$EMSCRIPTEN_TAG
 FROM ricejasonf/emscripten:1.37.19
@@ -55407,8 +55374,6 @@ FROM ruby:latest
 FROM ruby:latest  
 FROM ruby:onbuild
 FROM ruby:onbuild  
-FROM @@RUBY_OS_IMAGE@@
-FROM @@RUBY_OS_IMAGE@@ AS builder
 FROM ruby:<%= RUBY_VERSION %>-alpine
 FROM ruby:%%RUBY_VERSION%%-slim-stretch
 FROM ruby:slim
@@ -55709,7 +55674,6 @@ FROM s390x/ubuntu:18.04
 FROM    s390x/ubuntu:xenial
 FROM s390x/ubuntu:xenial
 FROM s390x/ubuntu:yakkety
-FROM @s3server@
 FROM s80x86-build:latest
 FROM s80x86-build-quartus:latest
 FROM sabayon/base-amd64
@@ -56088,8 +56052,6 @@ FROM secret06/belajarcodenodejs:v1.0.0
 FROM secretless-broker:latest as secretless-broker
 FROM secretless-dev
 FROM secretless-dev:latest
-FROM secure:mozsecure:centos7:sha256 48cc2d545136115b38f38ee5f80d51db391fee2610f8300b280b35422db63af7:https://s3-us-west-2.amazonaws.com/moz-packages/docker-images/centos-7-20181101-docker.tar.xz
-FROM secure:mozsecure:ubuntu14042:sha256 e08475e91c8b342dce147346a11db16357619ed914aaad4d82be2e6ab743a167:https://s3-us-west-2.amazonaws.com/moz-packages/docker-images/ubuntu-trusty-core-cloudimg-amd64-docker-20150630.tar.xz
 FROM seedsync:$SEEDSYNC_VERSION
 FROM seegno/bitcoind:0.13-alpine
 FROM seegno/bitcoind:0.14.2-alpine
@@ -56172,11 +56134,6 @@ FROM selenium/standalone-firefox:latest
 FROM selenoid/base:2.0
 FROM selenoid/base:5.0
 FROM selenoid/base:5.0_java
-FROM selenoid/base:5.0@@REQUIRES_JAVA@@
-FROM selenoid/dev_chrome:@@VERSION@@
-FROM selenoid/dev_firefox:@@VERSION@@
-FROM selenoid/dev_opera:@@VERSION@@
-FROM selenoid/dev_yandex:@@VERSION@@
 FROM semtech/mu-cl-resources:1.8.1  
 FROM semtech/mu-export-template:0.1.0  
 FROM semtech/mu-javascript-template:1.1.0  
@@ -56245,7 +56202,6 @@ FROM setzero/ansible:2.7.5-nginx-1.15.1-alpine
 FROM sfaulhab/jboss-eap-6.4
 FROM sfhackfest22017/fabric-ccenv:x86_64-0.7.0-snapshot-c7b3fe0
 FROM sflive/base
-FROM sgallagher/sscg-deps-@RELEASE@
 FROM sgdpro/nodeslc
 FROM sgerrand/alpine-r:latest
 FROM sgillis/hdevtools
@@ -58839,7 +58795,6 @@ FROM ubuntu_sshd_gcc_gerry:14.04
 FROM ubuntu:%%SUITE%%
 FROM ubuntu:%%TAG%%
 FROM ubuntu:TAG
-FROM ubuntu:@@@TAG_NAME@@@
 FROM      	ubuntu:trusty
 FROM        ubuntu:trusty
 FROM       ubuntu:trusty
