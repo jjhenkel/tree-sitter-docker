@@ -8,6 +8,9 @@
   },
   "cSpell.words": [
     "ENTRYPOINT",
+    "healthcheck",
+    "onbuild",
+    "prec",
     "stopsignal",
     "workdir"
   ]

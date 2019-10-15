@@ -2,24 +2,24 @@
 const FROM_PART_REGEX = /[^\$\s\/:@\{\}%<>=\?]+/;
 
 const DIRECTIVE_NAMES = [
-  'FROM',
-  'RUN',
-  'CMD',
-  'LABEL',
-  'MAINTAINER',
-  'EXPOSE',
-  'ENV',
   'ADD',
+  'ARG',
+  'CMD',
   'COPY',
   'ENTRYPOINT',
-  'VOLUME',
-  'USER',
-  'WORKDIR',
-  'ARG',
-  'ONBUILD',
-  'STOPSIGNAL',
+  'ENV',
+  'EXPOSE',
+  'FROM',
   'HEALTHCHECK',
-  'SHELL'
+  'LABEL',
+  'MAINTAINER',
+  'ONBUILD',
+  'RUN',
+  'SHELL',
+  'STOPSIGNAL',
+  'USER',
+  'VOLUME',
+  'WORKDIR'
 ];
 
 module.exports = grammar({
@@ -39,28 +39,30 @@ module.exports = grammar({
 
   rules: {
     dockerfile: $ => seq(
-      repeat(field('directives', $._directive)),
+      repeat(
+        field('directives', $._directive)
+      ),
     ),
 
     _directive: $ => choice(
-      $.from,
-      $.expose,
-      $.run,
-      $.maintainer,
+      $.add,
+      $.arg,
       $.cmd,
+      $.copy,
       $.entrypoint,
-      $.workdir,
-      $.user,
-      $.volume,
+      $.env,
+      $.expose,
+      $.from,
+      $.healthcheck,
+      $.label,
+      $.maintainer,
+      $.onbuild,
+      $.run,
       $.shell,
       $.stopsignal,
-      $.add,
-      $.copy,
-      $.arg,
-      // $.env,
-      // $.label,
-      // $.healthcheck,
-      // $.onbuild
+      $.user,
+      $.volume,
+      $.workdir
     ),
 
     arg: $ => seq(
