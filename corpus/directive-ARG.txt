@@ -1,0 +1,17 @@
+===================================
+ARG basic syntax
+===================================
+
+ARG name
+ARG name=default
+ARG othername
+ARG test123
+
+---
+
+(dockerfile 
+    (arg (arg_name))
+    (arg (arg_name) (arg_default))
+    (arg (arg_name))
+    (arg (arg_name))
+)

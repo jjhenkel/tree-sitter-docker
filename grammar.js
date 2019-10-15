@@ -53,7 +53,44 @@ module.exports = grammar({
       $.user,
       $.volume,
       $.shell,
-      $.stopsignal
+      $.stopsignal,
+      $.add,
+      $.copy,
+      $.arg,
+      // $.env,
+      // $.label,
+      // $.healthcheck,
+      // $.onbuild
+    ),
+
+    arg: $ => seq(
+      any_casing('ARG'),
+      $._space_no_newline,
+      seq(
+        $.arg_name,
+        optional(seq('=', $.arg_default))
+      )
+    ),
+
+    arg_name: $ => /[a-zA-Z_][a-zA-Z_\-0-9]*/,
+    arg_default: $ => /[^\n]+/,
+
+    add: $ => seq(
+      any_casing('ADD'),
+      $._space_no_newline,
+      choice(
+        repeat1($.path),
+        $.json_array
+      )
+    ),
+
+    copy: $ => seq(
+      any_casing('COPY'),
+      $._space_no_newline,
+      choice(
+        repeat1($.path),
+        $.json_array
+      )
     ),
 
     stopsignal: $ => seq(
@@ -102,7 +139,8 @@ module.exports = grammar({
       $._space_no_newline,
       choice(
         seq($.user_name, optional(seq(':', $.user_group))),
-        seq($.user_id, optional(seq(':', $.user_group_id)))
+        seq($.user_id, optional(seq(':', $.user_group_id))),
+        seq('$', $.docker_variable)
       )
     ),
 

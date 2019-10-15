@@ -1,5 +1,48 @@
 [
   {
+    "type": "add",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "json_array",
+          "named": true
+        },
+        {
+          "type": "path",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "arg",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "arg_default",
+          "named": true
+        },
+        {
+          "type": "arg_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "arg_default",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "as_name",
     "named": true,
     "fields": {},
@@ -36,6 +79,25 @@
       "types": [
         {
           "type": "json_array",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "copy",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "json_array",
+          "named": true
+        },
+        {
+          "type": "path",
           "named": true
         }
       ]
@@ -96,7 +158,19 @@
         "required": false,
         "types": [
           {
+            "type": "add",
+            "named": true
+          },
+          {
+            "type": "arg",
+            "named": true
+          },
+          {
             "type": "cmd",
+            "named": true
+          },
+          {
+            "type": "copy",
             "named": true
           },
           {
@@ -500,6 +574,10 @@
       "required": true,
       "types": [
         {
+          "type": "docker_variable",
+          "named": true
+        },
+        {
           "type": "user_group",
           "named": true
         },
@@ -581,6 +659,14 @@
         }
       ]
     }
+  },
+  {
+    "type": "=",
+    "named": false
+  },
+  {
+    "type": "arg_name",
+    "named": true
   },
   {
     "type": "signal_num",
