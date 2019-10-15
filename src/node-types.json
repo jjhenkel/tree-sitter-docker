@@ -178,6 +178,10 @@
             "named": true
           },
           {
+            "type": "env",
+            "named": true
+          },
+          {
             "type": "expose",
             "named": true
           },
@@ -186,7 +190,19 @@
             "named": true
           },
           {
+            "type": "healthcheck",
+            "named": true
+          },
+          {
+            "type": "label",
+            "named": true
+          },
+          {
             "type": "maintainer",
+            "named": true
+          },
+          {
+            "type": "onbuild",
             "named": true
           },
           {
@@ -231,6 +247,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "env",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "expose",
@@ -295,6 +316,11 @@
     }
   },
   {
+    "type": "healthcheck",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "image",
     "named": true,
     "fields": {},
@@ -323,6 +349,11 @@
   },
   {
     "type": "json_array",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "label",
     "named": true,
     "fields": {}
   },
@@ -378,6 +409,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "onbuild",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "path",
