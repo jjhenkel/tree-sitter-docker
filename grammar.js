@@ -65,6 +65,43 @@ module.exports = grammar({
       $.workdir
     ),
 
+    onbuild: $ => seq(
+      any_casing('ONBUILD'),
+      $._space_no_newline,
+      choice(
+        $.add,
+        $.arg,
+        $.cmd,
+        $.copy,
+        $.entrypoint,
+        $.env,
+        $.expose,
+        $.healthcheck,
+        $.label,
+        $.run,
+        $.shell,
+        $.stopsignal,
+        $.user,
+        $.volume,
+        $.workdir
+      )
+    ),
+
+    env: $ => seq(
+      any_casing('ENV'),
+      $._space_no_newline
+    ),
+
+    label: $ => seq(
+      any_casing('LABEL'),
+      $._space_no_newline
+    ),
+
+    healthcheck: $ => seq(
+      any_casing('HEALTHCHECK'),
+      $._space_no_newline
+    ),
+
     arg: $ => seq(
       any_casing('ARG'),
       $._space_no_newline,
