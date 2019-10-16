@@ -762,19 +762,11 @@
     "named": false
   },
   {
-    "type": "arg_name",
-    "named": true
+    "type": "\"",
+    "named": false
   },
   {
-    "type": "signal_num",
-    "named": true
-  },
-  {
-    "type": "path",
-    "named": true
-  },
-  {
-    "type": "$",
+    "type": "--platform=",
     "named": false
   },
   {
@@ -782,8 +774,20 @@
     "named": false
   },
   {
-    "type": "\"",
+    "type": "@",
     "named": false
+  },
+  {
+    "type": "sha256:",
+    "named": false
+  },
+  {
+    "type": "$",
+    "named": false
+  },
+  {
+    "type": "arg_name",
+    "named": true
   },
   {
     "type": "-",
@@ -794,16 +798,12 @@
     "named": false
   },
   {
-    "type": "--platform=",
-    "named": false
+    "type": "signal_num",
+    "named": true
   },
   {
-    "type": "@",
-    "named": false
-  },
-  {
-    "type": "sha256:",
-    "named": false
+    "type": "path",
+    "named": true
   },
   {
     "type": "{",
@@ -822,14 +822,6 @@
     "named": false
   },
   {
-    "type": ",",
-    "named": false
-  },
-  {
-    "type": "]",
-    "named": false
-  },
-  {
     "type": "template_expr_curly_braces",
     "named": true
   },
@@ -844,5 +836,13 @@
   {
     "type": "line_continuation",
     "named": true
+  },
+  {
+    "type": ",",
+    "named": false
+  },
+  {
+    "type": "]",
+    "named": false
   }
 ]

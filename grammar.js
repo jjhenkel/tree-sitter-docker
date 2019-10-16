@@ -5,18 +5,19 @@ module.exports = grammar({
   name: 'DOCKER',
   
   extras: $ => [
-    $._space,
     $.comment,
-    $.line_continuation
+    $.line_continuation,
+    $._space,
   ],
 
   conflicts: $ => [
+    [ $._port ],
     [ $.repository ],
     [ $.run ],
-    [ $._port ]
   ],
 
   rules: {
+    // ############### TOP LEVEL ############################################ /
     dockerfile: $ => seq(
       repeat(
         field('directives', $._directive)
@@ -45,166 +46,124 @@ module.exports = grammar({
       $._blank_line
     ),
 
-    onbuild: $ => seq(
-      any_casing('ONBUILD'),
-      $._space_no_newline,
-      choice(
-        $.add,
-        $.arg,
-        $.cmd,
-        $.copy,
-        $.entrypoint,
-        $.env,
-        $.expose,
-        $.healthcheck,
-        $.label,
-        $.run,
-        $.shell,
-        $.stopsignal,
-        $.user,
-        $.volume,
-        $.workdir
+    // ############### DIRECTIVES ########################################### /
+    add: $ => directive($, 'ADD', choice(
+      $._paths, $.json_array
+    )),
+
+    arg: $ => directive($, 'ARG', seq(
+      $.arg_name, optional(seq('=', $.arg_default))
+    )),
+
+    cmd: $ => directive($, 'CMD', seq(
+      $._anything_or_json_array
+    )),
+
+    copy: $ => directive($, 'COPY', choice(
+      $._paths, $.json_array
+    )),
+
+    entrypoint: $ => directive($, 'ENTRYPOINT', seq(
+      $._anything_or_json_array
+    )),
+
+    env: $ => directive($, 'ENV', seq(
+      $._anything
+    )),
+
+    expose: $ => directive($, 'EXPOSE', choice(
+      $.mapped_no_lhs,
+      repeat1(
+        maybe_double_quoted($._port_spec)
       )
-    ),
+    )),
 
-    env: $ => seq(
-      any_casing('ENV'),
-      $._space_no_newline,
+    from: $ => directive($, 'FROM', seq(
+      optional(seq(
+        '--platform=',
+        $.platform
+      )),
+      optional($.repository),
+      $.image,
+      optional(seq(
+        ':', $.tag
+      )),
+      optional(seq(
+        '@', optional('sha256:'), $.digest
+      )),
+      optional(seq(
+        $._space_no_newline, any_casing('AS'), $._space_no_newline, $.as_name
+      ))
+    )),
+
+    healthcheck: $ => directive($, 'HEALTHCHECK', seq(
       $._anything
-    ),
+    )),
 
-    label: $ => seq(
-      any_casing('LABEL'),
-      $._space_no_newline,
+    label: $ => directive($, 'LABEL', seq(
       $._anything
-    ),
+    )),
 
-    healthcheck: $ => seq(
-      any_casing('HEALTHCHECK'),
-      $._space_no_newline,
-      $._anything
-    ),
+    maintainer: $ => directive($, 'MAINTAINER', seq(
+      $._anything, optional($.comment)
+    )),
 
-    arg: $ => seq(
-      any_casing('ARG'),
-      $._space_no_newline,
-      seq(
-        $.arg_name,
-        optional(seq('=', $.arg_default))
-      )
-    ),
+    onbuild: $ => directive($, 'ONBUILD', choice(
+      $.add,
+      $.arg,
+      $.cmd,
+      $.copy,
+      $.entrypoint,
+      $.env,
+      $.expose,
+      $.healthcheck,
+      $.label,
+      $.run,
+      $.shell,
+      $.stopsignal,
+      $.user,
+      $.volume,
+      $.workdir
+    )),
 
+    run: $ => directive($, 'RUN', seq(
+      $._anything_or_json_array
+    )),
+    
+    shell: $ => directive($, 'SHELL', seq(
+      $.json_array
+    )),
+
+    stopsignal: $ => directive($, 'STOPSIGNAL', choice(
+      $.signal_name, $.signal_num
+    )),
+
+    user: $ => directive($, 'USER', choice(
+      seq($.user_name, optional(seq(':', $.user_group))),
+      seq($.user_id, optional(seq(':', $.user_group_id))),
+      seq('$', $.docker_variable)
+    )),
+
+    volume: $ => directive($, 'VOLUME', choice(
+      $._paths, $.json_array
+    )),
+
+    workdir: $ => directive($, 'WORKDIR', seq(
+      maybe_var_interpolation($, /[^\n]+/)
+    )),
+
+    // ############### PLUMBING FOR 'ADD' ################################### /
+
+    // ############### PLUMBING FOR 'ARG' ################################### /
     arg_name: $ => /[a-zA-Z_][a-zA-Z_\-0-9]*/,
     arg_default: $ => /[^\n]+/,
 
-    add: $ => seq(
-      any_casing('ADD'),
-      $._space_no_newline,
-      choice(
-        repeat1(seq($.path, optional($._space_no_newline))),
-        $.json_array
-      )
-    ),
+    // ############### PLUMBING FOR 'CMD' ################################### /
+    // ############### PLUMBING FOR 'COPY' ################################## /
+    // ############### PLUMBING FOR 'ENTRYPOINT' ############################ /
+    // ############### PLUMBING FOR 'ENV' ################################### /
 
-    copy: $ => seq(
-      any_casing('COPY'),
-      $._space_no_newline,
-      choice(
-        repeat1(seq($.path, optional($._space_no_newline))),
-        $.json_array
-      )
-    ),
-
-    stopsignal: $ => seq(
-      any_casing('STOPSIGNAL'),
-      $._space_no_newline,
-      choice(
-        $.signal_name, $.signal_num
-      )
-    ),
-
-    signal_name: $ => seq(
-      any_casing('SIG'),
-      /[a-zA-Z0-9]+/
-    ),
-
-    signal_num: $ => /\d\d?\d?/,
-
-    shell: $ => seq(
-      any_casing('SHELL'),
-      $._space_no_newline,
-      $.json_array
-    ),
-
-    volume: $ => seq(
-      any_casing('VOLUME'),
-      $._space_no_newline,
-      choice(
-        repeat1(seq($.path, optional($._space_no_newline))),
-        $.json_array
-      )
-    ),
-
-    path: $ => token.immediate(
-      /([^"\s\[][^"\s]*|"[^"\n]*")/
-    ),
-
-    workdir: $ => seq(
-      any_casing('WORKDIR'),
-      $._space_no_newline,
-      maybe_var_interpolation(/[^\n]+/, $)
-    ),
-
-    user: $ => seq(
-      any_casing('USER'),
-      $._space_no_newline,
-      choice(
-        seq($.user_name, optional(seq(':', $.user_group))),
-        seq($.user_id, optional(seq(':', $.user_group_id))),
-        seq('$', $.docker_variable)
-      )
-    ),
-
-    user_name: $ => /[a-zA-Z][^\s:]*/,
-    user_group: $ => /[a-zA-Z][^\s:]*/,
-    user_id: $ => /\d+/,
-    user_group_id: $ => /\d+/,
-
-    cmd: $ => seq(
-      any_casing('CMD'),
-      $._space_no_newline,
-      $._anything_or_json_array
-    ),
-
-    entrypoint: $ => seq(
-      any_casing('ENTRYPOINT'),
-      $._space_no_newline,
-      $._anything_or_json_array
-    ),
-
-    run: $ => seq(
-      any_casing('RUN'),
-      $._space_no_newline,
-      $._anything_or_json_array
-    ),
-
-    maintainer: $ => prec(1, seq(
-      any_casing('MAINTAINER'),
-      $._space_no_newline,
-      $._anything,
-      optional($.comment)
-    )),
-
-    expose: $ => seq(
-      any_casing('EXPOSE'),
-      choice(
-        $.mapped_no_lhs,
-        repeat1(
-          maybe_double_quoted($._port_spec)
-        )
-      )
-    ),
-
+    // ############### PLUMBING FOR 'EXPOSE' ################################ /
     _port_spec: $ => prec.left(choice(
       $._port,
       $.mapped_port
@@ -233,25 +192,7 @@ module.exports = grammar({
       seq('$', $.docker_variable)
     )),
 
-    from: $ => seq(
-      any_casing('FROM'),
-      optional(seq(
-        '--platform=',
-        $.platform
-      )),
-      optional($.repository),
-      $.image,
-      optional(seq(
-        ':', $.tag
-      )),
-      optional(seq(
-        '@', optional('sha256:'), $.digest
-      )),
-      optional(seq(
-        $._space_no_newline, any_casing('AS'), $._space_no_newline, $.as_name
-      ))
-    ),
-  
+    // ############### PLUMBING FOR 'FROM' ################################## /
     platform: $ => choice(
       seq('$', $.docker_variable),
       FROM_PART_REGEX
@@ -263,22 +204,59 @@ module.exports = grammar({
     ),
 
     _repository_start: $ => seq(
-      maybe_var_or_template_interpolation(FROM_PART_REGEX, $),
+      maybe_var_or_template_interpolation($, FROM_PART_REGEX),
       choice(
         token.immediate(/:\d+\//),
         '/'
       )
     ),
     _repository_continued: $ => seq(
-      maybe_var_or_template_interpolation(FROM_PART_REGEX, $),
+      maybe_var_or_template_interpolation($, FROM_PART_REGEX),
       '/'
     ),
 
-    image: $ => maybe_var_or_template_interpolation(FROM_PART_REGEX, $),
-    tag: $ => maybe_var_or_template_interpolation(FROM_PART_REGEX, $),
-    digest: $ => maybe_var_or_template_interpolation(FROM_PART_REGEX, $),
-    as_name: $ => maybe_var_or_template_interpolation(FROM_PART_REGEX, $),
+    image: $ => maybe_var_or_template_interpolation($, FROM_PART_REGEX),
+    tag: $ => maybe_var_or_template_interpolation($, FROM_PART_REGEX),
+    digest: $ => maybe_var_or_template_interpolation($, FROM_PART_REGEX),
+    as_name: $ => maybe_var_or_template_interpolation($, FROM_PART_REGEX),
 
+    // ############### PLUMBING FOR 'HEALTHCHECK' ########################### /
+    // ############### PLUMBING FOR 'LABEL' ################################# /
+    // ############### PLUMBING FOR 'MAINTAINER' ############################ /
+    // ############### PLUMBING FOR 'ONBUILD' ############################### /
+    // ############### PLUMBING FOR 'RUN' ################################### /
+    // ############### PLUMBING FOR 'SHELL' ################################# /
+
+    // ############### PLUMBING FOR 'STOPSIGNAL' ############################ /
+    signal_num: $ => /\d\d?\d?/,
+    signal_name: $ => seq(
+      any_casing('SIG'),
+      /[a-zA-Z0-9]+/
+    ),
+
+
+    // ############### PLUMBING FOR 'USER' ################################## /
+    user_name: $ => /[a-zA-Z][^\s:]*/,
+    user_group: $ => /[a-zA-Z][^\s:]*/,
+    user_id: $ => /\d+/,
+    user_group_id: $ => /\d+/,
+
+    // ############### PLUMBING FOR 'VOLUME' ################################ /
+    // ############### PLUMBING FOR 'WORKDIR' ############################### /
+
+
+    // ############### MISC. UTILITIES ###################################### /
+    path: $ => token.immediate(
+      /([^"\s\[\\][^"\s]*|"[^"\n]*")/
+    ),
+
+    _paths: $ => repeat1(seq($.path, optional($._space_no_newline))),
+    
+    _anything: $ => repeat1(token.immediate(
+      /([^\n\\#\[]|\[\s*[^\s"\]]|[^\s]#)([^\s]#|\\[^\s]|[^\n\\#])*/
+    )),
+
+    // ############### DOCKER VARIABLE HANDLING ############################# /
     docker_variable: $ => choice(
       $._docker_variable,
       seq(
@@ -292,8 +270,6 @@ module.exports = grammar({
       )
     ),
 
-    _docker_variable: $ => token.immediate(/[^\/\}\{\$"\s:]+/),
-
     variable_default_value: $ => seq(
       token.immediate(':-'),
       token.immediate(/[^\}\{"\n]+/)
@@ -304,14 +280,24 @@ module.exports = grammar({
       token.immediate(/[^\}\{"\n]+/)
     ),
 
-    _anything: $ => repeat1(token.immediate(
-      /([^\n\\#\[]|\[\s*[^\s"\]]|[^\s]#)([^\s]#|\\[^\s]|[^\n\\#])*/
-    )),
+    _docker_variable: $ => token.immediate(/[^\/\}\{\$"\s:]+/),
 
-    _json_prefix: $ => token.immediate(
-      /\[( |\t|\\\n)*\"/
+    // ############### OUT-OF-DOCKER TEMPLATING ############################# /
+    template_expr_curly_braces: $ => /[^\}\n]+/,
+    template_expr_percent_signs: $ => /[^%\n]+/,
+    template_expr_less_than_equals: $ => repeat1(
+      choice(/[^%>\?%\n]+/, /\?[^>]/, /%[^>]/)
     ),
 
+
+    // ############### VARIOUS SPACING ###################################### /
+    _space: $ => token(prec(-11, /\s/)),
+    _blank_line: $ => /[\t\f\r\v ]*\n/,
+    _space_no_newline: $ => /[\t\f\r\v ]+/,
+    comment: $ => token(prec(-10, /#[^\n]*\n*/)),
+    line_continuation: $ => token(prec(-1, /\\\s*\n/)),
+
+    // ############### MODIFIED JSON EXCERPT ################################ /
     json_array: $ => seq(
       $._json_prefix,
       optional(
@@ -321,25 +307,15 @@ module.exports = grammar({
       ']'
     ),
 
+    _json_prefix: $ => token.immediate(
+      /\[( |\t|\\\n)*\"/
+    ),
+
     _anything_or_json_array: $ => choice(
       $.json_array,
       $._anything
     ),
 
-    _space_no_newline: $ => /[\t\f\r\v ]+/,
-
-    template_expr_curly_braces: $ => /[^\}\n]+/,
-    template_expr_percent_signs: $ => /[^%\n]+/,
-    template_expr_less_than_equals: $ => repeat1(
-      choice(/[^%>\?%\n]+/, /\?[^>]/, /%[^>]/)
-    ),
-
-    _space: $ => token(prec(-11, /\s/)),
-    _blank_line: $ => /[\t\f\r\v ]*\n/,
-    comment: $ => token(prec(-10, /#[^\n]*\n*/)),
-    line_continuation: $ => token(prec(-1, /\\\s*\n/)),
-
-    // JSON excerpt
     _json_value: $ => choice(
       seq('"', '"'),
       seq('"', $._json_string, '"')
@@ -358,6 +334,16 @@ module.exports = grammar({
   }
 });
 
+// ############### UTILITY FUNCTIONS TO BUILD RULES ########################### /
+
+function directive ($, name, body_rule) {
+  return seq(
+    any_casing(name.toUpperCase()),
+    $._space_no_newline,
+    body_rule
+  );
+}
+
 function any_casing (token) { 
   return new RegExp(token.split('').map(
     c => '(' + c + '|' + c.toLowerCase() + ')'
@@ -370,9 +356,9 @@ function maybe_double_quoted (rule) {
   );
 }
 
-function maybe_var_or_template_interpolation (regex, $) {
+function maybe_var_or_template_interpolation ($, regex) {
   return choice(
-    maybe_var_interpolation(regex, $),
+    maybe_var_interpolation($, regex),
     // (3) {{var}}|something{{var}}({{var}}|something{{var}})*something?
     //     ^^ where these '{{' '}}' pairs are varied according to common template
     //     opening and closing pairs
@@ -388,7 +374,7 @@ function maybe_var_or_template_interpolation (regex, $) {
   );
 }
 
-function maybe_var_interpolation (regex, $) {
+function maybe_var_interpolation ($, regex) {
   return choice(
     // (1) Just a match with no interpolation
     regex,

@@ -26,3 +26,17 @@ EXPOSE 9091
   (copy (path) (path))
   (expose (port))
 )
+
+===================================
+COPY Immediate line continuation
+===================================
+
+COPY \
+    something.tgz \
+    /tmp/something/
+
+---
+
+(dockerfile
+  (copy (line_continuation) (path) (line_continuation) (path))
+)
