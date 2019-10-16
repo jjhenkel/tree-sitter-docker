@@ -1,0 +1,37 @@
+===================================
+ENV basic syntax
+===================================
+
+ENV key value
+ENV key=value
+
+ENV "key"="value"
+ENV key="value with spaces"
+
+ENV myName="John Doe" myDog=Rex\ The\ Dog \
+    myCat=fluffy
+
+ENV myName John Doe
+ENV myDog Rex The Dog
+ENV myCat fluffy
+
+---
+
+(dockerfile
+  (env (env_pair (env_key) (env_value)))
+  (env (env_pair (env_key) (env_value)))
+
+  (env (env_pair (env_key) (env_value)))
+  (env (env_pair (env_key) (env_value)))
+
+  (env
+    (env_pair (env_key) (env_value))
+    (env_pair (env_key) (env_value))
+    (line_continuation)
+    (env_pair (env_key) (env_value))
+  )
+
+  (env (env_pair (env_key) (env_value)))
+  (env (env_pair (env_key) (env_value)))
+  (env (env_pair (env_key) (env_value)))
+)

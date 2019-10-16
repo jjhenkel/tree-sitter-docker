@@ -65,7 +65,7 @@ ENTRYPOINT ["java","-Dspring.profiles.active=docker","-Djava.security.egd=file:/
 (dockerfile
   (from (image) (tag))
   (volume (json_array))
-  (env)
+  (env (env_pair (env_key) (env_value)))
   (run 
     (line_continuation)
     (line_continuation)
@@ -124,7 +124,7 @@ USER biodocker
     (line_continuation)
     (label_pair (label_key) (label_value))
   )
-  (env)
+  (env (env_pair (env_key) (env_value)))
   (run)
   (user (user_name))
 )
@@ -275,7 +275,7 @@ USER circleci
   (user (user_name))
   (comment)
   (run (line_continuation))
-  (env)
+  (env (env_pair (env_key) (env_value)))
   (run 
     (line_continuation)
     (line_continuation)
@@ -313,7 +313,7 @@ USER circleci
     (line_continuation)
     (line_continuation)
   )
-  (env)
+  (env (env_pair (env_key) (env_value)))
   (run
     (line_continuation)
     (line_continuation)

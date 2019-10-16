@@ -22,8 +22,8 @@ testing
 
 (dockerfile
     (run)
-    (env (line_continuation) (comment))
-    (env)
+    (env (env_pair (env_key) (line_continuation) (comment) (env_value)))
+    (env (env_pair (env_key)))
     (maintainer (comment))
     (run (line_continuation) (line_continuation))
 ) 

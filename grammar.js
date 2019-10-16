@@ -68,7 +68,7 @@ module.exports = grammar({
     )),
 
     env: $ => directive($, 'ENV', seq(
-      $._anything
+      $._env_pairs
     )),
 
     expose: $ => directive($, 'EXPOSE', choice(
@@ -166,6 +166,23 @@ module.exports = grammar({
     // ############### PLUMBING FOR 'COPY' ################################## /
     // ############### PLUMBING FOR 'ENTRYPOINT' ############################ /
     // ############### PLUMBING FOR 'ENV' ################################### /
+    _env_pairs: $ => repeat1($.env_pair),
+
+    env_pair: $ => seq(
+      $.env_key,
+      optional(choice(
+        seq('=', $.env_value),
+        seq($._space_no_newline, alias($._anything, $.env_value))
+      ))
+    ),
+
+    env_key: $ => token.immediate(/"?[a-zA-Z][a-zA-Z0-9_\-\.]*"?/),
+
+    env_value: $ => choice(
+      /""/,
+      token.immediate(/([^\s\\\"]|\\[^\s\"]|\\ )+/),
+      seq('"', repeat1(token.immediate(/([^\n"]|\\")+/)), '"')
+    ),
 
     // ############### PLUMBING FOR 'EXPOSE' ################################ /
     _port_spec: $ => prec.left(choice(

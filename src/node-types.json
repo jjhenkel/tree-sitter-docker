@@ -251,6 +251,45 @@
   {
     "type": "env",
     "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "env_pair",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "env_key",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "env_pair",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "env_key",
+          "named": true
+        },
+        {
+          "type": "env_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "env_value",
+    "named": true,
     "fields": {}
   },
   {
@@ -431,6 +470,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "label_key",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "label_pair",
@@ -915,10 +959,6 @@
   {
     "type": "--retires",
     "named": false
-  },
-  {
-    "type": "label_key",
-    "named": true
   },
   {
     "type": "signal_num",
