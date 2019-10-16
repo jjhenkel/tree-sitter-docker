@@ -839,101 +839,8 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "PATTERN",
-                  "value": "[^\\n\\$]+"
-                },
-                {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "CHOICE",
-                      "members": [
-                        {
-                          "type": "SEQ",
-                          "members": [
-                            {
-                              "type": "STRING",
-                              "value": "$"
-                            },
-                            {
-                              "type": "SYMBOL",
-                              "name": "docker_variable"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "SEQ",
-                          "members": [
-                            {
-                              "type": "PATTERN",
-                              "value": "[^\\n\\$]+\\$"
-                            },
-                            {
-                              "type": "SYMBOL",
-                              "name": "docker_variable"
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "REPEAT",
-                      "content": {
-                        "type": "CHOICE",
-                        "members": [
-                          {
-                            "type": "SEQ",
-                            "members": [
-                              {
-                                "type": "STRING",
-                                "value": "$"
-                              },
-                              {
-                                "type": "SYMBOL",
-                                "name": "docker_variable"
-                              }
-                            ]
-                          },
-                          {
-                            "type": "SEQ",
-                            "members": [
-                              {
-                                "type": "IMMEDIATE_TOKEN",
-                                "content": {
-                                  "type": "PATTERN",
-                                  "value": "[^\\n\\$]+\\$"
-                                }
-                              },
-                              {
-                                "type": "SYMBOL",
-                                "name": "docker_variable"
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "type": "CHOICE",
-                      "members": [
-                        {
-                          "type": "IMMEDIATE_TOKEN",
-                          "content": {
-                            "type": "PATTERN",
-                            "value": "[^\\n\\$]+"
-                          }
-                        },
-                        {
-                          "type": "BLANK"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "path"
             }
           ]
         }
@@ -4512,7 +4419,7 @@
                   "value": -10,
                   "content": {
                     "type": "PATTERN",
-                    "value": "[^\"\\s\\[\\\\][^\"\\s]*"
+                    "value": "[^\"\\s\\[\\\\\\$][^\"\\s\\$]*"
                   }
                 }
               },
@@ -4539,8 +4446,15 @@
                         "type": "SEQ",
                         "members": [
                           {
-                            "type": "PATTERN",
-                            "value": "undefined\\$"
+                            "type": "IMMEDIATE_TOKEN",
+                            "content": {
+                              "type": "PREC",
+                              "value": -10,
+                              "content": {
+                                "type": "PATTERN",
+                                "value": "[^\"\\s\\[\\\\\\$][^\"\\s\\$]*\\$"
+                              }
+                            }
                           },
                           {
                             "type": "SYMBOL",
@@ -4574,8 +4488,12 @@
                             {
                               "type": "IMMEDIATE_TOKEN",
                               "content": {
-                                "type": "PATTERN",
-                                "value": "undefined\\$"
+                                "type": "PREC",
+                                "value": -10,
+                                "content": {
+                                  "type": "PATTERN",
+                                  "value": "[^\"\\s\\[\\\\\\$][^\"\\s\\$]*\\$"
+                                }
                               }
                             },
                             {
@@ -4593,14 +4511,11 @@
                       {
                         "type": "IMMEDIATE_TOKEN",
                         "content": {
-                          "type": "IMMEDIATE_TOKEN",
+                          "type": "PREC",
+                          "value": -10,
                           "content": {
-                            "type": "PREC",
-                            "value": -10,
-                            "content": {
-                              "type": "PATTERN",
-                              "value": "[^\"\\s\\[\\\\][^\"\\s]*"
-                            }
+                            "type": "PATTERN",
+                            "value": "[^\"\\s\\[\\\\\\$][^\"\\s\\$]*"
                           }
                         }
                       },
@@ -4630,7 +4545,7 @@
                       "value": -10,
                       "content": {
                         "type": "PATTERN",
-                        "value": "[^\"\\n]*"
+                        "value": "[^\"\\n\\$]*"
                       }
                     }
                   },
@@ -4657,8 +4572,15 @@
                             "type": "SEQ",
                             "members": [
                               {
-                                "type": "PATTERN",
-                                "value": "undefined\\$"
+                                "type": "IMMEDIATE_TOKEN",
+                                "content": {
+                                  "type": "PREC",
+                                  "value": -10,
+                                  "content": {
+                                    "type": "PATTERN",
+                                    "value": "[^\"\\n\\$]*\\$"
+                                  }
+                                }
                               },
                               {
                                 "type": "SYMBOL",
@@ -4692,8 +4614,12 @@
                                 {
                                   "type": "IMMEDIATE_TOKEN",
                                   "content": {
-                                    "type": "PATTERN",
-                                    "value": "undefined\\$"
+                                    "type": "PREC",
+                                    "value": -10,
+                                    "content": {
+                                      "type": "PATTERN",
+                                      "value": "[^\"\\n\\$]*\\$"
+                                    }
                                   }
                                 },
                                 {
@@ -4711,14 +4637,11 @@
                           {
                             "type": "IMMEDIATE_TOKEN",
                             "content": {
-                              "type": "IMMEDIATE_TOKEN",
+                              "type": "PREC",
+                              "value": -10,
                               "content": {
-                                "type": "PREC",
-                                "value": -10,
-                                "content": {
-                                  "type": "PATTERN",
-                                  "value": "[^\"\\n]*"
-                                }
+                                "type": "PATTERN",
+                                "value": "[^\"\\n\\$]*"
                               }
                             }
                           },

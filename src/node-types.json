@@ -930,11 +930,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
-      "required": false,
+      "multiple": false,
+      "required": true,
       "types": [
         {
-          "type": "docker_variable",
+          "type": "path",
           "named": true
         }
       ]

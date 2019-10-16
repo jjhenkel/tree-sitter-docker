@@ -165,7 +165,7 @@ ENTRYPOINT ["python", "autosploit.py"]
   )
   (run)
   (copy (path) (path))
-  (workdir)
+  (workdir (path))
   (expose (port) (port) (port))
   (entrypoint (json_array))
   (comment)

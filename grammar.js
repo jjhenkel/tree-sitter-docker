@@ -154,7 +154,7 @@ module.exports = grammar({
     )),
 
     workdir: $ => directive($, 'WORKDIR', seq(
-      maybe_var_interpolation($, /[^\n\$]+/)
+      $.path
     )),
 
     // ############### PLUMBING FOR 'ADD' ################################### /
@@ -329,8 +329,16 @@ module.exports = grammar({
 
     // ############### MISC. UTILITIES ###################################### /
     path: $ => prec.right(choice(
-      maybe_var_interpolation($, token.immediate(prec(-10, /[^"\s\[\\][^"\s]*/))),
-      seq('"', maybe_var_interpolation($, token.immediate(prec(-10, /[^"\n]*/))), '"')
+      maybe_var_interpolation($, (postfix) =>
+        token.immediate(prec(-10, new RegExp(/[^"\s\[\\\$][^"\s\$]*/.source + postfix)))
+      ),
+      seq(
+        '"',
+        maybe_var_interpolation($, (postfix) => 
+          token.immediate(prec(-10, new RegExp(/[^"\n\$]*/.source + postfix)))
+        ),
+        '"'
+      )
     )),
 
     _paths: $ => repeat1(seq($.path, optional($._space_no_newline))),
@@ -439,24 +447,24 @@ function maybe_var_or_template_interpolation ($, regex) {
 function maybe_var_interpolation ($, regex) {
   return choice(
     // (1) Just a match with no interpolation
-    regex,
+    regex.source ? regex : regex(''),
     // (2) ${var}|something${var}(${var}|something${var})*something?
     seq(
       choice(
         seq('$', $.docker_variable),
         seq(
-          new RegExp(regex.source + '\\$'),
+          regex.source ? new RegExp(regex.source + '\\$') : regex('\\$'),
           $.docker_variable
         )
       ),
       repeat(choice(
         seq('$', $.docker_variable),
         seq(
-          token.immediate(new RegExp(regex.source + '\\$')),
+          regex.source ? token.immediate(new RegExp(regex.source + '\\$')) : regex('\\$'),
           $.docker_variable
         )
       )),
-      optional(token.immediate(regex))
+      optional(regex.source ? token.immediate(regex) : regex(''))
     )
   );
 }

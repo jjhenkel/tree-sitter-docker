@@ -10,8 +10,8 @@ WORKDIR $DIRPATH/$DIRNAME
 ---
 
 (dockerfile 
-    (workdir)
-    (workdir)
-    (workdir)
-    (workdir (docker_variable) (docker_variable))
+    (workdir (path))
+    (workdir (path))
+    (workdir (path))
+    (workdir (path (docker_variable) (docker_variable)))
 )
