@@ -5,7 +5,7 @@ module.exports = grammar({
   name: 'DOCKER',
   
   extras: $ => [
-    /\s/,
+    $._space,
     $.comment,
     $.line_continuation
   ],
@@ -41,7 +41,8 @@ module.exports = grammar({
       $.stopsignal,
       $.user,
       $.volume,
-      $.workdir
+      $.workdir,
+      $._blank_line
     ),
 
     onbuild: $ => seq(
@@ -100,7 +101,7 @@ module.exports = grammar({
       any_casing('ADD'),
       $._space_no_newline,
       choice(
-        repeat1($.path),
+        repeat1(seq($.path, optional($._space_no_newline))),
         $.json_array
       )
     ),
@@ -109,7 +110,7 @@ module.exports = grammar({
       any_casing('COPY'),
       $._space_no_newline,
       choice(
-        repeat1($.path),
+        repeat1(seq($.path, optional($._space_no_newline))),
         $.json_array
       )
     ),
@@ -139,14 +140,13 @@ module.exports = grammar({
       any_casing('VOLUME'),
       $._space_no_newline,
       choice(
-        repeat1($.path),
+        repeat1(seq($.path, optional($._space_no_newline))),
         $.json_array
       )
     ),
 
-    path: $ => choice(
-      /[^"\s][^"\s]*/,
-      seq('"', /[^"\n]+/, '"')
+    path: $ => token.immediate(
+      /([^"\s\[][^"\s]*|"[^"\n]*")/
     ),
 
     workdir: $ => seq(
@@ -248,7 +248,7 @@ module.exports = grammar({
         '@', optional('sha256:'), $.digest
       )),
       optional(seq(
-        any_casing('AS'), $.as_name
+        $._space_no_newline, any_casing('AS'), $._space_no_newline, $.as_name
       ))
     ),
   
@@ -334,6 +334,8 @@ module.exports = grammar({
       choice(/[^%>\?%\n]+/, /\?[^>]/, /%[^>]/)
     ),
 
+    _space: $ => token(prec(-11, /\s/)),
+    _blank_line: $ => /[\t\f\r\v ]*\n/,
     comment: $ => token(prec(-10, /#[^\n]*\n*/)),
     line_continuation: $ => token(prec(-1, /\\\s*\n/)),
 

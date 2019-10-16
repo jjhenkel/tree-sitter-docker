@@ -91,6 +91,10 @@
         {
           "type": "SYMBOL",
           "name": "workdir"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_blank_line"
         }
       ]
     },
@@ -291,8 +295,25 @@
             {
               "type": "REPEAT1",
               "content": {
-                "type": "SYMBOL",
-                "name": "path"
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "path"
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "_space_no_newline"
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  }
+                ]
               }
             },
             {
@@ -320,8 +341,25 @@
             {
               "type": "REPEAT1",
               "content": {
-                "type": "SYMBOL",
-                "name": "path"
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "path"
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "_space_no_newline"
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  }
+                ]
               }
             },
             {
@@ -409,8 +447,25 @@
             {
               "type": "REPEAT1",
               "content": {
-                "type": "SYMBOL",
-                "name": "path"
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "path"
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "_space_no_newline"
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  }
+                ]
               }
             },
             {
@@ -422,30 +477,11 @@
       ]
     },
     "path": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "PATTERN",
-          "value": "[^\"\\s][^\"\\s]*"
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "\""
-            },
-            {
-              "type": "PATTERN",
-              "value": "[^\"\\n]+"
-            },
-            {
-              "type": "STRING",
-              "value": "\""
-            }
-          ]
-        }
-      ]
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "([^\"\\s\\[][^\"\\s]*|\"[^\"\\n]*\")"
+      }
     },
     "workdir": {
       "type": "SEQ",
@@ -1086,8 +1122,16 @@
               "type": "SEQ",
               "members": [
                 {
+                  "type": "SYMBOL",
+                  "name": "_space_no_newline"
+                },
+                {
                   "type": "PATTERN",
                   "value": "(A|a)(S|s)"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_space_no_newline"
                 },
                 {
                   "type": "SYMBOL",
@@ -4242,6 +4286,21 @@
         ]
       }
     },
+    "_space": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": -11,
+        "content": {
+          "type": "PATTERN",
+          "value": "\\s"
+        }
+      }
+    },
+    "_blank_line": {
+      "type": "PATTERN",
+      "value": "[\\t\\f\\r\\v ]*\\n"
+    },
     "comment": {
       "type": "TOKEN",
       "content": {
@@ -4337,8 +4396,8 @@
   },
   "extras": [
     {
-      "type": "PATTERN",
-      "value": "\\s"
+      "type": "SYMBOL",
+      "name": "_space"
     },
     {
       "type": "SYMBOL",

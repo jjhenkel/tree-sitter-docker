@@ -1,0 +1,28 @@
+===================================
+ADD Basic Syntax 
+===================================
+
+ADD /target/*.js app.jar
+ADD [ "/target/foo bar.tx", "/app" ]
+
+---
+
+(dockerfile
+  (add (path) (path))
+  (add (json_array))
+)
+
+===================================
+ADD Don't grab non-path values
+===================================
+
+ADD /target/*.jar app.jar
+
+EXPOSE 9091
+
+---
+
+(dockerfile 
+  (add (path) (path))
+  (expose (port))
+)

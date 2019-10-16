@@ -124,3 +124,22 @@ this is some more useful stuff
   (run (line_continuation) (line_continuation))
   (run (line_continuation) (comment) (comment))
 ) 
+
+===================================
+RUN don't slurp following directive
+===================================
+
+# blah
+RUN whoami
+
+# user root
+USER root
+
+---
+
+(dockerfile 
+  (comment)
+  (run)
+  (comment)
+  (user (user_name))
+)

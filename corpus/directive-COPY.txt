@@ -1,0 +1,28 @@
+===================================
+COPY Basic Syntax 
+===================================
+
+COPY /target/*.js app.jar
+COPY [ "/target/foo bar.tx", "/app" ]
+
+---
+
+(dockerfile
+  (copy (path) (path))
+  (copy (json_array))
+)
+
+===================================
+COPY Don't grab non-path values
+===================================
+
+COPY /target/*.jar app.jar
+
+EXPOSE 9091
+
+---
+
+(dockerfile 
+  (copy (path) (path))
+  (expose (port))
+)

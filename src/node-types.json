@@ -482,11 +482,6 @@
     }
   },
   {
-    "type": "path",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "platform",
     "named": true,
     "fields": {},
@@ -775,8 +770,8 @@
     "named": true
   },
   {
-    "type": "\"",
-    "named": false
+    "type": "path",
+    "named": true
   },
   {
     "type": "$",
@@ -784,6 +779,10 @@
   },
   {
     "type": ":",
+    "named": false
+  },
+  {
+    "type": "\"",
     "named": false
   },
   {
