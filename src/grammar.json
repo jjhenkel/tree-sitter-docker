@@ -460,11 +460,27 @@
           "name": "_space_no_newline"
         },
         {
-          "type": "SEQ",
+          "type": "CHOICE",
           "members": [
             {
               "type": "SYMBOL",
-              "name": "_anything"
+              "name": "hc_none"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_hc_options"
+                  }
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_hc_command"
+                }
+              ]
             }
           ]
         }
@@ -4020,6 +4036,136 @@
           ]
         }
       ]
+    },
+    "hc_none": {
+      "type": "PATTERN",
+      "value": "(N|n)(O|o)(N|n)(E|e)"
+    },
+    "_hc_interval": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "--interval"
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "hc_interval"
+        }
+      ]
+    },
+    "hc_interval": {
+      "type": "PATTERN",
+      "value": "\\w+"
+    },
+    "_hc_timeout": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "--timeout"
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "hc_timeout"
+        }
+      ]
+    },
+    "hc_timeout": {
+      "type": "PATTERN",
+      "value": "\\w+"
+    },
+    "_hc_start_period": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "--start-period"
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "hc_start_period"
+        }
+      ]
+    },
+    "hc_start_period": {
+      "type": "PATTERN",
+      "value": "\\w+"
+    },
+    "_hc_retries": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "--retires"
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "hc_retries"
+        }
+      ]
+    },
+    "hc_retries": {
+      "type": "PATTERN",
+      "value": "\\d+"
+    },
+    "_hc_options": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_hc_interval"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_hc_timeout"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_hc_start_period"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_hc_retries"
+        }
+      ]
+    },
+    "_hc_command": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "(C|c)(M|m)(D|d)"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_space_no_newline"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "hc_command"
+        }
+      ]
+    },
+    "hc_command": {
+      "type": "SYMBOL",
+      "name": "_anything_or_json_array"
     },
     "_labels": {
       "type": "REPEAT1",

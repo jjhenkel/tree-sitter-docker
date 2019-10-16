@@ -96,8 +96,12 @@ module.exports = grammar({
       ))
     )),
 
-    healthcheck: $ => directive($, 'HEALTHCHECK', seq(
-      $._anything
+    healthcheck: $ => directive($, 'HEALTHCHECK', choice(
+      $.hc_none,
+      seq(
+        repeat($._hc_options),
+        $._hc_command
+      )
     )),
 
     label: $ => directive($, 'LABEL', seq(
@@ -221,6 +225,43 @@ module.exports = grammar({
     as_name: $ => maybe_var_or_template_interpolation($, FROM_PART_REGEX),
 
     // ############### PLUMBING FOR 'HEALTHCHECK' ########################### /
+    hc_none: $ => any_casing('NONE'),
+
+    _hc_interval: $ => seq(
+      '--interval', '=', $.hc_interval
+    ),
+    hc_interval: $ => /\w+/,
+
+    _hc_timeout: $ => seq(
+      '--timeout', '=', $.hc_timeout
+    ),
+    hc_timeout: $ => /\w+/,
+
+    _hc_start_period: $ => seq(
+      '--start-period', '=', $.hc_start_period
+    ),
+    hc_start_period: $ => /\w+/,
+
+    _hc_retries: $ => seq(
+      '--retires', '=', $.hc_retries
+    ),
+    hc_retries: $ => /\d+/,
+
+    _hc_options: $ => choice(
+      $._hc_interval,
+      $._hc_timeout,
+      $._hc_start_period,
+      $._hc_retries
+    ),
+    
+    _hc_command: $ => seq(
+      any_casing('CMD'),
+      $._space_no_newline,
+      $.hc_command
+    ),
+
+    hc_command: $ => $._anything_or_json_array,
+
     // ############### PLUMBING FOR 'LABEL' ################################# /
     _labels: $ => repeat1($.label_pair),
 

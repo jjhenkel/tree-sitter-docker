@@ -316,9 +316,74 @@
     }
   },
   {
-    "type": "healthcheck",
+    "type": "hc_command",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "json_array",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "hc_interval",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "hc_retries",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "hc_start_period",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "hc_timeout",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "healthcheck",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "hc_command",
+          "named": true
+        },
+        {
+          "type": "hc_interval",
+          "named": true
+        },
+        {
+          "type": "hc_none",
+          "named": true
+        },
+        {
+          "type": "hc_retries",
+          "named": true
+        },
+        {
+          "type": "hc_start_period",
+          "named": true
+        },
+        {
+          "type": "hc_timeout",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "image",
@@ -829,6 +894,26 @@
   },
   {
     "type": "/",
+    "named": false
+  },
+  {
+    "type": "hc_none",
+    "named": true
+  },
+  {
+    "type": "--interval",
+    "named": false
+  },
+  {
+    "type": "--timeout",
+    "named": false
+  },
+  {
+    "type": "--start-period",
+    "named": false
+  },
+  {
+    "type": "--retires",
     "named": false
   },
   {

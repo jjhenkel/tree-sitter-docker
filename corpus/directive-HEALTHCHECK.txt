@@ -1,0 +1,46 @@
+===================================
+HEALTHCHECK Basic Syntax 
+===================================
+
+HEALTHCHECK NONE
+
+HEALTHCHECK --interval=5m --timeout=3s \
+  CMD curl -f http://localhost/ || exit 1
+
+HEALTHCHECK --timeout=3s \
+  --interval=5m  \
+  CMD curl -f http://localhost/ || exit 1
+
+HEALTHCHECK --interval=5m --timeout=3s --retires=123 --start-period=30m  \
+  CMD curl -f http://localhost/ || exit 1
+
+HEALTHCHECK \
+  cMd curl -f http://localhost/ || exit 1
+
+---
+
+(dockerfile
+  (healthcheck (hc_none))
+  (healthcheck
+    (hc_interval)
+    (hc_timeout)
+    (line_continuation)
+    (hc_command)
+  )
+  (healthcheck
+    (hc_timeout)
+    (line_continuation)
+    (hc_interval)
+    (line_continuation)
+    (hc_command)
+  )
+  (healthcheck
+    (hc_interval)
+    (hc_timeout)
+    (hc_retries)
+    (hc_start_period)
+    (line_continuation)
+    (hc_command)
+  )
+  (healthcheck (line_continuation) (hc_command))
+)
