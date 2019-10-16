@@ -1,27 +1,6 @@
 
 const FROM_PART_REGEX = /[^\$\s\/:@\{\}%<>=\?]+/;
 
-const DIRECTIVE_NAMES = [
-  'ADD',
-  'ARG',
-  'CMD',
-  'COPY',
-  'ENTRYPOINT',
-  'ENV',
-  'EXPOSE',
-  'FROM',
-  'HEALTHCHECK',
-  'LABEL',
-  'MAINTAINER',
-  'ONBUILD',
-  'RUN',
-  'SHELL',
-  'STOPSIGNAL',
-  'USER',
-  'VOLUME',
-  'WORKDIR'
-];
-
 module.exports = grammar({
   name: 'DOCKER',
   
@@ -89,17 +68,20 @@ module.exports = grammar({
 
     env: $ => seq(
       any_casing('ENV'),
-      $._space_no_newline
+      $._space_no_newline,
+      $._anything
     ),
 
     label: $ => seq(
       any_casing('LABEL'),
-      $._space_no_newline
+      $._space_no_newline,
+      $._anything
     ),
 
     healthcheck: $ => seq(
       any_casing('HEALTHCHECK'),
-      $._space_no_newline
+      $._space_no_newline,
+      $._anything
     ),
 
     arg: $ => seq(
@@ -322,21 +304,12 @@ module.exports = grammar({
       token.immediate(/[^\}\{"\n]+/)
     ),
 
-    _anything: $ => repeat1(choice(
-      token.immediate(/[^\n\\#]+/),
-      token.immediate(/\\[^\s]/),
+    _anything: $ => repeat1(token.immediate(
+      /([^\n\\#\[]|\[\s*[^\s"\]]|[^\s]#)([^\s]#|\\[^\s]|[^\n\\#])*/
     )),
-
-    _almost_json_prefix: $ => token.immediate(
-      /\[( |\t|\\\n)*[^\" \t\\\n]/,
-    ),
 
     _json_prefix: $ => token.immediate(
       /\[( |\t|\\\n)*\"/
-    ),
-
-    _not_json_prefix: $ => token.immediate(
-      /[^\n\\#\[]+/
     ),
 
     json_array: $ => seq(
@@ -349,9 +322,8 @@ module.exports = grammar({
     ),
 
     _anything_or_json_array: $ => choice(
-      seq($._almost_json_prefix, $._anything),
       $.json_array,
-      seq($._not_json_prefix, optional($._anything))
+      $._anything
     ),
 
     _space_no_newline: $ => /[\t\f\r\v ]+/,
@@ -362,7 +334,7 @@ module.exports = grammar({
       choice(/[^%>\?%\n]+/, /\?[^>]/, /%[^>]/)
     ),
 
-    comment: $ => token(prec(-10, /#.*\n+/)),
+    comment: $ => token(prec(-10, /#[^\n]*\n*/)),
     line_continuation: $ => token(prec(-1, /\\\s*\n/)),
 
     // JSON excerpt

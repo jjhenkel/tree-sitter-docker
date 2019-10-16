@@ -1,0 +1,29 @@
+===================================
+Tests for '_anything'
+===================================
+
+RUN '#this is a test'
+
+ENV name \
+
+# Testing
+bar=foo
+
+ENV test 
+
+MAINTAINER test # test
+
+RUN test \
+
+\
+testing
+
+---
+
+(dockerfile
+    (run)
+    (env (line_continuation) (comment))
+    (env)
+    (maintainer (comment))
+    (run (line_continuation) (line_continuation))
+) 

@@ -94,84 +94,6 @@
         }
       ]
     },
-    "onbuild": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "PATTERN",
-          "value": "(O|o)(N|n)(B|b)(U|u)(I|i)(L|l)(D|d)"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_space_no_newline"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "add"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "arg"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "cmd"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "copy"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "entrypoint"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "env"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "expose"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "healthcheck"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "label"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "run"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "shell"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "stopsignal"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "user"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "volume"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "workdir"
-            }
-          ]
-        }
-      ]
-    },
     "env": {
       "type": "SEQ",
       "members": [
@@ -182,6 +104,10 @@
         {
           "type": "SYMBOL",
           "name": "_space_no_newline"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_anything"
         }
       ]
     },
@@ -195,6 +121,27 @@
         {
           "type": "SYMBOL",
           "name": "_space_no_newline"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_anything"
+        }
+      ]
+    },
+    "onbuild": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "(O|o)(N|n)(B|b)(U|u)(I|i)(L|l)(D|d)"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_space_no_newline"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_anything"
         }
       ]
     },
@@ -208,6 +155,10 @@
         {
           "type": "SYMBOL",
           "name": "_space_no_newline"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_anything"
         }
       ]
     },
@@ -4112,30 +4063,11 @@
     "_anything": {
       "type": "REPEAT1",
       "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "IMMEDIATE_TOKEN",
-            "content": {
-              "type": "PATTERN",
-              "value": "[^\\n\\\\#]+"
-            }
-          },
-          {
-            "type": "IMMEDIATE_TOKEN",
-            "content": {
-              "type": "PATTERN",
-              "value": "\\\\[^\\s]"
-            }
-          }
-        ]
-      }
-    },
-    "_almost_json_prefix": {
-      "type": "IMMEDIATE_TOKEN",
-      "content": {
-        "type": "PATTERN",
-        "value": "\\[( |\\t|\\\\\\n)*[^\\\" \\t\\\\\\n]"
+        "type": "IMMEDIATE_TOKEN",
+        "content": {
+          "type": "PATTERN",
+          "value": "([^\\n\\\\#\\[]|\\[\\s*[^\\s\"\\]]|[^\\s]#)([^\\s]#|\\\\[^\\s]|[^\\n\\\\#])*"
+        }
       }
     },
     "_json_prefix": {
@@ -4143,13 +4075,6 @@
       "content": {
         "type": "PATTERN",
         "value": "\\[( |\\t|\\\\\\n)*\\\""
-      }
-    },
-    "_not_json_prefix": {
-      "type": "IMMEDIATE_TOKEN",
-      "content": {
-        "type": "PATTERN",
-        "value": "[^\\n\\\\#\\[]+"
       }
     },
     "json_array": {
@@ -4215,42 +4140,12 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_almost_json_prefix"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_anything"
-            }
-          ]
-        },
-        {
           "type": "SYMBOL",
           "name": "json_array"
         },
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_not_json_prefix"
-            },
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_anything"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "_anything"
         }
       ]
     },
@@ -4293,7 +4188,7 @@
         "value": -10,
         "content": {
           "type": "PATTERN",
-          "value": "#.*\\n+"
+          "value": "#[^\\n]*\\n*"
         }
       }
     },
