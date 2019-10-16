@@ -328,8 +328,9 @@ module.exports = grammar({
 
 
     // ############### MISC. UTILITIES ###################################### /
-    path: $ => token.immediate(prec(-10,
-      /([^"\s\[\\][^"\s]*|"[^"\n]*")/
+    path: $ => prec.right(choice(
+      maybe_var_interpolation($, token.immediate(prec(-10, /[^"\s\[\\][^"\s]*/))),
+      seq('"', maybe_var_interpolation($, token.immediate(prec(-10, /[^"\n]*/))), '"')
     )),
 
     _paths: $ => repeat1(seq($.path, optional($._space_no_newline))),

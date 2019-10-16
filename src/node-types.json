@@ -650,6 +650,21 @@
     }
   },
   {
+    "type": "path",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "docker_variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "platform",
     "named": true,
     "fields": {},
@@ -995,10 +1010,6 @@
   },
   {
     "type": "signal_num",
-    "named": true
-  },
-  {
-    "type": "path",
     "named": true
   },
   {
