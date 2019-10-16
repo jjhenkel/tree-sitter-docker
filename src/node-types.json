@@ -38,11 +38,6 @@
     }
   },
   {
-    "type": "arg_default",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "as_name",
     "named": true,
     "fields": {},
@@ -64,6 +59,37 @@
         },
         {
           "type": "template_expr_percent_signs",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "chown",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "docker_variable",
+          "named": true
+        },
+        {
+          "type": "user_group",
+          "named": true
+        },
+        {
+          "type": "user_group_id",
+          "named": true
+        },
+        {
+          "type": "user_id",
+          "named": true
+        },
+        {
+          "type": "user_name",
           "named": true
         }
       ]
@@ -92,6 +118,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "chown",
+          "named": true
+        },
         {
           "type": "json_array",
           "named": true
@@ -450,11 +480,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "json_array",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "label",
@@ -933,6 +958,14 @@
     "named": true
   },
   {
+    "type": "arg_default",
+    "named": true
+  },
+  {
+    "type": "--chown=",
+    "named": false
+  },
+  {
     "type": "-",
     "named": false
   },
@@ -1001,11 +1034,7 @@
     "named": true
   },
   {
-    "type": ",",
-    "named": false
-  },
-  {
-    "type": "]",
-    "named": false
+    "type": "json_array",
+    "named": true
   }
 ]

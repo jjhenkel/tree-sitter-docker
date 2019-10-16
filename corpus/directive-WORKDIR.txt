@@ -13,5 +13,5 @@ WORKDIR $DIRPATH/$DIRNAME
     (workdir)
     (workdir)
     (workdir)
-    (workdir)
+    (workdir (docker_variable) (docker_variable))
 )

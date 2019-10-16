@@ -60,7 +60,8 @@ module.exports = grammar({
     )),
 
     copy: $ => directive($, 'COPY', choice(
-      $._paths, $.json_array
+      seq(optional($._chown), $._paths),
+      $.json_array
     )),
 
     entrypoint: $ => directive($, 'ENTRYPOINT', seq(
@@ -153,7 +154,7 @@ module.exports = grammar({
     )),
 
     workdir: $ => directive($, 'WORKDIR', seq(
-      maybe_var_interpolation($, /[^\n]+/)
+      maybe_var_interpolation($, /[^\n\$]+/)
     )),
 
     // ############### PLUMBING FOR 'ADD' ################################### /
@@ -164,6 +165,17 @@ module.exports = grammar({
 
     // ############### PLUMBING FOR 'CMD' ################################### /
     // ############### PLUMBING FOR 'COPY' ################################## /
+    _chown: $ => seq(
+      '--chown=',
+      $.chown
+    ),
+
+    chown: $ => choice(
+      seq($.user_name, optional(seq(':', $.user_group))),
+      seq($.user_id, optional(seq(':', $.user_group_id))),
+      seq('$', $.docker_variable)
+    ),
+
     // ############### PLUMBING FOR 'ENTRYPOINT' ############################ /
     // ############### PLUMBING FOR 'ENV' ################################### /
     _env_pairs: $ => repeat1($.env_pair),
@@ -306,25 +318,25 @@ module.exports = grammar({
 
 
     // ############### PLUMBING FOR 'USER' ################################## /
-    user_name: $ => /[a-zA-Z][^\s:]*/,
-    user_group: $ => /[a-zA-Z][^\s:]*/,
-    user_id: $ => /\d+/,
-    user_group_id: $ => /\d+/,
+    user_name: $ => token.immediate(/[a-zA-Z][^\s:]*/),
+    user_group: $ => token.immediate(/[a-zA-Z][^\s:]*/),
+    user_id: $ => token.immediate(/\d+/),
+    user_group_id: $ => token.immediate(/\d+/),
 
     // ############### PLUMBING FOR 'VOLUME' ################################ /
     // ############### PLUMBING FOR 'WORKDIR' ############################### /
 
 
     // ############### MISC. UTILITIES ###################################### /
-    path: $ => token.immediate(
+    path: $ => token.immediate(prec(-10,
       /([^"\s\[\\][^"\s]*|"[^"\n]*")/
-    ),
+    )),
 
     _paths: $ => repeat1(seq($.path, optional($._space_no_newline))),
     
-    _anything: $ => repeat1(token.immediate(
-      /([^\n\\#\[]|\[\s*[^\s"\]]|[^\s]#)([^\s]#|\\[^\s]|[^\n\\#])*/
-    )),
+    _anything: $ => repeat1(token.immediate(prec(-1,
+      /([^\n\\#]|[^\s]#)([^\s]#|\\[^\s]|[^\n\\#])*/
+    ))),
 
     // ############### DOCKER VARIABLE HANDLING ############################# /
     docker_variable: $ => choice(
@@ -368,38 +380,17 @@ module.exports = grammar({
     line_continuation: $ => token(prec(-1, /\\\s*\n/)),
 
     // ############### MODIFIED JSON EXCERPT ################################ /
-    json_array: $ => seq(
-      $._json_prefix,
-      optional(
-        choice('"', seq($._json_string, '"'))
-      ),
-      repeat(seq(',', $._json_value)),
-      ']'
-    ),
-
-    _json_prefix: $ => token.immediate(
-      /\[( |\t|\\\n)*\"/
-    ),
-
+    
+    // Disambiguation is hard for this when you have things like
+    // RUN [ "$VAR" != " " ] && || ...
     _anything_or_json_array: $ => choice(
       $.json_array,
       $._anything
     ),
 
-    _json_value: $ => choice(
-      seq('"', '"'),
-      seq('"', $._json_string, '"')
+    json_array: $ => token.immediate(
+      /\[(?: |\t|\r|\f|\v|\\\n)*(?:"(?:[^\\"\n]|\\(?:\"|\\|\/|b|f|n|r|t|u))*"(?: |\t|\r|\f|\v|\\\n)*)?(?:,(?: |\t|\r|\f|\v|\\\n)*"(?:[^\\"\n]|\\(?:\"|\\|\/|b|f|n|r|t|u))*"(?: |\t|\r|\f|\v|\\\n)*)*(?: |\t|\r|\f|\v|\\\n)*\]/
     ),
-
-    _json_string: $ => repeat1(choice(
-      token.immediate(/[^\\"\n]/),
-      $._json_escape_sequence
-    )),
-
-    _json_escape_sequence: $ => token.immediate(seq(
-      '\\',
-      /(\"|\\|\/|b|f|n|r|t|u)/
-    )),
 
   }
 });

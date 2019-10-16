@@ -1,0 +1,95 @@
+===================================
+ENTRYPOINT json array (basic syntax)
+===================================
+
+ENTRYPOINT ["npm", "start"]
+ENTRYPOINT [ "./clover" ]
+ENTRYPOINT [ "nodemon", "--exec", "yarn", "run", "start" ]
+ENTRYPOINT [ "node", "server" ]
+ENTRYPOINT ["bundle", "exec", "unicorn", "-c", "config/unicorn.rb", "-l", "3000"]
+ENTRYPOINT ["/azeroth-server/bin/worldserver"]
+ENTRYPOINT [ "python", "./wallhaven-dl.py" ]
+ENTRYPOINT ["--help"]
+ENTRYPOINT ["rails", "s", "-b", "0.0.0.0"]
+ENTRYPOINT [ "trade", "--paper" ]
+ENTRYPOINT ["cat", "hterm_all.js"]
+ENTRYPOINT [ "npm", "start" ]
+ENTRYPOINT ["node", "server.js"]
+ENTRYPOINT ["/app/tests.sh"]
+ENTRYPOINT ["gunicorn", "app:app", "-b", "0.0.0.0:80", "--log-file", "-", "--access-logfile", "-", "--workers", "4", "--keep-alive", "0"]
+
+---
+
+(dockerfile 
+  (entrypoint (json_array))
+  (entrypoint (json_array))
+  (entrypoint (json_array))
+  (entrypoint (json_array))
+  (entrypoint (json_array))
+  (entrypoint (json_array))
+  (entrypoint (json_array))
+  (entrypoint (json_array))
+  (entrypoint (json_array))
+  (entrypoint (json_array))
+  (entrypoint (json_array))
+  (entrypoint (json_array))
+  (entrypoint (json_array))
+  (entrypoint (json_array))
+  (entrypoint (json_array))
+)
+
+===================================
+ENTRYPOINT json-array-lookalike vs json array (odd chars)
+===================================
+
+ENTRYPOINT ["abc 123", "♥", "☃", "\" \\ \/ \b \f \n \r \t \u0000"]
+ENTRYPOINT "[\"echo\", \"Phew, I just managed to escaped those double quotes\"]"
+
+---
+
+(dockerfile
+  (entrypoint (json_array))
+  (entrypoint)
+)
+
+===================================
+ENTRYPOINT with line continuation
+===================================
+
+ENTRYPOINT [ \
+	"/usr/sbin/apache2ctl", "-DFOREGROUND" \
+	]
+ENTRYPOINT [ "/usr/sbin/apache2ctl", "-DFOREGROUND" \
+	]
+ENTRYPOINT [ \
+"/usr/sbin/apache2ctl", "-DFOREGROUND" \
+\
+]
+ENTRYPOINT [ \
+"/usr/sbin/apache2ctl", "-DFOREGROUND" ]
+
+---
+
+(dockerfile 
+  (entrypoint (json_array))
+  (entrypoint (json_array))
+  (entrypoint (json_array))
+  (entrypoint (json_array))
+)
+
+
+===================================
+ENTRYPOINT bug with just single token
+===================================
+
+ENTRYPOINT top
+ENTRYPOINT []
+
+---
+
+
+(dockerfile 
+  (entrypoint)
+  (entrypoint (json_array))
+)
+

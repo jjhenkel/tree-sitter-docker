@@ -14,6 +14,6 @@ SHELL [ "/bin/sh",\
     (shell (json_array))
     (shell (json_array))
     (shell (json_array))
-    (shell (json_array (line_continuation)))
+    (shell (json_array))
 )
 

@@ -73,9 +73,9 @@ CMD [ \
 ---
 
 (dockerfile 
-  (cmd (json_array (line_continuation)))
-  (cmd (json_array (line_continuation)))
-  (cmd (json_array (line_continuation) (line_continuation)))
+  (cmd (json_array))
+  (cmd (json_array))
+  (cmd (json_array))
   (cmd (json_array))
 )
 
@@ -85,7 +85,11 @@ CMD bug with just single token
 ===================================
 
 CMD top
+CMD []
 
 ---
 
-(dockerfile (cmd))
+(dockerfile 
+  (cmd)
+  (cmd (json_array))
+)

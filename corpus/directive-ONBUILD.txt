@@ -1,0 +1,250 @@
+===================================
+ONBUILD 'ADD'
+===================================
+
+# Add
+ONBUILD ADD package.json /src/package.json
+ONBUILD ADD Pipfile /Pipfile  
+ONBUILD ADD Pipfile.lock /Pipfile.lock  
+ONBUILD ADD pom.xml /app/  
+ONBUILD ADD project.json /root/project.json
+ONBUILD ADD projects/* /root/project-keys/  
+ONBUILD ADD public/ /pub
+ONBUILD ADD public/ /pub
+ONBUILD ADD pubspec.* /app/
+ONBUILD ADD repeatmaskerlibraries.tar.gz /usr/local/RepeatMasker
+ONBUILD ADD requirements.txt /app/user/
+ONBUILD ADD requirements.txt /app/user/
+ONBUILD ADD requirements.txt /venv/  
+ONBUILD ADD res_discovery_consul.conf.sample /etc/asterisk/res_discovery_consul.conf
+ONBUILD ADD rsyslog.d/* /etc/rsyslog.d/  
+
+---
+
+(dockerfile
+  (comment)
+  (onbuild (add (path) (path)))
+  (onbuild (add (path) (path)))
+  (onbuild (add (path) (path)))
+  (onbuild (add (path) (path)))
+  (onbuild (add (path) (path)))
+  (onbuild (add (path) (path)))
+  (onbuild (add (path) (path)))
+  (onbuild (add (path) (path)))
+  (onbuild (add (path) (path)))
+  (onbuild (add (path) (path)))
+  (onbuild (add (path) (path)))
+  (onbuild (add (path) (path)))
+  (onbuild (add (path) (path)))
+  (onbuild (add (path) (path)))
+  (onbuild (add (path) (path)))
+)
+
+===================================
+ONBUILD 'ARG'
+===================================
+
+# Arg 
+ONBUILD ARG TOOL_NODE_FLAGS
+ONBUILD ARG UID=1000  
+ONBUILD ARG VCS_PROJECT_PATH
+ONBUILD ARG SSH_PRIVATE_KEY="none"  
+ONBUILD ARG STORM_RELEASE=0.10.1
+ONBUILD ARG STORM_URL=''
+
+---
+
+(dockerfile
+  (comment)
+  (onbuild (arg (arg_name)))
+  (onbuild (arg (arg_name) (arg_default)))
+  (onbuild (arg (arg_name)))
+  (onbuild (arg (arg_name) (arg_default)))
+  (onbuild (arg (arg_name) (arg_default)))
+  (onbuild (arg (arg_name) (arg_default)))
+)
+
+===================================
+ONBUILD 'CMD'
+===================================
+
+# Cmd 
+ONBUILD CMD [ "start" ]
+ONBUILD CMD ["sh", "/signing/bin/run.sh"]  
+ONBUILD CMD ["supervisord", "-n"]
+ONBUILD CMD ["supervisord"]
+ONBUILD CMD []  
+ONBUILD CMD cd /home/user/meteor-app/bundle/programs/server/ && ./
+
+---
+
+(dockerfile
+  (comment)
+  (onbuild (cmd (json_array)))
+  (onbuild (cmd (json_array)))
+  (onbuild (cmd (json_array)))
+  (onbuild (cmd (json_array)))
+  (onbuild (cmd (json_array)))
+  (onbuild (cmd))
+)
+
+===================================
+ONBUILD 'COPY'
+===================================
+
+# Copy
+ONBUILD COPY ssh/ ${SSHDIR}/
+ONBUILD COPY stack.yaml .
+ONBUILD COPY start.sh health_check.py /
+ONBUILD COPY supervisord.conf /etc/supervisord.conf
+ONBUILD COPY swagger.yml /
+ONBUILD COPY test test
+ONBUILD COPY _etc/supervisor/conf.d/ /etc/supervisor/conf.d/
+ONBUILD COPY --chown=1000:100 ivy-local/ .ivy2/local/
+ONBUILD COPY --chown=odoo:odoo  cfg.d                       "${ODOO_RC}"
+
+---
+
+(dockerfile
+  (comment)
+  (onbuild (copy (path) (path)))
+  (onbuild (copy (path) (path)))
+  (onbuild (copy (path) (path) (path)))
+  (onbuild (copy (path) (path)))
+  (onbuild (copy (path) (path)))
+  (onbuild (copy (path) (path)))
+  (onbuild (copy (path) (path)))
+  (onbuild (copy (chown (user_id) (user_group_id)) (path) (path)))
+  (onbuild (copy (chown (user_name) (user_group)) (path) (path)))
+)
+
+===================================
+ONBUILD 'ENTRYPOINT'
+===================================
+
+# Entrypoint
+ONBUILD ENTRYPOINT ["nginx", "-g", "pid /tmp/nginx.pid; daemon off;"]  
+ONBUILD ENTRYPOINT []  
+ONBUILD ENTRYPOINT exec /usr/bin/contrainer watch  
+
+---
+
+(dockerfile
+  (comment)
+  (onbuild (entrypoint (json_array)))
+  (onbuild (entrypoint (json_array)))
+  (onbuild (entrypoint))
+)
+
+===================================
+ONBUILD 'ENV'
+===================================
+
+# Env
+ONBUILD ENV PORT 3000  
+ONBUILD ENV PORT=$PORT
+ONBUILD ENV PHP_EXTENSIONS="$PHP_EXTENSIONS"
+ONBUILD ENV PIP_TRUSTED_HOST=$PIP_TRUSTED_HOST PIP_INDEX_URL=$PIP_INDEX_URL
+ONBUILD ENV NODE_VERSION ${NODE_VERSION:-8.9.0}
+ONBUILD ENV NPM_TOKEN $NPM_TOKEN
+ONBUILD ENV PARAVIEW_DIR /paraview-build
+ONBUILD ENV APT_GET_INSTALL $APT_GET_INSTALL
+
+---
+
+(dockerfile
+  (comment)
+  (onbuild (env (env_pair (env_key) (env_value))))
+  (onbuild (env (env_pair (env_key) (env_value))))
+  (onbuild (env (env_pair (env_key) (env_value))))
+  (onbuild (env (env_pair (env_key) (env_value)) (env_pair (env_key) (env_value))))
+  (onbuild (env (env_pair (env_key) (env_value))))
+  (onbuild (env (env_pair (env_key) (env_value))))
+  (onbuild (env (env_pair (env_key) (env_value))))
+  (onbuild (env (env_pair (env_key) (env_value))))
+)
+
+===================================
+ONBUILD 'RUN'
+===================================
+
+# Run
+ONBUILD RUN (cd programs/server && npm install)
+ONBUILD RUN (while :; do echo 'y'; sleep 3; done) | android update sdk --no-ui --all --filter "$(cat /android_sdk_components.env)"
+ONBUILD RUN [ "$NEW_SITENAME" != "demo" ] && echo "export SITENAME=$NEW_SITENAME" > .sitename.env && echo "CREATE new site:$NEW_SITENAME" && omd -f rm $SITENAME && omd create -u 1001 -g 1001 $NEW_SITENAME || true
+
+# More run
+ONBUILD RUN yum update -y
+ONBUILD RUN set -ex && pipenv install --deploy --system
+ONBUILD RUN sh -ex /projects/project/dockerit.sh  
+ONBUILD RUN sh $METEORD_DIR/build_app.sh
+
+---
+
+(dockerfile
+  (comment)
+  (onbuild (run))
+  (onbuild (run))
+  (onbuild (run))
+  (comment)
+  (onbuild (run))
+  (onbuild (run))
+  (onbuild (run))
+  (onbuild (run))
+)
+
+===================================
+ONBUILD 'SHELL'
+===================================
+
+# Shell
+ONBUILD SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
+
+---
+
+(dockerfile
+  (comment)
+  (onbuild (shell (json_array)))
+)
+
+===================================
+ONBUILD 'WORKDIR'
+===================================
+
+# Workdir
+ONBUILD WORKDIR /usr/src/app/build
+ONBUILD WORKDIR /var/app  
+ONBUILD WORKDIR $APP_HOME  
+
+---
+
+(dockerfile
+  (comment)
+  (onbuild (workdir))
+  (onbuild (workdir))
+  (onbuild (workdir (docker_variable)))
+)
+
+===================================
+ONBUILD 'USER'
+===================================
+
+# User
+ONBUILD USER ${USER}
+ONBUILD USER $BOINC_USER
+ONBUILD USER 0
+ONBUILD USER 1001
+ONBUILD USER app
+ONBUILD USER app:group
+
+---
+
+(dockerfile
+  (comment)
+  (onbuild (user (docker_variable)))
+  (onbuild (user (docker_variable)))
+  (onbuild (user (user_id)))
+  (onbuild (user (user_id)))
+  (onbuild (user (user_name)))
+  (onbuild (user (user_name) (user_group)))
+)
