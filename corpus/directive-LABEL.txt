@@ -1,0 +1,43 @@
+===================================
+LABEL basic syntax
+===================================
+
+LABEL "com.example.vendor"="ACME Incorporated"
+
+LABEL com.example.label-with-value="foo"
+LABEL version="1.0"
+LABEL description="This text illustrates \
+that label-values can span multiple lines."
+
+LABEL multi.label1="value1" multi.label2="value2" other="value3"
+
+LABEL multi.label1="value1" \
+      multi.label2="value2" \
+      other="value3"
+
+LABEL about.tags=""
+
+---
+
+(dockerfile
+  (label (label_pair (label_key) (label_value)))
+  (label (label_pair (label_key) (label_value)))
+  (label (label_pair (label_key) (label_value)))
+  (label (label_pair (label_key) (label_value)))
+
+  (label
+    (label_pair (label_key) (label_value))
+    (label_pair (label_key) (label_value))
+    (label_pair (label_key) (label_value))
+  )
+
+  (label
+    (label_pair (label_key) (label_value))
+    (line_continuation)
+    (label_pair (label_key) (label_value))
+    (line_continuation)
+    (label_pair (label_key) (label_value))
+  )
+
+  (label (label_pair (label_key) (label_value)))
+)

@@ -101,7 +101,7 @@ module.exports = grammar({
     )),
 
     label: $ => directive($, 'LABEL', seq(
-      $._anything
+      $._labels
     )),
 
     maintainer: $ => directive($, 'MAINTAINER', seq(
@@ -222,6 +222,18 @@ module.exports = grammar({
 
     // ############### PLUMBING FOR 'HEALTHCHECK' ########################### /
     // ############### PLUMBING FOR 'LABEL' ################################# /
+    _labels: $ => repeat1($.label_pair),
+
+    label_pair: $ => seq($.label_key, '=', $.label_value),
+
+    label_key: $ =>
+      token.immediate(/"?[a-zA-Z][a-zA-Z0-9_\-\.]*"?/),
+    label_value: $ => choice(
+      /""/,
+      token.immediate(/([^\s\\\"]|\\[^\s\"])+/),
+      seq('"', repeat1(token.immediate(/([^\n"]|\\")+/)), '"')
+    ),
+
     // ############### PLUMBING FOR 'MAINTAINER' ############################ /
     // ############### PLUMBING FOR 'ONBUILD' ############################### /
     // ############### PLUMBING FOR 'RUN' ################################### /
