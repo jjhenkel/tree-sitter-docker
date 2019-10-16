@@ -413,7 +413,73 @@
   {
     "type": "onbuild",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "add",
+          "named": true
+        },
+        {
+          "type": "arg",
+          "named": true
+        },
+        {
+          "type": "cmd",
+          "named": true
+        },
+        {
+          "type": "copy",
+          "named": true
+        },
+        {
+          "type": "entrypoint",
+          "named": true
+        },
+        {
+          "type": "env",
+          "named": true
+        },
+        {
+          "type": "expose",
+          "named": true
+        },
+        {
+          "type": "healthcheck",
+          "named": true
+        },
+        {
+          "type": "label",
+          "named": true
+        },
+        {
+          "type": "run",
+          "named": true
+        },
+        {
+          "type": "shell",
+          "named": true
+        },
+        {
+          "type": "stopsignal",
+          "named": true
+        },
+        {
+          "type": "user",
+          "named": true
+        },
+        {
+          "type": "volume",
+          "named": true
+        },
+        {
+          "type": "workdir",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "path",

@@ -94,6 +94,84 @@
         }
       ]
     },
+    "onbuild": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "(O|o)(N|n)(B|b)(U|u)(I|i)(L|l)(D|d)"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_space_no_newline"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "add"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "arg"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "cmd"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "copy"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "entrypoint"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "env"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "expose"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "healthcheck"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "label"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "run"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "shell"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "stopsignal"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "user"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "volume"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "workdir"
+            }
+          ]
+        }
+      ]
+    },
     "env": {
       "type": "SEQ",
       "members": [
@@ -117,23 +195,6 @@
         {
           "type": "PATTERN",
           "value": "(L|l)(A|a)(B|b)(E|e)(L|l)"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_space_no_newline"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_anything"
-        }
-      ]
-    },
-    "onbuild": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "PATTERN",
-          "value": "(O|o)(N|n)(B|b)(U|u)(I|i)(L|l)(D|d)"
         },
         {
           "type": "SYMBOL",
