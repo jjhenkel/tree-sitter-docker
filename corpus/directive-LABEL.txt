@@ -17,6 +17,10 @@ LABEL multi.label1="value1" \
 
 LABEL about.tags=""
 
+LABEL i.guess.space.is.okay.too "foobar"
+LABEL i.guess.space.is.okay.too foobar
+LABEL "i.guess.space.is.okay.too" foobar
+
 ---
 
 (dockerfile
@@ -39,5 +43,9 @@ LABEL about.tags=""
     (label_pair (label_key) (label_value))
   )
 
+  (label (label_pair (label_key) (label_value)))
+  
+  (label (label_pair (label_key) (label_value)))
+  (label (label_pair (label_key) (label_value)))
   (label (label_pair (label_key) (label_value)))
 )

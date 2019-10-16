@@ -4182,8 +4182,8 @@
           "name": "label_key"
         },
         {
-          "type": "STRING",
-          "value": "="
+          "type": "PATTERN",
+          "value": "(=| |\\t)"
         },
         {
           "type": "SYMBOL",

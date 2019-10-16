@@ -265,7 +265,7 @@ module.exports = grammar({
     // ############### PLUMBING FOR 'LABEL' ################################# /
     _labels: $ => repeat1($.label_pair),
 
-    label_pair: $ => seq($.label_key, '=', $.label_value),
+    label_pair: $ => seq($.label_key, /(=| |\t)/, $.label_value),
 
     label_key: $ =>
       token.immediate(/"?[a-zA-Z][a-zA-Z0-9_\-\.]*"?/),
