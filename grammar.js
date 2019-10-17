@@ -297,7 +297,7 @@ module.exports = grammar({
     label_pair: $ => seq($.label_key, /(([ \t]?=[ \t]?)| |\t)/, $.label_value),
 
     label_key: $ =>
-      token.immediate(/"?[a-zA-Z][a-zA-Z0-9_\-\.]*"?/),
+      token.immediate(/"?[a-zA-Z][a-zA-Z0-9_\-\.\/:]*"?/),
     label_value: $ => choice(
       /""/,
       token.immediate(/([^\s\\\"]|\\[^\s\"])+/),

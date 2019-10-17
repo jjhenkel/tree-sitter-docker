@@ -21,8 +21,6 @@ LABEL i.guess.space.is.okay.too "foobar"
 LABEL i.guess.space.is.okay.too foobar
 LABEL "i.guess.space.is.okay.too" foobar
 
-# Corner case found in corpus
-LABEL key = "space around equals WHY?"
 
 ---
 
@@ -51,7 +49,32 @@ LABEL key = "space around equals WHY?"
   (label (label_pair (label_key) (label_value)))
   (label (label_pair (label_key) (label_value)))
   (label (label_pair (label_key) (label_value)))
+)
 
+===================================
+LABEL bug from corpus 1
+===================================
+
+# Corner case found in corpus
+LABEL key = "space around equals WHY?"
+
+---
+
+(dockerfile
+  (comment)
+  (label (label_pair (label_key) (label_value)))
+)
+
+===================================
+LABEL bug from corpus 2
+===================================
+
+# Needed to expand allowable label key characters
+LABEL repository.socrata/runit-bionic-python:2.7=""
+
+---
+
+(dockerfile
   (comment)
   (label (label_pair (label_key) (label_value)))
 )
