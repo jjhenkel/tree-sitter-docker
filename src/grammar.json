@@ -1062,7 +1062,7 @@
       "type": "IMMEDIATE_TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "([^\\s\\\\\"]|\\\\[^\\s]|\\\\ |\"([^\\n\\\\\"]|\\\\\"|\\\\\\n|\\\\[^\\s])*\"|'([^\\n']|\\\\'|\\\\\\n|\\\\[^\\s])*')+"
+        "value": "([^\\s\\\\'\"]|\\\\[^\\s]|\\\\ |\"([^\\n\\\\\"]|\\\\\"|\\\\\\n|\\\\[^\\s])*\"|'([^\\n']|\\\\'|\\\\\\n|\\\\[^\\s])*')+"
       }
     },
     "_port_spec": {
@@ -4344,7 +4344,7 @@
           "type": "IMMEDIATE_TOKEN",
           "content": {
             "type": "PATTERN",
-            "value": "([^\\s\\\\\\\"]|\\\\[^\\s\\\"])+"
+            "value": "([^\\s\\\\\\\"']|\\\\[^\\s\\\"'])+"
           }
         },
         {
@@ -4360,13 +4360,36 @@
                 "type": "IMMEDIATE_TOKEN",
                 "content": {
                   "type": "PATTERN",
-                  "value": "([^\\n\"]|\\\\\")+"
+                  "value": "([^\\n\"]|\\\\\"|\\\\')+"
                 }
               }
             },
             {
               "type": "STRING",
               "value": "\""
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "'"
+            },
+            {
+              "type": "REPEAT1",
+              "content": {
+                "type": "IMMEDIATE_TOKEN",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "([^\\n']|\\\\')+"
+                }
+              }
+            },
+            {
+              "type": "STRING",
+              "value": "'"
             }
           ]
         }

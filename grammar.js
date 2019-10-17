@@ -194,7 +194,7 @@ module.exports = grammar({
     env_key: $ => token.immediate(/"?[a-zA-Z_][a-zA-Z0-9_\-\.]*"?/),
 
     env_value: $ => token.immediate(
-      /([^\s\\"]|\\[^\s]|\\ |"([^\n\\"]|\\"|\\\n|\\[^\s])*"|'([^\n']|\\'|\\\n|\\[^\s])*')+/
+      /([^\s\\'"]|\\[^\s]|\\ |"([^\n\\"]|\\"|\\\n|\\[^\s])*"|'([^\n']|\\'|\\\n|\\[^\s])*')+/
     ),
 
     // ############### PLUMBING FOR 'EXPOSE' ################################ /
@@ -301,8 +301,9 @@ module.exports = grammar({
       token.immediate(/"?[a-zA-Z][a-zA-Z0-9_\-\.\/:]*"?/),
     label_value: $ => choice(
       /""/,
-      token.immediate(/([^\s\\\"]|\\[^\s\"])+/),
-      seq('"', repeat1(token.immediate(/([^\n"]|\\")+/)), '"')
+      token.immediate(/([^\s\\\"']|\\[^\s\"'])+/),
+      seq('"', repeat1(token.immediate(/([^\n"]|\\"|\\')+/)), '"'),
+      seq("'", repeat1(token.immediate(/([^\n']|\\')+/)), "'")
     ),
 
     // ############### PLUMBING FOR 'MAINTAINER' ############################ /
