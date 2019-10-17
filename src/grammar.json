@@ -4158,7 +4158,7 @@
       "members": [
         {
           "type": "STRING",
-          "value": "--retires"
+          "value": "--retries"
         },
         {
           "type": "STRING",

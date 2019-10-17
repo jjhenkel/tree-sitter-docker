@@ -11,7 +11,7 @@ HEALTHCHECK --timeout=3s \
   --interval=5m  \
   CMD curl -f http://localhost/ || exit 1
 
-HEALTHCHECK --interval=5m --timeout=3s --retires=123 --start-period=30m  \
+HEALTHCHECK --interval=5m --timeout=3s --retries=123 --start-period=30m  \
   CMD curl -f http://localhost/ || exit 1
 
 HEALTHCHECK \

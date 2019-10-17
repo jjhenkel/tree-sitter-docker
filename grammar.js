@@ -272,7 +272,7 @@ module.exports = grammar({
     hc_start_period: $ => /\w+/,
 
     _hc_retries: $ => seq(
-      '--retires', '=', $.hc_retries
+      '--retries', '=', $.hc_retries
     ),
     hc_retries: $ => /\d+/,
 

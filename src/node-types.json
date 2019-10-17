@@ -999,7 +999,7 @@
     "named": false
   },
   {
-    "type": "--retires",
+    "type": "--retries",
     "named": false
   },
   {
