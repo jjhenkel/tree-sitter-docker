@@ -344,7 +344,7 @@ module.exports = grammar({
     _paths: $ => repeat1(seq($.path, optional($._space_no_newline))),
     
     _anything: $ => repeat1(token.immediate(prec(-1,
-      /([^\s\\#]|[^\s#]#)([^\s]#|\\+[ \t]*[^\\\s]|[^\n\\#])*/
+      /([^\s\\#]|[^\s#]#|\\+[ \t]*[^\\\s])([^\s]#|\\+[ \t]*[^\\\s]|[^\n\\#])*/
     ))),
 
     // ############### DOCKER VARIABLE HANDLING ############################# /

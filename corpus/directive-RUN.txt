@@ -145,10 +145,10 @@ USER root
 )
 
 ===================================
-RUN mix comments and line continuations
+RUN bug from corpus 1
 ===================================
 
-# Bug from corpus
+# Bug from corpus related to mixing comments and line continuations
 RUN \
   && cd tmp/ \
   ## Download source code
@@ -176,13 +176,31 @@ RUN \
 )
 
 ===================================
-RUN silly double line continuation
+RUN bug from corpus 2
 ===================================
 
-# I don't know how, but this is still valid
+# Silly double line continuations
+# I don't know how, but they're still valid
 RUN do the \\
   thing
 
 ---
 
-(dockerfile (comment) (run (line_continuation)))
+(dockerfile (comment) (comment) (run (line_continuation)))
+
+===================================
+RUN bug from corpus 3
+===================================
+
+# This happened because a '_anything' started with \n
+RUN \
+	echo " \
+		\n5 \
+	> /r
+
+---
+
+(dockerfile 
+  (comment)
+  (run (line_continuation) (line_continuation) (line_continuation))
+)
