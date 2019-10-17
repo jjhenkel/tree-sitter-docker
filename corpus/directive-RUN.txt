@@ -174,3 +174,15 @@ RUN \
     (comment)
   )
 )
+
+===================================
+RUN silly double line continuation
+===================================
+
+# I don't know how, but this is still valid
+RUN do the \\
+  thing
+
+---
+
+(dockerfile (comment) (run (line_continuation)))

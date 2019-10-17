@@ -344,7 +344,7 @@ module.exports = grammar({
     _paths: $ => repeat1(seq($.path, optional($._space_no_newline))),
     
     _anything: $ => repeat1(token.immediate(prec(-1,
-      /([^\s\\#]|[^\s#]#)([^\s]#|\\[ \t]*[^\s]|[^\n\\#])*/
+      /([^\s\\#]|[^\s#]#)([^\s]#|\\+[ \t]*[^\\\s]|[^\n\\#])*/
     ))),
 
     // ############### DOCKER VARIABLE HANDLING ############################# /
@@ -386,7 +386,7 @@ module.exports = grammar({
     _blank_line: $ => /[\t\f\r\v ]*\n/,
     _space_no_newline: $ => /[\t\f\r\v ]+/,
     comment: $ => token(prec(-10, /#[^\n]*\n*/)),
-    line_continuation: $ => token(prec(-1, /\\\s*\n/)),
+    line_continuation: $ => token(prec(-1, /\\+\s*\n/)),
 
     // ############### MODIFIED JSON EXCERPT ################################ /
     
