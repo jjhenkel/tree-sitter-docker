@@ -1009,7 +1009,7 @@
       "type": "IMMEDIATE_TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "\"?[a-zA-Z][a-zA-Z0-9_\\-\\.]*\"?"
+        "value": "\"?[a-zA-Z_][a-zA-Z0-9_\\-\\.]*\"?"
       }
     },
     "env_value": {
@@ -4696,7 +4696,7 @@
           "value": -1,
           "content": {
             "type": "PATTERN",
-            "value": "([^\\n\\\\#]|[^\\s]#)([^\\s]#|\\\\[^\\s]|[^\\n\\\\#])*"
+            "value": "([^\\n\\\\#]|[^\\s]#)([^\\s]#|\\\\[ \\t]*[^\\s]|[^\\n\\\\#])*"
           }
         }
       }

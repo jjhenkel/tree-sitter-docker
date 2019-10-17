@@ -188,7 +188,7 @@ module.exports = grammar({
       ))
     ),
 
-    env_key: $ => token.immediate(/"?[a-zA-Z][a-zA-Z0-9_\-\.]*"?/),
+    env_key: $ => token.immediate(/"?[a-zA-Z_][a-zA-Z0-9_\-\.]*"?/),
 
     env_value: $ => choice(
       /""/,
@@ -344,7 +344,7 @@ module.exports = grammar({
     _paths: $ => repeat1(seq($.path, optional($._space_no_newline))),
     
     _anything: $ => repeat1(token.immediate(prec(-1,
-      /([^\n\\#]|[^\s]#)([^\s]#|\\[^\s]|[^\n\\#])*/
+      /([^\n\\#]|[^\s]#)([^\s]#|\\[ \t]*[^\s]|[^\n\\#])*/
     ))),
 
     // ############### DOCKER VARIABLE HANDLING ############################# /

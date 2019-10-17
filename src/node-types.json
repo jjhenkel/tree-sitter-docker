@@ -294,11 +294,6 @@
     }
   },
   {
-    "type": "env_key",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "env_pair",
     "named": true,
     "fields": {},
@@ -495,11 +490,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "label_key",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "label_pair",
@@ -981,6 +971,10 @@
     "named": false
   },
   {
+    "type": "env_key",
+    "named": true
+  },
+  {
     "type": "-",
     "named": false
   },
@@ -1007,6 +1001,10 @@
   {
     "type": "--retires",
     "named": false
+  },
+  {
+    "type": "label_key",
+    "named": true
   },
   {
     "type": "signal_num",
