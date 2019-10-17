@@ -73,3 +73,49 @@ ENV ROOT_USER_DN=${ROOT_USER_DN:-'cn=Directory Manager'}
   (comment)
   (env (env_pair (env_key) (env_value)))
 )
+
+===================================
+ENV bug from corpus 3
+===================================
+
+# Continuations in string (quoted)
+ENV buildDeps=" \
+        bzip2 \
+        file \
+        libcurl4-openssl-dev \
+        libreadline6-dev \
+        libssl-dev \
+        libxml2-dev \
+        ca-certificates \
+        curl \
+        libxml2 \
+        autoconf \
+        gcc \
+        libc-dev \
+        make \
+        pkg-config \
+	"
+ENV buildDeps=' \
+        bzip2 \
+        file \
+        libcurl4-openssl-dev \
+        libreadline6-dev \
+        libssl-dev \
+        libxml2-dev \
+        ca-certificates \
+        curl \
+        libxml2 \
+        autoconf \
+        gcc \
+        libc-dev \
+        make \
+        pkg-config \
+	'
+
+---
+
+(dockerfile
+  (comment)
+  (env (env_pair (env_key) (env_value)))
+  (env (env_pair (env_key) (env_value)))
+)

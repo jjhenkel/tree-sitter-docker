@@ -963,16 +963,11 @@
       }
     },
     "env_value": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "IMMEDIATE_TOKEN",
-          "content": {
-            "type": "PATTERN",
-            "value": "([^\\s\\\\]|\\\\[^\\s]|\\\\ |\"([^\\n\"]|\\\\\")*\"|'([^\\n\"]|\\\\')*')+"
-          }
-        }
-      ]
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "([^\\s\\\\\"]|\\\\[^\\s]|\\\\ |\"([^\\n\\\\\"]|\\\\\"|\\\\\\n)*\"|'([^\\n']|\\\\'|\\\\\\n)*')+"
+      }
     },
     "_port_spec": {
       "type": "PREC_LEFT",

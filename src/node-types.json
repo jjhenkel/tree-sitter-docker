@@ -313,11 +313,6 @@
     }
   },
   {
-    "type": "env_value",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "expose",
     "named": true,
     "fields": {},
@@ -972,6 +967,10 @@
   },
   {
     "type": "env_key",
+    "named": true
+  },
+  {
+    "type": "env_value",
     "named": true
   },
   {
