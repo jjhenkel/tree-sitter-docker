@@ -1,7 +1,10 @@
 #!/bin/bash
 
-RANDOM_TARGET=$(find ./tests -type f | shuf | head -n1)
+set -ex
 
-tree-sitter generate && tree-sitter parse "${RANDOM_TARGET}"
+tree-sitter generate
 
-cat "${RANDOM_TARGET}" > target.Dockerfile
+for RANDOM_TARGET in $(find ./tests -type f | shuf | head -n100); do
+  cat "${RANDOM_TARGET}" > target.Dockerfile
+  tree-sitter parse "${RANDOM_TARGET}"
+done
