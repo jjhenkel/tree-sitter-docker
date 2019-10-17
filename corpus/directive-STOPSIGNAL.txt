@@ -18,3 +18,13 @@ STOPSIGNAL \
     (stopsignal (line_continuation) (signal_num))
 )
 
+===================================
+STOPSIGNAL bug from corpus 1
+===================================
+
+STOPSIGNAL SIGTERM+3
+
+---
+
+(dockerfile (stopsignal (signal_name)))
+

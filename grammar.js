@@ -313,7 +313,7 @@ module.exports = grammar({
     signal_num: $ => /\d\d?\d?/,
     signal_name: $ => seq(
       any_casing('SIG'),
-      /[a-zA-Z0-9]+/
+      /[a-zA-Z0-9]+(\+\d+)?/
     ),
 
 
@@ -344,7 +344,7 @@ module.exports = grammar({
     _paths: $ => repeat1(seq($.path, optional($._space_no_newline))),
     
     _anything: $ => repeat1(token.immediate(prec(-1,
-      /([^\n\\#]|[^\s]#)([^\s]#|\\[ \t]*[^\s]|[^\n\\#])*/
+      /([^\s\\#]|[^\s#]#)([^\s]#|\\[ \t]*[^\s]|[^\n\\#])*/
     ))),
 
     // ############### DOCKER VARIABLE HANDLING ############################# /
