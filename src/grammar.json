@@ -966,38 +966,11 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "\"\""
-        },
-        {
           "type": "IMMEDIATE_TOKEN",
           "content": {
             "type": "PATTERN",
-            "value": "([^\\s\\\\]|\\\\[^\\s]|\\\\ |\"([^\\n\"]|\\\\\")+\")+"
+            "value": "([^\\s\\\\]|\\\\[^\\s]|\\\\ |\"([^\\n\"]|\\\\\")*\"|'([^\\n\"]|\\\\')*')+"
           }
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "\""
-            },
-            {
-              "type": "REPEAT1",
-              "content": {
-                "type": "IMMEDIATE_TOKEN",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "([^\\n\"]|\\\\\")+"
-                }
-              }
-            },
-            {
-              "type": "STRING",
-              "value": "\""
-            }
-          ]
         }
       ]
     },

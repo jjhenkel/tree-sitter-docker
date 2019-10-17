@@ -54,3 +54,22 @@ ENV ROOT_USER_DN=${ROOT_USER_DN:-"cn=Directory Manager"}
   (comment)
   (env (env_pair (env_key) (env_value)))
 )
+
+===================================
+ENV bug from corpus 2
+===================================
+
+# Single quotes work too
+ENV BASE_DN='this is a \' test'
+
+# Can have spaces if quoted internally
+ENV ROOT_USER_DN=${ROOT_USER_DN:-'cn=Directory Manager'}
+
+---
+
+(dockerfile
+  (comment)
+  (env (env_pair (env_key) (env_value)))
+  (comment)
+  (env (env_pair (env_key) (env_value)))
+)

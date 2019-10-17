@@ -194,9 +194,7 @@ module.exports = grammar({
     env_key: $ => token.immediate(/"?[a-zA-Z_][a-zA-Z0-9_\-\.]*"?/),
 
     env_value: $ => choice(
-      /""/,
-      token.immediate(/([^\s\\]|\\[^\s]|\\ |"([^\n"]|\\")+")+/),
-      seq('"', repeat1(token.immediate(/([^\n"]|\\")+/)), '"')
+      token.immediate(/([^\s\\]|\\[^\s]|\\ |"([^\n"]|\\")*"|'([^\n"]|\\')*')+/)
     ),
 
     // ############### PLUMBING FOR 'EXPOSE' ################################ /
