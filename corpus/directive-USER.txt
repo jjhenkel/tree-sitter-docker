@@ -15,3 +15,14 @@ USER 1432:32
     (user (user_id))
     (user (user_id) (user_group_id))
 )
+
+===================================
+USER bug from corpus 1
+===================================
+
+# Allow double quoting of username
+USER "lnd"
+
+---
+
+(dockerfile (comment) (user (user_name)))

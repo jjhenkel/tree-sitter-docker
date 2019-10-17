@@ -144,8 +144,8 @@ module.exports = grammar({
     )),
 
     user: $ => directive($, 'USER', choice(
-      seq($.user_name, optional(seq(':', $.user_group))),
-      seq($.user_id, optional(seq(':', $.user_group_id))),
+      maybe_double_quoted(seq($.user_name, optional(seq(':', $.user_group)))),
+      maybe_double_quoted(seq($.user_id, optional(seq(':', $.user_group_id)))),
       seq('$', $.docker_variable)
     )),
 
@@ -319,8 +319,8 @@ module.exports = grammar({
 
 
     // ############### PLUMBING FOR 'USER' ################################## /
-    user_name: $ => token.immediate(/[a-zA-Z][^\s:]*/),
-    user_group: $ => token.immediate(/[a-zA-Z][^\s:]*/),
+    user_name: $ => token.immediate(/[a-zA-Z][^\s:'"]*/),
+    user_group: $ => token.immediate(/[a-zA-Z][^\s:'"]*/),
     user_id: $ => token.immediate(/\d+/),
     user_group_id: $ => token.immediate(/\d+/),
 
