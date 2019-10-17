@@ -178,21 +178,24 @@ module.exports = grammar({
 
     // ############### PLUMBING FOR 'ENTRYPOINT' ############################ /
     // ############### PLUMBING FOR 'ENV' ################################### /
-    _env_pairs: $ => repeat1($.env_pair),
+    _env_pairs: $ => seq(
+      $.env_pair,
+      repeat(seq($._space_no_newline, $.env_pair))
+    ),
 
-    env_pair: $ => seq(
+    env_pair: $ => prec.right(seq(
       $.env_key,
       optional(choice(
         seq('=', $.env_value),
         seq($._space_no_newline, alias($._anything, $.env_value))
       ))
-    ),
+    )),
 
     env_key: $ => token.immediate(/"?[a-zA-Z_][a-zA-Z0-9_\-\.]*"?/),
 
     env_value: $ => choice(
       /""/,
-      token.immediate(/([^\s\\\"]|\\[^\s\"]|\\ )+/),
+      token.immediate(/([^\s\\]|\\[^\s]|\\ |"([^\n"]|\\")+")+/),
       seq('"', repeat1(token.immediate(/([^\n"]|\\")+/)), '"')
     ),
 
