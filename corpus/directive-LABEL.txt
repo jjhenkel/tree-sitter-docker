@@ -21,6 +21,9 @@ LABEL i.guess.space.is.okay.too "foobar"
 LABEL i.guess.space.is.okay.too foobar
 LABEL "i.guess.space.is.okay.too" foobar
 
+# Corner case found in corpus
+LABEL key = "space around equals WHY?"
+
 ---
 
 (dockerfile
@@ -48,4 +51,8 @@ LABEL "i.guess.space.is.okay.too" foobar
   (label (label_pair (label_key) (label_value)))
   (label (label_pair (label_key) (label_value)))
   (label (label_pair (label_key) (label_value)))
+
+  (comment)
+  (label (label_pair (label_key) (label_value)))
 )
+

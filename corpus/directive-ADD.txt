@@ -26,3 +26,15 @@ EXPOSE 9091
   (add (path) (path))
   (expose (port))
 )
+
+===================================
+ADD Filename prefix matches directive name
+===================================
+
+ADD entrypoint.sh entrypoint.sh
+
+---
+
+(dockerfile
+  (add (path) (path))
+)

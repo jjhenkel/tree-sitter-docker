@@ -294,7 +294,7 @@ module.exports = grammar({
     // ############### PLUMBING FOR 'LABEL' ################################# /
     _labels: $ => repeat1($.label_pair),
 
-    label_pair: $ => seq($.label_key, /(=| |\t)/, $.label_value),
+    label_pair: $ => seq($.label_key, /(([ \t]?=[ \t]?)| |\t)/, $.label_value),
 
     label_key: $ =>
       token.immediate(/"?[a-zA-Z][a-zA-Z0-9_\-\.]*"?/),
@@ -408,8 +408,9 @@ module.exports = grammar({
 
 function directive ($, name, body_rule) {
   return seq(
-    any_casing(name.toUpperCase()),
-    $._space_no_newline,
+    new RegExp(
+      any_casing(name.toUpperCase()).source + /[\t\f\r\v ]+/.source
+    ),
     body_rule
   );
 }

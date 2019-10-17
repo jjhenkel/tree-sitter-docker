@@ -103,11 +103,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "(A|a)(D|d)(D|d)"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_space_no_newline"
+          "value": "(A|a)(D|d)(D|d)[\\t\\f\\r\\v ]+"
         },
         {
           "type": "CHOICE",
@@ -129,11 +125,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "(A|a)(R|r)(G|g)"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_space_no_newline"
+          "value": "(A|a)(R|r)(G|g)[\\t\\f\\r\\v ]+"
         },
         {
           "type": "SEQ",
@@ -172,11 +164,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "(C|c)(M|m)(D|d)"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_space_no_newline"
+          "value": "(C|c)(M|m)(D|d)[\\t\\f\\r\\v ]+"
         },
         {
           "type": "SEQ",
@@ -194,11 +182,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "(C|c)(O|o)(P|p)(Y|y)"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_space_no_newline"
+          "value": "(C|c)(O|o)(P|p)(Y|y)[\\t\\f\\r\\v ]+"
         },
         {
           "type": "CHOICE",
@@ -237,11 +221,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "(E|e)(N|n)(T|t)(R|r)(Y|y)(P|p)(O|o)(I|i)(N|n)(T|t)"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_space_no_newline"
+          "value": "(E|e)(N|n)(T|t)(R|r)(Y|y)(P|p)(O|o)(I|i)(N|n)(T|t)[\\t\\f\\r\\v ]+"
         },
         {
           "type": "SEQ",
@@ -259,11 +239,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "(E|e)(N|n)(V|v)"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_space_no_newline"
+          "value": "(E|e)(N|n)(V|v)[\\t\\f\\r\\v ]+"
         },
         {
           "type": "SEQ",
@@ -281,11 +257,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "(E|e)(X|x)(P|p)(O|o)(S|s)(E|e)"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_space_no_newline"
+          "value": "(E|e)(X|x)(P|p)(O|o)(S|s)(E|e)[\\t\\f\\r\\v ]+"
         },
         {
           "type": "CHOICE",
@@ -332,11 +304,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "(F|f)(R|r)(O|o)(M|m)"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_space_no_newline"
+          "value": "(F|f)(R|r)(O|o)(M|m)[\\t\\f\\r\\v ]+"
         },
         {
           "type": "SEQ",
@@ -470,11 +438,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "(H|h)(E|e)(A|a)(L|l)(T|t)(H|h)(C|c)(H|h)(E|e)(C|c)(K|k)"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_space_no_newline"
+          "value": "(H|h)(E|e)(A|a)(L|l)(T|t)(H|h)(C|c)(H|h)(E|e)(C|c)(K|k)[\\t\\f\\r\\v ]+"
         },
         {
           "type": "CHOICE",
@@ -508,11 +472,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "(L|l)(A|a)(B|b)(E|e)(L|l)"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_space_no_newline"
+          "value": "(L|l)(A|a)(B|b)(E|e)(L|l)[\\t\\f\\r\\v ]+"
         },
         {
           "type": "SEQ",
@@ -530,11 +490,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "(M|m)(A|a)(I|i)(N|n)(T|t)(A|a)(I|i)(N|n)(E|e)(R|r)"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_space_no_newline"
+          "value": "(M|m)(A|a)(I|i)(N|n)(T|t)(A|a)(I|i)(N|n)(E|e)(R|r)[\\t\\f\\r\\v ]+"
         },
         {
           "type": "SEQ",
@@ -564,11 +520,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "(O|o)(N|n)(B|b)(U|u)(I|i)(L|l)(D|d)"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_space_no_newline"
+          "value": "(O|o)(N|n)(B|b)(U|u)(I|i)(L|l)(D|d)[\\t\\f\\r\\v ]+"
         },
         {
           "type": "CHOICE",
@@ -642,11 +594,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "(R|r)(U|u)(N|n)"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_space_no_newline"
+          "value": "(R|r)(U|u)(N|n)[\\t\\f\\r\\v ]+"
         },
         {
           "type": "SEQ",
@@ -664,11 +612,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "(S|s)(H|h)(E|e)(L|l)(L|l)"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_space_no_newline"
+          "value": "(S|s)(H|h)(E|e)(L|l)(L|l)[\\t\\f\\r\\v ]+"
         },
         {
           "type": "SEQ",
@@ -686,11 +630,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "(S|s)(T|t)(O|o)(P|p)(S|s)(I|i)(G|g)(N|n)(A|a)(L|l)"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_space_no_newline"
+          "value": "(S|s)(T|t)(O|o)(P|p)(S|s)(I|i)(G|g)(N|n)(A|a)(L|l)[\\t\\f\\r\\v ]+"
         },
         {
           "type": "CHOICE",
@@ -712,11 +652,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "(U|u)(S|s)(E|e)(R|r)"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_space_no_newline"
+          "value": "(U|u)(S|s)(E|e)(R|r)[\\t\\f\\r\\v ]+"
         },
         {
           "type": "CHOICE",
@@ -803,11 +739,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "(V|v)(O|o)(L|l)(U|u)(M|m)(E|e)"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_space_no_newline"
+          "value": "(V|v)(O|o)(L|l)(U|u)(M|m)(E|e)[\\t\\f\\r\\v ]+"
         },
         {
           "type": "CHOICE",
@@ -829,11 +761,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "(W|w)(O|o)(R|r)(K|k)(D|d)(I|i)(R|r)"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_space_no_newline"
+          "value": "(W|w)(O|o)(R|r)(K|k)(D|d)(I|i)(R|r)[\\t\\f\\r\\v ]+"
         },
         {
           "type": "SEQ",
@@ -4304,7 +4232,7 @@
         },
         {
           "type": "PATTERN",
-          "value": "(=| |\\t)"
+          "value": "(([ \\t]?=[ \\t]?)| |\\t)"
         },
         {
           "type": "SYMBOL",
