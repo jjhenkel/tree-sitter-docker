@@ -291,6 +291,10 @@
       "required": true,
       "types": [
         {
+          "type": "env_key",
+          "named": true
+        },
+        {
           "type": "env_pair",
           "named": true
         }
@@ -994,6 +998,10 @@
   },
   {
     "type": "--chown=",
+    "named": false
+  },
+  {
+    "type": "=",
     "named": false
   },
   {

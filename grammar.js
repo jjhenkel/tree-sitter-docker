@@ -193,18 +193,17 @@ module.exports = grammar({
 
     // ############### PLUMBING FOR 'ENTRYPOINT' ############################ /
     // ############### PLUMBING FOR 'ENV' ################################### /
-    _env_pairs: $ => seq(
+    _env_pairs: $ => choice(
+      $.env_key,
       $.env_pair,
-      repeat(seq($._space_no_newline, $.env_pair))
+      seq(
+        alias($.env_pair_eq, $.env_pair),
+        repeat(seq($._space_no_newline, alias($.env_pair_eq, $.env_pair)))
+      )
     ),
 
-    env_pair: $ => prec.right(seq(
-      $.env_key,
-      optional(choice(
-        seq('=', $.env_value),
-        seq($._space_no_newline, alias($._anything, $.env_value))
-      ))
-    )),
+    env_pair_eq: $ => seq($.env_key, token.immediate('='), $.env_value),
+    env_pair: $ => seq($.env_key, $._space_no_newline, alias($._anything, $.env_value)),
 
     env_key: $ => token.immediate(/"?[a-zA-Z_][a-zA-Z0-9_\-\.]*"?/),
 

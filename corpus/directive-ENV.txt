@@ -119,3 +119,25 @@ ENV buildDeps=' \
   (env (env_pair (env_key) (env_value)))
   (env (env_pair (env_key) (env_value)))
 )
+
+
+===================================
+ENV bug from corpus 3
+===================================
+
+ENV	DOCKER_CROSSPLATFORMS	\
+	linux/386 linux/arm \
+	darwin/amd64 darwin/386 \
+	freebsd/amd64 freebsd/386 freebsd/arm
+
+---
+
+(dockerfile
+  (env
+    (env_pair
+      (env_key)
+      (line_continuation)
+      (env_value (line_continuation) (line_continuation))
+    )
+  )
+)
