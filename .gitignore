@@ -11,3 +11,4 @@ Dockerfile.test
 sources
 target.Dockerfile
 github-dockerfiles-sources.tar.xz
+asts
