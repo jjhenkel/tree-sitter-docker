@@ -123,6 +123,10 @@
           "named": true
         },
         {
+          "type": "from_layer",
+          "named": true
+        },
+        {
           "type": "json_array",
           "named": true
         },
@@ -369,6 +373,33 @@
         },
         {
           "type": "tag",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "from_layer",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "docker_variable",
+          "named": true
+        },
+        {
+          "type": "template_expr_curly_braces",
+          "named": true
+        },
+        {
+          "type": "template_expr_less_than_equals",
+          "named": true
+        },
+        {
+          "type": "template_expr_percent_signs",
           "named": true
         }
       ]

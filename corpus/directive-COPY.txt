@@ -40,3 +40,72 @@ COPY \
 (dockerfile
   (copy (line_continuation) (path) (line_continuation) (path))
 )
+
+===================================
+COPY from layer
+===================================
+
+# Order of flags shouldn't matter
+COPY --chown=user:group --from=bar /path1 /path2
+COPY --from=bar --chown=user:group  /path1 /path2
+
+# Normal syntax
+COPY --from=bar_bar /path1 /path2
+COPY --from=foo /path1 /path2 /path3
+
+# Json array syntax
+COPY --from=bar []
+COPY --from=foo [ "json_array", "of two" ]
+
+# This is weird and broken but some files have it (so we'll be permissive)
+COPY \--from=foo [ "json_array" ]
+COPY \--from=foo /path1   /path2   /path3 /path4
+
+# Messing with spacing
+COPY \
+  --from=bar  \
+  --chown=user:group  \
+\
+/path1 /path2
+
+---
+
+(dockerfile
+  (comment)
+  (copy
+    (chown (user_name) (user_group))
+    (from_layer)
+    (path)
+    (path)
+  )
+  (copy
+    (from_layer)
+    (chown (user_name) (user_group))
+    (path)
+    (path)
+  )
+  
+  (comment)
+  (copy (from_layer) (path) (path))
+  (copy (from_layer) (path) (path) (path))
+
+  (comment)
+  (copy (from_layer) (json_array))
+  (copy (from_layer) (json_array))
+  
+  (comment)
+  (copy (from_layer) (json_array))
+  (copy (from_layer) (path) (path) (path) (path))
+
+  (comment)
+  (copy
+    (line_continuation)
+    (from_layer)
+    (line_continuation)
+    (chown (user_name) (user_group))
+    (line_continuation)
+    (line_continuation)
+    (path)
+    (path)
+  )
+) 

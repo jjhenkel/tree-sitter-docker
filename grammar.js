@@ -59,9 +59,15 @@ module.exports = grammar({
       $._anything_or_json_array
     )),
 
-    copy: $ => directive($, 'COPY', choice(
-      seq(optional($._chown), $._paths),
-      $.json_array
+    copy: $ => directive($, 'COPY', seq(
+      repeat(choice(
+        $._chown,
+        $._from_layer
+      )),
+      choice(
+        $._paths,
+        $.json_array
+      )
     )),
 
     entrypoint: $ => directive($, 'ENTRYPOINT', seq(
@@ -166,9 +172,18 @@ module.exports = grammar({
     // ############### PLUMBING FOR 'CMD' ################################### /
     // ############### PLUMBING FOR 'COPY' ################################## /
     _chown: $ => seq(
-      '--chown=',
-      $.chown
+      token.immediate('--chown='),
+      $.chown,
+      $._space_no_newline
     ),
+
+    _from_layer: $ => seq(
+      token.immediate(/\\?--from=/),
+      $.from_layer,
+      $._space_no_newline
+    ),
+
+    from_layer: $ => maybe_var_or_template_interpolation($, FROM_PART_REGEX),
 
     chown: $ => choice(
       seq($.user_name, optional(seq(':', $.user_group))),
