@@ -1,5 +1,5 @@
 ===================================
-Escape=` Test 1
+Escape ` Test 1
 ===================================
 
 # escape=`
@@ -28,4 +28,6 @@ ENV MESSAGE_QUEUE_URL="nats://message-queue:4222" `
 COPY --from=builder C:\out\index-prospect\IndexProspectHandler .
 
 ---
+
+(dockerfile (escape_directive) (from (repository) (image) (tag) (as_name)) (workdir (path)) (copy (path) (path)) (run) (copy (path) (path)) (run) (comment) (from (repository) (image) (tag)) (shell (json_array)) (run) (workdir (path)) (cmd) (env (env_pair (env_key) (env_value)) (line_continuation) (env_pair (env_key) (env_value))) (copy (from_layer) (path) (path))) 
 

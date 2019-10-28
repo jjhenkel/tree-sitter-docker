@@ -1,9 +1,21 @@
 {
-  "name": "DOCKER",
+  "name": "docker",
   "rules": {
     "dockerfile": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "escape_directive"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
         {
           "type": "REPEAT",
           "content": {
@@ -97,6 +109,17 @@
           "name": "_blank_line"
         }
       ]
+    },
+    "escape_directive": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "PATTERN",
+          "value": "\\s*#( |\\t)*escape( |\\t)*=\\s*"
+        }
+      }
     },
     "add": {
       "type": "SEQ",
@@ -5246,7 +5269,7 @@
           "value": -1,
           "content": {
             "type": "PATTERN",
-            "value": "([^\\s\\\\#]|[^\\s#]#|\\\\+[ \\t]*[^\\\\\\s])([^\\s]#|\\\\+[ \\t]*[^\\\\\\s]|[^\\n\\\\#])*"
+            "value": "([^\\s\\\\#`]|[^\\s#]#|\\\\+[ \\t]*[^\\\\\\s]|`+[ \\t][^`\\s])([^\\s]#|\\\\+[ \\t]*[^\\\\\\s`]|[^\\n\\\\#`])*"
           }
         }
       }
@@ -5407,17 +5430,6 @@
         }
       }
     },
-    "line_continuation": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": -1,
-        "content": {
-          "type": "PATTERN",
-          "value": "\\\\+\\s*\\n"
-        }
-      }
-    },
     "_anything_or_json_array": {
       "type": "CHOICE",
       "members": [
@@ -5464,7 +5476,20 @@
       "run"
     ]
   ],
-  "externals": [],
+  "externals": [
+    {
+      "type": "SYMBOL",
+      "name": "escape_directive"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "escape"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "line_continuation"
+    }
+  ],
   "inline": [],
   "supertypes": []
 }

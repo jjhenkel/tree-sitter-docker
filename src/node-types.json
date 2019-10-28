@@ -265,6 +265,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_directive",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -961,6 +971,10 @@
     }
   },
   {
+    "type": "escape_directive",
+    "named": true
+  },
+  {
     "type": "=",
     "named": false
   },
@@ -1078,10 +1092,6 @@
   },
   {
     "type": "comment",
-    "named": true
-  },
-  {
-    "type": "line_continuation",
     "named": true
   },
   {

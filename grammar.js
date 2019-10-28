@@ -2,12 +2,12 @@
 const FROM_PART_REGEX = /[^\$\s\/:@\{\}%<>=\?]+/;
 
 module.exports = grammar({
-  name: 'DOCKER',
+  name: 'docker',
   
   extras: $ => [
     $.comment,
     $.line_continuation,
-    $._space,
+    $._space
   ],
 
   conflicts: $ => [
@@ -16,9 +16,16 @@ module.exports = grammar({
     [ $.run ],
   ],
 
+  externals: $ => [
+    $.escape_directive,
+    $.escape,
+    $.line_continuation
+  ],
+
   rules: {
     // ############### TOP LEVEL ############################################ /
     dockerfile: $ => seq(
+      optional($.escape_directive),
       repeat(
         field('directives', $._directive)
       ),
@@ -45,6 +52,10 @@ module.exports = grammar({
       $.workdir,
       $._blank_line
     ),
+
+    escape_directive: $ => token.immediate(prec(10, 
+      /\s*#( |\t)*escape( |\t)*=\s*/
+    )),
 
     // ############### DIRECTIVES ########################################### /
     add: $ => directive($, 'ADD', choice(
@@ -360,7 +371,7 @@ module.exports = grammar({
     _paths: $ => repeat1(seq($.path, optional($._space_no_newline))),
     
     _anything: $ => repeat1(token.immediate(prec(-1,
-      /([^\s\\#]|[^\s#]#|\\+[ \t]*[^\\\s])([^\s]#|\\+[ \t]*[^\\\s]|[^\n\\#])*/
+      /([^\s\\#`]|[^\s#]#|\\+[ \t]*[^\\\s]|`+[ \t][^`\s])([^\s]#|\\+[ \t]*[^\\\s`]|[^\n\\#`])*/
     ))),
 
     // ############### DOCKER VARIABLE HANDLING ############################# /
@@ -402,7 +413,7 @@ module.exports = grammar({
     _blank_line: $ => /[\t\f\r\v ]*\n/,
     _space_no_newline: $ => /[\t\f\r\v ]+/,
     comment: $ => token(prec(-10, /#[^\n]*\n*/)),
-    line_continuation: $ => token(prec(-1, /\\+\s*\n/)),
+    // line_continuation: $ => token(prec(-1, /\\+\s*\n/)),
 
     // ############### MODIFIED JSON EXCERPT ################################ /
     
