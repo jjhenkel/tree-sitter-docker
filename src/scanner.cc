@@ -68,6 +68,11 @@ namespace {
                 if (lexer->lookahead == 'e' || lexer->lookahead == 'E') {
                     advance(lexer);
                 } else { return false; }
+
+                while (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+                    advance(lexer);
+                }
+
                 if (lexer->lookahead == '=') {
                     advance(lexer);
                 } else { return false; }
