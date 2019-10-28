@@ -204,3 +204,42 @@ RUN \
   (comment)
   (run (line_continuation) (line_continuation) (line_continuation))
 )
+
+===================================
+RUN bug from corpus 4
+===================================
+
+# Problem here is that 'env' is also a directive and we allow for any casing
+# of directives (instead of forcing ENV)
+RUN env \
+    CC=arm-linux-gnueabi-gcc CFLAGS="-march=armv5te -marm -mfloat-abi=soft" \
+    CXX=arm-linux-gnueabi-g++ CXXFLAGS="-march=armv5te -marm -mfloat-abi=soft" \
+    bash musl.sh armv5te && \
+    env \
+    CC=arm-linux-gnueabi-gcc CFLAGS="-march=armv6 -marm" \
+    CXX=arm-linux-gnueabi-g++ CXXFLAGS="-march=armv6 -marm" \
+    bash musl.sh arm && \
+    env \
+    CC=arm-linux-gnueabihf-gcc CFLAGS="-march=armv6 -marm -mfpu=vfp" \
+    CXX=arm-linux-gnueabihf-g++ CXXFLAGS="-march=armv6 -marm -mfpu=vfp" \
+    bash musl.sh armhf
+
+---
+
+(dockerfile
+  (comment)
+  (comment)
+  (run
+    (line_continuation)
+    (line_continuation)
+    (line_continuation)
+    (line_continuation)
+    (line_continuation)
+    (line_continuation)
+    (line_continuation)
+    (line_continuation)
+    (line_continuation)
+    (line_continuation)
+    (line_continuation)
+  )
+)

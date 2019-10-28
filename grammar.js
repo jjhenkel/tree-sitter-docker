@@ -370,9 +370,9 @@ module.exports = grammar({
 
     _paths: $ => repeat1(seq($.path, optional($._space_no_newline))),
     
-    _anything: $ => repeat1(token.immediate(prec(-1,
+    _anything: $ => repeat1(token.immediate(
       /([^\s\\#`]|[^\s#]#|\\+[ \t]*[^\\\s]|`+[ \t][^`\s])([^\s]#|\\+[ \t]*[^\\\s`]|[^\n\\#`])*/
-    ))),
+    )),
 
     // ############### DOCKER VARIABLE HANDLING ############################# /
     docker_variable: $ => choice(
@@ -424,9 +424,9 @@ module.exports = grammar({
       $._anything
     ),
 
-    json_array: $ => token.immediate(
+    json_array: $ => token.immediate(prec(1,
       /\[(?: |\t|\r|\f|\v|\\\n)*(?:"(?:[^\\"\n]|\\(?:\"|\\|\/|b|f|n|r|t|u))*"(?: |\t|\r|\f|\v|\\\n)*)?(?:,(?: |\t|\r|\f|\v|\\\n)*"(?:[^\\"\n]|\\(?:\"|\\|\/|b|f|n|r|t|u))*"(?: |\t|\r|\f|\v|\\\n)*)*(?: |\t|\r|\f|\v|\\\n)*\]/
-    ),
+    )),
 
   }
 });
