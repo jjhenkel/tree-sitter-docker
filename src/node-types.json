@@ -38,6 +38,11 @@
     }
   },
   {
+    "type": "arg_default",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "as_name",
     "named": true,
     "fields": {},
@@ -1022,8 +1027,8 @@
     "named": true
   },
   {
-    "type": "arg_default",
-    "named": true
+    "type": "'",
+    "named": false
   },
   {
     "type": "--chown=",

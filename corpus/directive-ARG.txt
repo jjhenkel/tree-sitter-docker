@@ -15,3 +15,29 @@ ARG test123
     (arg (arg_name))
     (arg (arg_name))
 )
+
+===================================
+ARG with line continuations
+===================================
+
+ARG RESTY_CONFIG_OPTIONS="\
+    --with-file-aio \
+    "
+
+ARG RESTY_CONFIG_OPTIONS='\
+    --with-file-aio \
+    '
+
+ARG WATCH_OUT_FOR_THIS='test \
+  but\do not\knock\this \
+\
+
+'
+
+---
+
+(dockerfile
+    (arg (arg_name) (arg_default (line_continuation) (line_continuation)))
+    (arg (arg_name) (arg_default (line_continuation) (line_continuation)))
+    (arg (arg_name) (arg_default (line_continuation) (line_continuation) (line_continuation)))
+)
