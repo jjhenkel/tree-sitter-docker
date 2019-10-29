@@ -241,8 +241,8 @@ ONBUILD USER app:group
 
 (dockerfile
   (comment)
-  (onbuild (user (docker_variable)))
-  (onbuild (user (docker_variable)))
+  (onbuild (user (user_name (docker_variable))))
+  (onbuild (user (user_name (docker_variable))))
   (onbuild (user (user_id)))
   (onbuild (user (user_id)))
   (onbuild (user (user_name)))

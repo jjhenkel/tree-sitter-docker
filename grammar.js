@@ -162,8 +162,7 @@ module.exports = grammar({
 
     user: $ => directive($, 'USER', choice(
       maybe_double_quoted(seq($.user_name, optional(seq(':', $.user_group)))),
-      maybe_double_quoted(seq($.user_id, optional(seq(':', $.user_group_id)))),
-      maybe_double_quoted(seq('$', $.docker_variable))
+      maybe_double_quoted(seq($.user_id, optional(seq(':', $.user_group_id))))
     )),
 
     volume: $ => directive($, 'VOLUME', choice(
@@ -204,8 +203,7 @@ module.exports = grammar({
 
     chown: $ => choice(
       seq($.user_name, optional(seq(':', $.user_group))),
-      seq($.user_id, optional(seq(':', $.user_group_id))),
-      seq('$', $.docker_variable)
+      seq($.user_id, optional(seq(':', $.user_group_id)))
     ),
 
     // ############### PLUMBING FOR 'ENTRYPOINT' ############################ /
@@ -362,8 +360,14 @@ module.exports = grammar({
 
 
     // ############### PLUMBING FOR 'USER' ################################## /
-    user_name: $ => token.immediate(/[a-zA-Z_][^\s:'"]*/),
-    user_group: $ => token.immediate(/[a-zA-Z_][^\s:'"]*/),
+    user_name: $ => choice(
+      seq('$', $.docker_variable),
+      token.immediate(/[a-zA-Z_][^\s:'"]*/)
+    ),
+    user_group: $ => choice(
+      seq('$', $.docker_variable),
+      token.immediate(/[a-zA-Z_][^\s:'"]*/)
+    ),
     user_id: $ => token.immediate(/\d+/),
     user_group_id: $ => token.immediate(/\d+/),
 

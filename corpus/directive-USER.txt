@@ -46,4 +46,21 @@ USER "${user}"
 
 ---
 
-(dockerfile (comment) (user (docker_variable)))
+(dockerfile (comment) (user (user_name (docker_variable))))
+
+===================================
+USER bug from corpus 4
+===================================
+
+# Can have variables for both
+USER ${TRAVIS_USER}:${TRAVIS_GROUP}
+
+---
+
+(dockerfile
+  (comment)
+  (user
+    (user_name (docker_variable))
+    (user_group (docker_variable))
+  )
+)
