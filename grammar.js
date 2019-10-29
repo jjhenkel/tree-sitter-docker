@@ -216,7 +216,7 @@ module.exports = grammar({
     env_pair_eq: $ => seq($.env_key, token.immediate('='), $.env_value),
     env_pair: $ => seq($.env_key, $._space_no_newline, alias($._anything, $.env_value)),
 
-    env_key: $ => token.immediate(/"?[a-zA-Z_][a-zA-Z0-9_\-\.]*"?/),
+    env_key: $ => token.immediate(/"?[a-zA-Z_][a-zA-Z0-9_\-\.\/:]*"?/),
 
     env_value: $ => token.immediate(
       /([^\s\\'"]|\\[^\s]|\\ |"([^\n\\"]|\\"|\\\n|\\[^\s])*"|'([^\n']|\\'|\\\n|\\[^\s])*')+/
@@ -318,18 +318,23 @@ module.exports = grammar({
     hc_command: $ => $._anything_or_json_array,
 
     // ############### PLUMBING FOR 'LABEL' ################################# /
-    _labels: $ => repeat1($.label_pair),
-
-    label_pair: $ => seq($.label_key, /(([ \t]?=[ \t]?)| |\t)/, $.label_value),
-
-    label_key: $ =>
-      token.immediate(/"?[a-zA-Z][a-zA-Z0-9_\-\.\/:]*"?/),
-    label_value: $ => choice(
-      /""/,
-      token.immediate(/([^\s\\\"']|\\[^\s\"'])+/),
-      seq('"', repeat1(token.immediate(/([^\n"]|\\"|\\')+/)), '"'),
-      seq("'", repeat1(token.immediate(/([^\n']|\\')+/)), "'")
+    _labels: $ => choice(
+      $.label_pair,
+      seq(
+        alias($.label_pair_eq, $.label_pair),
+        repeat(seq($._space_no_newline, alias($.label_pair_eq, $.label_pair)))
+      )
     ),
+
+    label_pair_eq: $ => seq($.label_key, token.immediate('='), $.label_value),
+    label_pair: $ => seq($.label_key, $._space_no_newline, alias($._anything, $.label_value)),
+
+    label_key: $ => token.immediate(/"?[a-zA-Z_][a-zA-Z0-9_\-\.\/:]*"?/),
+
+    label_value: $ => token.immediate(
+      /([^\s\\'"]|\\[^\s]|\\ |"([^\n\\"]|\\"|\\\n|\\[^\s])*"|'([^\n']|\\'|\\\n|\\[^\s])*')+/
+    ),
+
 
     // ############### PLUMBING FOR 'MAINTAINER' ############################ /
     // ############### PLUMBING FOR 'ONBUILD' ############################### /
@@ -345,8 +350,8 @@ module.exports = grammar({
 
 
     // ############### PLUMBING FOR 'USER' ################################## /
-    user_name: $ => token.immediate(/[a-zA-Z][^\s:'"]*/),
-    user_group: $ => token.immediate(/[a-zA-Z][^\s:'"]*/),
+    user_name: $ => token.immediate(/[a-zA-Z_][^\s:'"]*/),
+    user_group: $ => token.immediate(/[a-zA-Z_][^\s:'"]*/),
     user_id: $ => token.immediate(/\d+/),
     user_group_id: $ => token.immediate(/\d+/),
 

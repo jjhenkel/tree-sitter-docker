@@ -312,6 +312,11 @@
     }
   },
   {
+    "type": "env_key",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "env_pair",
     "named": true,
     "fields": {},
@@ -329,6 +334,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "env_value",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "expose",
@@ -530,6 +540,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "label_key",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "label_pair",
@@ -1019,14 +1034,6 @@
     "named": false
   },
   {
-    "type": "env_key",
-    "named": true
-  },
-  {
-    "type": "env_value",
-    "named": true
-  },
-  {
     "type": "-",
     "named": false
   },
@@ -1052,14 +1059,6 @@
   },
   {
     "type": "--retries",
-    "named": false
-  },
-  {
-    "type": "label_key",
-    "named": true
-  },
-  {
-    "type": "'",
     "named": false
   },
   {

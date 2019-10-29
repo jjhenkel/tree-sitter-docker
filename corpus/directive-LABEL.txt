@@ -79,3 +79,18 @@ LABEL repository.socrata/runit-bionic-python:2.7=""
   (label (label_pair (label_key) (label_value)))
 )
 
+
+===================================
+LABEL bug from corpus 3
+===================================
+
+# Really at this point just support the ENV syntax
+LABEL maintainer this person <this@person.com> and this person <other@gmail.com>
+
+---
+
+(dockerfile
+  (comment)
+  (label (label_pair (label_key) (label_value)))
+)
+

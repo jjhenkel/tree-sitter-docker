@@ -1591,7 +1591,7 @@
       "type": "IMMEDIATE_TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "\"?[a-zA-Z_][a-zA-Z0-9_\\-\\.]*\"?"
+        "value": "\"?[a-zA-Z_][a-zA-Z0-9_\\-\\.\\/:]*\"?"
       }
     },
     "env_value": {
@@ -4839,11 +4839,68 @@
       "name": "_anything_or_json_array"
     },
     "_labels": {
-      "type": "REPEAT1",
-      "content": {
-        "type": "SYMBOL",
-        "name": "label_pair"
-      }
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "label_pair"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "label_pair_eq"
+              },
+              "named": true,
+              "value": "label_pair"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_space_no_newline"
+                  },
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "label_pair_eq"
+                    },
+                    "named": true,
+                    "value": "label_pair"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "label_pair_eq": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "label_key"
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "="
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "label_value"
+        }
+      ]
     },
     "label_pair": {
       "type": "SEQ",
@@ -4853,12 +4910,17 @@
           "name": "label_key"
         },
         {
-          "type": "PATTERN",
-          "value": "(([ \\t]?=[ \\t]?)| |\\t)"
+          "type": "SYMBOL",
+          "name": "_space_no_newline"
         },
         {
-          "type": "SYMBOL",
-          "name": "label_value"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_anything"
+          },
+          "named": true,
+          "value": "label_value"
         }
       ]
     },
@@ -4866,70 +4928,15 @@
       "type": "IMMEDIATE_TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "\"?[a-zA-Z][a-zA-Z0-9_\\-\\.\\/:]*\"?"
+        "value": "\"?[a-zA-Z_][a-zA-Z0-9_\\-\\.\\/:]*\"?"
       }
     },
     "label_value": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "PATTERN",
-          "value": "\"\""
-        },
-        {
-          "type": "IMMEDIATE_TOKEN",
-          "content": {
-            "type": "PATTERN",
-            "value": "([^\\s\\\\\\\"']|\\\\[^\\s\\\"'])+"
-          }
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "\""
-            },
-            {
-              "type": "REPEAT1",
-              "content": {
-                "type": "IMMEDIATE_TOKEN",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "([^\\n\"]|\\\\\"|\\\\')+"
-                }
-              }
-            },
-            {
-              "type": "STRING",
-              "value": "\""
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "'"
-            },
-            {
-              "type": "REPEAT1",
-              "content": {
-                "type": "IMMEDIATE_TOKEN",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "([^\\n']|\\\\')+"
-                }
-              }
-            },
-            {
-              "type": "STRING",
-              "value": "'"
-            }
-          ]
-        }
-      ]
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "([^\\s\\\\'\"]|\\\\[^\\s]|\\\\ |\"([^\\n\\\\\"]|\\\\\"|\\\\\\n|\\\\[^\\s])*\"|'([^\\n']|\\\\'|\\\\\\n|\\\\[^\\s])*')+"
+      }
     },
     "signal_num": {
       "type": "PATTERN",
@@ -4952,14 +4959,14 @@
       "type": "IMMEDIATE_TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "[a-zA-Z][^\\s:'\"]*"
+        "value": "[a-zA-Z_][^\\s:'\"]*"
       }
     },
     "user_group": {
       "type": "IMMEDIATE_TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "[a-zA-Z][^\\s:'\"]*"
+        "value": "[a-zA-Z_][^\\s:'\"]*"
       }
     },
     "user_id": {

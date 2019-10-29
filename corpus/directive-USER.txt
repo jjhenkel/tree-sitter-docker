@@ -26,3 +26,13 @@ USER "lnd"
 ---
 
 (dockerfile (comment) (user (user_name)))
+
+===================================
+USER bug from corpus 2
+===================================
+
+USER _starting-with-underscore
+
+---
+
+(dockerfile (user (user_name)))
