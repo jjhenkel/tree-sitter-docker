@@ -14,3 +14,25 @@ VOLUME [ "/a", "/b" ]
     (volume (json_array))
 )
 
+===================================
+VOLUME support json single quotes
+===================================
+
+# Shouldn't have to do this but, unfortunately it happens
+VOLUME [ '' ]
+VOLUME [ '/a' ]
+VOLUME [ '/a', '/b' ]
+VOLUME [ '/a', '/b\'' ]
+VOLUME [ '/\'\na"', '/b\'' ]
+
+---
+
+(dockerfile 
+    (comment)
+    (volume (json_array))
+    (volume (json_array))
+    (volume (json_array))
+    (volume (json_array))
+    (volume (json_array))
+)
+
