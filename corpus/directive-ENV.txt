@@ -159,6 +159,6 @@ ENV CC="ccache $CC" CCACHE_DIR=/tmp/.ccache CCACHE_NOCOMPRESS=1 $ENV1=yes
     (env_pair (env_key) (env_value))
     (env_pair (env_key) (env_value))
     (env_pair (env_key) (env_value))
-    (env_pair (env_key) (env_value))
+    (env_pair (env_key (docker_variable)) (env_value))
   )
 )

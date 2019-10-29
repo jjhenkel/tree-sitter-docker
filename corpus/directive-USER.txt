@@ -36,3 +36,14 @@ USER _starting-with-underscore
 ---
 
 (dockerfile (user (user_name)))
+
+===================================
+USER bug from corpus 3
+===================================
+
+# This works in reality
+USER "${user}"
+
+---
+
+(dockerfile (comment) (user (docker_variable)))

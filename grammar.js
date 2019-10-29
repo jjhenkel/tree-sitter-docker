@@ -163,7 +163,7 @@ module.exports = grammar({
     user: $ => directive($, 'USER', choice(
       maybe_double_quoted(seq($.user_name, optional(seq(':', $.user_group)))),
       maybe_double_quoted(seq($.user_id, optional(seq(':', $.user_group_id)))),
-      seq('$', $.docker_variable)
+      maybe_double_quoted(seq('$', $.docker_variable))
     )),
 
     volume: $ => directive($, 'VOLUME', choice(
@@ -222,7 +222,10 @@ module.exports = grammar({
     env_pair_eq: $ => seq($.env_key, token.immediate('='), $.env_value),
     env_pair: $ => seq($.env_key, $._space_no_newline, alias($._anything, $.env_value)),
 
-    env_key: $ => token.immediate(/"?[a-zA-Z_\$][a-zA-Z0-9_\-\.\/:]*"?/),
+    env_key: $ => choice(
+      seq('$', $.docker_variable),
+      token.immediate(/"?[a-zA-Z_][a-zA-Z0-9_\-\.\/:]*"?/)
+    ),
 
     env_value: $ => token.immediate(
       /([^\s\\'"]|\\[^\s]|\\ |"([^\n\\"]|\\"|\\\n|\\[^\s])*"|'([^\n']|\\'|\\\n|\\[^\s])*')+/
@@ -335,7 +338,10 @@ module.exports = grammar({
     label_pair_eq: $ => seq($.label_key, token.immediate('='), $.label_value),
     label_pair: $ => seq($.label_key, $._space_no_newline, alias($._anything, $.label_value)),
 
-    label_key: $ => token.immediate(/"?[a-zA-Z_\$][a-zA-Z0-9_\-\.\/:]*"?/),
+    label_key: $ => choice(
+      seq('$', $.docker_variable),
+      token.immediate(/"?[a-zA-Z_][a-zA-Z0-9_\-\.\/:]*"?/)
+    ),
 
     label_value: $ => token.immediate(
       /([^\s\\'"]|\\[^\s]|\\ |"([^\n\\"]|\\"|\\\n|\\[^\s])*"|'([^\n']|\\'|\\\n|\\[^\s])*')+/
@@ -411,7 +417,7 @@ module.exports = grammar({
       token.immediate(/[^\}\{"\n]+/)
     ),
 
-    _docker_variable: $ => token.immediate(/[^\/\}\{\$"\s:]+/),
+    _docker_variable: $ => token.immediate(/[^\/\}\{\$"\s:=]+/),
 
     // ############### OUT-OF-DOCKER TEMPLATING ############################# /
     template_expr_curly_braces: $ => /[^\}\n]+/,

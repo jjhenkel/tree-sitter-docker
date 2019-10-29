@@ -841,15 +841,46 @@
               ]
             },
             {
-              "type": "SEQ",
+              "type": "CHOICE",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "$"
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "\""
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "STRING",
+                          "value": "$"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "docker_variable"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "\""
+                    }
+                  ]
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "docker_variable"
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "$"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "docker_variable"
+                    }
+                  ]
                 }
               ]
             }
@@ -1633,11 +1664,29 @@
       ]
     },
     "env_key": {
-      "type": "IMMEDIATE_TOKEN",
-      "content": {
-        "type": "PATTERN",
-        "value": "\"?[a-zA-Z_\\$][a-zA-Z0-9_\\-\\.\\/:]*\"?"
-      }
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "$"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "docker_variable"
+            }
+          ]
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "\"?[a-zA-Z_][a-zA-Z0-9_\\-\\.\\/:]*\"?"
+          }
+        }
+      ]
     },
     "env_value": {
       "type": "IMMEDIATE_TOKEN",
@@ -4970,11 +5019,29 @@
       ]
     },
     "label_key": {
-      "type": "IMMEDIATE_TOKEN",
-      "content": {
-        "type": "PATTERN",
-        "value": "\"?[a-zA-Z_\\$][a-zA-Z0-9_\\-\\.\\/:]*\"?"
-      }
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "$"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "docker_variable"
+            }
+          ]
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "\"?[a-zA-Z_][a-zA-Z0-9_\\-\\.\\/:]*\"?"
+          }
+        }
+      ]
     },
     "label_value": {
       "type": "IMMEDIATE_TOKEN",
@@ -5417,7 +5484,7 @@
       "type": "IMMEDIATE_TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "[^\\/\\}\\{\\$\"\\s:]+"
+        "value": "[^\\/\\}\\{\\$\"\\s:=]+"
       }
     },
     "template_expr_curly_braces": {

@@ -319,7 +319,17 @@
   {
     "type": "env_key",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "docker_variable",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "env_pair",
@@ -549,7 +559,17 @@
   {
     "type": "label_key",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "docker_variable",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "label_pair",
