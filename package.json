@@ -9,6 +9,7 @@
   "author": "Jordan J. Henkel",
   "license": "MIT",
   "dependencies": {
+    "monaco-editor": "^0.18.1",
     "nan": "^2.14.0"
   },
   "devDependencies": {
