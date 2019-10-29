@@ -3400,7 +3400,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == '\'') ADVANCE(80);
       if (lookahead == ',') ADVANCE(233);
       if (lookahead == '\\') ADVANCE(22);
-      if (lookahead == ']') ADVANCE(1164);
+      if (lookahead == ']') ADVANCE(1165);
       END_STATE();
     case 233:
       if (lookahead == '\t' ||
@@ -3416,7 +3416,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead == ' ') ADVANCE(234);
       if (lookahead == ',') ADVANCE(235);
       if (lookahead == '\\') ADVANCE(26);
-      if (lookahead == ']') ADVANCE(1164);
+      if (lookahead == ']') ADVANCE(1165);
       END_STATE();
     case 235:
       if (lookahead == '\t' ||
@@ -3528,7 +3528,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead == ' ') ADVANCE(255);
       if (lookahead == ',') ADVANCE(236);
       if (lookahead == '\\') ADVANCE(48);
-      if (lookahead == ']') ADVANCE(1164);
+      if (lookahead == ']') ADVANCE(1165);
       END_STATE();
     case 256:
       if (lookahead == '"' ||
@@ -14328,7 +14328,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == '\'') ADVANCE(1054);
       if (lookahead == ',') ADVANCE(1044);
       if (lookahead == '\\') ADVANCE(23);
-      if (lookahead == ']') ADVANCE(1164);
+      if (lookahead == ']') ADVANCE(1165);
       if (lookahead == '`') ADVANCE(72);
       if (lookahead != 0 &&
           lookahead != '\n') ADVANCE(1053);
@@ -14344,7 +14344,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == '\'') ADVANCE(1054);
       if (lookahead == ',') ADVANCE(1044);
       if (lookahead == '\\') ADVANCE(23);
-      if (lookahead == ']') ADVANCE(1164);
+      if (lookahead == ']') ADVANCE(1165);
       if (lookahead == '#' ||
           lookahead == '`') ADVANCE(72);
       if (lookahead != 0 &&
@@ -14368,7 +14368,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == '\'') ADVANCE(1054);
       if (lookahead == ',') ADVANCE(1044);
       if (lookahead == '\\') ADVANCE(23);
-      if (lookahead == ']') ADVANCE(1164);
+      if (lookahead == ']') ADVANCE(1165);
       if (lookahead == '`') ADVANCE(72);
       END_STATE();
     case 1043:
@@ -14412,7 +14412,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead == '') ADVANCE(1046);
       if (lookahead == ',') ADVANCE(1048);
       if (lookahead == '\\') ADVANCE(27);
-      if (lookahead == ']') ADVANCE(1164);
+      if (lookahead == ']') ADVANCE(1165);
       if (lookahead == '#' ||
           lookahead == '`') ADVANCE(72);
       if (lookahead != 0 &&
@@ -14433,7 +14433,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '`') ADVANCE(1053);
       if (lookahead == ',') ADVANCE(1048);
       if (lookahead == '\\') ADVANCE(27);
-      if (lookahead == ']') ADVANCE(1164);
+      if (lookahead == ']') ADVANCE(1165);
       if (lookahead == '`') ADVANCE(72);
       END_STATE();
     case 1047:
@@ -14504,7 +14504,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead == '') ADVANCE(1052);
       if (lookahead == ',') ADVANCE(1050);
       if (lookahead == '\\') ADVANCE(49);
-      if (lookahead == ']') ADVANCE(1164);
+      if (lookahead == ']') ADVANCE(1165);
       if (lookahead == '#' ||
           lookahead == '`') ADVANCE(72);
       if (lookahead != 0 &&
@@ -14525,7 +14525,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '`') ADVANCE(1053);
       if (lookahead == ',') ADVANCE(1050);
       if (lookahead == '\\') ADVANCE(49);
-      if (lookahead == ']') ADVANCE(1164);
+      if (lookahead == ']') ADVANCE(1165);
       if (lookahead == '`') ADVANCE(72);
       END_STATE();
     case 1053:
@@ -16042,6 +16042,10 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       END_STATE();
     case 1164:
       ACCEPT_TOKEN(sym_json_array);
+      END_STATE();
+    case 1165:
+      ACCEPT_TOKEN(sym_json_array);
+      if (lookahead == ';') ADVANCE(1164);
       END_STATE();
     default:
       return false;
