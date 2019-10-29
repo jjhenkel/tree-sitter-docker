@@ -194,7 +194,9 @@ module.exports = grammar({
       $._space_no_newline
     ),
 
-    from_layer: $ => maybe_var_or_template_interpolation($, FROM_PART_REGEX),
+    from_layer: $ => maybe_var_or_template_interpolation(
+      $,  /[^\$\s\{\}%<>=\?]+/
+    ),
 
     chown: $ => choice(
       seq($.user_name, optional(seq(':', $.user_group))),

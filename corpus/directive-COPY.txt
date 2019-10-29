@@ -109,3 +109,18 @@ COPY \
     (path)
   )
 ) 
+
+===================================
+Edge case from corpus 1
+===================================
+
+# Apparently from can have all these characters (like a full image name?)
+COPY --from=gcr.io/windmill-test-containers/imagetags-common:stretch /usr/src/common/stretch /app/message.txt
+
+---
+
+(dockerfile
+  (comment)
+  (copy (from_layer) (path) (path))
+)
+
