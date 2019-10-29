@@ -38,3 +38,31 @@ ADD entrypoint.sh entrypoint.sh
 (dockerfile
   (add (path) (path))
 )
+
+===================================
+ADD bug from corpus 1
+===================================
+
+# Leading \ was bug
+ADD \conf\ /.znc
+
+---
+
+(dockerfile
+  (comment)
+  (add (path) (path))
+)
+
+===================================
+ADD bug from corpus 2
+===================================
+
+# Having \" was bug
+ADD conf\\" /.znc
+
+---
+
+(dockerfile
+  (comment)
+  (add (path) (path))
+)
