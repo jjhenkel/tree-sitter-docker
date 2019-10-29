@@ -222,7 +222,7 @@ module.exports = grammar({
     env_pair_eq: $ => seq($.env_key, token.immediate('='), $.env_value),
     env_pair: $ => seq($.env_key, $._space_no_newline, alias($._anything, $.env_value)),
 
-    env_key: $ => token.immediate(/"?[a-zA-Z_][a-zA-Z0-9_\-\.\/:]*"?/),
+    env_key: $ => token.immediate(/"?[a-zA-Z_\$][a-zA-Z0-9_\-\.\/:]*"?/),
 
     env_value: $ => token.immediate(
       /([^\s\\'"]|\\[^\s]|\\ |"([^\n\\"]|\\"|\\\n|\\[^\s])*"|'([^\n']|\\'|\\\n|\\[^\s])*')+/
@@ -335,7 +335,7 @@ module.exports = grammar({
     label_pair_eq: $ => seq($.label_key, token.immediate('='), $.label_value),
     label_pair: $ => seq($.label_key, $._space_no_newline, alias($._anything, $.label_value)),
 
-    label_key: $ => token.immediate(/"?[a-zA-Z_][a-zA-Z0-9_\-\.\/:]*"?/),
+    label_key: $ => token.immediate(/"?[a-zA-Z_\$][a-zA-Z0-9_\-\.\/:]*"?/),
 
     label_value: $ => token.immediate(
       /([^\s\\'"]|\\[^\s]|\\ |"([^\n\\"]|\\"|\\\n|\\[^\s])*"|'([^\n']|\\'|\\\n|\\[^\s])*')+/

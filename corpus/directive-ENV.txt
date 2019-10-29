@@ -141,3 +141,24 @@ ENV	DOCKER_CROSSPLATFORMS	\
     )
   )
 )
+
+===================================
+ENV bug from corpus 4
+===================================
+
+# We need to allow $KEY= in ENV because you can actually
+# do that by settings ARG KEY=foo beforehand
+ENV CC="ccache $CC" CCACHE_DIR=/tmp/.ccache CCACHE_NOCOMPRESS=1 $ENV1=yes
+
+---
+
+(dockerfile
+  (comment)
+  (comment)
+  (env
+    (env_pair (env_key) (env_value))
+    (env_pair (env_key) (env_value))
+    (env_pair (env_key) (env_value))
+    (env_pair (env_key) (env_value))
+  )
+)
