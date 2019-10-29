@@ -11,7 +11,7 @@ VOLUME [ "/a", "/b" ]
 (dockerfile 
     (volume (path))
     (volume (path) (path))
-    (volume (json_array))
+    (volume (json_array (json_array_item) (json_array_item)))
 )
 
 ===================================
@@ -29,10 +29,10 @@ VOLUME [ '/\'\na"', '/b\'' ]
 
 (dockerfile 
     (comment)
-    (volume (json_array))
-    (volume (json_array))
-    (volume (json_array))
-    (volume (json_array))
-    (volume (json_array))
+    (volume (json_array (json_array_item)))
+    (volume (json_array (json_array_item)))
+    (volume (json_array (json_array_item) (json_array_item)))
+    (volume (json_array (json_array_item) (json_array_item)))
+    (volume (json_array (json_array_item) (json_array_item)))
 )
 

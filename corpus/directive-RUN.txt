@@ -243,3 +243,28 @@ RUN env \
     (line_continuation)
   )
 )
+
+===================================
+RUN bug from corpus 5
+===================================
+
+# Lots of \ here
+RUN apt-get update \
+    && apt-get install maven wget git zip unzip  -y \
+            --allow-unauthenticated \
+            --no-install-recommends \
+    # install openjdk11
+    && sed -i '/ARCHITECTURES = Collections.unmodifiableMap(m);/ i \ \ \ \ \ \ \ \ m.put("ppc64le", new Arch(0xC0000015, 0xFFFFFFFF, 2, 189, 11, 362, 358));' server/src/main/java/org/elasticsearch/bootstrap/SystemCallFilter.java
+
+---
+
+(dockerfile
+  (comment)
+  (run
+    (line_continuation)
+    (line_continuation)
+    (line_continuation)
+    (line_continuation)
+    (comment)
+  )
+)

@@ -9,7 +9,7 @@ ADD [ "/target/foo bar.tx", "/app" ]
 
 (dockerfile
   (add (path) (path))
-  (add (json_array))
+  (add (json_array (json_array_item) (json_array_item)))
 )
 
 ===================================

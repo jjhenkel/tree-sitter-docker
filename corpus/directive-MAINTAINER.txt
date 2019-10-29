@@ -780,7 +780,7 @@ MAINTAINER Átila Camurça, Samir Coutinho
 MAINTAINER FIWARE IoTAgent Team. Telefónica I+D
 MAINTAINER Daisuke Baba
 MAINTAINER Brendan Rius <ping@brendan-rius.com>
-MAINTAINER James Turnbull <james@example.com> # comment
+MAINTAINER James Turnbull <james@example.com>
 MAINTAINER Brian Rutledge "bhrutledge@gmail.com"  
 MAINTAINER Werner Van Geit
 MAINTAINER "prasanna bhogale"
@@ -1784,7 +1784,7 @@ MAINTAINER David Paccoud <dpaccoud@gmail.com>
   (maintainer)
   (maintainer)
   (maintainer)
-  (maintainer (comment))
+  (maintainer)
   (maintainer)
   (maintainer)
   (maintainer)

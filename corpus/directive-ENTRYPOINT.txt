@@ -21,21 +21,21 @@ ENTRYPOINT ["gunicorn", "app:app", "-b", "0.0.0.0:80", "--log-file", "-", "--acc
 ---
 
 (dockerfile 
-  (entrypoint (json_array))
-  (entrypoint (json_array))
-  (entrypoint (json_array))
-  (entrypoint (json_array))
-  (entrypoint (json_array))
-  (entrypoint (json_array))
-  (entrypoint (json_array))
-  (entrypoint (json_array))
-  (entrypoint (json_array))
-  (entrypoint (json_array))
-  (entrypoint (json_array))
-  (entrypoint (json_array))
-  (entrypoint (json_array))
-  (entrypoint (json_array))
-  (entrypoint (json_array))
+  (entrypoint (json_array (json_array_item) (json_array_item)))
+  (entrypoint (json_array (json_array_item)))
+  (entrypoint (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item)))
+  (entrypoint (json_array (json_array_item) (json_array_item)))
+  (entrypoint (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item)))
+  (entrypoint (json_array (json_array_item)))
+  (entrypoint (json_array (json_array_item) (json_array_item)))
+  (entrypoint (json_array (json_array_item)))
+  (entrypoint (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item)))
+  (entrypoint (json_array (json_array_item) (json_array_item)))
+  (entrypoint (json_array (json_array_item) (json_array_item)))
+  (entrypoint (json_array (json_array_item) (json_array_item)))
+  (entrypoint (json_array (json_array_item) (json_array_item)))
+  (entrypoint (json_array (json_array_item)))
+  (entrypoint (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item)))
 )
 
 ===================================
@@ -48,7 +48,7 @@ ENTRYPOINT "[\"echo\", \"Phew, I just managed to escaped those double quotes\"]"
 ---
 
 (dockerfile
-  (entrypoint (json_array))
+  (entrypoint (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item)))
   (entrypoint)
 )
 
@@ -71,12 +71,11 @@ ENTRYPOINT [ \
 ---
 
 (dockerfile 
-  (entrypoint (json_array))
-  (entrypoint (json_array))
-  (entrypoint (json_array))
-  (entrypoint (json_array))
+  (entrypoint (json_array (line_continuation) (json_array_item) (json_array_item) (line_continuation)))
+  (entrypoint (json_array (json_array_item) (json_array_item) (line_continuation)))
+  (entrypoint (json_array (line_continuation) (json_array_item) (json_array_item) (line_continuation) (line_continuation)))
+  (entrypoint (json_array (line_continuation) (json_array_item) (json_array_item)))
 )
-
 
 ===================================
 ENTRYPOINT bug with just single token

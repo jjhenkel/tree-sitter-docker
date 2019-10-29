@@ -24,6 +24,6 @@ testing
     (run)
     (env (env_pair (env_key) (line_continuation) (comment) (env_value)))
     (env (env_key))
-    (maintainer (comment))
+    (maintainer)
     (run (line_continuation) (line_continuation))
 ) 

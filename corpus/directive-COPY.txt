@@ -9,7 +9,7 @@ COPY [ "/target/foo bar.tx", "/app" ]
 
 (dockerfile
   (copy (path) (path))
-  (copy (json_array))
+  (copy (json_array (json_array_item) (json_array_item)))
 )
 
 ===================================
@@ -91,10 +91,10 @@ COPY \
 
   (comment)
   (copy (from_layer) (json_array))
-  (copy (from_layer) (json_array))
+  (copy (from_layer) (json_array (json_array_item) (json_array_item)))
   
   (comment)
-  (copy (from_layer) (json_array))
+  (copy (from_layer) (json_array (json_array_item)))
   (copy (from_layer) (path) (path) (path) (path))
 
   (comment)

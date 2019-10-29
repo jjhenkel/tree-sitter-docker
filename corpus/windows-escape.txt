@@ -39,7 +39,7 @@ COPY --from=builder C:\out\index-prospect\IndexProspectHandler .
   (run)
   (comment)
   (from (repository) (image) (tag))
-  (shell (json_array))
+  (shell (json_array (json_array_item) (json_array_item) (json_array_item)))
   (run)
   (workdir (path))
   (cmd)

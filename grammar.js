@@ -13,13 +13,13 @@ module.exports = grammar({
   conflicts: $ => [
     [ $._port ],
     [ $.repository ],
-    [ $.run ],
   ],
 
   externals: $ => [
     $.escape_directive,
-    $.escape,
-    $.line_continuation
+    $.line_continuation,
+    $._json_array_start,
+    $._anything_ex
   ],
 
   rules: {
@@ -52,10 +52,6 @@ module.exports = grammar({
       $.workdir,
       $._blank_line
     ),
-
-    escape_directive: $ => token.immediate(prec(10, 
-      /\s*#( |\t)*escape( |\t)*=\s*/
-    )),
 
     // ############### DIRECTIVES ########################################### /
     add: $ => directive($, 'ADD', choice(
@@ -192,7 +188,7 @@ module.exports = grammar({
     ),
 
     _from_layer: $ => seq(
-      token.immediate(/\\?--from=/),
+      token.immediate(prec(1, /\\?--from=/)),
       $.from_layer,
       $._space_no_newline
     ),
@@ -393,9 +389,7 @@ module.exports = grammar({
 
     _paths: $ => repeat1(seq($.path, optional($._space_no_newline))),
     
-    _anything: $ => repeat1(token.immediate(
-      /([^\s\\#`]|[^\s#]#|\\+[ \t]*[^\\\s]|`+[ \t][^`\s])([^\s]#|\\+[ \t]*[^\\\s`]|[^\n\\#`])*/
-    )),
+    _anything: $ => repeat1($._anything_ex),
 
     // ############### DOCKER VARIABLE HANDLING ############################# /
     docker_variable: $ => choice(
@@ -435,7 +429,7 @@ module.exports = grammar({
     _space: $ => token(prec(-11, /\s/)),
     _blank_line: $ => /[\t\f\r\v ]*\n/,
     _space_no_newline: $ => /[\t\f\r\v ]+/,
-    comment: $ => token(prec(-10, /#[^\n]*\n*/)),
+    comment: $ => token(prec(-10, /#[^\n]*(\n|\r)*/)),
     // line_continuation: $ => token(prec(-1, /\\+\s*\n/)),
 
     // ############### MODIFIED JSON EXCERPT ################################ /
@@ -447,9 +441,33 @@ module.exports = grammar({
       $._anything
     ),
 
-    json_array: $ => token.immediate(prec(1,
-      /\[(?: |\t|\r|\f|\v|\\\n)*(?:"(?:[^\\"\n]|\\(?:\"|\\|\/|b|f|n|r|t|u))*"(?: |\t|\r|\f|\v|\\\n)*)?(?:,(?: |\t|\r|\f|\v|\\\n)*"(?:[^\\"\n]|\\(?:\"|\\|\/|b|f|n|r|t|u))*"(?: |\t|\r|\f|\v|\\\n)*)*(?: |\t|\r|\f|\v|\\\n)*\];?|\[(?: |\t|\r|\f|\v|\\\n)*(?:'(?:[^\\'\n]|\\(?:\'|\\|\/|b|f|n|r|t|u))*'(?: |\t|\r|\f|\v|\\\n)*)?(?:,(?: |\t|\r|\f|\v|\\\n)*'(?:[^\\'\n]|\\(?:\'|\\|\/|b|f|n|r|t|u))*'(?: |\t|\r|\f|\v|\\\n)*)*(?: |\t|\r|\f|\v|\\\n)*\];?/
-    )),
+    json_array: $ => seq(
+      $._json_array_start,
+      optional(seq(
+        $.json_array_item, repeat(seq(",", $.json_array_item))
+      )),
+      ']',
+      optional(';')
+    ),
+
+    json_array_item: $ => choice(
+      seq("'", "'"),
+      seq('"', '"'),
+      seq(
+        "'", $._json_array_item_single, "'"
+      ),
+      seq(
+        '"', $._json_array_item_double, '"'
+      )
+    ),
+
+    _json_array_item_single: $ => repeat1(
+      token.immediate(/(?:[^\\'\n]|\\(?:'|\\|\/|b|n|r|t|f|u))+/)
+    ),
+
+    _json_array_item_double: $ => repeat1(
+      token.immediate(/(?:[^\\"\n]|\\(?:"|\\|\/|b|n|r|t|f|u))+/)
+    ),
 
   }
 });

@@ -80,10 +80,10 @@ ONBUILD CMD cd /home/user/meteor-app/bundle/programs/server/ && ./
 
 (dockerfile
   (comment)
-  (onbuild (cmd (json_array)))
-  (onbuild (cmd (json_array)))
-  (onbuild (cmd (json_array)))
-  (onbuild (cmd (json_array)))
+  (onbuild (cmd (json_array (json_array_item))))
+  (onbuild (cmd (json_array (json_array_item) (json_array_item))))
+  (onbuild (cmd (json_array (json_array_item) (json_array_item))))
+  (onbuild (cmd (json_array (json_array_item))))
   (onbuild (cmd (json_array)))
   (onbuild (cmd))
 )
@@ -131,7 +131,7 @@ ONBUILD ENTRYPOINT exec /usr/bin/contrainer watch
 
 (dockerfile
   (comment)
-  (onbuild (entrypoint (json_array)))
+  (onbuild (entrypoint (json_array (json_array_item) (json_array_item) (json_array_item))))
   (onbuild (entrypoint (json_array)))
   (onbuild (entrypoint))
 )
@@ -204,7 +204,7 @@ ONBUILD SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 
 (dockerfile
   (comment)
-  (onbuild (shell (json_array)))
+  (onbuild (shell (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item))))
 )
 
 ===================================
