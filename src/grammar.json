@@ -1928,11 +1928,23 @@
           ]
         },
         {
-          "type": "IMMEDIATE_TOKEN",
-          "content": {
-            "type": "PATTERN",
-            "value": "\"?[a-zA-Z_][a-zA-Z0-9_\\-\\.\\/:]*\"?"
-          }
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "PATTERN",
+                "value": "[a-zA-Z_][a-zA-Z0-9_\\-\\.\\/:]*"
+              }
+            },
+            {
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "PATTERN",
+                "value": "\"[a-zA-Z_][ \\ta-zA-Z0-9_\\-\\.\\/:]*\""
+              }
+            }
+          ]
         }
       ]
     },
@@ -6707,11 +6719,23 @@
           ]
         },
         {
-          "type": "IMMEDIATE_TOKEN",
-          "content": {
-            "type": "PATTERN",
-            "value": "\"?[a-zA-Z_][a-zA-Z0-9_\\-\\.\\/:]*\"?"
-          }
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "PATTERN",
+                "value": "[a-zA-Z_][a-zA-Z0-9_\\-\\.\\/:]*"
+              }
+            },
+            {
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "PATTERN",
+                "value": "\"[a-zA-Z_][ \\ta-zA-Z0-9_\\-\\.\\/:]*\""
+              }
+            }
+          ]
         }
       ]
     },

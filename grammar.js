@@ -250,7 +250,10 @@ module.exports = grammar({
 
     env_key: $ => choice(
       seq('$', $.docker_variable),
-      token.immediate(/"?[a-zA-Z_][a-zA-Z0-9_\-\.\/:]*"?/)
+      choice(
+        token.immediate(/[a-zA-Z_][a-zA-Z0-9_\-\.\/:]*/),
+        token.immediate(/"[a-zA-Z_][ \ta-zA-Z0-9_\-\.\/:]*"/)
+      )
     ),
 
     env_value: $ => token.immediate(
@@ -369,7 +372,10 @@ module.exports = grammar({
 
     label_key: $ => choice(
       seq('$', $.docker_variable),
-      token.immediate(/"?[a-zA-Z_][a-zA-Z0-9_\-\.\/:]*"?/)
+      choice(
+        token.immediate(/[a-zA-Z_][a-zA-Z0-9_\-\.\/:]*/),
+        token.immediate(/"[a-zA-Z_][ \ta-zA-Z0-9_\-\.\/:]*"/)
+      )
     ),
 
     label_value: $ => token.immediate(
