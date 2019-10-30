@@ -21,7 +21,6 @@ LABEL i.guess.space.is.okay.too "foobar"
 LABEL i.guess.space.is.okay.too foobar
 LABEL "i.guess.space.is.okay.too" foobar
 
-
 ---
 
 (dockerfile
