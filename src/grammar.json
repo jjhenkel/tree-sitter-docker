@@ -1899,6 +1899,25 @@
       "type": "SEQ",
       "members": [
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "PREC",
+                "value": -10,
+                "content": {
+                  "type": "STRING",
+                  "value": "\""
+                }
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
           "type": "SYMBOL",
           "name": "env_key"
         },
@@ -1915,6 +1934,25 @@
             {
               "type": "SYMBOL",
               "name": "env_value"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "PREC",
+                "value": -10,
+                "content": {
+                  "type": "STRING",
+                  "value": "\""
+                }
+              }
             },
             {
               "type": "BLANK"
@@ -6690,6 +6728,25 @@
       "type": "SEQ",
       "members": [
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "PREC",
+                "value": -10,
+                "content": {
+                  "type": "STRING",
+                  "value": "\""
+                }
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
           "type": "SYMBOL",
           "name": "label_key"
         },
@@ -6706,6 +6763,25 @@
             {
               "type": "SYMBOL",
               "name": "label_value"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "PREC",
+                "value": -10,
+                "content": {
+                  "type": "STRING",
+                  "value": "\""
+                }
+              }
             },
             {
               "type": "BLANK"

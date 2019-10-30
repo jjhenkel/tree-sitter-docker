@@ -247,7 +247,13 @@ module.exports = grammar({
       )
     ),
 
-    env_pair_eq: $ => seq($.env_key, token.immediate('='), optional($.env_value)),
+    env_pair_eq: $ => seq(
+      optional(token.immediate(prec(-10, '"'))),
+      $.env_key,
+      token.immediate('='),
+      optional($.env_value),
+      optional(token.immediate(prec(-10, '"')))
+    ),
     env_pair: $ => seq($.env_key, $._space_no_newline, alias($._anything, $.env_value)),
 
     env_key: $ => choice(
@@ -368,8 +374,14 @@ module.exports = grammar({
         optional($._space_no_newline)
       )
     ),
-
-    label_pair_eq: $ => seq($.label_key, token.immediate('='), optional($.label_value)),
+    
+    label_pair_eq: $ => seq(
+      optional(token.immediate(prec(-10, '"'))),
+      $.label_key,
+      token.immediate('='),
+      optional($.label_value),
+      optional(token.immediate(prec(-10, '"')))
+    ),
     label_pair: $ => seq($.label_key, $._space_no_newline, alias($._anything, $.label_value)),
 
     label_key: $ => choice(
