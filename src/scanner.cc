@@ -350,11 +350,12 @@ namespace {
                         }
                     } else if (lexer->lookahead == ']') {
                         break;
-                    } 
-                    else {
+                    } else if (valid_symbols[_ANYTHING_EX]) {
                         lexer->result_symbol = _ANYTHING_EX;
                         lexer->mark_end(lexer);
                         return true;
+                    } else {
+                        return false;
                     }
                 }
 
@@ -363,9 +364,11 @@ namespace {
                 if (lexer->lookahead == ']') {
                     lexer->result_symbol = _JSON_ARRAY_START;
                     return true;
-                } else {
+                } else if (valid_symbols[_ANYTHING_EX]) {
                     lexer->result_symbol = _ANYTHING_EX;
                     return true;
+                } else {
+                    return false;
                 }
             }
             

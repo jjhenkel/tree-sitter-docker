@@ -124,3 +124,16 @@ COPY --from=gcr.io/windmill-test-containers/imagetags-common:stretch /usr/src/co
   (copy (from_layer) (path) (path))
 )
 
+===================================
+Edge case from corpus 2
+===================================
+
+# Confusion w/ json_array
+COPY [^p]*.conf /etc/postgresql/conf.d/  
+
+--- 
+
+(dockerfile
+  (comment)
+  (copy (path) (path))
+)
