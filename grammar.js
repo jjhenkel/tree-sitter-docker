@@ -13,6 +13,7 @@ module.exports = grammar({
   conflicts: $ => [
     [ $._port ],
     [ $.repository ],
+    [ $.user_name ],
   ],
 
   externals: $ => [
@@ -250,7 +251,7 @@ module.exports = grammar({
     ),
 
     env_value: $ => token.immediate(
-      /([^\s\\'"]|\\[^\s]|\\ |"([^\n\r\\"]|\\"|\\\r?\n|\\[^\s])*"|'([^\n\r']|\\'|\\\r?\n|\\[^\s])*')+/
+      /([^\s\\'"]|\\[^\s]|\\ |"([^\n\r\\"]|\\"|\\[ \t]*\r?\n|\\[^\s])*"|'([^\n\r']|\\'|\\[ \t]*\r?\n|\\[^\s])*')+/
     ),
 
     // ############### PLUMBING FOR 'EXPOSE' ################################ /
@@ -371,7 +372,7 @@ module.exports = grammar({
     ),
 
     label_value: $ => token.immediate(
-      /([^\s\\'"]|\\[^\s]|\\ |"([^\n\r\\"]|\\"|\\\r?\n|\\[^\s])*"|'([^\n\r']|\\'|\\\r?\n|\\[^\s])*')+/
+      /([^\s\\'"]|\\[^\s]|\\ |"([^\n\r\\"]|\\"|\\[ \t]*\r?\n|\\[^\s])*"|'([^\n\r']|\\'|\\[ \t]*\r?\n|\\[^\s])*')+/
     ),
 
 
@@ -389,12 +390,12 @@ module.exports = grammar({
 
 
     // ############### PLUMBING FOR 'USER' ################################## /
-    user_name: $ => maybe_var_or_template_interpolation(
+    user_name: $ => maybe_double_quoted(maybe_var_or_template_interpolation(
       $, /[a-zA-Z_][^\s:'"]*/
-    ),
-    user_group: $ => maybe_var_or_template_interpolation(
+    )),
+    user_group: $ => maybe_double_quoted(maybe_var_or_template_interpolation(
       $, /[a-zA-Z_][^\s:'"]*/
-    ),
+    )),
     user_id: $ => token.immediate(/\d+/),
     user_group_id: $ => token.immediate(/\d+/),
 

@@ -102,7 +102,13 @@ LABEL bug from corpus 4
 LABEL \
         name="openshift3/console-nodejs-builder" \
         vendor="Red Hat" \
-  
+
+LABEL name=\  
+"why\ 
+do\   
+this\     
+"
+
 ---
 
 
@@ -115,4 +121,7 @@ LABEL \
     (label_pair (label_key) (label_value))
   )
   (line_continuation)
+  (label
+    (label_pair (label_key) (line_continuation) (label_value))
+  )
 )
