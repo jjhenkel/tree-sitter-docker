@@ -317,12 +317,12 @@ FROM node:<%= nodeVersion %> as foo
 ---
 
 (dockerfile
-  (from (image (template_expr_less_than_equals)))
-  (from (repository) (image) (tag (template_expr_less_than_equals)))
-  (from (image (template_expr_less_than_equals) (template_expr_less_than_equals)))
-  (from (image) (tag (template_expr_less_than_equals)))
-  (from (image) (tag (template_expr_less_than_equals)))
-  (from (image) (tag (template_expr_less_than_equals)) (as_name))
+  (from (image (template_expr_less_than)))
+  (from (repository) (image) (tag (template_expr_less_than)))
+  (from (image (template_expr_less_than) (template_expr_less_than)))
+  (from (image) (tag (template_expr_less_than)))
+  (from (image) (tag (template_expr_less_than)))
+  (from (image) (tag (template_expr_less_than)) (as_name))
 )
 
 ===================================

@@ -1621,18 +1621,18 @@
                   "members": [
                     {
                       "type": "PATTERN",
-                      "value": "<(%|\\?)=?"
+                      "value": "<(%?|\\?)=?"
                     },
                     {
                       "type": "SEQ",
                       "members": [
                         {
                           "type": "SYMBOL",
-                          "name": "template_expr_less_than_equals"
+                          "name": "template_expr_less_than"
                         },
                         {
                           "type": "PATTERN",
-                          "value": "(%|\\?)>"
+                          "value": "(%?|\\?)>"
                         }
                       ]
                     }
@@ -1643,18 +1643,18 @@
                   "members": [
                     {
                       "type": "PATTERN",
-                      "value": "[^\\$\\s\\{\\}%<>=\\?]+<(%|\\?)=?"
+                      "value": "[^\\$\\s\\{\\}%<>=\\?]+<(%?|\\?)=?"
                     },
                     {
                       "type": "SEQ",
                       "members": [
                         {
                           "type": "SYMBOL",
-                          "name": "template_expr_less_than_equals"
+                          "name": "template_expr_less_than"
                         },
                         {
                           "type": "PATTERN",
-                          "value": "(%|\\?)>"
+                          "value": "(%?|\\?)>"
                         }
                       ]
                     }
@@ -1672,18 +1672,18 @@
                     "members": [
                       {
                         "type": "PATTERN",
-                        "value": "<(%|\\?)=?"
+                        "value": "<(%?|\\?)=?"
                       },
                       {
                         "type": "SEQ",
                         "members": [
                           {
                             "type": "SYMBOL",
-                            "name": "template_expr_less_than_equals"
+                            "name": "template_expr_less_than"
                           },
                           {
                             "type": "PATTERN",
-                            "value": "(%|\\?)>"
+                            "value": "(%?|\\?)>"
                           }
                         ]
                       }
@@ -1696,7 +1696,7 @@
                         "type": "IMMEDIATE_TOKEN",
                         "content": {
                           "type": "PATTERN",
-                          "value": "[^\\$\\s\\{\\}%<>=\\?]+<(%|\\?)=?"
+                          "value": "[^\\$\\s\\{\\}%<>=\\?]+<(%?|\\?)=?"
                         }
                       },
                       {
@@ -1704,11 +1704,11 @@
                         "members": [
                           {
                             "type": "SYMBOL",
-                            "name": "template_expr_less_than_equals"
+                            "name": "template_expr_less_than"
                           },
                           {
                             "type": "PATTERN",
-                            "value": "(%|\\?)>"
+                            "value": "(%?|\\?)>"
                           }
                         ]
                       }
@@ -2670,18 +2670,18 @@
                       "members": [
                         {
                           "type": "PATTERN",
-                          "value": "<(%|\\?)=?"
+                          "value": "<(%?|\\?)=?"
                         },
                         {
                           "type": "SEQ",
                           "members": [
                             {
                               "type": "SYMBOL",
-                              "name": "template_expr_less_than_equals"
+                              "name": "template_expr_less_than"
                             },
                             {
                               "type": "PATTERN",
-                              "value": "(%|\\?)>"
+                              "value": "(%?|\\?)>"
                             }
                           ]
                         }
@@ -2692,18 +2692,18 @@
                       "members": [
                         {
                           "type": "PATTERN",
-                          "value": "[^\\$\\s\\/:@\\{\\}%<>=\\?]+<(%|\\?)=?"
+                          "value": "[^\\$\\s\\/:@\\{\\}%<>=\\?]+<(%?|\\?)=?"
                         },
                         {
                           "type": "SEQ",
                           "members": [
                             {
                               "type": "SYMBOL",
-                              "name": "template_expr_less_than_equals"
+                              "name": "template_expr_less_than"
                             },
                             {
                               "type": "PATTERN",
-                              "value": "(%|\\?)>"
+                              "value": "(%?|\\?)>"
                             }
                           ]
                         }
@@ -2721,18 +2721,18 @@
                         "members": [
                           {
                             "type": "PATTERN",
-                            "value": "<(%|\\?)=?"
+                            "value": "<(%?|\\?)=?"
                           },
                           {
                             "type": "SEQ",
                             "members": [
                               {
                                 "type": "SYMBOL",
-                                "name": "template_expr_less_than_equals"
+                                "name": "template_expr_less_than"
                               },
                               {
                                 "type": "PATTERN",
-                                "value": "(%|\\?)>"
+                                "value": "(%?|\\?)>"
                               }
                             ]
                           }
@@ -2745,7 +2745,7 @@
                             "type": "IMMEDIATE_TOKEN",
                             "content": {
                               "type": "PATTERN",
-                              "value": "[^\\$\\s\\/:@\\{\\}%<>=\\?]+<(%|\\?)=?"
+                              "value": "[^\\$\\s\\/:@\\{\\}%<>=\\?]+<(%?|\\?)=?"
                             }
                           },
                           {
@@ -2753,11 +2753,11 @@
                             "members": [
                               {
                                 "type": "SYMBOL",
-                                "name": "template_expr_less_than_equals"
+                                "name": "template_expr_less_than"
                               },
                               {
                                 "type": "PATTERN",
-                                "value": "(%|\\?)>"
+                                "value": "(%?|\\?)>"
                               }
                             ]
                           }
@@ -3297,18 +3297,18 @@
                       "members": [
                         {
                           "type": "PATTERN",
-                          "value": "<(%|\\?)=?"
+                          "value": "<(%?|\\?)=?"
                         },
                         {
                           "type": "SEQ",
                           "members": [
                             {
                               "type": "SYMBOL",
-                              "name": "template_expr_less_than_equals"
+                              "name": "template_expr_less_than"
                             },
                             {
                               "type": "PATTERN",
-                              "value": "(%|\\?)>"
+                              "value": "(%?|\\?)>"
                             }
                           ]
                         }
@@ -3319,18 +3319,18 @@
                       "members": [
                         {
                           "type": "PATTERN",
-                          "value": "[^\\$\\s\\/:@\\{\\}%<>=\\?]+<(%|\\?)=?"
+                          "value": "[^\\$\\s\\/:@\\{\\}%<>=\\?]+<(%?|\\?)=?"
                         },
                         {
                           "type": "SEQ",
                           "members": [
                             {
                               "type": "SYMBOL",
-                              "name": "template_expr_less_than_equals"
+                              "name": "template_expr_less_than"
                             },
                             {
                               "type": "PATTERN",
-                              "value": "(%|\\?)>"
+                              "value": "(%?|\\?)>"
                             }
                           ]
                         }
@@ -3348,18 +3348,18 @@
                         "members": [
                           {
                             "type": "PATTERN",
-                            "value": "<(%|\\?)=?"
+                            "value": "<(%?|\\?)=?"
                           },
                           {
                             "type": "SEQ",
                             "members": [
                               {
                                 "type": "SYMBOL",
-                                "name": "template_expr_less_than_equals"
+                                "name": "template_expr_less_than"
                               },
                               {
                                 "type": "PATTERN",
-                                "value": "(%|\\?)>"
+                                "value": "(%?|\\?)>"
                               }
                             ]
                           }
@@ -3372,7 +3372,7 @@
                             "type": "IMMEDIATE_TOKEN",
                             "content": {
                               "type": "PATTERN",
-                              "value": "[^\\$\\s\\/:@\\{\\}%<>=\\?]+<(%|\\?)=?"
+                              "value": "[^\\$\\s\\/:@\\{\\}%<>=\\?]+<(%?|\\?)=?"
                             }
                           },
                           {
@@ -3380,11 +3380,11 @@
                             "members": [
                               {
                                 "type": "SYMBOL",
-                                "name": "template_expr_less_than_equals"
+                                "name": "template_expr_less_than"
                               },
                               {
                                 "type": "PATTERN",
-                                "value": "(%|\\?)>"
+                                "value": "(%?|\\?)>"
                               }
                             ]
                           }
@@ -3909,18 +3909,18 @@
                   "members": [
                     {
                       "type": "PATTERN",
-                      "value": "<(%|\\?)=?"
+                      "value": "<(%?|\\?)=?"
                     },
                     {
                       "type": "SEQ",
                       "members": [
                         {
                           "type": "SYMBOL",
-                          "name": "template_expr_less_than_equals"
+                          "name": "template_expr_less_than"
                         },
                         {
                           "type": "PATTERN",
-                          "value": "(%|\\?)>"
+                          "value": "(%?|\\?)>"
                         }
                       ]
                     }
@@ -3931,18 +3931,18 @@
                   "members": [
                     {
                       "type": "PATTERN",
-                      "value": "[^\\$\\s\\/:@\\{\\}%<>=\\?]+<(%|\\?)=?"
+                      "value": "[^\\$\\s\\/:@\\{\\}%<>=\\?]+<(%?|\\?)=?"
                     },
                     {
                       "type": "SEQ",
                       "members": [
                         {
                           "type": "SYMBOL",
-                          "name": "template_expr_less_than_equals"
+                          "name": "template_expr_less_than"
                         },
                         {
                           "type": "PATTERN",
-                          "value": "(%|\\?)>"
+                          "value": "(%?|\\?)>"
                         }
                       ]
                     }
@@ -3960,18 +3960,18 @@
                     "members": [
                       {
                         "type": "PATTERN",
-                        "value": "<(%|\\?)=?"
+                        "value": "<(%?|\\?)=?"
                       },
                       {
                         "type": "SEQ",
                         "members": [
                           {
                             "type": "SYMBOL",
-                            "name": "template_expr_less_than_equals"
+                            "name": "template_expr_less_than"
                           },
                           {
                             "type": "PATTERN",
-                            "value": "(%|\\?)>"
+                            "value": "(%?|\\?)>"
                           }
                         ]
                       }
@@ -3984,7 +3984,7 @@
                         "type": "IMMEDIATE_TOKEN",
                         "content": {
                           "type": "PATTERN",
-                          "value": "[^\\$\\s\\/:@\\{\\}%<>=\\?]+<(%|\\?)=?"
+                          "value": "[^\\$\\s\\/:@\\{\\}%<>=\\?]+<(%?|\\?)=?"
                         }
                       },
                       {
@@ -3992,11 +3992,11 @@
                         "members": [
                           {
                             "type": "SYMBOL",
-                            "name": "template_expr_less_than_equals"
+                            "name": "template_expr_less_than"
                           },
                           {
                             "type": "PATTERN",
-                            "value": "(%|\\?)>"
+                            "value": "(%?|\\?)>"
                           }
                         ]
                       }
@@ -4515,18 +4515,18 @@
                   "members": [
                     {
                       "type": "PATTERN",
-                      "value": "<(%|\\?)=?"
+                      "value": "<(%?|\\?)=?"
                     },
                     {
                       "type": "SEQ",
                       "members": [
                         {
                           "type": "SYMBOL",
-                          "name": "template_expr_less_than_equals"
+                          "name": "template_expr_less_than"
                         },
                         {
                           "type": "PATTERN",
-                          "value": "(%|\\?)>"
+                          "value": "(%?|\\?)>"
                         }
                       ]
                     }
@@ -4537,18 +4537,18 @@
                   "members": [
                     {
                       "type": "PATTERN",
-                      "value": "[^\\$\\s\\/:@\\{\\}%<>=\\?]+<(%|\\?)=?"
+                      "value": "[^\\$\\s\\/:@\\{\\}%<>=\\?]+<(%?|\\?)=?"
                     },
                     {
                       "type": "SEQ",
                       "members": [
                         {
                           "type": "SYMBOL",
-                          "name": "template_expr_less_than_equals"
+                          "name": "template_expr_less_than"
                         },
                         {
                           "type": "PATTERN",
-                          "value": "(%|\\?)>"
+                          "value": "(%?|\\?)>"
                         }
                       ]
                     }
@@ -4566,18 +4566,18 @@
                     "members": [
                       {
                         "type": "PATTERN",
-                        "value": "<(%|\\?)=?"
+                        "value": "<(%?|\\?)=?"
                       },
                       {
                         "type": "SEQ",
                         "members": [
                           {
                             "type": "SYMBOL",
-                            "name": "template_expr_less_than_equals"
+                            "name": "template_expr_less_than"
                           },
                           {
                             "type": "PATTERN",
-                            "value": "(%|\\?)>"
+                            "value": "(%?|\\?)>"
                           }
                         ]
                       }
@@ -4590,7 +4590,7 @@
                         "type": "IMMEDIATE_TOKEN",
                         "content": {
                           "type": "PATTERN",
-                          "value": "[^\\$\\s\\/:@\\{\\}%<>=\\?]+<(%|\\?)=?"
+                          "value": "[^\\$\\s\\/:@\\{\\}%<>=\\?]+<(%?|\\?)=?"
                         }
                       },
                       {
@@ -4598,11 +4598,11 @@
                         "members": [
                           {
                             "type": "SYMBOL",
-                            "name": "template_expr_less_than_equals"
+                            "name": "template_expr_less_than"
                           },
                           {
                             "type": "PATTERN",
-                            "value": "(%|\\?)>"
+                            "value": "(%?|\\?)>"
                           }
                         ]
                       }
@@ -5121,18 +5121,18 @@
                   "members": [
                     {
                       "type": "PATTERN",
-                      "value": "<(%|\\?)=?"
+                      "value": "<(%?|\\?)=?"
                     },
                     {
                       "type": "SEQ",
                       "members": [
                         {
                           "type": "SYMBOL",
-                          "name": "template_expr_less_than_equals"
+                          "name": "template_expr_less_than"
                         },
                         {
                           "type": "PATTERN",
-                          "value": "(%|\\?)>"
+                          "value": "(%?|\\?)>"
                         }
                       ]
                     }
@@ -5143,18 +5143,18 @@
                   "members": [
                     {
                       "type": "PATTERN",
-                      "value": "[^\\$\\s\\/@\\{\\}%<>=\\?]+<(%|\\?)=?"
+                      "value": "[^\\$\\s\\/@\\{\\}%<>=\\?]+<(%?|\\?)=?"
                     },
                     {
                       "type": "SEQ",
                       "members": [
                         {
                           "type": "SYMBOL",
-                          "name": "template_expr_less_than_equals"
+                          "name": "template_expr_less_than"
                         },
                         {
                           "type": "PATTERN",
-                          "value": "(%|\\?)>"
+                          "value": "(%?|\\?)>"
                         }
                       ]
                     }
@@ -5172,18 +5172,18 @@
                     "members": [
                       {
                         "type": "PATTERN",
-                        "value": "<(%|\\?)=?"
+                        "value": "<(%?|\\?)=?"
                       },
                       {
                         "type": "SEQ",
                         "members": [
                           {
                             "type": "SYMBOL",
-                            "name": "template_expr_less_than_equals"
+                            "name": "template_expr_less_than"
                           },
                           {
                             "type": "PATTERN",
-                            "value": "(%|\\?)>"
+                            "value": "(%?|\\?)>"
                           }
                         ]
                       }
@@ -5196,7 +5196,7 @@
                         "type": "IMMEDIATE_TOKEN",
                         "content": {
                           "type": "PATTERN",
-                          "value": "[^\\$\\s\\/@\\{\\}%<>=\\?]+<(%|\\?)=?"
+                          "value": "[^\\$\\s\\/@\\{\\}%<>=\\?]+<(%?|\\?)=?"
                         }
                       },
                       {
@@ -5204,11 +5204,11 @@
                         "members": [
                           {
                             "type": "SYMBOL",
-                            "name": "template_expr_less_than_equals"
+                            "name": "template_expr_less_than"
                           },
                           {
                             "type": "PATTERN",
-                            "value": "(%|\\?)>"
+                            "value": "(%?|\\?)>"
                           }
                         ]
                       }
@@ -5727,18 +5727,18 @@
                   "members": [
                     {
                       "type": "PATTERN",
-                      "value": "<(%|\\?)=?"
+                      "value": "<(%?|\\?)=?"
                     },
                     {
                       "type": "SEQ",
                       "members": [
                         {
                           "type": "SYMBOL",
-                          "name": "template_expr_less_than_equals"
+                          "name": "template_expr_less_than"
                         },
                         {
                           "type": "PATTERN",
-                          "value": "(%|\\?)>"
+                          "value": "(%?|\\?)>"
                         }
                       ]
                     }
@@ -5749,18 +5749,18 @@
                   "members": [
                     {
                       "type": "PATTERN",
-                      "value": "[^\\$\\s\\/:@\\{\\}%<>=\\?]+<(%|\\?)=?"
+                      "value": "[^\\$\\s\\/:@\\{\\}%<>=\\?]+<(%?|\\?)=?"
                     },
                     {
                       "type": "SEQ",
                       "members": [
                         {
                           "type": "SYMBOL",
-                          "name": "template_expr_less_than_equals"
+                          "name": "template_expr_less_than"
                         },
                         {
                           "type": "PATTERN",
-                          "value": "(%|\\?)>"
+                          "value": "(%?|\\?)>"
                         }
                       ]
                     }
@@ -5778,18 +5778,18 @@
                     "members": [
                       {
                         "type": "PATTERN",
-                        "value": "<(%|\\?)=?"
+                        "value": "<(%?|\\?)=?"
                       },
                       {
                         "type": "SEQ",
                         "members": [
                           {
                             "type": "SYMBOL",
-                            "name": "template_expr_less_than_equals"
+                            "name": "template_expr_less_than"
                           },
                           {
                             "type": "PATTERN",
-                            "value": "(%|\\?)>"
+                            "value": "(%?|\\?)>"
                           }
                         ]
                       }
@@ -5802,7 +5802,7 @@
                         "type": "IMMEDIATE_TOKEN",
                         "content": {
                           "type": "PATTERN",
-                          "value": "[^\\$\\s\\/:@\\{\\}%<>=\\?]+<(%|\\?)=?"
+                          "value": "[^\\$\\s\\/:@\\{\\}%<>=\\?]+<(%?|\\?)=?"
                         }
                       },
                       {
@@ -5810,11 +5810,11 @@
                         "members": [
                           {
                             "type": "SYMBOL",
-                            "name": "template_expr_less_than_equals"
+                            "name": "template_expr_less_than"
                           },
                           {
                             "type": "PATTERN",
-                            "value": "(%|\\?)>"
+                            "value": "(%?|\\?)>"
                           }
                         ]
                       }
@@ -6652,18 +6652,18 @@
                           "members": [
                             {
                               "type": "PATTERN",
-                              "value": "<(%|\\?)=?"
+                              "value": "<(%?|\\?)=?"
                             },
                             {
                               "type": "SEQ",
                               "members": [
                                 {
                                   "type": "SYMBOL",
-                                  "name": "template_expr_less_than_equals"
+                                  "name": "template_expr_less_than"
                                 },
                                 {
                                   "type": "PATTERN",
-                                  "value": "(%|\\?)>"
+                                  "value": "(%?|\\?)>"
                                 }
                               ]
                             }
@@ -6674,18 +6674,18 @@
                           "members": [
                             {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][^\\s:'\"]*<(%|\\?)=?"
+                              "value": "[a-zA-Z_][^\\s:'\"]*<(%?|\\?)=?"
                             },
                             {
                               "type": "SEQ",
                               "members": [
                                 {
                                   "type": "SYMBOL",
-                                  "name": "template_expr_less_than_equals"
+                                  "name": "template_expr_less_than"
                                 },
                                 {
                                   "type": "PATTERN",
-                                  "value": "(%|\\?)>"
+                                  "value": "(%?|\\?)>"
                                 }
                               ]
                             }
@@ -6703,18 +6703,18 @@
                             "members": [
                               {
                                 "type": "PATTERN",
-                                "value": "<(%|\\?)=?"
+                                "value": "<(%?|\\?)=?"
                               },
                               {
                                 "type": "SEQ",
                                 "members": [
                                   {
                                     "type": "SYMBOL",
-                                    "name": "template_expr_less_than_equals"
+                                    "name": "template_expr_less_than"
                                   },
                                   {
                                     "type": "PATTERN",
-                                    "value": "(%|\\?)>"
+                                    "value": "(%?|\\?)>"
                                   }
                                 ]
                               }
@@ -6727,7 +6727,7 @@
                                 "type": "IMMEDIATE_TOKEN",
                                 "content": {
                                   "type": "PATTERN",
-                                  "value": "[a-zA-Z_][^\\s:'\"]*<(%|\\?)=?"
+                                  "value": "[a-zA-Z_][^\\s:'\"]*<(%?|\\?)=?"
                                 }
                               },
                               {
@@ -6735,11 +6735,11 @@
                                 "members": [
                                   {
                                     "type": "SYMBOL",
-                                    "name": "template_expr_less_than_equals"
+                                    "name": "template_expr_less_than"
                                   },
                                   {
                                     "type": "PATTERN",
-                                    "value": "(%|\\?)>"
+                                    "value": "(%?|\\?)>"
                                   }
                                 ]
                               }
@@ -7264,18 +7264,18 @@
                       "members": [
                         {
                           "type": "PATTERN",
-                          "value": "<(%|\\?)=?"
+                          "value": "<(%?|\\?)=?"
                         },
                         {
                           "type": "SEQ",
                           "members": [
                             {
                               "type": "SYMBOL",
-                              "name": "template_expr_less_than_equals"
+                              "name": "template_expr_less_than"
                             },
                             {
                               "type": "PATTERN",
-                              "value": "(%|\\?)>"
+                              "value": "(%?|\\?)>"
                             }
                           ]
                         }
@@ -7286,18 +7286,18 @@
                       "members": [
                         {
                           "type": "PATTERN",
-                          "value": "[a-zA-Z_][^\\s:'\"]*<(%|\\?)=?"
+                          "value": "[a-zA-Z_][^\\s:'\"]*<(%?|\\?)=?"
                         },
                         {
                           "type": "SEQ",
                           "members": [
                             {
                               "type": "SYMBOL",
-                              "name": "template_expr_less_than_equals"
+                              "name": "template_expr_less_than"
                             },
                             {
                               "type": "PATTERN",
-                              "value": "(%|\\?)>"
+                              "value": "(%?|\\?)>"
                             }
                           ]
                         }
@@ -7315,18 +7315,18 @@
                         "members": [
                           {
                             "type": "PATTERN",
-                            "value": "<(%|\\?)=?"
+                            "value": "<(%?|\\?)=?"
                           },
                           {
                             "type": "SEQ",
                             "members": [
                               {
                                 "type": "SYMBOL",
-                                "name": "template_expr_less_than_equals"
+                                "name": "template_expr_less_than"
                               },
                               {
                                 "type": "PATTERN",
-                                "value": "(%|\\?)>"
+                                "value": "(%?|\\?)>"
                               }
                             ]
                           }
@@ -7339,7 +7339,7 @@
                             "type": "IMMEDIATE_TOKEN",
                             "content": {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][^\\s:'\"]*<(%|\\?)=?"
+                              "value": "[a-zA-Z_][^\\s:'\"]*<(%?|\\?)=?"
                             }
                           },
                           {
@@ -7347,11 +7347,11 @@
                             "members": [
                               {
                                 "type": "SYMBOL",
-                                "name": "template_expr_less_than_equals"
+                                "name": "template_expr_less_than"
                               },
                               {
                                 "type": "PATTERN",
-                                "value": "(%|\\?)>"
+                                "value": "(%?|\\?)>"
                               }
                             ]
                           }
@@ -7882,18 +7882,18 @@
                           "members": [
                             {
                               "type": "PATTERN",
-                              "value": "<(%|\\?)=?"
+                              "value": "<(%?|\\?)=?"
                             },
                             {
                               "type": "SEQ",
                               "members": [
                                 {
                                   "type": "SYMBOL",
-                                  "name": "template_expr_less_than_equals"
+                                  "name": "template_expr_less_than"
                                 },
                                 {
                                   "type": "PATTERN",
-                                  "value": "(%|\\?)>"
+                                  "value": "(%?|\\?)>"
                                 }
                               ]
                             }
@@ -7904,18 +7904,18 @@
                           "members": [
                             {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][^\\s:'\"]*<(%|\\?)=?"
+                              "value": "[a-zA-Z_][^\\s:'\"]*<(%?|\\?)=?"
                             },
                             {
                               "type": "SEQ",
                               "members": [
                                 {
                                   "type": "SYMBOL",
-                                  "name": "template_expr_less_than_equals"
+                                  "name": "template_expr_less_than"
                                 },
                                 {
                                   "type": "PATTERN",
-                                  "value": "(%|\\?)>"
+                                  "value": "(%?|\\?)>"
                                 }
                               ]
                             }
@@ -7933,18 +7933,18 @@
                             "members": [
                               {
                                 "type": "PATTERN",
-                                "value": "<(%|\\?)=?"
+                                "value": "<(%?|\\?)=?"
                               },
                               {
                                 "type": "SEQ",
                                 "members": [
                                   {
                                     "type": "SYMBOL",
-                                    "name": "template_expr_less_than_equals"
+                                    "name": "template_expr_less_than"
                                   },
                                   {
                                     "type": "PATTERN",
-                                    "value": "(%|\\?)>"
+                                    "value": "(%?|\\?)>"
                                   }
                                 ]
                               }
@@ -7957,7 +7957,7 @@
                                 "type": "IMMEDIATE_TOKEN",
                                 "content": {
                                   "type": "PATTERN",
-                                  "value": "[a-zA-Z_][^\\s:'\"]*<(%|\\?)=?"
+                                  "value": "[a-zA-Z_][^\\s:'\"]*<(%?|\\?)=?"
                                 }
                               },
                               {
@@ -7965,11 +7965,11 @@
                                 "members": [
                                   {
                                     "type": "SYMBOL",
-                                    "name": "template_expr_less_than_equals"
+                                    "name": "template_expr_less_than"
                                   },
                                   {
                                     "type": "PATTERN",
-                                    "value": "(%|\\?)>"
+                                    "value": "(%?|\\?)>"
                                   }
                                 ]
                               }
@@ -8494,18 +8494,18 @@
                       "members": [
                         {
                           "type": "PATTERN",
-                          "value": "<(%|\\?)=?"
+                          "value": "<(%?|\\?)=?"
                         },
                         {
                           "type": "SEQ",
                           "members": [
                             {
                               "type": "SYMBOL",
-                              "name": "template_expr_less_than_equals"
+                              "name": "template_expr_less_than"
                             },
                             {
                               "type": "PATTERN",
-                              "value": "(%|\\?)>"
+                              "value": "(%?|\\?)>"
                             }
                           ]
                         }
@@ -8516,18 +8516,18 @@
                       "members": [
                         {
                           "type": "PATTERN",
-                          "value": "[a-zA-Z_][^\\s:'\"]*<(%|\\?)=?"
+                          "value": "[a-zA-Z_][^\\s:'\"]*<(%?|\\?)=?"
                         },
                         {
                           "type": "SEQ",
                           "members": [
                             {
                               "type": "SYMBOL",
-                              "name": "template_expr_less_than_equals"
+                              "name": "template_expr_less_than"
                             },
                             {
                               "type": "PATTERN",
-                              "value": "(%|\\?)>"
+                              "value": "(%?|\\?)>"
                             }
                           ]
                         }
@@ -8545,18 +8545,18 @@
                         "members": [
                           {
                             "type": "PATTERN",
-                            "value": "<(%|\\?)=?"
+                            "value": "<(%?|\\?)=?"
                           },
                           {
                             "type": "SEQ",
                             "members": [
                               {
                                 "type": "SYMBOL",
-                                "name": "template_expr_less_than_equals"
+                                "name": "template_expr_less_than"
                               },
                               {
                                 "type": "PATTERN",
-                                "value": "(%|\\?)>"
+                                "value": "(%?|\\?)>"
                               }
                             ]
                           }
@@ -8569,7 +8569,7 @@
                             "type": "IMMEDIATE_TOKEN",
                             "content": {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][^\\s:'\"]*<(%|\\?)=?"
+                              "value": "[a-zA-Z_][^\\s:'\"]*<(%?|\\?)=?"
                             }
                           },
                           {
@@ -8577,11 +8577,11 @@
                             "members": [
                               {
                                 "type": "SYMBOL",
-                                "name": "template_expr_less_than_equals"
+                                "name": "template_expr_less_than"
                               },
                               {
                                 "type": "PATTERN",
-                                "value": "(%|\\?)>"
+                                "value": "(%?|\\?)>"
                               }
                             ]
                           }
@@ -9158,7 +9158,7 @@
       "type": "PATTERN",
       "value": "[^%\\n]+"
     },
-    "template_expr_less_than_equals": {
+    "template_expr_less_than": {
       "type": "REPEAT1",
       "content": {
         "type": "CHOICE",

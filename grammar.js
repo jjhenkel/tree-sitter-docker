@@ -463,7 +463,7 @@ module.exports = grammar({
     template_expr_at_symbols: $ => /[^@\n]+/,
     template_expr_curly_braces: $ => /[^\}\n]+/,
     template_expr_percent_signs: $ => /[^%\n]+/,
-    template_expr_less_than_equals: $ => repeat1(
+    template_expr_less_than: $ => repeat1(
       choice(/[^%>\?%\n]+/, /\?[^>]/, /%[^>]/)
     ),
 
@@ -554,7 +554,7 @@ function maybe_var_or_template_interpolation ($, regex) {
       regex, $._template_expr_at_symbols_start_ex, seq($.template_expr_at_symbols, /@?@?@/)
     ),
     maybe_template_interpolation(
-      regex, /<(%|\?)=?/, seq($.template_expr_less_than_equals, /(%|\?)>/)
+      regex, /<(%?|\?)=?/, seq($.template_expr_less_than, /(%?|\?)>/)
     ),
   );
 }
