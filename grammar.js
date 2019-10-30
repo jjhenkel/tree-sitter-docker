@@ -238,7 +238,7 @@ module.exports = grammar({
       )
     ),
 
-    env_pair_eq: $ => seq($.env_key, token.immediate('='), $.env_value),
+    env_pair_eq: $ => seq($.env_key, token.immediate('='), optional($.env_value)),
     env_pair: $ => seq($.env_key, $._space_no_newline, alias($._anything, $.env_value)),
 
     env_key: $ => choice(

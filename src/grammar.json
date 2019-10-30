@@ -1733,8 +1733,16 @@
           }
         },
         {
-          "type": "SYMBOL",
-          "name": "env_value"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "env_value"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
