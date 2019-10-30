@@ -5016,12 +5016,25 @@
           "value": "(C|c)(M|m)(D|d)"
         },
         {
-          "type": "SYMBOL",
-          "name": "_space_no_newline"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "hc_command"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_space_no_newline"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "hc_command"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },

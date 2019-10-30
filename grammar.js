@@ -339,8 +339,10 @@ module.exports = grammar({
     
     _hc_command: $ => seq(
       any_casing('CMD'),
-      $._space_no_newline,
-      $.hc_command
+      optional(seq(
+        $._space_no_newline,
+        $.hc_command
+      ))
     ),
 
     hc_command: $ => $._anything_or_json_array,

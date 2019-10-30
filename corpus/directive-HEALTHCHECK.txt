@@ -51,11 +51,14 @@ HEALTHCHECK Allow for malformed variants
 
 HEALTHCHECK
 
+HEALTHCHECK CMD
+
 HEALTHCHECK CONNECT TCP 7000
 
 ---
 
 (dockerfile
   (malformed_empty_directive)
+  (healthcheck)
   (healthcheck (hc_malformed))
 )
