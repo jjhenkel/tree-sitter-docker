@@ -219,7 +219,7 @@ namespace {
                         advance(lexer);
 
                         while (true) {
-                            while (lexer->lookahead != '"' && lexer->lookahead != '\\' && lexer->lookahead != '\n') {
+                            while (lexer->lookahead != '"' && lexer->lookahead != '\\' && lexer->lookahead != '\n' && lexer->lookahead != 0) {
                                 advance(lexer);
                             }
 
@@ -261,7 +261,7 @@ namespace {
                         advance(lexer);
 
                         while (true) {
-                            while (lexer->lookahead != '\'' && lexer->lookahead != '\\' && lexer->lookahead != '\n') {
+                            while (lexer->lookahead != '\'' && lexer->lookahead != '\\' && lexer->lookahead != '\n' && lexer->lookahead != 0) {
                                 advance(lexer);
                             }
 
