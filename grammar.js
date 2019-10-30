@@ -357,13 +357,11 @@ module.exports = grammar({
 
 
     // ############### PLUMBING FOR 'USER' ################################## /
-    user_name: $ => choice(
-      seq('$', $.docker_variable),
-      token.immediate(/[a-zA-Z_][^\s:'"]*/)
+    user_name: $ => maybe_var_or_template_interpolation(
+      $, /[a-zA-Z_][^\s:'"]*/
     ),
-    user_group: $ => choice(
-      seq('$', $.docker_variable),
-      token.immediate(/[a-zA-Z_][^\s:'"]*/)
+    user_group: $ => maybe_var_or_template_interpolation(
+      $, /[a-zA-Z_][^\s:'"]*/
     ),
     user_id: $ => token.immediate(/\d+/),
     user_group_id: $ => token.immediate(/\d+/),

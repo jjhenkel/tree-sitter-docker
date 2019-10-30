@@ -64,3 +64,15 @@ USER ${TRAVIS_USER}:${TRAVIS_GROUP}
     (user_group (docker_variable))
   )
 )
+
+===================================
+USER bug from corpus 5
+===================================
+
+# Support (likely) template exprs in USER
+
+USER {{test}}
+
+---
+
+(dockerfile (comment) (user (user_name (template_expr_curly_braces))))

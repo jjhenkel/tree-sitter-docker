@@ -973,11 +973,23 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
           "type": "docker_variable",
+          "named": true
+        },
+        {
+          "type": "template_expr_curly_braces",
+          "named": true
+        },
+        {
+          "type": "template_expr_less_than_equals",
+          "named": true
+        },
+        {
+          "type": "template_expr_percent_signs",
           "named": true
         }
       ]
@@ -998,11 +1010,23 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
           "type": "docker_variable",
+          "named": true
+        },
+        {
+          "type": "template_expr_curly_braces",
+          "named": true
+        },
+        {
+          "type": "template_expr_less_than_equals",
+          "named": true
+        },
+        {
+          "type": "template_expr_percent_signs",
           "named": true
         }
       ]
