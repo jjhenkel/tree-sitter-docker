@@ -359,7 +359,7 @@ module.exports = grammar({
       )
     ),
 
-    label_pair_eq: $ => seq($.label_key, token.immediate('='), $.label_value),
+    label_pair_eq: $ => seq($.label_key, token.immediate('='), optional($.label_value)),
     label_pair: $ => seq($.label_key, $._space_no_newline, alias($._anything, $.label_value)),
 
     label_key: $ => choice(

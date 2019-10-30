@@ -5132,8 +5132,16 @@
           }
         },
         {
-          "type": "SYMBOL",
-          "name": "label_value"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "label_value"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
