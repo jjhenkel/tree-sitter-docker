@@ -94,3 +94,26 @@ LABEL maintainer this person <this@person.com> and this person <other@gmail.com>
   (label (label_pair (label_key) (label_value)))
 )
 
+===================================
+LABEL bug from corpus 4
+===================================
+
+# Be more lenient on spacing
+
+LABEL \
+        name="openshift3/console-nodejs-builder" \
+        vendor="Red Hat" \
+  
+---
+
+
+(dockerfile
+  (comment)
+  (label
+    (line_continuation)
+    (label_pair (label_key) (label_value))
+    (line_continuation)
+    (label_pair (label_key) (label_value))
+  )
+  (line_continuation)
+)

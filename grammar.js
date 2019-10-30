@@ -210,7 +210,8 @@ module.exports = grammar({
       $.env_pair,
       seq(
         alias($.env_pair_eq, $.env_pair),
-        repeat(seq($._space_no_newline, alias($.env_pair_eq, $.env_pair)))
+        repeat(seq($._space_no_newline, alias($.env_pair_eq, $.env_pair))),
+        optional($._space_no_newline)
       )
     ),
 
@@ -326,7 +327,8 @@ module.exports = grammar({
       $.label_pair,
       seq(
         alias($.label_pair_eq, $.label_pair),
-        repeat(seq($._space_no_newline, alias($.label_pair_eq, $.label_pair)))
+        repeat(seq($._space_no_newline, alias($.label_pair_eq, $.label_pair))),
+        optional($._space_no_newline)
       )
     ),
 
