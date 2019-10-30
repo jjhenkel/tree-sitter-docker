@@ -109,9 +109,10 @@ namespace {
             // std::cout << valid_symbols[_JSON_ARRAY_START] << " ";
             // std::cout << valid_symbols[_ANYTHING_EX] << std::endl;
 
-            if (valid_symbols[ESCAPE_DIRECTIVE]) {
+            if (valid_symbols[ESCAPE_DIRECTIVE] && !comment_seen) {
                 
-                while (lexer->lookahead == '\n' || lexer->lookahead == '\r') {
+                // Slurp spaces
+                while (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->lookahead == ' ' || lexer->lookahead == '\t') {
                     skip(lexer);
                 }
 
@@ -127,22 +128,22 @@ namespace {
 
                 if (lexer->lookahead == 'e' || lexer->lookahead == 'E') {
                     advance(lexer);
-                } else { return false; }
+                } else { comment_seen = true; return false; }
                 if (lexer->lookahead == 's' || lexer->lookahead == 'S') {
                     advance(lexer);
-                } else { return false; }
+                } else { comment_seen = true; return false; }
                 if (lexer->lookahead == 'c' || lexer->lookahead == 'C') {
                     advance(lexer);
-                } else { return false; }
+                } else { comment_seen = true; return false; }
                 if (lexer->lookahead == 'a' || lexer->lookahead == 'A') {
                     advance(lexer);
-                } else { return false; }
+                } else { comment_seen = true; return false; }
                 if (lexer->lookahead == 'p' || lexer->lookahead == 'P') {
                     advance(lexer);
-                } else { return false; }
+                } else { comment_seen = true; return false; }
                 if (lexer->lookahead == 'e' || lexer->lookahead == 'E') {
                     advance(lexer);
-                } else { return false; }
+                } else { comment_seen = true; return false; }
 
                 while (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
                     advance(lexer);
@@ -150,7 +151,7 @@ namespace {
 
                 if (lexer->lookahead == '=') {
                     advance(lexer);
-                } else { return false; }
+                } else { comment_seen = true; return false; }
 
                 while (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
                     advance(lexer);
@@ -164,12 +165,15 @@ namespace {
                     lexer->result_symbol = ESCAPE_DIRECTIVE;
                     // std::cout << windows_escape << std::endl;
                     return true;
-                } else {
+                } else if (lexer->lookahead == '\\') {
                     windows_escape = false;
                     advance(lexer);
                     lexer->result_symbol = ESCAPE_DIRECTIVE;
                     // std::cout << windows_escape << std::endl;
                     return true;
+                } else {
+                    comment_seen = true;
+                    return false;
                 }
             }
             
@@ -389,6 +393,7 @@ namespace {
         }
 
         bool windows_escape;
+        bool comment_seen;
         // std::string _marked;
         // std::string _debug_str;
     };

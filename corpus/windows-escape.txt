@@ -70,3 +70,27 @@ ENV GOPATH `
   (maintainer)
   (env (env_pair (env_key) (line_continuation) (env_value)))
 )
+
+===================================
+Escape ` Test 3
+===================================
+
+# Comment here makes the escape directive not an escape
+# since it needs to be first thing in file if it exists
+# escape=`
+
+FROM image
+MAINTAINER foo@bar.com
+ENV GOPATH \
+\go
+
+---
+
+(dockerfile
+  (comment)
+  (comment)
+  (comment)
+  (from (image))
+  (maintainer)
+  (env (env_pair (env_key) (line_continuation) (env_value)))
+)
