@@ -268,3 +268,27 @@ RUN apt-get update \
     (comment)
   )
 )
+
+===================================
+RUN bug from corpus 6
+===================================
+
+# Just blank line with spaces after line continuation
+# Which we treat as part of the line continuation
+
+RUN apt-get update \
+     
+  apt-get install \
+
+  foo bar
+
+---
+
+(dockerfile
+  (comment)
+  (comment)
+  (run
+    (line_continuation)
+    (line_continuation)
+  )
+)

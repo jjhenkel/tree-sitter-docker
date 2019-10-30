@@ -179,7 +179,7 @@ namespace {
                     advance(lexer);
                 } 
                 if (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->lookahead == 0) {
-                    while (lexer->lookahead == '\n' || lexer->lookahead == '\r') {
+                    while (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->lookahead == ' ' || lexer->lookahead == '\t') {
                         advance(lexer);
                     }
 
@@ -194,7 +194,7 @@ namespace {
                     advance(lexer);
                 } 
                 if (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->lookahead == 0) {
-                    while (lexer->lookahead == '\n' || lexer->lookahead == '\r') {
+                    while (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->lookahead == ' ' || lexer->lookahead == '\t') {
                         advance(lexer);
                     }
 
