@@ -823,6 +823,22 @@
         {
           "type": "port_protocol",
           "named": true
+        },
+        {
+          "type": "template_expr_at_symbols",
+          "named": true
+        },
+        {
+          "type": "template_expr_curly_braces",
+          "named": true
+        },
+        {
+          "type": "template_expr_less_than",
+          "named": true
+        },
+        {
+          "type": "template_expr_percent_signs",
+          "named": true
         }
       ]
     }
@@ -856,6 +872,22 @@
         },
         {
           "type": "port_protocol",
+          "named": true
+        },
+        {
+          "type": "template_expr_at_symbols",
+          "named": true
+        },
+        {
+          "type": "template_expr_curly_braces",
+          "named": true
+        },
+        {
+          "type": "template_expr_less_than",
+          "named": true
+        },
+        {
+          "type": "template_expr_percent_signs",
           "named": true
         }
       ]

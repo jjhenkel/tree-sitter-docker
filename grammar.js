@@ -273,12 +273,10 @@ module.exports = grammar({
     port: $ => $._port_part,
     port_range: $ => seq($._port_part, '-', $._port_part),
 
-    _port_part: $ => seq(
-      choice(
-        /\d+/, seq('$', $.docker_variable)
-      ),
+    _port_part: $ => prec.right(seq(
+      maybe_var_or_template_interpolation($, /\d+/),
       optional($.port_protocol)
-    ),
+    )),
 
     port_protocol: $ => seq('/', choice(
       any_casing('UDP'),
