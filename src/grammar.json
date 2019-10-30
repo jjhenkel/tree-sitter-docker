@@ -7947,7 +7947,7 @@
         "type": "IMMEDIATE_TOKEN",
         "content": {
           "type": "PATTERN",
-          "value": "(?:[^\\\\'\\n]|\\\\(?:'|\\\\|\\/|b|n|r|t|f|u))+"
+          "value": "(?:[^\\\\'\\n]|\\\\[^\\n])+"
         }
       }
     },
@@ -7957,7 +7957,7 @@
         "type": "IMMEDIATE_TOKEN",
         "content": {
           "type": "PATTERN",
-          "value": "(?:[^\\\\\"\\n]|\\\\(?:\"|\\\\|\\/|b|n|r|t|f|u))+"
+          "value": "(?:[^\\\\\"\\n]|\\\\[^\\n])+"
         }
       }
     }

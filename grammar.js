@@ -187,7 +187,8 @@ module.exports = grammar({
     )),
 
     volume: $ => directive($, 'VOLUME', choice(
-      $._paths, $.json_array
+      $._paths,
+      $.json_array
     )),
 
     workdir: $ => directive($, 'WORKDIR', seq(
@@ -493,11 +494,11 @@ module.exports = grammar({
     ),
 
     _json_array_item_single: $ => repeat1(
-      token.immediate(/(?:[^\\'\n]|\\(?:'|\\|\/|b|n|r|t|f|u))+/)
+      token.immediate(/(?:[^\\'\n]|\\[^\n])+/)
     ),
 
     _json_array_item_double: $ => repeat1(
-      token.immediate(/(?:[^\\"\n]|\\(?:"|\\|\/|b|n|r|t|f|u))+/)
+      token.immediate(/(?:[^\\"\n]|\\[^\n])+/)
     ),
 
   }

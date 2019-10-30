@@ -139,21 +139,9 @@ namespace {
                 else if (lexer->lookahead == '\\') {
                     advance(lexer);
                     if (!eat_spaces_including_line_continuation(lexer, true)) { 
-                        if (lexer->lookahead == quote
-                            || lexer->lookahead == '\\'
-                            || lexer->lookahead == '/'
-                            || lexer->lookahead == 'b'
-                            || lexer->lookahead == 'f'
-                            || lexer->lookahead == 'n'
-                            || lexer->lookahead == 'r'
-                            || lexer->lookahead == 't'
-                            || lexer->lookahead == 'u'
-                        ) {
-                            advance(lexer);
-                            continue;
-                        } else {
-                            return -1; 
-                        }
+                        // Let anything be after slash to deal with things like windows paths in ENTRYPOINT arrays
+                        advance(lexer);
+                        continue;
                     }
                     continue;
                 } else if (lexer->lookahead == '`' && windows_escape) {

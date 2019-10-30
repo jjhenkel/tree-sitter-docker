@@ -92,3 +92,13 @@ ENTRYPOINT []
   (entrypoint (json_array))
 )
 
+
+===================================
+ENTRYPOINT bug with windows paths
+===================================
+
+ENTRYPOINT [ "C:\app\Conreign.Server.Host.Console.Silo.exe" ]
+
+---
+
+(dockerfile (entrypoint (json_array (json_array_item))))

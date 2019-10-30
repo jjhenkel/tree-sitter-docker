@@ -1,3 +1,5 @@
 #!/bin/bash
 
-cat $(cat still-errors.txt | shuf | head -n1) > example.txt
+CHOICE=$(cat still-errors.txt | shuf | head -n1)
+echo $CHOICE
+cat "${CHOICE}" > example.txt
