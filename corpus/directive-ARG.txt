@@ -55,3 +55,17 @@ ARG PIXIECORE_CONTEXT="$PIXIECORE_SANDBOX"/context
   (comment)
   (arg (arg_name) (arg_default (docker_variable)))
 )
+
+===================================
+ARG bug from corpus 2
+===================================
+
+# Arg name can start with number
+ARG 7ZIP_LOCAL=/7zip
+
+---
+
+(dockerfile
+  (comment)
+  (arg (arg_name) (arg_default))
+)
