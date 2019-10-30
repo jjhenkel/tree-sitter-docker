@@ -406,7 +406,7 @@ module.exports = grammar({
     path: $ => prec.right(choice(
       maybe_var_interpolation($, (postfix) =>
         token.immediate(prec(-10, new RegExp(
-          /([^"\s\\\$]|\\[^"\s\\\$])([^"\s\$]|\\\")*/.source + postfix
+          /([^"\s\\\$]|\\[^"\s\\\$])([^"\s\$]|\\")*/.source + postfix
         )))
       ),
       seq(
@@ -415,6 +415,13 @@ module.exports = grammar({
           token.immediate(prec(-10, new RegExp(/[^"\n\$]*/.source + postfix)))
         ),
         '"'
+      ),
+      seq(
+        "'",
+        maybe_var_interpolation($, (postfix) => 
+          token.immediate(prec(-10, new RegExp(/[^'\n\$]*/.source + postfix)))
+        ),
+        "'"
       )
     )),
 

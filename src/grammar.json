@@ -7370,7 +7370,7 @@
                   "value": -10,
                   "content": {
                     "type": "PATTERN",
-                    "value": "([^\"\\s\\\\\\$]|\\\\[^\"\\s\\\\\\$])([^\"\\s\\$]|\\\\\\\")*"
+                    "value": "([^\"\\s\\\\\\$]|\\\\[^\"\\s\\\\\\$])([^\"\\s\\$]|\\\\\")*"
                   }
                 }
               },
@@ -7403,7 +7403,7 @@
                               "value": -10,
                               "content": {
                                 "type": "PATTERN",
-                                "value": "([^\"\\s\\\\\\$]|\\\\[^\"\\s\\\\\\$])([^\"\\s\\$]|\\\\\\\")*\\$"
+                                "value": "([^\"\\s\\\\\\$]|\\\\[^\"\\s\\\\\\$])([^\"\\s\\$]|\\\\\")*\\$"
                               }
                             }
                           },
@@ -7443,7 +7443,7 @@
                                 "value": -10,
                                 "content": {
                                   "type": "PATTERN",
-                                  "value": "([^\"\\s\\\\\\$]|\\\\[^\"\\s\\\\\\$])([^\"\\s\\$]|\\\\\\\")*\\$"
+                                  "value": "([^\"\\s\\\\\\$]|\\\\[^\"\\s\\\\\\$])([^\"\\s\\$]|\\\\\")*\\$"
                                 }
                               }
                             },
@@ -7466,7 +7466,7 @@
                           "value": -10,
                           "content": {
                             "type": "PATTERN",
-                            "value": "([^\"\\s\\\\\\$]|\\\\[^\"\\s\\\\\\$])([^\"\\s\\$]|\\\\\\\")*"
+                            "value": "([^\"\\s\\\\\\$]|\\\\[^\"\\s\\\\\\$])([^\"\\s\\$]|\\\\\")*"
                           }
                         }
                       },
@@ -7608,6 +7608,138 @@
               {
                 "type": "STRING",
                 "value": "\""
+              }
+            ]
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "'"
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "IMMEDIATE_TOKEN",
+                    "content": {
+                      "type": "PREC",
+                      "value": -10,
+                      "content": {
+                        "type": "PATTERN",
+                        "value": "[^'\\n\\$]*"
+                      }
+                    }
+                  },
+                  {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SEQ",
+                            "members": [
+                              {
+                                "type": "STRING",
+                                "value": "$"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "docker_variable"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SEQ",
+                            "members": [
+                              {
+                                "type": "IMMEDIATE_TOKEN",
+                                "content": {
+                                  "type": "PREC",
+                                  "value": -10,
+                                  "content": {
+                                    "type": "PATTERN",
+                                    "value": "[^'\\n\\$]*\\$"
+                                  }
+                                }
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "docker_variable"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "REPEAT",
+                        "content": {
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "SEQ",
+                              "members": [
+                                {
+                                  "type": "STRING",
+                                  "value": "$"
+                                },
+                                {
+                                  "type": "SYMBOL",
+                                  "name": "docker_variable"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "SEQ",
+                              "members": [
+                                {
+                                  "type": "IMMEDIATE_TOKEN",
+                                  "content": {
+                                    "type": "PREC",
+                                    "value": -10,
+                                    "content": {
+                                      "type": "PATTERN",
+                                      "value": "[^'\\n\\$]*\\$"
+                                    }
+                                  }
+                                },
+                                {
+                                  "type": "SYMBOL",
+                                  "name": "docker_variable"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "IMMEDIATE_TOKEN",
+                            "content": {
+                              "type": "PREC",
+                              "value": -10,
+                              "content": {
+                                "type": "PATTERN",
+                                "value": "[^'\\n\\$]*"
+                              }
+                            }
+                          },
+                          {
+                            "type": "BLANK"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "STRING",
+                "value": "'"
               }
             ]
           }

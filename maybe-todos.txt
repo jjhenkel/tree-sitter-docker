@@ -1,9 +1,0 @@
-
-FROM httpd:${APACHE_VERSION:+${APACHE_VERSION}-}alpine
-FROM microsoft/dotnet:${DOTNET_RUNTIME_VERSION:2.2-aspnetcore-runtime-alpine}
-FROM microsoft/dotnet:${DOTNET_SDK_VERSION:2.2-sdk-alpine}
-FROM php:${PHP_VERSION:+${PHP_VERSION}-}fpm-alpine
-FROM postgres:$POSTGRES_RELEASE@sha256:$POSTGRES_DIGEST
-
-COPY \--from=ember /app/dist /app  
-COPY \--from=ember /user-interfaces /app/config/user-interfaces  

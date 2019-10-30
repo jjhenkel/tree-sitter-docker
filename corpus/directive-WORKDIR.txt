@@ -15,3 +15,17 @@ WORKDIR $DIRPATH/$DIRNAME
     (workdir (path))
     (workdir (path (docker_variable) (docker_variable)))
 )
+
+===================================
+WORKDIR quoted forms
+===================================
+
+WORKDIR 'C:\\Program Files\\Redis\\'
+WORKDIR "/redis/here/"
+
+---
+
+(dockerfile
+    (workdir (path))
+    (workdir (path))
+)
