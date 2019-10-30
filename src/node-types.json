@@ -65,6 +65,10 @@
           "named": true
         },
         {
+          "type": "template_expr_at_symbols",
+          "named": true
+        },
+        {
           "type": "template_expr_curly_braces",
           "named": true
         },
@@ -158,6 +162,10 @@
       "types": [
         {
           "type": "docker_variable",
+          "named": true
+        },
+        {
+          "type": "template_expr_at_symbols",
           "named": true
         },
         {
@@ -440,6 +448,10 @@
           "named": true
         },
         {
+          "type": "template_expr_at_symbols",
+          "named": true
+        },
+        {
           "type": "template_expr_curly_braces",
           "named": true
         },
@@ -538,6 +550,10 @@
       "types": [
         {
           "type": "docker_variable",
+          "named": true
+        },
+        {
+          "type": "template_expr_at_symbols",
           "named": true
         },
         {
@@ -854,6 +870,10 @@
           "named": true
         },
         {
+          "type": "template_expr_at_symbols",
+          "named": true
+        },
+        {
           "type": "template_expr_curly_braces",
           "named": true
         },
@@ -935,6 +955,10 @@
           "named": true
         },
         {
+          "type": "template_expr_at_symbols",
+          "named": true
+        },
+        {
           "type": "template_expr_curly_braces",
           "named": true
         },
@@ -994,6 +1018,10 @@
           "named": true
         },
         {
+          "type": "template_expr_at_symbols",
+          "named": true
+        },
+        {
           "type": "template_expr_curly_braces",
           "named": true
         },
@@ -1028,6 +1056,10 @@
       "types": [
         {
           "type": "docker_variable",
+          "named": true
+        },
+        {
+          "type": "template_expr_at_symbols",
           "named": true
         },
         {
@@ -1106,14 +1138,6 @@
     "named": false
   },
   {
-    "type": "@",
-    "named": false
-  },
-  {
-    "type": "sha256:",
-    "named": false
-  },
-  {
     "type": "arg_name",
     "named": true
   },
@@ -1180,6 +1204,10 @@
   {
     "type": ":+",
     "named": false
+  },
+  {
+    "type": "template_expr_at_symbols",
+    "named": true
   },
   {
     "type": "template_expr_curly_braces",

@@ -259,6 +259,29 @@ FROM amberframework/amber:v{{ amber_version }}
 ) 
 
 ===================================
+Template Interpolation Support: At Symbols
+===================================
+
+FROM dckreg:5000/hadoop:@ HADOOP_VERSION @
+FROM test/dckreg/hbase-base:@@ HBASE_VERSION @@
+FROM @@@DOCKERIMAGE@@@
+FROM  @@ docker_repo_url @@/@ docker_repo_lib @/@@@ base_app @@@:@@ base_app_tag @@
+FROM amberframework/amber:v@@ amber_version @@
+
+---
+
+(dockerfile
+  (from (repository) (image) (tag (template_expr_at_symbols)))
+  (from (repository) (image) (tag (template_expr_at_symbols)))
+  (from (image (template_expr_at_symbols)))
+  (from (repository (template_expr_at_symbols) (template_expr_at_symbols))
+        (image (template_expr_at_symbols))
+        (tag (template_expr_at_symbols))
+  )
+  (from (repository) (image) (tag (template_expr_at_symbols)))
+) 
+
+===================================
 Template Interpolation Support: Percent Signs
 ===================================
 

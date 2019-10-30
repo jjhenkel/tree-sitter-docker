@@ -9,6 +9,8 @@ namespace {
     enum TokenType {
         ESCAPE_DIRECTIVE,
         LINE_CONTINUATION,
+        _TEMPLATE_EXPR_AT_SYMBOLS_START_EX,
+        _DIGEST_START_EX,
         _JSON_ARRAY_START,
         _ANYTHING_EX
     };
@@ -242,6 +244,56 @@ namespace {
                     return true;
                 } else {
                     comment_seen = true;
+                    return false;
+                }
+            }
+
+            if ((valid_symbols[_DIGEST_START_EX] || valid_symbols[_TEMPLATE_EXPR_AT_SYMBOLS_START_EX]) && lexer->lookahead == '@') {
+                // std::cout << "A: " << (char)lexer->lookahead << std::endl;
+                advance(lexer);
+                lexer->mark_end(lexer);
+
+                if (lexer->lookahead == '@') {
+                    while (lexer->lookahead == '@') {
+                        advance(lexer);
+                    }
+                    lexer->mark_end(lexer);
+                    while (lexer->lookahead != '\n'
+                       && lexer->lookahead != '@'
+                       && lexer->lookahead != 0
+                    ) {
+                        advance(lexer);
+                    }
+                    if (lexer->lookahead == '@' && valid_symbols[_TEMPLATE_EXPR_AT_SYMBOLS_START_EX]) {
+                        while (lexer->lookahead == '@') {
+                            advance(lexer);
+                        }
+                        lexer->result_symbol = _TEMPLATE_EXPR_AT_SYMBOLS_START_EX;
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+                while (lexer->lookahead != '\r'
+                       && lexer->lookahead != '\n'
+                       && lexer->lookahead != '@'
+                       && lexer->lookahead != 0
+                ) {
+                    // std::cout << "C: " << (char)lexer->lookahead << std::endl;
+                    advance(lexer);
+                }
+
+                if (lexer->lookahead == '@' && valid_symbols[_TEMPLATE_EXPR_AT_SYMBOLS_START_EX]) {
+                    lexer->result_symbol = _TEMPLATE_EXPR_AT_SYMBOLS_START_EX;
+                // std::cout << "HERE1" << std::endl;
+                    return true;
+                } else if (lexer->lookahead != '@' && valid_symbols[_DIGEST_START_EX]) {
+                    lexer->result_symbol = _DIGEST_START_EX;
+                // std::cout << "HERE2" << std::endl;
+                    return true;
+                } else {
+                // std::cout << "HERE3" << std::endl;
                     return false;
                 }
             }

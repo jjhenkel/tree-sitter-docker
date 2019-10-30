@@ -18,8 +18,10 @@ module.exports = grammar({
   externals: $ => [
     $.escape_directive,
     $.line_continuation,
+    $._template_expr_at_symbols_start_ex,
+    $._digest_start_ex,
     $._json_array_start,
-    $._anything_ex
+    $._anything_ex,
   ],
 
   rules: {
@@ -125,7 +127,7 @@ module.exports = grammar({
         ':', $.tag
       )),
       optional(seq(
-        '@', optional('sha256:'), $.digest
+        $._digest_start_ex, $.digest
       )),
       optional(seq(
         $._space_no_newline, any_casing('AS'), $._space_no_newline, $.as_name
@@ -304,7 +306,7 @@ module.exports = grammar({
 
     image: $ => maybe_var_or_template_interpolation($, FROM_PART_REGEX),
     tag: $ => maybe_var_or_template_interpolation($, FROM_PART_REGEX),
-    digest: $ => maybe_var_or_template_interpolation($, FROM_PART_REGEX),
+    digest: $ => maybe_var_or_template_interpolation($, /[^\$\s\/@\{\}%<>=\?]+/),
     as_name: $ => maybe_var_or_template_interpolation($, FROM_PART_REGEX),
 
     // ############### PLUMBING FOR 'HEALTHCHECK' ########################### /
@@ -446,6 +448,7 @@ module.exports = grammar({
     _docker_variable: $ => token.immediate(/[^\/\}\{\$"\s:=]+/),
 
     // ############### OUT-OF-DOCKER TEMPLATING ############################# /
+    template_expr_at_symbols: $ => /[^@\n]+/,
     template_expr_curly_braces: $ => /[^\}\n]+/,
     template_expr_percent_signs: $ => /[^%\n]+/,
     template_expr_less_than_equals: $ => repeat1(
@@ -535,6 +538,9 @@ function maybe_var_or_template_interpolation ($, regex) {
     maybe_template_interpolation(
       regex, /%%?/, seq($.template_expr_percent_signs, /%?%/)
     ),
+    maybe_template_interpolation_2(
+      regex, $._template_expr_at_symbols_start_ex, seq($.template_expr_at_symbols, /@?@?@/)
+    ),
     maybe_template_interpolation(
       regex, /<(%|\?)=?/, seq($.template_expr_less_than_equals, /(%|\?)>/)
     ),
@@ -581,6 +587,28 @@ function maybe_template_interpolation (regex, opener, rule) {
         token.immediate(
           new RegExp(regex.source + opener.source)
         ),
+        rule
+      )
+    )),
+    optional(token.immediate(regex))
+  );
+}
+
+function maybe_template_interpolation_2 (regex, opener, rule) {
+  return seq(
+    choice(
+      seq(opener, rule),
+      seq(
+        regex,
+        opener,
+        rule
+      )
+    ),
+    repeat(choice(
+      seq(opener, rule),
+      seq(
+        token.immediate(regex),
+        opener,
         rule
       )
     )),
