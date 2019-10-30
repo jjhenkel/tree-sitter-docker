@@ -125,3 +125,13 @@ this\
     (label_pair (label_key) (line_continuation) (label_value))
   )
 )
+
+===================================
+LABEL bug from corpus 5
+===================================
+
+LABEL Descripción="Mi servicio web"
+
+---
+
+(dockerfile (label (label_pair (label_key) (label_value))))
