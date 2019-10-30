@@ -50,7 +50,29 @@ module.exports = grammar({
       $.user,
       $.volume,
       $.workdir,
-      $._blank_line
+      $.malformed_empty_directive,
+      $._blank_line,
+    ),
+
+    malformed_empty_directive: $ => choice(
+      new RegExp(any_casing('ADD').source + '\n'),
+      new RegExp(any_casing('ARG').source + '\n'),
+      new RegExp(any_casing('CMD').source + '\n'),
+      new RegExp(any_casing('COPY').source + '\n'),
+      new RegExp(any_casing('ENTRYPOINT').source + '\n'),
+      new RegExp(any_casing('ENV').source + '\n'),
+      new RegExp(any_casing('EXPOSE').source + '\n'),
+      new RegExp(any_casing('FROM').source + '\n'),
+      new RegExp(any_casing('HEALTHCHECK').source + '\n'),
+      new RegExp(any_casing('LABEL').source + '\n'),
+      new RegExp(any_casing('MAINTAINER').source + '\n'),
+      new RegExp(any_casing('ONBUILD').source + '\n'),
+      new RegExp(any_casing('RUN').source + '\n'),
+      new RegExp(any_casing('SHELL').source + '\n'),
+      new RegExp(any_casing('STOPSIGNAL').source + '\n'),
+      new RegExp(any_casing('USER').source + '\n'),
+      new RegExp(any_casing('VOLUME').source + '\n'),
+      new RegExp(any_casing('WORKDIR').source + '\n'),
     ),
 
     // ############### DIRECTIVES ########################################### /
@@ -115,7 +137,8 @@ module.exports = grammar({
       seq(
         repeat($._hc_options),
         $._hc_command
-      )
+      ),
+      $.hc_malformed
     )),
 
     label: $ => directive($, 'LABEL', seq(
@@ -321,6 +344,8 @@ module.exports = grammar({
     ),
 
     hc_command: $ => $._anything_or_json_array,
+
+    hc_malformed: $ => token.immediate(prec(-10, /[^\n]+\n/)),
 
     // ############### PLUMBING FOR 'LABEL' ################################# /
     _labels: $ => choice(

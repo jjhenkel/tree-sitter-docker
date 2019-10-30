@@ -106,7 +106,88 @@
         },
         {
           "type": "SYMBOL",
+          "name": "malformed_empty_directive"
+        },
+        {
+          "type": "SYMBOL",
           "name": "_blank_line"
+        }
+      ]
+    },
+    "malformed_empty_directive": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "(A|a)(D|d)(D|d)\n"
+        },
+        {
+          "type": "PATTERN",
+          "value": "(A|a)(R|r)(G|g)\n"
+        },
+        {
+          "type": "PATTERN",
+          "value": "(C|c)(M|m)(D|d)\n"
+        },
+        {
+          "type": "PATTERN",
+          "value": "(C|c)(O|o)(P|p)(Y|y)\n"
+        },
+        {
+          "type": "PATTERN",
+          "value": "(E|e)(N|n)(T|t)(R|r)(Y|y)(P|p)(O|o)(I|i)(N|n)(T|t)\n"
+        },
+        {
+          "type": "PATTERN",
+          "value": "(E|e)(N|n)(V|v)\n"
+        },
+        {
+          "type": "PATTERN",
+          "value": "(E|e)(X|x)(P|p)(O|o)(S|s)(E|e)\n"
+        },
+        {
+          "type": "PATTERN",
+          "value": "(F|f)(R|r)(O|o)(M|m)\n"
+        },
+        {
+          "type": "PATTERN",
+          "value": "(H|h)(E|e)(A|a)(L|l)(T|t)(H|h)(C|c)(H|h)(E|e)(C|c)(K|k)\n"
+        },
+        {
+          "type": "PATTERN",
+          "value": "(L|l)(A|a)(B|b)(E|e)(L|l)\n"
+        },
+        {
+          "type": "PATTERN",
+          "value": "(M|m)(A|a)(I|i)(N|n)(T|t)(A|a)(I|i)(N|n)(E|e)(R|r)\n"
+        },
+        {
+          "type": "PATTERN",
+          "value": "(O|o)(N|n)(B|b)(U|u)(I|i)(L|l)(D|d)\n"
+        },
+        {
+          "type": "PATTERN",
+          "value": "(R|r)(U|u)(N|n)\n"
+        },
+        {
+          "type": "PATTERN",
+          "value": "(S|s)(H|h)(E|e)(L|l)(L|l)\n"
+        },
+        {
+          "type": "PATTERN",
+          "value": "(S|s)(T|t)(O|o)(P|p)(S|s)(I|i)(G|g)(N|n)(A|a)(L|l)\n"
+        },
+        {
+          "type": "PATTERN",
+          "value": "(U|u)(S|s)(E|e)(R|r)\n"
+        },
+        {
+          "type": "PATTERN",
+          "value": "(V|v)(O|o)(L|l)(U|u)(M|m)(E|e)\n"
+        },
+        {
+          "type": "PATTERN",
+          "value": "(W|w)(O|o)(R|r)(K|k)(D|d)(I|i)(R|r)\n"
         }
       ]
     },
@@ -478,6 +559,10 @@
                   "name": "_hc_command"
                 }
               ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "hc_malformed"
             }
           ]
         }
@@ -4943,6 +5028,17 @@
     "hc_command": {
       "type": "SYMBOL",
       "name": "_anything_or_json_array"
+    },
+    "hc_malformed": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": -10,
+        "content": {
+          "type": "PATTERN",
+          "value": "[^\\n]+\\n"
+        }
+      }
     },
     "_labels": {
       "type": "CHOICE",

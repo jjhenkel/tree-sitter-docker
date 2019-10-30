@@ -44,3 +44,18 @@ HEALTHCHECK \
   )
   (healthcheck (line_continuation) (hc_command))
 )
+
+===================================
+HEALTHCHECK Allow for malformed variants
+===================================
+
+HEALTHCHECK
+
+HEALTHCHECK CONNECT TCP 7000
+
+---
+
+(dockerfile
+  (malformed_empty_directive)
+  (healthcheck (hc_malformed))
+)
