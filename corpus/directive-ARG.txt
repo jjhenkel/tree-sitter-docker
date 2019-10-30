@@ -69,3 +69,17 @@ ARG 7ZIP_LOCAL=/7zip
   (comment)
   (arg (arg_name) (arg_default))
 )
+
+===================================
+ARG bug from corpus 3
+===================================
+
+# Support accepting malformed default
+ARG JETTY_VERSION 9.3.8.v20160314
+
+---
+
+(dockerfile
+  (comment)
+  (arg (arg_name) (arg_malformed_default))
+)

@@ -84,7 +84,10 @@ module.exports = grammar({
     )),
 
     arg: $ => directive($, 'ARG', seq(
-      $.arg_name, optional(seq('=', $.arg_default))
+      $.arg_name, optional(choice(
+        seq('=', $.arg_default),
+        seq(/ |\t/, alias($.arg_default, $.arg_malformed_default))
+      ))
     )),
 
     cmd: $ => directive($, 'CMD', seq(

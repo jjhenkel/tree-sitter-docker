@@ -231,15 +231,38 @@
               "type": "CHOICE",
               "members": [
                 {
-                  "type": "SEQ",
+                  "type": "CHOICE",
                   "members": [
                     {
-                      "type": "STRING",
-                      "value": "="
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "STRING",
+                          "value": "="
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "arg_default"
+                        }
+                      ]
                     },
                     {
-                      "type": "SYMBOL",
-                      "name": "arg_default"
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "PATTERN",
+                          "value": " |\\t"
+                        },
+                        {
+                          "type": "ALIAS",
+                          "content": {
+                            "type": "SYMBOL",
+                            "name": "arg_default"
+                          },
+                          "named": true,
+                          "value": "arg_malformed_default"
+                        }
+                      ]
                     }
                   ]
                 },

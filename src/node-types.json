@@ -31,6 +31,10 @@
           "named": true
         },
         {
+          "type": "arg_malformed_default",
+          "named": true
+        },
+        {
           "type": "arg_name",
           "named": true
         }
