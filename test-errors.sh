@@ -7,5 +7,11 @@ tree-sitter generate
 for RANDOM_TARGET in $(cat ./errors.txt); do
   echo "${RANDOM_TARGET}" >&2
   tree-sitter parse "${RANDOM_TARGET}" > ./asts/$(basename "${RANDOM_TARGET}").ast
-  grep -qF 'ERROR' ./asts/$(basename "${RANDOM_TARGET}").ast && echo "${RANDOM_TARGET}"
+  
+  if grep -qF 'ERROR' ./asts/$(basename "${RANDOM_TARGET}").ast; then
+    echo "${RANDOM_TARGET}"
+    echo "  - FAILED" >&2
+  else
+    echo "  + PASSED" >&2
+  fi
 done
