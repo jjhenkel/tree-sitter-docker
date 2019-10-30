@@ -122,7 +122,7 @@ namespace {
                 while (
                     lexer->lookahead != quote 
                     && lexer->lookahead != '\\' 
-                    && lexer->lookahead != '`' 
+                    && (lexer->lookahead != '`' || !windows_escape) 
                     && lexer->lookahead != '\n' 
                     && lexer->lookahead != 0
                 ) {

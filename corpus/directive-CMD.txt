@@ -119,3 +119,13 @@ CMD [ "do \
     )
   )
 )
+
+===================================
+CMD bug with ` in string
+===================================
+
+CMD [ "`this should still` work" ]
+
+---
+
+(dockerfile (cmd (json_array (json_array_item))))
