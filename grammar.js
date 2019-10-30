@@ -84,10 +84,12 @@ module.exports = grammar({
     )),
 
     arg: $ => directive($, 'ARG', seq(
+      optional(token.immediate(/"/)),
       $.arg_name, optional(choice(
         seq('=', $.arg_default),
         seq(/ |\t/, alias($.arg_default, $.arg_malformed_default))
-      ))
+      )),
+      optional(token.immediate(prec(-10, /"/)))
     )),
 
     cmd: $ => directive($, 'CMD', seq(
