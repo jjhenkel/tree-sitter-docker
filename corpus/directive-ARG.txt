@@ -41,3 +41,17 @@ ARG WATCH_OUT_FOR_THIS='test \
     (arg (arg_name) (arg_default (line_continuation) (line_continuation)))
     (arg (arg_name) (arg_default (line_continuation) (line_continuation) (line_continuation)))
 )
+
+===================================
+ARG bug from corpus 1
+===================================
+
+# Issue with docker_variable, quotes, and extra non-var content
+ARG PIXIECORE_CONTEXT="$PIXIECORE_SANDBOX"/context  
+
+---
+
+(dockerfile
+  (comment)
+  (arg (arg_name) (arg_default (docker_variable)))
+)

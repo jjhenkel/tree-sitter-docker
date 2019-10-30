@@ -878,53 +878,117 @@
       "value": "[a-zA-Z_][a-zA-Z_\\-0-9]*"
     },
     "arg_default": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "\""
-            },
-            {
-              "type": "REPEAT",
-              "content": {
-                "type": "PATTERN",
-                "value": "([^\\n\"\\\\]|\\\\[^\\s])+"
-              }
-            },
-            {
-              "type": "STRING",
-              "value": "\""
+      "type": "REPEAT1",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "'([^\\n'\\\\]|\\\\[^\\s])*'"
+          },
+          {
+            "type": "PREC_RIGHT",
+            "value": 0,
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "([^\\n\\\\\\$]|\\\\[^\\s])*"
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SEQ",
+                          "members": [
+                            {
+                              "type": "STRING",
+                              "value": "$"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "docker_variable"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "SEQ",
+                          "members": [
+                            {
+                              "type": "PATTERN",
+                              "value": "([^\\n\\\\\\$]|\\\\[^\\s])*\\$"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "docker_variable"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "REPEAT",
+                      "content": {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SEQ",
+                            "members": [
+                              {
+                                "type": "STRING",
+                                "value": "$"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "docker_variable"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SEQ",
+                            "members": [
+                              {
+                                "type": "IMMEDIATE_TOKEN",
+                                "content": {
+                                  "type": "PATTERN",
+                                  "value": "([^\\n\\\\\\$]|\\\\[^\\s])*\\$"
+                                }
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "docker_variable"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "IMMEDIATE_TOKEN",
+                          "content": {
+                            "type": "PATTERN",
+                            "value": "([^\\n\\\\\\$]|\\\\[^\\s])*"
+                          }
+                        },
+                        {
+                          "type": "BLANK"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
             }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "'"
-            },
-            {
-              "type": "REPEAT",
-              "content": {
-                "type": "PATTERN",
-                "value": "([^\\n'\\\\]|\\\\[^\\s])+"
-              }
-            },
-            {
-              "type": "STRING",
-              "value": "'"
-            }
-          ]
-        },
-        {
-          "type": "PATTERN",
-          "value": "[^\\n\"'][^\\n]*"
-        }
-      ]
+          }
+        ]
+      }
     },
     "_chown": {
       "type": "SEQ",

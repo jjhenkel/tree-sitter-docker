@@ -40,7 +40,17 @@
   {
     "type": "arg_default",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "docker_variable",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "as_name",
@@ -1071,15 +1081,11 @@
     "named": true
   },
   {
-    "type": "'",
+    "type": "$",
     "named": false
   },
   {
     "type": "--chown=",
-    "named": false
-  },
-  {
-    "type": "$",
     "named": false
   },
   {
@@ -1156,6 +1162,10 @@
   },
   {
     "type": ";",
+    "named": false
+  },
+  {
+    "type": "'",
     "named": false
   }
 ]

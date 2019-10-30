@@ -173,10 +173,11 @@ module.exports = grammar({
 
     // ############### PLUMBING FOR 'ARG' ################################### /
     arg_name: $ => /[a-zA-Z_][a-zA-Z_\-0-9]*/,
-    arg_default: $ => choice(
-      seq('"', repeat(/([^\n"\\]|\\[^\s])+/), '"'),
-      seq("'", repeat(/([^\n'\\]|\\[^\s])+/), "'"),
-      /[^\n"'][^\n]*/
+    arg_default: $ => repeat1(
+      choice(
+        /'([^\n'\\]|\\[^\s])*'/,
+        prec.right(maybe_var_interpolation($, /([^\n\\\$]|\\[^\s])*/))
+      )
     ),
 
     // ############### PLUMBING FOR 'CMD' ################################### /
