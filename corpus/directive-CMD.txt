@@ -93,3 +93,29 @@ CMD []
   (cmd)
   (cmd (json_array))
 )
+
+===================================
+CMD bug with json_array + comments
+===================================
+
+CMD [ "do \
+    && the things \
+# OH NO A WILD COMMENT
+    && but that cant stop us \
+    && right?" \
+]
+
+---
+
+(dockerfile
+  (cmd
+    (json_array
+      (json_array_item
+        (line_continuation)  
+        (line_continuation)  
+        (line_continuation)  
+      )
+      (line_continuation)  
+    )
+  )
+)

@@ -60,15 +60,19 @@ namespace {
             // _marked = "";
         }
 
-        bool eat_spaces_including_line_continuation(TSLexer *lexer) {
+        bool eat_spaces_including_line_continuation(TSLexer *lexer, bool have_backslash = false) {
             
             while (true) {
                 while (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
                     skip(lexer);
                 }
 
-                if (lexer->lookahead == '\\' && !windows_escape) {
-                    skip(lexer);
+                if ((have_backslash || lexer->lookahead == '\\') && !windows_escape) {
+                    if (have_backslash) {
+                        have_backslash = false;
+                    } else {
+                        skip(lexer);
+                    }
 
                     while (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
                         skip(lexer);
@@ -95,12 +99,77 @@ namespace {
                             skip(lexer);
                         }
                     }
+                } else if (lexer->lookahead == '#') {
+                  // Gulp comments too
+                  while (lexer->lookahead != '\n') {
+                      skip(lexer);
+                  }
+                  skip(lexer);
                 } else {
                     break;
                 }
             }
 
             return true;
+        }
+
+        int consume_json_array_item (TSLexer *lexer, char quote) {
+            advance(lexer);
+
+            while (true) {
+                while (
+                    lexer->lookahead != quote 
+                    && lexer->lookahead != '\\' 
+                    && lexer->lookahead != '`' 
+                    && lexer->lookahead != '\n' 
+                    && lexer->lookahead != 0
+                ) {
+                    advance(lexer);
+                }
+
+                if (lexer->lookahead == quote) {
+                    advance(lexer);
+                    if (!eat_spaces_including_line_continuation(lexer)) { 
+                        return -1; 
+                    }
+                    break;
+                }
+                else if (lexer->lookahead == '\\') {
+                    advance(lexer);
+                    if (!eat_spaces_including_line_continuation(lexer, true)) { 
+                        if (lexer->lookahead == quote
+                            || lexer->lookahead == '\\'
+                            || lexer->lookahead == '/'
+                            || lexer->lookahead == 'b'
+                            || lexer->lookahead == 'f'
+                            || lexer->lookahead == 'n'
+                            || lexer->lookahead == 'r'
+                            || lexer->lookahead == 't'
+                            || lexer->lookahead == 'u'
+                        ) {
+                            advance(lexer);
+                            continue;
+                        } else {
+                            return -1; 
+                        }
+                    }
+                    continue;
+                } else if (lexer->lookahead == '`' && windows_escape) {
+                    if (!eat_spaces_including_line_continuation(lexer)) { 
+                        return -1; 
+                    }
+                    continue;
+                } else {
+                    return -1;
+                }
+            }
+
+            if (lexer->lookahead == ',') {
+                advance(lexer);
+                return 1;
+            } else { 
+                return 0; 
+            }
         }
 
         bool scan(TSLexer *lexer, const bool *valid_symbols) {
@@ -220,88 +289,24 @@ namespace {
                     if (!eat_spaces_including_line_continuation(lexer)) { return false; }
                     
                     if (lexer->lookahead == '"') {
-                        advance(lexer);
+                        int result = consume_json_array_item(lexer, '"');
 
-                        while (true) {
-                            while (lexer->lookahead != '"' && lexer->lookahead != '\\' && lexer->lookahead != '\n' && lexer->lookahead != 0) {
-                                advance(lexer);
-                            }
-
-                            if (lexer->lookahead == '"') {
-                                advance(lexer);
-                                if (!eat_spaces_including_line_continuation(lexer)) { 
-                                    return false; 
-                                }
-                                break;
-                            }
-                            else if (lexer->lookahead == '\\') {
-                                advance(lexer);
-                                if (lexer->lookahead == '"' ||
-                                    lexer->lookahead == '\\' ||
-                                    lexer->lookahead == '/' ||
-                                    lexer->lookahead == 'b' ||
-                                    lexer->lookahead == 'f' ||
-                                    lexer->lookahead == 'n' ||
-                                    lexer->lookahead == 'r' ||
-                                    lexer->lookahead == 't' ||
-                                    lexer->lookahead == 'u'
-                                ) {
-                                    advance(lexer);
-                                } else {
-                                    return false;
-                                }
-                            } else {
-                                return false;
-                            }
-                        }
-
-                        if (lexer->lookahead == ',') {
-                            advance(lexer);
+                        if (result == 1) {
                             continue;
-                        } else { 
-                            break; 
+                        } else if (result == 0) {
+                            break;
+                        } else {
+                            return false;
                         }
                     } else if (lexer->lookahead == '\'') {
-                        advance(lexer);
+                        int result = consume_json_array_item(lexer, '\'');
 
-                        while (true) {
-                            while (lexer->lookahead != '\'' && lexer->lookahead != '\\' && lexer->lookahead != '\n' && lexer->lookahead != 0) {
-                                advance(lexer);
-                            }
-
-                            if (lexer->lookahead == '\'') {
-                                advance(lexer);
-                                if (!eat_spaces_including_line_continuation(lexer)) { 
-                                    return false; 
-                                }
-                                break;
-                            }
-                            else if (lexer->lookahead == '\\') {
-                                advance(lexer);
-                                if (lexer->lookahead == '\'' ||
-                                    lexer->lookahead == '\\' ||
-                                    lexer->lookahead == '/' ||
-                                    lexer->lookahead == 'b' ||
-                                    lexer->lookahead == 'f' ||
-                                    lexer->lookahead == 'n' ||
-                                    lexer->lookahead == 'r' ||
-                                    lexer->lookahead == 't' ||
-                                    lexer->lookahead == 'u'
-                                ) {
-                                    advance(lexer);
-                                } else {
-                                    return false;
-                                }
-                            } else {
-                                return false;
-                            }
-                        }
-
-                        if (lexer->lookahead == ',') {
-                            advance(lexer);
+                        if (result == 1) {
                             continue;
-                        } else { 
-                            break; 
+                        } else if (result == 0) {
+                            break;
+                        } else {
+                            return false;
                         }
                     } else if (lexer->lookahead == ']') {
                         break;
