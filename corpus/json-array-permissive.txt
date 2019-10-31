@@ -38,3 +38,23 @@ CMD [ 'and unfortunately,', 'this]
   )
 )
 
+===================================
+Permissive JSON array handling 3
+===================================
+
+# Watch out for this
+
+CMD ["this is normal]"]
+CMD ["this is not]]
+
+---
+
+(dockerfile
+  (comment)
+  (cmd 
+    (json_array (json_array_item))
+  )
+  (cmd 
+    (json_array (json_array_item_missing_quote))
+  )
+)
