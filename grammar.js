@@ -405,7 +405,6 @@ module.exports = grammar({
     // ############### PLUMBING FOR 'STOPSIGNAL' ############################ /
     signal_num: $ => /\d\d?\d?/,
     signal_name: $ => seq(
-      any_casing('SIG'),
       /[a-zA-Z0-9]+(\+\d+)?/
     ),
 
