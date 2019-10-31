@@ -231,6 +231,10 @@
           "named": true
         },
         {
+          "type": "variable_substring_expansion",
+          "named": true
+        },
+        {
           "type": "variable_this_or_null",
           "named": true
         }
@@ -358,6 +362,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
         {
           "type": "env_key",
           "named": true
@@ -1175,6 +1183,21 @@
     }
   },
   {
+    "type": "variable_substring_expansion",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "docker_variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "variable_this_or_null",
     "named": true,
     "fields": {},
@@ -1325,6 +1348,10 @@
   },
   {
     "type": ":+",
+    "named": false
+  },
+  {
+    "type": ":",
     "named": false
   },
   {

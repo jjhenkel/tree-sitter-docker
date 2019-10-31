@@ -283,7 +283,6 @@ ENV \
 
 ---
 
-
 (dockerfile
   (comment)
   (env
@@ -295,4 +294,45 @@ ENV \
     (comment)
     (env_pair (env_key) (env_value))
   )
+)
+
+===================================
+ENV bug from corpus 10
+===================================
+
+# Bug related to comments (after env_value rewrite)
+ENV CARGO_TARGET_POWERPC64_UNKNOWN_LINUX_GNU_LINKER=powerpc64-linux-gnu-gcc \
+    # TODO: should actually run these tests
+    #CARGO_TARGET_POWERPC64_UNKNOWN_LINUX_GNU_RUNNER="qemu-ppc64 -L /usr/powerpc64-linux-gnu" \
+    CARGO_TARGET_POWERPC64_UNKNOWN_LINUX_GNU_RUNNER=true \
+    CC=powerpc64-linux-gnu-gcc
+
+---
+
+(dockerfile
+  (comment)
+  (env
+    
+    (env_pair (env_key) (env_value))
+    (line_continuation)
+    (comment)
+    (comment)
+    (env_pair (env_key) (env_value))
+    (line_continuation)
+    (env_pair (env_key) (env_value))
+  )
+)
+
+===================================
+ENV bug from corpus 11
+===================================
+
+# Support $ escaping
+ENV TF_BUCKET="$${NAMESPACE}-$${STAGE}-terraform-state"
+
+---
+
+(dockerfile
+  (comment)
+  (env (env_pair (env_key) (env_value)))
 )

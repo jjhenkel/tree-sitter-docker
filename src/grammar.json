@@ -2471,6 +2471,22 @@
                     ]
                   },
                   {
+                    "type": "REPEAT",
+                    "content": {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "comment"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "_space_no_newline"
+                        }
+                      ]
+                    }
+                  },
+                  {
                     "type": "ALIAS",
                     "content": {
                       "type": "SYMBOL",
@@ -2660,7 +2676,7 @@
                       "type": "IMMEDIATE_TOKEN",
                       "content": {
                         "type": "PATTERN",
-                        "value": "([^\\s\\\\$\"']|\\\\[^\\s]|\\\\( |\\t))+"
+                        "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\[^\\s]|\\\\( |\\t))+"
                       }
                     },
                     {
@@ -2689,7 +2705,7 @@
                                   "type": "IMMEDIATE_TOKEN",
                                   "content": {
                                     "type": "PATTERN",
-                                    "value": "([^\\s\\\\$\"']|\\\\[^\\s]|\\\\( |\\t))+\\$"
+                                    "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\[^\\s]|\\\\( |\\t))+\\$"
                                   }
                                 },
                                 {
@@ -2725,7 +2741,7 @@
                                     "type": "IMMEDIATE_TOKEN",
                                     "content": {
                                       "type": "PATTERN",
-                                      "value": "([^\\s\\\\$\"']|\\\\[^\\s]|\\\\( |\\t))+\\$"
+                                      "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\[^\\s]|\\\\( |\\t))+\\$"
                                     }
                                   },
                                   {
@@ -2744,7 +2760,7 @@
                               "type": "IMMEDIATE_TOKEN",
                               "content": {
                                 "type": "PATTERN",
-                                "value": "([^\\s\\\\$\"']|\\\\[^\\s]|\\\\( |\\t))+"
+                                "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\[^\\s]|\\\\( |\\t))+"
                               }
                             },
                             {
@@ -2780,7 +2796,7 @@
                   "members": [
                     {
                       "type": "PATTERN",
-                      "value": "([^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+"
+                      "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+"
                     },
                     {
                       "type": "SEQ",
@@ -2806,7 +2822,7 @@
                               "members": [
                                 {
                                   "type": "PATTERN",
-                                  "value": "([^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+\\$"
+                                  "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+\\$"
                                 },
                                 {
                                   "type": "SYMBOL",
@@ -2841,7 +2857,7 @@
                                     "type": "IMMEDIATE_TOKEN",
                                     "content": {
                                       "type": "PATTERN",
-                                      "value": "([^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+\\$"
+                                      "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+\\$"
                                     }
                                   },
                                   {
@@ -2860,7 +2876,7 @@
                               "type": "IMMEDIATE_TOKEN",
                               "content": {
                                 "type": "PATTERN",
-                                "value": "([^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+"
+                                "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+"
                               }
                             },
                             {
@@ -10631,6 +10647,10 @@
                     {
                       "type": "SYMBOL",
                       "name": "variable_this_or_null"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "variable_substring_expansion"
                     }
                   ]
                 },
@@ -10665,7 +10685,7 @@
           "members": [
             {
               "type": "PATTERN",
-              "value": "[^$\\}\\{\\n]+"
+              "value": "[^$\\}\\{\\n]*"
             },
             {
               "type": "SEQ",
@@ -10691,7 +10711,7 @@
                       "members": [
                         {
                           "type": "PATTERN",
-                          "value": "[^$\\}\\{\\n]+\\$"
+                          "value": "[^$\\}\\{\\n]*\\$"
                         },
                         {
                           "type": "SYMBOL",
@@ -10726,7 +10746,7 @@
                             "type": "IMMEDIATE_TOKEN",
                             "content": {
                               "type": "PATTERN",
-                              "value": "[^$\\}\\{\\n]+\\$"
+                              "value": "[^$\\}\\{\\n]*\\$"
                             }
                           },
                           {
@@ -10745,7 +10765,7 @@
                       "type": "IMMEDIATE_TOKEN",
                       "content": {
                         "type": "PATTERN",
-                        "value": "[^$\\}\\{\\n]+"
+                        "value": "[^$\\}\\{\\n]*"
                       }
                     },
                     {
@@ -10774,7 +10794,7 @@
           "members": [
             {
               "type": "PATTERN",
-              "value": "[^$\\}\\{\\n]+"
+              "value": "[^$\\}\\{\\n]*"
             },
             {
               "type": "SEQ",
@@ -10800,7 +10820,7 @@
                       "members": [
                         {
                           "type": "PATTERN",
-                          "value": "[^$\\}\\{\\n]+\\$"
+                          "value": "[^$\\}\\{\\n]*\\$"
                         },
                         {
                           "type": "SYMBOL",
@@ -10835,7 +10855,7 @@
                             "type": "IMMEDIATE_TOKEN",
                             "content": {
                               "type": "PATTERN",
-                              "value": "[^$\\}\\{\\n]+\\$"
+                              "value": "[^$\\}\\{\\n]*\\$"
                             }
                           },
                           {
@@ -10854,7 +10874,116 @@
                       "type": "IMMEDIATE_TOKEN",
                       "content": {
                         "type": "PATTERN",
-                        "value": "[^$\\}\\{\\n]+"
+                        "value": "[^$\\}\\{\\n]*"
+                      }
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "variable_substring_expansion": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": ":"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "[^$\\}\\{\\n]*"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "STRING",
+                          "value": "$"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "docker_variable"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "PATTERN",
+                          "value": "[^$\\}\\{\\n]*\\$"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "docker_variable"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": "$"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "docker_variable"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "IMMEDIATE_TOKEN",
+                            "content": {
+                              "type": "PATTERN",
+                              "value": "[^$\\}\\{\\n]*\\$"
+                            }
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "docker_variable"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "IMMEDIATE_TOKEN",
+                      "content": {
+                        "type": "PATTERN",
+                        "value": "[^$\\}\\{\\n]*"
                       }
                     },
                     {

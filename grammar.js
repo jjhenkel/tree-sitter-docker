@@ -249,6 +249,7 @@ module.exports = grammar({
         alias($.env_pair_eq, $.env_pair),
         repeat(seq(
           choice($._space_no_newline, $.line_continuation),
+          repeat(seq($.comment, $._space_no_newline)),
           alias($.env_pair_eq, $.env_pair)
         )),
         optional($._space_no_newline)
@@ -279,12 +280,12 @@ module.exports = grammar({
 
     env_value: $ => choice(
       repeat1(prec.right(seq(optional($.line_continuation), maybe_var_interpolation(
-        $, /([^\s\\$"']|\\[^\s]|\\( |\t))+/, (r) => token.immediate(r)
+        $, /(\$\$|[^\s\\$"']|\\[^\s]|\\( |\t))+/, (r) => token.immediate(r)
       )))),
       seq(
         token.immediate('"'),
         repeat(prec.right(maybe_var_interpolation(
-          $, /([^\n\r"\\$]|\\[^\n\r])+/
+          $, /(\$\$|[^\n\r"\\$]|\\[^\n\r])+/
         ))),
         token.immediate('"')
       ),
@@ -494,7 +495,8 @@ module.exports = grammar({
         $._docker_variable,
         optional(choice(
           $.variable_default_value,
-          $.variable_this_or_null
+          $.variable_this_or_null,
+          $.variable_substring_expansion
         )),
         token.immediate('}')
       )
@@ -502,12 +504,17 @@ module.exports = grammar({
 
     variable_default_value: $ => seq(
       token.immediate(':-'),
-      maybe_var_interpolation($, /[^$\}\{\n]+/)
+      maybe_var_interpolation($, /[^$\}\{\n]*/)
     ),
 
     variable_this_or_null: $ => seq(
       token.immediate(':+'),
-      maybe_var_interpolation($, /[^$\}\{\n]+/)
+      maybe_var_interpolation($, /[^$\}\{\n]*/)
+    ),
+
+    variable_substring_expansion: $ => seq(
+      token.immediate(':'),
+      maybe_var_interpolation($, /[^$\}\{\n]*/)
     ),
 
     _docker_variable: $ => token.immediate(/[^\/\}\{\$"\s:=]+/),
