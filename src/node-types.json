@@ -486,11 +486,6 @@
     }
   },
   {
-    "type": "hc_interval",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "hc_retries",
     "named": true,
     "fields": {}
@@ -1208,6 +1203,10 @@
   {
     "type": "--interval",
     "named": false
+  },
+  {
+    "type": "hc_interval",
+    "named": true
   },
   {
     "type": "--timeout",

@@ -6537,7 +6537,7 @@
     },
     "hc_interval": {
       "type": "PATTERN",
-      "value": "\\w+"
+      "value": "[^\\s]+"
     },
     "_hc_timeout": {
       "type": "SEQ",

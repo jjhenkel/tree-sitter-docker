@@ -329,7 +329,7 @@ module.exports = grammar({
     _hc_interval: $ => seq(
       '--interval', '=', $.hc_interval
     ),
-    hc_interval: $ => /\w+/,
+    hc_interval: $ => /[^\s]+/,
 
     _hc_timeout: $ => seq(
       '--timeout', '=', $.hc_timeout
