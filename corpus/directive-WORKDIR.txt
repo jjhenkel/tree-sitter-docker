@@ -57,3 +57,17 @@ WORKDIR $app$/requirements.txt
     (comment)
     (workdir (path (docker_variable)))
 )
+
+===================================
+WORKDIR bug from corpus 2
+===================================
+
+# Needed to tighten docker_variable regex 
+WORKDIR /home/$VIRTUSER/$PROG-$VERS
+
+---
+
+(dockerfile
+    (comment)
+    (workdir (path (docker_variable) (docker_variable) (docker_variable)))
+)

@@ -11001,7 +11001,7 @@
       "type": "IMMEDIATE_TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "[^\\/\\}\\{\\$\"\\s:=]+"
+        "value": "[^\\-\\/\\}\\{\\$\"\\s:=]+"
       }
     },
     "template_expr_at_symbols": {
