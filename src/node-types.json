@@ -610,7 +610,15 @@
       "required": false,
       "types": [
         {
+          "type": "json_array_extraneous_char",
+          "named": true
+        },
+        {
           "type": "json_array_item",
+          "named": true
+        },
+        {
+          "type": "json_array_item_missing_quote",
           "named": true
         }
       ]
@@ -618,6 +626,11 @@
   },
   {
     "type": "json_array_item",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "json_array_item_missing_quote",
     "named": true,
     "fields": {}
   },
@@ -678,17 +691,7 @@
   {
     "type": "maintainer",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "comment",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "malformed_empty_directive",
@@ -1300,7 +1303,7 @@
     "named": false
   },
   {
-    "type": ";",
-    "named": false
+    "type": "json_array_extraneous_char",
+    "named": true
   }
 ]

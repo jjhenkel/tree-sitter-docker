@@ -644,18 +644,6 @@
             {
               "type": "SYMBOL",
               "name": "_anything"
-            },
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "comment"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
             }
           ]
         }
@@ -10530,15 +10518,8 @@
       "value": "[\\t\\f\\r\\v ]+"
     },
     "comment": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": -10,
-        "content": {
-          "type": "PATTERN",
-          "value": "#[^\\n]*(\\n|\\r)*"
-        }
-      }
+      "type": "PATTERN",
+      "value": "#[^\\n]*(\\n|\\r)*"
     },
     "_anything_or_json_array": {
       "type": "CHOICE",
@@ -10554,60 +10535,126 @@
       ]
     },
     "json_array": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "_json_array_start"
-        },
-        {
-          "type": "CHOICE",
+          "type": "SEQ",
           "members": [
             {
-              "type": "SEQ",
+              "type": "SYMBOL",
+              "name": "_json_array_start"
+            },
+            {
+              "type": "CHOICE",
               "members": [
                 {
-                  "type": "SYMBOL",
-                  "name": "json_array_item"
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "json_array_item"
+                    },
+                    {
+                      "type": "REPEAT",
+                      "content": {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": ","
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "json_array_item"
+                          }
+                        ]
+                      }
+                    }
+                  ]
                 },
                 {
-                  "type": "REPEAT",
-                  "content": {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "STRING",
-                        "value": ","
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "json_array_item"
-                      }
-                    ]
-                  }
+                  "type": "BLANK"
                 }
               ]
             },
             {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "STRING",
-          "value": "]"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
               "type": "STRING",
-              "value": ";"
+              "value": "]"
             },
             {
-              "type": "BLANK"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "json_array_extraneous_char"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             }
           ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_json_array_start"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "json_array_item"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  }
+                ]
+              }
+            },
+            {
+              "type": "SYMBOL",
+              "name": "json_array_item_missing_quote"
+            }
+          ]
+        }
+      ]
+    },
+    "json_array_extraneous_char": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": -15,
+        "content": {
+          "type": "PATTERN",
+          "value": "[^\\s]"
+        }
+      }
+    },
+    "json_array_item_missing_quote": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PREC",
+          "value": -1,
+          "content": {
+            "type": "PATTERN",
+            "value": "\"(?:[^\\\\\"\\n\\]]|\\\\[^\\n\\]])+\\]"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": -1,
+          "content": {
+            "type": "PATTERN",
+            "value": "'(?:[^\\\\'\\n\\]]|\\\\[^\\n\\]])+\\]"
+          }
         }
       ]
     },
@@ -10720,6 +10767,9 @@
     ],
     [
       "user_name"
+    ],
+    [
+      "json_array"
     ]
   ],
   "externals": [

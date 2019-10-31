@@ -119,6 +119,7 @@ namespace {
             advance(lexer);
 
             while (true) {
+                bool last_nonspace_was_close_bracket = false;
                 while (
                     lexer->lookahead != quote 
                     && lexer->lookahead != '\\' 
@@ -126,6 +127,12 @@ namespace {
                     && lexer->lookahead != '\n' 
                     && lexer->lookahead != 0
                 ) {
+                    if (lexer->lookahead != ' ' && lexer->lookahead != '\t' && lexer->lookahead != '\r' && lexer->lookahead != ']') {
+                        last_nonspace_was_close_bracket = false;
+                    } else if (lexer->lookahead == ']') {
+                        last_nonspace_was_close_bracket = true;
+                    }
+
                     advance(lexer);
                 }
 
@@ -141,7 +148,6 @@ namespace {
                     if (!eat_spaces_including_line_continuation(lexer, true)) { 
                         // Let anything be after slash to deal with things like windows paths in ENTRYPOINT arrays
                         advance(lexer);
-                        continue;
                     }
                     continue;
                 } else if (lexer->lookahead == '`' && windows_escape) {
@@ -150,6 +156,10 @@ namespace {
                     }
                     continue;
                 } else {
+                    if (last_nonspace_was_close_bracket) {
+                        return -2;
+                    }
+
                     return -1;
                 }
             }
@@ -335,8 +345,11 @@ namespace {
                             continue;
                         } else if (result == 0) {
                             break;
-                        } else {
+                        } else if (result == -1) {
                             return false;
+                        } else if (result == -2) {
+                            lexer->result_symbol = _JSON_ARRAY_START;
+                            return true;
                         }
                     } else if (lexer->lookahead == '\'') {
                         int result = consume_json_array_item(lexer, '\'');
@@ -345,8 +358,11 @@ namespace {
                             continue;
                         } else if (result == 0) {
                             break;
-                        } else {
+                        } else if (result == -1) {
                             return false;
+                        } else if (result == -2) {
+                            lexer->result_symbol = _JSON_ARRAY_START;
+                            return true;
                         }
                     } else if (lexer->lookahead == ']') {
                         break;

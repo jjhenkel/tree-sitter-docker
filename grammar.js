@@ -14,6 +14,7 @@ module.exports = grammar({
     [ $._port ],
     [ $.repository ],
     [ $.user_name ],
+    [ $.json_array ]
   ],
 
   externals: $ => [
@@ -504,13 +505,26 @@ module.exports = grammar({
       $._anything
     ),
 
-    json_array: $ => seq(
-      $._json_array_start,
-      optional(seq(
-        $.json_array_item, repeat(seq(",", $.json_array_item))
-      )),
-      ']',
-      optional(';')
+    json_array: $ => choice(
+      seq(
+        $._json_array_start,
+        optional(seq(
+          $.json_array_item, repeat(seq(",", $.json_array_item))
+        )),
+        ']',
+        optional($.json_array_extraneous_char)
+      ),
+      seq(
+        $._json_array_start,
+        repeat(seq($.json_array_item, ",")),
+        $.json_array_item_missing_quote
+      )
+    ),
+
+    json_array_extraneous_char: $ => token(prec(-15, /[^\s]/)),
+    json_array_item_missing_quote: $ => choice(
+      prec(-1, /"(?:[^\\"\n\]]|\\[^\n\]])+\]/),
+      prec(-1, /'(?:[^\\'\n\]]|\\[^\n\]])+\]/)
     ),
 
     json_array_item: $ => choice(

@@ -1,0 +1,40 @@
+===================================
+Permissive JSON array handling 1
+===================================
+
+# Support extra char at end
+CMD ["We see this"];
+CMD [ 'and unfortunately,', 'this'  ]%
+
+---
+
+(dockerfile
+  (comment)
+  (cmd 
+    (json_array (json_array_item) (json_array_extraneous_char))
+  )
+  (cmd 
+    (json_array (json_array_item) (json_array_item) (json_array_extraneous_char))
+  )
+)
+
+===================================
+Permissive JSON array handling 2
+===================================
+
+# We also get lots of this
+CMD ["We see this]
+CMD [ 'and unfortunately,', 'this]
+
+---
+
+(dockerfile
+  (comment)
+  (cmd 
+    (json_array (json_array_item_missing_quote))
+  )
+  (cmd 
+    (json_array (json_array_item) (json_array_item_missing_quote))
+  )
+)
+
