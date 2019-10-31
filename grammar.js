@@ -155,7 +155,7 @@ module.exports = grammar({
     )),
 
     maintainer: $ => directive($, 'MAINTAINER', seq(
-      $._anything, optional($.comment)
+      $._anything
     )),
 
     onbuild: $ => directive($, 'ONBUILD', choice(
@@ -493,7 +493,7 @@ module.exports = grammar({
     _space: $ => token(prec(-11, /\s/)),
     _blank_line: $ => /[\t\f\r\v ]*\n/,
     _space_no_newline: $ => /[\t\f\r\v ]+/,
-    comment: $ => token(prec(-10, /#[^\n]*(\n|\r)*/)),
+    comment: $ => /#[^\n]*(\n|\r)*/,
     // line_continuation: $ => token(prec(-1, /\\+\s*\n/)),
 
     // ############### MODIFIED JSON EXCERPT ################################ /

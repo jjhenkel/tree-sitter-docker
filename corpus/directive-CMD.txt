@@ -113,6 +113,7 @@ CMD [ "do \
       (json_array_item
         (line_continuation)  
         (line_continuation)  
+        (comment)
         (line_continuation)  
       )
       (line_continuation)  

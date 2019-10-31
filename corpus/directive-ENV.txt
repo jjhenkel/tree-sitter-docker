@@ -178,3 +178,24 @@ ENV KEY=
     (env_pair (env_key))
   )
 )
+
+===================================
+ENV bug from corpus 7
+===================================
+
+# Big regression with comment handling after line continuation
+ENV ASPNETCORE_URLS=http://+:80 \
+    # Enable detection of running in a container
+    DOTNET_RUNNING_IN_CONTAINER=true
+
+---
+
+(dockerfile
+  (comment)
+  (env
+    (env_pair (env_key) (env_value))
+    (line_continuation)
+    (comment)
+    (env_pair (env_key) (env_value))
+  )
+)
