@@ -103,7 +103,7 @@ namespace {
                     }
                 } else if (lexer->lookahead == '#') {
                   // Gulp comments too
-                  while (lexer->lookahead != '\n') {
+                  while (lexer->lookahead != '\n' && lexer->lookahead != 0) {
                       skip(lexer);
                   }
                   skip(lexer);
