@@ -199,3 +199,32 @@ ENV ASPNETCORE_URLS=http://+:80 \
     (env_pair (env_key) (env_value))
   )
 )
+
+===================================
+ENV bug from corpus 8
+===================================
+
+# No space between close quote and line continuation
+ENV TERM="xterm" \
+    DB_HOST="172.17.0.1" \
+    DB_NAME="" \
+    DB_USER=""\
+    DB_PASS=""
+
+
+---
+
+(dockerfile
+  (comment)
+  (env
+    (env_pair (env_key) (env_value))
+    (line_continuation)
+    (env_pair (env_key) (env_value))
+    (line_continuation)
+    (env_pair (env_key) (env_value))
+    (line_continuation)
+    (env_pair (env_key) (env_value))
+    (line_continuation)
+    (env_pair (env_key) (env_value))
+  )
+)

@@ -245,7 +245,10 @@ module.exports = grammar({
       $.env_pair,
       seq(
         alias($.env_pair_eq, $.env_pair),
-        repeat(seq($._space_no_newline, alias($.env_pair_eq, $.env_pair))),
+        repeat(seq(
+          choice($._space_no_newline, $.line_continuation),
+          alias($.env_pair_eq, $.env_pair)
+        )),
         optional($._space_no_newline)
       )
     ),
@@ -372,9 +375,13 @@ module.exports = grammar({
     // ############### PLUMBING FOR 'LABEL' ################################# /
     _labels: $ => choice(
       $.label_pair,
+      alias($.label_pair_no_value, $.label_pair),
       seq(
         alias($.label_pair_eq, $.label_pair),
-        repeat(seq($._space_no_newline, alias($.label_pair_eq, $.label_pair))),
+        repeat(seq(
+          choice($._space_no_newline, $.line_continuation),
+          alias($.label_pair_eq, $.label_pair))
+        ),
         optional($._space_no_newline)
       )
     ),
@@ -383,7 +390,13 @@ module.exports = grammar({
       optional(token.immediate(prec(-10, '"'))),
       $.label_key,
       token.immediate('='),
-      optional($.label_value),
+      $.label_value,
+      optional(token.immediate(prec(-10, '"')))
+    ),
+    label_pair_no_value: $ => seq(
+      optional(token.immediate(prec(-10, '"'))),
+      $.label_key,
+      token.immediate('='),
       optional(token.immediate(prec(-10, '"')))
     ),
     label_pair: $ => seq($.label_key, $._space_no_newline, alias($._anything, $.label_value)),

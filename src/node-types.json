@@ -365,6 +365,10 @@
         {
           "type": "env_pair",
           "named": true
+        },
+        {
+          "type": "line_continuation",
+          "named": true
         }
       ]
     }
@@ -644,6 +648,10 @@
       "types": [
         {
           "type": "label_pair",
+          "named": true
+        },
+        {
+          "type": "line_continuation",
           "named": true
         }
       ]

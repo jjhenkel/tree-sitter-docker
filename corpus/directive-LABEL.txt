@@ -135,3 +135,45 @@ LABEL Descripción="Mi servicio web"
 ---
 
 (dockerfile (label (label_pair (label_key) (label_value))))
+
+===================================
+LABEL bug from corpus 6
+===================================
+
+# Similar to the ENV bug but, in practice,
+# support this for LABEL was trickier
+LABEL test=foo \
+ bar="theta"\
+ test2=foo2
+
+---
+
+(dockerfile
+  (comment)
+  (comment)
+  (label
+    (label_pair (label_key) (label_value))
+    (line_continuation)
+    (label_pair (label_key) (label_value))
+    (line_continuation)
+    (label_pair (label_key) (label_value))
+  )
+)
+
+===================================
+LABEL bug from corpus 7
+===================================
+
+# Just key=
+LABEL key=
+LABEL "key="
+LABEL "key"=
+
+---
+
+(dockerfile
+  (comment)
+  (label (label_pair (label_key)))
+  (label (label_pair (label_key)))
+  (label (label_pair (label_key)))
+)
