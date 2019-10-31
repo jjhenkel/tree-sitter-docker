@@ -7562,7 +7562,7 @@
                   "members": [
                     {
                       "type": "PATTERN",
-                      "value": "[a-zA-Z_][^\\s:'\"]*"
+                      "value": "[^$\\s:'\"{}]*"
                     },
                     {
                       "type": "SEQ",
@@ -7588,7 +7588,7 @@
                               "members": [
                                 {
                                   "type": "PATTERN",
-                                  "value": "[a-zA-Z_][^\\s:'\"]*\\$"
+                                  "value": "[^$\\s:'\"{}]*\\$"
                                 },
                                 {
                                   "type": "SYMBOL",
@@ -7623,7 +7623,7 @@
                                     "type": "IMMEDIATE_TOKEN",
                                     "content": {
                                       "type": "PATTERN",
-                                      "value": "[a-zA-Z_][^\\s:'\"]*\\$"
+                                      "value": "[^$\\s:'\"{}]*\\$"
                                     }
                                   },
                                   {
@@ -7642,7 +7642,7 @@
                               "type": "IMMEDIATE_TOKEN",
                               "content": {
                                 "type": "PATTERN",
-                                "value": "[a-zA-Z_][^\\s:'\"]*"
+                                "value": "[^$\\s:'\"{}]*"
                               }
                             },
                             {
@@ -7687,7 +7687,7 @@
                           "members": [
                             {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][^\\s:'\"]*\\{(\\}|\\}\\})?"
+                              "value": "[^$\\s:'\"{}]*\\{(\\}|\\}\\})?"
                             },
                             {
                               "type": "SEQ",
@@ -7740,7 +7740,7 @@
                                 "type": "IMMEDIATE_TOKEN",
                                 "content": {
                                   "type": "PATTERN",
-                                  "value": "[a-zA-Z_][^\\s:'\"]*\\{(\\}|\\}\\})?"
+                                  "value": "[^$\\s:'\"{}]*\\{(\\}|\\}\\})?"
                                 }
                               },
                               {
@@ -7768,7 +7768,7 @@
                           "type": "IMMEDIATE_TOKEN",
                           "content": {
                             "type": "PATTERN",
-                            "value": "[a-zA-Z_][^\\s:'\"]*"
+                            "value": "[^$\\s:'\"{}]*"
                           }
                         },
                         {
@@ -7811,7 +7811,7 @@
                           "members": [
                             {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][^\\s:'\"]*%%?"
+                              "value": "[^$\\s:'\"{}]*%%?"
                             },
                             {
                               "type": "SEQ",
@@ -7864,7 +7864,7 @@
                                 "type": "IMMEDIATE_TOKEN",
                                 "content": {
                                   "type": "PATTERN",
-                                  "value": "[a-zA-Z_][^\\s:'\"]*%%?"
+                                  "value": "[^$\\s:'\"{}]*%%?"
                                 }
                               },
                               {
@@ -7892,7 +7892,7 @@
                           "type": "IMMEDIATE_TOKEN",
                           "content": {
                             "type": "PATTERN",
-                            "value": "[a-zA-Z_][^\\s:'\"]*"
+                            "value": "[^$\\s:'\"{}]*"
                           }
                         },
                         {
@@ -7935,7 +7935,7 @@
                           "members": [
                             {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][^\\s:'\"]*"
+                              "value": "[^$\\s:'\"{}]*"
                             },
                             {
                               "type": "SYMBOL",
@@ -7992,7 +7992,7 @@
                                 "type": "IMMEDIATE_TOKEN",
                                 "content": {
                                   "type": "PATTERN",
-                                  "value": "[a-zA-Z_][^\\s:'\"]*"
+                                  "value": "[^$\\s:'\"{}]*"
                                 }
                               },
                               {
@@ -8024,7 +8024,7 @@
                           "type": "IMMEDIATE_TOKEN",
                           "content": {
                             "type": "PATTERN",
-                            "value": "[a-zA-Z_][^\\s:'\"]*"
+                            "value": "[^$\\s:'\"{}]*"
                           }
                         },
                         {
@@ -8067,7 +8067,7 @@
                           "members": [
                             {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][^\\s:'\"]*<(%?|\\?)=?"
+                              "value": "[^$\\s:'\"{}]*<(%?|\\?)=?"
                             },
                             {
                               "type": "SEQ",
@@ -8120,7 +8120,7 @@
                                 "type": "IMMEDIATE_TOKEN",
                                 "content": {
                                   "type": "PATTERN",
-                                  "value": "[a-zA-Z_][^\\s:'\"]*<(%?|\\?)=?"
+                                  "value": "[^$\\s:'\"{}]*<(%?|\\?)=?"
                                 }
                               },
                               {
@@ -8148,7 +8148,7 @@
                           "type": "IMMEDIATE_TOKEN",
                           "content": {
                             "type": "PATTERN",
-                            "value": "[a-zA-Z_][^\\s:'\"]*"
+                            "value": "[^$\\s:'\"{}]*"
                           }
                         },
                         {
@@ -8174,7 +8174,7 @@
               "members": [
                 {
                   "type": "PATTERN",
-                  "value": "[a-zA-Z_][^\\s:'\"]*"
+                  "value": "[^$\\s:'\"{}]*"
                 },
                 {
                   "type": "SEQ",
@@ -8200,7 +8200,7 @@
                           "members": [
                             {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][^\\s:'\"]*\\$"
+                              "value": "[^$\\s:'\"{}]*\\$"
                             },
                             {
                               "type": "SYMBOL",
@@ -8235,7 +8235,7 @@
                                 "type": "IMMEDIATE_TOKEN",
                                 "content": {
                                   "type": "PATTERN",
-                                  "value": "[a-zA-Z_][^\\s:'\"]*\\$"
+                                  "value": "[^$\\s:'\"{}]*\\$"
                                 }
                               },
                               {
@@ -8254,7 +8254,7 @@
                           "type": "IMMEDIATE_TOKEN",
                           "content": {
                             "type": "PATTERN",
-                            "value": "[a-zA-Z_][^\\s:'\"]*"
+                            "value": "[^$\\s:'\"{}]*"
                           }
                         },
                         {
@@ -8299,7 +8299,7 @@
                       "members": [
                         {
                           "type": "PATTERN",
-                          "value": "[a-zA-Z_][^\\s:'\"]*\\{(\\}|\\}\\})?"
+                          "value": "[^$\\s:'\"{}]*\\{(\\}|\\}\\})?"
                         },
                         {
                           "type": "SEQ",
@@ -8352,7 +8352,7 @@
                             "type": "IMMEDIATE_TOKEN",
                             "content": {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][^\\s:'\"]*\\{(\\}|\\}\\})?"
+                              "value": "[^$\\s:'\"{}]*\\{(\\}|\\}\\})?"
                             }
                           },
                           {
@@ -8380,7 +8380,7 @@
                       "type": "IMMEDIATE_TOKEN",
                       "content": {
                         "type": "PATTERN",
-                        "value": "[a-zA-Z_][^\\s:'\"]*"
+                        "value": "[^$\\s:'\"{}]*"
                       }
                     },
                     {
@@ -8423,7 +8423,7 @@
                       "members": [
                         {
                           "type": "PATTERN",
-                          "value": "[a-zA-Z_][^\\s:'\"]*%%?"
+                          "value": "[^$\\s:'\"{}]*%%?"
                         },
                         {
                           "type": "SEQ",
@@ -8476,7 +8476,7 @@
                             "type": "IMMEDIATE_TOKEN",
                             "content": {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][^\\s:'\"]*%%?"
+                              "value": "[^$\\s:'\"{}]*%%?"
                             }
                           },
                           {
@@ -8504,7 +8504,7 @@
                       "type": "IMMEDIATE_TOKEN",
                       "content": {
                         "type": "PATTERN",
-                        "value": "[a-zA-Z_][^\\s:'\"]*"
+                        "value": "[^$\\s:'\"{}]*"
                       }
                     },
                     {
@@ -8547,7 +8547,7 @@
                       "members": [
                         {
                           "type": "PATTERN",
-                          "value": "[a-zA-Z_][^\\s:'\"]*"
+                          "value": "[^$\\s:'\"{}]*"
                         },
                         {
                           "type": "SYMBOL",
@@ -8604,7 +8604,7 @@
                             "type": "IMMEDIATE_TOKEN",
                             "content": {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][^\\s:'\"]*"
+                              "value": "[^$\\s:'\"{}]*"
                             }
                           },
                           {
@@ -8636,7 +8636,7 @@
                       "type": "IMMEDIATE_TOKEN",
                       "content": {
                         "type": "PATTERN",
-                        "value": "[a-zA-Z_][^\\s:'\"]*"
+                        "value": "[^$\\s:'\"{}]*"
                       }
                     },
                     {
@@ -8679,7 +8679,7 @@
                       "members": [
                         {
                           "type": "PATTERN",
-                          "value": "[a-zA-Z_][^\\s:'\"]*<(%?|\\?)=?"
+                          "value": "[^$\\s:'\"{}]*<(%?|\\?)=?"
                         },
                         {
                           "type": "SEQ",
@@ -8732,7 +8732,7 @@
                             "type": "IMMEDIATE_TOKEN",
                             "content": {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][^\\s:'\"]*<(%?|\\?)=?"
+                              "value": "[^$\\s:'\"{}]*<(%?|\\?)=?"
                             }
                           },
                           {
@@ -8760,7 +8760,7 @@
                       "type": "IMMEDIATE_TOKEN",
                       "content": {
                         "type": "PATTERN",
-                        "value": "[a-zA-Z_][^\\s:'\"]*"
+                        "value": "[^$\\s:'\"{}]*"
                       }
                     },
                     {
@@ -8792,7 +8792,7 @@
                   "members": [
                     {
                       "type": "PATTERN",
-                      "value": "[a-zA-Z_][^\\s:'\"]*"
+                      "value": "[^$\\s:'\"{}]*"
                     },
                     {
                       "type": "SEQ",
@@ -8818,7 +8818,7 @@
                               "members": [
                                 {
                                   "type": "PATTERN",
-                                  "value": "[a-zA-Z_][^\\s:'\"]*\\$"
+                                  "value": "[^$\\s:'\"{}]*\\$"
                                 },
                                 {
                                   "type": "SYMBOL",
@@ -8853,7 +8853,7 @@
                                     "type": "IMMEDIATE_TOKEN",
                                     "content": {
                                       "type": "PATTERN",
-                                      "value": "[a-zA-Z_][^\\s:'\"]*\\$"
+                                      "value": "[^$\\s:'\"{}]*\\$"
                                     }
                                   },
                                   {
@@ -8872,7 +8872,7 @@
                               "type": "IMMEDIATE_TOKEN",
                               "content": {
                                 "type": "PATTERN",
-                                "value": "[a-zA-Z_][^\\s:'\"]*"
+                                "value": "[^$\\s:'\"{}]*"
                               }
                             },
                             {
@@ -8917,7 +8917,7 @@
                           "members": [
                             {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][^\\s:'\"]*\\{(\\}|\\}\\})?"
+                              "value": "[^$\\s:'\"{}]*\\{(\\}|\\}\\})?"
                             },
                             {
                               "type": "SEQ",
@@ -8970,7 +8970,7 @@
                                 "type": "IMMEDIATE_TOKEN",
                                 "content": {
                                   "type": "PATTERN",
-                                  "value": "[a-zA-Z_][^\\s:'\"]*\\{(\\}|\\}\\})?"
+                                  "value": "[^$\\s:'\"{}]*\\{(\\}|\\}\\})?"
                                 }
                               },
                               {
@@ -8998,7 +8998,7 @@
                           "type": "IMMEDIATE_TOKEN",
                           "content": {
                             "type": "PATTERN",
-                            "value": "[a-zA-Z_][^\\s:'\"]*"
+                            "value": "[^$\\s:'\"{}]*"
                           }
                         },
                         {
@@ -9041,7 +9041,7 @@
                           "members": [
                             {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][^\\s:'\"]*%%?"
+                              "value": "[^$\\s:'\"{}]*%%?"
                             },
                             {
                               "type": "SEQ",
@@ -9094,7 +9094,7 @@
                                 "type": "IMMEDIATE_TOKEN",
                                 "content": {
                                   "type": "PATTERN",
-                                  "value": "[a-zA-Z_][^\\s:'\"]*%%?"
+                                  "value": "[^$\\s:'\"{}]*%%?"
                                 }
                               },
                               {
@@ -9122,7 +9122,7 @@
                           "type": "IMMEDIATE_TOKEN",
                           "content": {
                             "type": "PATTERN",
-                            "value": "[a-zA-Z_][^\\s:'\"]*"
+                            "value": "[^$\\s:'\"{}]*"
                           }
                         },
                         {
@@ -9165,7 +9165,7 @@
                           "members": [
                             {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][^\\s:'\"]*"
+                              "value": "[^$\\s:'\"{}]*"
                             },
                             {
                               "type": "SYMBOL",
@@ -9222,7 +9222,7 @@
                                 "type": "IMMEDIATE_TOKEN",
                                 "content": {
                                   "type": "PATTERN",
-                                  "value": "[a-zA-Z_][^\\s:'\"]*"
+                                  "value": "[^$\\s:'\"{}]*"
                                 }
                               },
                               {
@@ -9254,7 +9254,7 @@
                           "type": "IMMEDIATE_TOKEN",
                           "content": {
                             "type": "PATTERN",
-                            "value": "[a-zA-Z_][^\\s:'\"]*"
+                            "value": "[^$\\s:'\"{}]*"
                           }
                         },
                         {
@@ -9297,7 +9297,7 @@
                           "members": [
                             {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][^\\s:'\"]*<(%?|\\?)=?"
+                              "value": "[^$\\s:'\"{}]*<(%?|\\?)=?"
                             },
                             {
                               "type": "SEQ",
@@ -9350,7 +9350,7 @@
                                 "type": "IMMEDIATE_TOKEN",
                                 "content": {
                                   "type": "PATTERN",
-                                  "value": "[a-zA-Z_][^\\s:'\"]*<(%?|\\?)=?"
+                                  "value": "[^$\\s:'\"{}]*<(%?|\\?)=?"
                                 }
                               },
                               {
@@ -9378,7 +9378,7 @@
                           "type": "IMMEDIATE_TOKEN",
                           "content": {
                             "type": "PATTERN",
-                            "value": "[a-zA-Z_][^\\s:'\"]*"
+                            "value": "[^$\\s:'\"{}]*"
                           }
                         },
                         {
@@ -9404,7 +9404,7 @@
               "members": [
                 {
                   "type": "PATTERN",
-                  "value": "[a-zA-Z_][^\\s:'\"]*"
+                  "value": "[^$\\s:'\"{}]*"
                 },
                 {
                   "type": "SEQ",
@@ -9430,7 +9430,7 @@
                           "members": [
                             {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][^\\s:'\"]*\\$"
+                              "value": "[^$\\s:'\"{}]*\\$"
                             },
                             {
                               "type": "SYMBOL",
@@ -9465,7 +9465,7 @@
                                 "type": "IMMEDIATE_TOKEN",
                                 "content": {
                                   "type": "PATTERN",
-                                  "value": "[a-zA-Z_][^\\s:'\"]*\\$"
+                                  "value": "[^$\\s:'\"{}]*\\$"
                                 }
                               },
                               {
@@ -9484,7 +9484,7 @@
                           "type": "IMMEDIATE_TOKEN",
                           "content": {
                             "type": "PATTERN",
-                            "value": "[a-zA-Z_][^\\s:'\"]*"
+                            "value": "[^$\\s:'\"{}]*"
                           }
                         },
                         {
@@ -9529,7 +9529,7 @@
                       "members": [
                         {
                           "type": "PATTERN",
-                          "value": "[a-zA-Z_][^\\s:'\"]*\\{(\\}|\\}\\})?"
+                          "value": "[^$\\s:'\"{}]*\\{(\\}|\\}\\})?"
                         },
                         {
                           "type": "SEQ",
@@ -9582,7 +9582,7 @@
                             "type": "IMMEDIATE_TOKEN",
                             "content": {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][^\\s:'\"]*\\{(\\}|\\}\\})?"
+                              "value": "[^$\\s:'\"{}]*\\{(\\}|\\}\\})?"
                             }
                           },
                           {
@@ -9610,7 +9610,7 @@
                       "type": "IMMEDIATE_TOKEN",
                       "content": {
                         "type": "PATTERN",
-                        "value": "[a-zA-Z_][^\\s:'\"]*"
+                        "value": "[^$\\s:'\"{}]*"
                       }
                     },
                     {
@@ -9653,7 +9653,7 @@
                       "members": [
                         {
                           "type": "PATTERN",
-                          "value": "[a-zA-Z_][^\\s:'\"]*%%?"
+                          "value": "[^$\\s:'\"{}]*%%?"
                         },
                         {
                           "type": "SEQ",
@@ -9706,7 +9706,7 @@
                             "type": "IMMEDIATE_TOKEN",
                             "content": {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][^\\s:'\"]*%%?"
+                              "value": "[^$\\s:'\"{}]*%%?"
                             }
                           },
                           {
@@ -9734,7 +9734,7 @@
                       "type": "IMMEDIATE_TOKEN",
                       "content": {
                         "type": "PATTERN",
-                        "value": "[a-zA-Z_][^\\s:'\"]*"
+                        "value": "[^$\\s:'\"{}]*"
                       }
                     },
                     {
@@ -9777,7 +9777,7 @@
                       "members": [
                         {
                           "type": "PATTERN",
-                          "value": "[a-zA-Z_][^\\s:'\"]*"
+                          "value": "[^$\\s:'\"{}]*"
                         },
                         {
                           "type": "SYMBOL",
@@ -9834,7 +9834,7 @@
                             "type": "IMMEDIATE_TOKEN",
                             "content": {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][^\\s:'\"]*"
+                              "value": "[^$\\s:'\"{}]*"
                             }
                           },
                           {
@@ -9866,7 +9866,7 @@
                       "type": "IMMEDIATE_TOKEN",
                       "content": {
                         "type": "PATTERN",
-                        "value": "[a-zA-Z_][^\\s:'\"]*"
+                        "value": "[^$\\s:'\"{}]*"
                       }
                     },
                     {
@@ -9909,7 +9909,7 @@
                       "members": [
                         {
                           "type": "PATTERN",
-                          "value": "[a-zA-Z_][^\\s:'\"]*<(%?|\\?)=?"
+                          "value": "[^$\\s:'\"{}]*<(%?|\\?)=?"
                         },
                         {
                           "type": "SEQ",
@@ -9962,7 +9962,7 @@
                             "type": "IMMEDIATE_TOKEN",
                             "content": {
                               "type": "PATTERN",
-                              "value": "[a-zA-Z_][^\\s:'\"]*<(%?|\\?)=?"
+                              "value": "[^$\\s:'\"{}]*<(%?|\\?)=?"
                             }
                           },
                           {
@@ -9990,7 +9990,7 @@
                       "type": "IMMEDIATE_TOKEN",
                       "content": {
                         "type": "PATTERN",
-                        "value": "[a-zA-Z_][^\\s:'\"]*"
+                        "value": "[^$\\s:'\"{}]*"
                       }
                     },
                     {

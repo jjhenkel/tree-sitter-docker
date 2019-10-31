@@ -428,10 +428,10 @@ module.exports = grammar({
 
     // ############### PLUMBING FOR 'USER' ################################## /
     user_name: $ => maybe_double_quoted(maybe_var_or_template_interpolation(
-      $, /[a-zA-Z_][^\s:'"]*/
+      $, /[^$\s:'"{}]*/
     )),
     user_group: $ => maybe_double_quoted(maybe_var_or_template_interpolation(
-      $, /[a-zA-Z_][^\s:'"]*/
+      $, /[^$\s:'"{}]*/
     )),
     user_id: $ => token.immediate(/\d+/),
     user_group_id: $ => token.immediate(/\d+/),

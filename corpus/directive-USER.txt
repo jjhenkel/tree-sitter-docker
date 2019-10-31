@@ -76,3 +76,14 @@ USER {{test}}
 ---
 
 (dockerfile (comment) (user (user_name (template_expr_curly_braces))))
+
+===================================
+USER bug from corpus 6
+===================================
+
+# More permissive regex was needed, yet again
+USER ${ros_distro}-dev
+
+---
+
+(dockerfile (comment) (user (user_name (docker_variable))))
