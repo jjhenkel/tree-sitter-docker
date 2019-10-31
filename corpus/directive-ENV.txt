@@ -50,9 +50,9 @@ ENV ROOT_USER_DN=${ROOT_USER_DN:-"cn=Directory Manager"}
 
 (dockerfile
   (comment)
-  (env (env_pair (env_key) (env_value)))
+  (env (env_pair (env_key) (env_value (docker_variable (variable_default_value)))))
   (comment)
-  (env (env_pair (env_key) (env_value)))
+  (env (env_pair (env_key) (env_value (docker_variable (variable_default_value)))))
 )
 
 ===================================
@@ -71,7 +71,7 @@ ENV ROOT_USER_DN=${ROOT_USER_DN:-'cn=Directory Manager'}
   (comment)
   (env (env_pair (env_key) (env_value)))
   (comment)
-  (env (env_pair (env_key) (env_value)))
+  (env (env_pair (env_key) (env_value (docker_variable (variable_default_value)))))
 )
 
 ===================================
@@ -116,8 +116,50 @@ ENV buildDeps=' \
 
 (dockerfile
   (comment)
-  (env (env_pair (env_key) (env_value)))
-  (env (env_pair (env_key) (env_value)))
+  (env
+    (env_pair
+      (env_key)
+      (env_value
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+      )
+    )
+  )
+  (env
+    (env_pair
+      (env_key)
+      (env_value
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+      )
+    )
+  )
 )
 
 
@@ -136,8 +178,7 @@ ENV	DOCKER_CROSSPLATFORMS	\
   (env
     (env_pair
       (env_key)
-      (line_continuation)
-      (env_value (line_continuation) (line_continuation))
+      (env_value (line_continuation) (line_continuation) (line_continuation))
     )
   )
 )
@@ -156,7 +197,7 @@ ENV CC="ccache $CC" CCACHE_DIR=/tmp/.ccache CCACHE_NOCOMPRESS=1 $ENV1=yes
   (comment)
   (comment)
   (env
-    (env_pair (env_key) (env_value))
+    (env_pair (env_key) (env_value (docker_variable)))
     (env_pair (env_key) (env_value))
     (env_pair (env_key) (env_value))
     (env_pair (env_key (docker_variable)) (env_value))

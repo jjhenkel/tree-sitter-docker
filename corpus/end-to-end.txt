@@ -387,7 +387,7 @@ ENV name=value \
     (line_continuation)
     (env_pair (env_key) (env_value))
     (line_continuation)
-    (env_pair (env_key) (env_value))
+    (env_pair (env_key) (env_value (line_continuation)))
     (line_continuation)
     (env_pair (env_key) (env_value))
     (line_continuation)

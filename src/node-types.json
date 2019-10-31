@@ -410,7 +410,21 @@
   {
     "type": "env_value",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "docker_variable",
+          "named": true
+        },
+        {
+          "type": "line_continuation",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "expose",
@@ -690,11 +704,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "label_value",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "maintainer",
@@ -1247,6 +1256,14 @@
     "named": false
   },
   {
+    "type": "\"",
+    "named": false
+  },
+  {
+    "type": "'",
+    "named": false
+  },
+  {
     "type": "-",
     "named": false
   },
@@ -1280,6 +1297,10 @@
   },
   {
     "type": "hc_malformed",
+    "named": true
+  },
+  {
+    "type": "label_value",
     "named": true
   },
   {

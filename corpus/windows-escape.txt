@@ -68,7 +68,7 @@ ENV GOPATH `
   (escape_directive)
   (from (image))
   (maintainer)
-  (env (env_pair (env_key) (line_continuation) (env_value)))
+  (env (env_pair (env_key) (env_value (line_continuation))))
 )
 
 ===================================
@@ -92,5 +92,5 @@ ENV GOPATH \
   (comment)
   (from (image))
   (maintainer)
-  (env (env_pair (env_key) (line_continuation) (env_value)))
+  (env (env_pair (env_key) (env_value (line_continuation))))
 )

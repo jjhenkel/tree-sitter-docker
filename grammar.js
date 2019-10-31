@@ -14,7 +14,9 @@ module.exports = grammar({
     [ $._port ],
     [ $.repository ],
     [ $.user_name ],
-    [ $.json_array ]
+    [ $.json_array ],
+    [ $.env_pair_eq ],
+    [ $.env_value ]
   ],
 
   externals: $ => [
@@ -261,7 +263,11 @@ module.exports = grammar({
       optional($.env_value),
       optional(token.immediate(prec(-10, '"')))
     ),
-    env_pair: $ => seq($.env_key, $._space_no_newline, alias($._anything, $.env_value)),
+    env_pair: $ => seq(
+      $.env_key,
+      $._space_no_newline,
+      $.env_value
+    ),
 
     env_key: $ => choice(
       seq('$', $.docker_variable),
@@ -271,8 +277,24 @@ module.exports = grammar({
       )
     ),
 
-    env_value: $ => token.immediate(
-      /([^\s\\'"]|\\[^\s]|\\ |"([^\n\r"\\]|\\[ \t]*\r?\n|\\[^\n])*"|'([^\n\r']|\\'|\\[ \t]*\r?\n|\\[^\n])*')+/
+    env_value: $ => choice(
+      repeat1(prec.right(seq(optional($.line_continuation), maybe_var_interpolation(
+        $, /([^\s\\$"']|\\[^\s]|\\( |\t))+/, (r) => token.immediate(r)
+      )))),
+      seq(
+        token.immediate('"'),
+        repeat(prec.right(maybe_var_interpolation(
+          $, /([^\n\r"\\$]|\\[^\n\r])+/
+        ))),
+        token.immediate('"')
+      ),
+      seq(
+        token.immediate("'"),
+        repeat(prec.right(
+          token.immediate(/([^\n\r'\\]|\\'|\\[^\n\r])+/)
+        )),
+        token.immediate(/'+/)
+      )
     ),
 
     // ############### PLUMBING FOR 'EXPOSE' ################################ /
@@ -480,12 +502,12 @@ module.exports = grammar({
 
     variable_default_value: $ => seq(
       token.immediate(':-'),
-      maybe_var_interpolation($, /[^$\}\{"\n]+/)
+      maybe_var_interpolation($, /[^$\}\{\n]+/)
     ),
 
     variable_this_or_null: $ => seq(
       token.immediate(':+'),
-      maybe_var_interpolation($, /[^$\}\{"\n]+/)
+      maybe_var_interpolation($, /[^$\}\{\n]+/)
     ),
 
     _docker_variable: $ => token.immediate(/[^\/\}\{\$"\s:=]+/),
@@ -606,24 +628,24 @@ function maybe_var_or_template_interpolation ($, regex) {
 function maybe_var_interpolation ($, regex, wrapper) {
   return choice(
     // (1) Just a match with no interpolation
-    regex,
+    wrapper ? wrapper(regex) : regex,
     // (2) ${var}|something${var}(${var}|something${var})*something?
     seq(
       choice(
         seq('$', $.docker_variable),
         seq(
-          wrapper ? wrapper(regex, '\\$') : new RegExp(regex.source + '\\$'),
+          wrapper ? wrapper(new RegExp(regex.source + '\\$')) : new RegExp(regex.source + '\\$'),
           $.docker_variable
         )
       ),
       repeat(choice(
         seq('$', $.docker_variable),
         seq(
-          wrapper ? wrapper(regex, '\\$') : token.immediate(new RegExp(regex.source + '\\$')),
+          wrapper ? wrapper(new RegExp(regex.source + '\\$')) : token.immediate(new RegExp(regex.source + '\\$')),
           $.docker_variable
         )
       )),
-      optional(token.immediate(regex))
+      optional(wrapper ? wrapper(regex) : token.immediate(regex))
     )
   );
 }

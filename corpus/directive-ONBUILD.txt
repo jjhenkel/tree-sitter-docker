@@ -155,13 +155,13 @@ ONBUILD ENV APT_GET_INSTALL $APT_GET_INSTALL
 (dockerfile
   (comment)
   (onbuild (env (env_pair (env_key) (env_value))))
+  (onbuild (env (env_pair (env_key) (env_value (docker_variable)))))
+  (onbuild (env (env_pair (env_key) (env_value (docker_variable)))))
+  (onbuild (env (env_pair (env_key) (env_value (docker_variable))) (env_pair (env_key) (env_value (docker_variable)))))
+  (onbuild (env (env_pair (env_key) (env_value (docker_variable (variable_default_value))))))
+  (onbuild (env (env_pair (env_key) (env_value (docker_variable)))))
   (onbuild (env (env_pair (env_key) (env_value))))
-  (onbuild (env (env_pair (env_key) (env_value))))
-  (onbuild (env (env_pair (env_key) (env_value)) (env_pair (env_key) (env_value))))
-  (onbuild (env (env_pair (env_key) (env_value))))
-  (onbuild (env (env_pair (env_key) (env_value))))
-  (onbuild (env (env_pair (env_key) (env_value))))
-  (onbuild (env (env_pair (env_key) (env_value))))
+  (onbuild (env (env_pair (env_key) (env_value (docker_variable)))))
 )
 
 ===================================
