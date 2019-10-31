@@ -254,6 +254,7 @@ module.exports = grammar({
     ),
 
     env_pair_eq: $ => seq(
+      optional($._space_no_newline),
       optional(token.immediate(prec(-10, '"'))),
       $.env_key,
       token.immediate('='),
@@ -387,6 +388,7 @@ module.exports = grammar({
     ),
     
     label_pair_eq: $ => seq(
+      optional($._space_no_newline),
       optional(token.immediate(prec(-10, '"'))),
       $.label_key,
       token.immediate('='),

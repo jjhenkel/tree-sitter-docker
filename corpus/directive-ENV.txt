@@ -228,3 +228,30 @@ ENV TERM="xterm" \
     (env_pair (env_key) (env_value))
   )
 )
+
+===================================
+ENV bug from corpus 9
+===================================
+
+# No space line continuation + comment
+ENV \
+    DB_USER=""\
+    DB_PASSWORD=""\
+    # Set defaults which can be overridden
+    DB_PORT="3306"
+
+---
+
+
+(dockerfile
+  (comment)
+  (env
+    (line_continuation)
+    (env_pair (env_key) (env_value))
+    (line_continuation)
+    (env_pair (env_key) (env_value))
+    (line_continuation)
+    (comment)
+    (env_pair (env_key) (env_value))
+  )
+)

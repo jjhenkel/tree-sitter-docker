@@ -177,3 +177,30 @@ LABEL "key"=
   (label (label_pair (label_key)))
   (label (label_pair (label_key)))
 )
+
+===================================
+ENV bug from corpus 8
+===================================
+
+# No space line continuation + comment
+LABEL \
+    DB_USER=""\
+    DB_PASSWORD=""\
+    # Set defaults which can be overridden
+    DB_PORT="3306"
+
+---
+
+
+(dockerfile
+  (comment)
+  (label
+    (line_continuation)
+    (label_pair (label_key) (label_value))
+    (line_continuation)
+    (label_pair (label_key) (label_value))
+    (line_continuation)
+    (comment)
+    (label_pair (label_key) (label_value))
+  )
+)
