@@ -307,6 +307,7 @@ module.exports = grammar({
     ),
 
     _repository_start: $ => seq(
+      optional(/\/+/),
       maybe_var_or_template_interpolation($, FROM_PART_REGEX),
       choice(
         token.immediate(/:\d+\//),
