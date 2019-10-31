@@ -178,7 +178,8 @@ ENV	DOCKER_CROSSPLATFORMS	\
   (env
     (env_pair
       (env_key)
-      (env_value (line_continuation) (line_continuation) (line_continuation))
+      (line_continuation)
+      (env_value (line_continuation) (line_continuation))
     )
   )
 )

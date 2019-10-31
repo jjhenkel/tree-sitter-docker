@@ -278,14 +278,14 @@ module.exports = grammar({
       )
     ),
 
-    env_value: $ => choice(
-      repeat1(prec.right(seq(optional($.line_continuation), maybe_var_interpolation(
+    env_value: $ => repeat1(choice(
+      repeat1(prec.right(maybe_var_interpolation(
         $, /(\$\$|[^\s\\$"']|\\[^\s]|\\( |\t))+/, (r) => token.immediate(r)
-      )))),
+      ))),
       seq(
         token.immediate('"'),
         repeat(prec.right(maybe_var_interpolation(
-          $, /(\$\$|[^\n\r"\\$]|\\[^\n\r])+/
+          $, /(\$\$|[^\n\r"\\$]|\\[^\n\r])+/, (r) => token.immediate(r)
         ))),
         token.immediate('"')
       ),
@@ -296,7 +296,7 @@ module.exports = grammar({
         )),
         token.immediate(/'+/)
       )
-    ),
+    )),
 
     // ############### PLUMBING FOR 'EXPOSE' ################################ /
     _port_spec: $ => prec.left(choice(

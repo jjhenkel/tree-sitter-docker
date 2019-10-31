@@ -421,14 +421,10 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "docker_variable",
-          "named": true
-        },
-        {
-          "type": "line_continuation",
           "named": true
         }
       ]
