@@ -4,7 +4,7 @@ export PATH=$PATH:`pwd`/node_modules/.bin/
 
 tree-sitter generate
 
-for RANDOM_TARGET in $(find ./sources -type f); do
+for RANDOM_TARGET in $(find ./sources -type f | sort); do
   echo "${RANDOM_TARGET}" >&2
   tree-sitter parse "${RANDOM_TARGET}" > ./asts/$(basename "${RANDOM_TARGET}").ast
   
