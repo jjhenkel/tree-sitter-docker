@@ -10050,97 +10050,117 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "CHOICE",
+          "type": "SEQ",
           "members": [
             {
-              "type": "PATTERN",
-              "value": "([^\"\\s\\$]|\\\\\"|\\\\'|\\$\\/)+"
-            },
-            {
-              "type": "SEQ",
+              "type": "CHOICE",
               "members": [
                 {
-                  "type": "CHOICE",
+                  "type": "PATTERN",
+                  "value": "([^\"\\s\\$]|\\\\\"|\\\\'|\\$\\/)+"
+                },
+                {
+                  "type": "SEQ",
                   "members": [
                     {
-                      "type": "SEQ",
+                      "type": "CHOICE",
                       "members": [
                         {
-                          "type": "STRING",
-                          "value": "$"
+                          "type": "SEQ",
+                          "members": [
+                            {
+                              "type": "STRING",
+                              "value": "$"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "docker_variable"
+                            }
+                          ]
                         },
                         {
-                          "type": "SYMBOL",
-                          "name": "docker_variable"
+                          "type": "SEQ",
+                          "members": [
+                            {
+                              "type": "PATTERN",
+                              "value": "([^\"\\s\\$]|\\\\\"|\\\\'|\\$\\/)+\\$"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "docker_variable"
+                            }
+                          ]
                         }
                       ]
                     },
                     {
-                      "type": "SEQ",
+                      "type": "REPEAT",
+                      "content": {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SEQ",
+                            "members": [
+                              {
+                                "type": "STRING",
+                                "value": "$"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "docker_variable"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SEQ",
+                            "members": [
+                              {
+                                "type": "IMMEDIATE_TOKEN",
+                                "content": {
+                                  "type": "PATTERN",
+                                  "value": "([^\"\\s\\$]|\\\\\"|\\\\'|\\$\\/)+\\$"
+                                }
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "docker_variable"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "CHOICE",
                       "members": [
                         {
-                          "type": "PATTERN",
-                          "value": "([^\"\\s\\$]|\\\\\"|\\\\'|\\$\\/)+\\$"
+                          "type": "IMMEDIATE_TOKEN",
+                          "content": {
+                            "type": "PATTERN",
+                            "value": "([^\"\\s\\$]|\\\\\"|\\\\'|\\$\\/)+"
+                          }
                         },
                         {
-                          "type": "SYMBOL",
-                          "name": "docker_variable"
+                          "type": "BLANK"
                         }
                       ]
                     }
                   ]
-                },
+                }
+              ]
+            },
+            {
+              "type": "CHOICE",
+              "members": [
                 {
-                  "type": "REPEAT",
+                  "type": "IMMEDIATE_TOKEN",
                   "content": {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SEQ",
-                        "members": [
-                          {
-                            "type": "STRING",
-                            "value": "$"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "docker_variable"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "SEQ",
-                        "members": [
-                          {
-                            "type": "IMMEDIATE_TOKEN",
-                            "content": {
-                              "type": "PATTERN",
-                              "value": "([^\"\\s\\$]|\\\\\"|\\\\'|\\$\\/)+\\$"
-                            }
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "docker_variable"
-                          }
-                        ]
-                      }
-                    ]
+                    "type": "STRING",
+                    "value": "$"
                   }
                 },
                 {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "IMMEDIATE_TOKEN",
-                      "content": {
-                        "type": "PATTERN",
-                        "value": "([^\"\\s\\$]|\\\\\"|\\\\'|\\$\\/)+"
-                      }
-                    },
-                    {
-                      "type": "BLANK"
-                    }
-                  ]
+                  "type": "BLANK"
                 }
               ]
             }

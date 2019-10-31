@@ -444,9 +444,9 @@ module.exports = grammar({
 
     // ############### MISC. UTILITIES ###################################### /
     path: $ => choice(
-      maybe_var_interpolation(
+      seq(maybe_var_interpolation(
         $, /([^"\s\$]|\\"|\\'|\$\/)+/
-      ),
+      ), optional(token.immediate('$'))),
       seq(
         '"',
         repeat1(prec.right(maybe_var_interpolation(

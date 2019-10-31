@@ -66,3 +66,17 @@ ADD conf\\" /.znc
   (comment)
   (add (path) (path))
 )
+
+===================================
+ADD bug from corpus 3
+===================================
+
+# $app$ was bug here
+ADD $app$ /home/user/$app$
+
+---
+
+(dockerfile
+  (comment)
+  (add (path (docker_variable)) (path (docker_variable)))
+)
