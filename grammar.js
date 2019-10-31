@@ -204,7 +204,9 @@ module.exports = grammar({
     // ############### PLUMBING FOR 'ADD' ################################### /
 
     // ############### PLUMBING FOR 'ARG' ################################### /
-    arg_name: $ => /[a-zA-Z_0-9][a-zA-Z_\-0-9]*/,
+    arg_name: $ => maybe_var_or_template_interpolation(
+      $, /[a-zA-Z_0-9][a-zA-Z_\-0-9]*/
+    ),
     arg_default: $ => repeat1(
       choice(
         /'([^\n'\\]|\\[^\s])*'/,

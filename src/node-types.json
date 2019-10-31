@@ -57,6 +57,37 @@
     }
   },
   {
+    "type": "arg_name",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "docker_variable",
+          "named": true
+        },
+        {
+          "type": "template_expr_at_symbols",
+          "named": true
+        },
+        {
+          "type": "template_expr_curly_braces",
+          "named": true
+        },
+        {
+          "type": "template_expr_less_than",
+          "named": true
+        },
+        {
+          "type": "template_expr_percent_signs",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "as_name",
     "named": true,
     "fields": {},
@@ -1167,10 +1198,6 @@
   {
     "type": ":",
     "named": false
-  },
-  {
-    "type": "arg_name",
-    "named": true
   },
   {
     "type": "$",
