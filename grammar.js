@@ -483,12 +483,12 @@ module.exports = grammar({
 
     variable_default_value: $ => seq(
       token.immediate(':-'),
-      token.immediate(/[^\}\{"\n]+/)
+      maybe_var_interpolation($, /[^$\}\{"\n]+/)
     ),
 
     variable_this_or_null: $ => seq(
       token.immediate(':+'),
-      token.immediate(/[^\}\{"\n]+/)
+      maybe_var_interpolation($, /[^$\}\{"\n]+/)
     ),
 
     _docker_variable: $ => token.immediate(/[^\/\}\{\$"\s:=]+/),

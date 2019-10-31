@@ -83,3 +83,22 @@ ARG JETTY_VERSION 9.3.8.v20160314
   (comment)
   (arg (arg_name) (arg_malformed_default))
 )
+
+===================================
+ARG bug from corpus 4
+===================================
+
+# Support variables within bash variable defaults
+ARG NIFI_BINARY_PATH=${NIFI_BINARY_PATH:-/nifi/${NIFI_VERSION}/nifi-${NIFI_VERSION}-bin.zip}
+
+---
+
+(dockerfile
+  (comment)
+  (arg
+    (arg_name)
+    (arg_default
+      (docker_variable (variable_default_value (docker_variable) (docker_variable)))
+    )
+  )
+)

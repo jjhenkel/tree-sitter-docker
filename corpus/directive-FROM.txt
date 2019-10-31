@@ -375,8 +375,24 @@ FROM nvidia/cudagl${ARCH:+-$ARCH}:${CUDA}-base-ubuntu${UBUNTU_VERSION} as base
 
 (dockerfile
   (from (repository)
-        (image (docker_variable (variable_this_or_null)))
+        (image (docker_variable (variable_this_or_null (docker_variable))))
         (tag (docker_variable) (docker_variable)) 
         (as_name)
   )
 ) 
+
+===================================
+Edge case from corpus 5
+===================================
+
+# Support variables within bash variable defaults
+FROM httpd:${APACHE_VERSION:+${APACHE_VERSION}-}alpine
+
+---
+
+(dockerfile
+  (comment)
+  (from (image)
+        (tag (docker_variable (variable_this_or_null (docker_variable)))) 
+  )
+)
