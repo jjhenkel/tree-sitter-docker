@@ -25,7 +25,6 @@
 ./sources/173609716.Dockerfile
 ./sources/174183500.Dockerfile
 ./sources/174557784.Dockerfile
-./sources/181427969.Dockerfile
 ./sources/189697480.Dockerfile
 ./sources/190110210.Dockerfile
 ./sources/190482782.Dockerfile
@@ -43,14 +42,6 @@
 ./sources/190482814.Dockerfile
 ./sources/190482816.Dockerfile
 ./sources/190482828.Dockerfile
-./sources/190482838.Dockerfile
-./sources/190482840.Dockerfile
-./sources/190482850.Dockerfile
-./sources/190482852.Dockerfile
-./sources/190482858.Dockerfile
-./sources/190482860.Dockerfile
-./sources/190482862.Dockerfile
-./sources/190482864.Dockerfile
 ./sources/191684677.Dockerfile
 ./sources/194993545.Dockerfile
 ./sources/195984271.Dockerfile
@@ -65,7 +56,6 @@
 ./sources/210223359.Dockerfile
 ./sources/211582260.Dockerfile
 ./sources/213974225.Dockerfile
-./sources/214986306.Dockerfile
 ./sources/216041209.Dockerfile
 ./sources/219498385.Dockerfile
 ./sources/221607519.Dockerfile
@@ -140,7 +130,6 @@
 ./sources/266536260.Dockerfile
 ./sources/270399769.Dockerfile
 ./sources/270399771.Dockerfile
-./sources/271774636.Dockerfile
 ./sources/272177251.Dockerfile
 ./sources/272952899.Dockerfile
 ./sources/276135223.Dockerfile

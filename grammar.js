@@ -218,7 +218,7 @@ module.exports = grammar({
     // ############### PLUMBING FOR 'CMD' ################################### /
     // ############### PLUMBING FOR 'COPY' ################################## /
     _chown: $ => seq(
-      token.immediate('--chown='),
+      token.immediate(prec(2, '--chown=')),
       $.chown,
       $._space_no_newline
     ),
@@ -443,29 +443,24 @@ module.exports = grammar({
 
 
     // ############### MISC. UTILITIES ###################################### /
-    path: $ => prec.right(choice(
-      maybe_var_interpolation($, (postfix) =>
-        token.immediate(prec(-10, new RegExp(
-          /([^"\s\\\$]|\\[^"\s\\\$])([^"\s\$]|\\")*/.source + postfix
-        )))
+    path: $ => choice(
+      maybe_var_interpolation(
+        $, /([^"\s\$]|\\"|\\'|\$\/)+/
       ),
       seq(
         '"',
-        maybe_var_interpolation($, (postfix) => 
-          token.immediate(prec(-10, new RegExp(/[^"\n\$]*/.source + postfix)))
-        ),
+        repeat1(prec.right(maybe_var_interpolation(
+          $, /[^"\n\$]*/
+        ))),
         '"'
       ),
-      seq(
-        "'",
-        maybe_var_interpolation($, (postfix) => 
-          token.immediate(prec(-10, new RegExp(/[^'\n\$]*/.source + postfix)))
-        ),
-        "'"
-      )
-    )),
+      /'(?:[^\\'\n]|\\[^\n])+'/
+    ),
 
-    _paths: $ => repeat1(seq($.path, optional($._space_no_newline))),
+    _paths: $ => seq(
+      $.path,
+      repeat(seq($._space_no_newline, $.path))
+    ),
     
     _anything: $ => repeat1($._anything_ex),
 
@@ -608,27 +603,27 @@ function maybe_var_or_template_interpolation ($, regex) {
   );
 }
 
-function maybe_var_interpolation ($, regex) {
+function maybe_var_interpolation ($, regex, wrapper) {
   return choice(
     // (1) Just a match with no interpolation
-    regex.source ? regex : regex(''),
+    regex,
     // (2) ${var}|something${var}(${var}|something${var})*something?
     seq(
       choice(
         seq('$', $.docker_variable),
         seq(
-          regex.source ? new RegExp(regex.source + '\\$') : regex('\\$'),
+          wrapper ? wrapper(regex, '\\$') : new RegExp(regex.source + '\\$'),
           $.docker_variable
         )
       ),
       repeat(choice(
         seq('$', $.docker_variable),
         seq(
-          regex.source ? token.immediate(new RegExp(regex.source + '\\$')) : regex('\\$'),
+          wrapper ? wrapper(regex, '\\$') : token.immediate(new RegExp(regex.source + '\\$')),
           $.docker_variable
         )
       )),
-      optional(regex.source ? token.immediate(regex) : regex(''))
+      optional(token.immediate(regex))
     )
   );
 }

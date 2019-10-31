@@ -1287,10 +1287,6 @@
     "named": true
   },
   {
-    "type": "'",
-    "named": false
-  },
-  {
     "type": "{",
     "named": false
   },
@@ -1333,5 +1329,9 @@
   {
     "type": "json_array_extraneous_char",
     "named": true
+  },
+  {
+    "type": "'",
+    "named": false
   }
 ]

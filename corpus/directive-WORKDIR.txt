@@ -29,3 +29,31 @@ WORKDIR "/redis/here/"
     (workdir (path))
     (workdir (path))
 )
+
+===================================
+WORKDIR spaces
+===================================
+
+WORKDIR " space in here/ are/ /fine"
+WORKDIR ' same here/ they/ are fine'
+
+---
+
+(dockerfile
+    (workdir (path))
+    (workdir (path))
+)
+
+===================================
+WORKDIR bug from corpus 1
+===================================
+
+# Apparently this is okay
+WORKDIR $app$/requirements.txt
+
+---
+
+(dockerfile
+    (comment)
+    (workdir (path (docker_variable)))
+)
