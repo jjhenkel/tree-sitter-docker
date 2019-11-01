@@ -466,19 +466,19 @@ module.exports = grammar({
 
 
     // ############### MISC. UTILITIES ###################################### /
-    path: $ => choice(
+    path: $ => repeat1(prec.right(choice(
       seq(maybe_var_interpolation(
-        $, /([^"\s\$]|\\"|\\'|\$\/)+/
+        $, /([^"\s\$]|\\"|\\'|\$\/)+/, (r) => token.immediate(r)
       ), optional(token.immediate('$'))),
       seq(
-        '"',
+        token.immediate('"'),
         repeat1(prec.right(maybe_var_interpolation(
           $, /[^"\n\$]*/
         ))),
-        '"'
+        token.immediate('"')
       ),
-      /'(?:[^\\'\n]|\\[^\n])+'/
-    ),
+      token.immediate(/'(?:[^\\'\n]|\\[^\n])+'/)
+    ))),
 
     _paths: $ => seq(
       $.path,

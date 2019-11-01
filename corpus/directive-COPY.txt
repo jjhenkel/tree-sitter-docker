@@ -137,3 +137,15 @@ COPY [^p]*.conf /etc/postgresql/conf.d/
   (comment)
   (copy (path) (path))
 )
+
+===================================
+Edge case from corpus 3
+===================================
+
+COPY --from=osquery /osquery /home/"$OSQUERY_BUILD_USER"/osquery
+
+---
+
+(dockerfile
+  (copy (from_layer) (path) (path (docker_variable)))
+)
