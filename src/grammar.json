@@ -2473,8 +2473,17 @@
                   {
                     "type": "REPEAT",
                     "content": {
-                      "type": "SYMBOL",
-                      "name": "comment"
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "comment"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "_space_no_newline"
+                        }
+                      ]
                     }
                   },
                   {
@@ -2654,7 +2663,7 @@
                     "type": "IMMEDIATE_TOKEN",
                     "content": {
                       "type": "PATTERN",
-                      "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\[^\\s]|\\\\( |\\t))+"
+                      "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\( |\\t)*[^\\s])+"
                     }
                   },
                   {
@@ -2683,7 +2692,7 @@
                                 "type": "IMMEDIATE_TOKEN",
                                 "content": {
                                   "type": "PATTERN",
-                                  "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\[^\\s]|\\\\( |\\t))+\\$"
+                                  "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\( |\\t)*[^\\s])+\\$"
                                 }
                               },
                               {
@@ -2719,7 +2728,7 @@
                                   "type": "IMMEDIATE_TOKEN",
                                   "content": {
                                     "type": "PATTERN",
-                                    "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\[^\\s]|\\\\( |\\t))+\\$"
+                                    "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\( |\\t)*[^\\s])+\\$"
                                   }
                                 },
                                 {
@@ -2738,7 +2747,7 @@
                             "type": "IMMEDIATE_TOKEN",
                             "content": {
                               "type": "PATTERN",
-                              "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\[^\\s]|\\\\( |\\t))+"
+                              "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\( |\\t)*[^\\s])+"
                             }
                           },
                           {

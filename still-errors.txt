@@ -99,8 +99,6 @@
 ./sources/252784999.Dockerfile
 ./sources/252785686.Dockerfile
 ./sources/252787019.Dockerfile
-./sources/252787237.Dockerfile
-./sources/252798166.Dockerfile
 ./sources/252801908.Dockerfile
 ./sources/255735600.Dockerfile
 ./sources/258308694.Dockerfile

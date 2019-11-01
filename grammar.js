@@ -252,7 +252,7 @@ module.exports = grammar({
             $._space_no_newline,
             $.line_continuation
           ),
-          repeat($.comment),
+          repeat(choice($.comment, $._space_no_newline)),
           alias($.env_pair_eq, $.env_pair)
         )),
         optional($._space_no_newline)
@@ -283,7 +283,7 @@ module.exports = grammar({
 
     env_value: $ => repeat1(choice(
       repeat1(prec.right(maybe_var_interpolation(
-        $, /(\$\$|[^\s\\$"']|\\[^\s]|\\( |\t))+/, (r) => token.immediate(r)
+        $, /(\$\$|[^\s\\$"']|\\( |\t)*[^\s])+/, (r) => token.immediate(r)
       ))),
       seq(
         token.immediate('"'),

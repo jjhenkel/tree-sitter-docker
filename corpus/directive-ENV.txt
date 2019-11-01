@@ -317,7 +317,8 @@ CARGO_TARGET_POWERPC64_UNKNOWN_LINUX_GNU_RUNNER=true \
     (env_pair (env_key) (env_value))
     (line_continuation)
     (comment)
-    (env_pair (comment) (env_key) (env_value))
+    (comment)
+    (env_pair (env_key) (env_value))
     (line_continuation)
     (env_pair (env_key) (env_value))
   )
@@ -360,3 +361,23 @@ PG_DATA_DIR_DEFAULT=/var/lib/postgresql/9.3/main/
   )
 )
 
+===================================
+ENV bug from corpus 12
+===================================
+
+# Space after no-space \
+ENV \ 
+HAPPYHEALTHCHECK=true\  
+ENABLE_LOGGER=true  
+  
+---
+
+(dockerfile
+  (comment)
+  (env
+    (line_continuation)
+    (env_pair (env_key) (env_value))
+    (line_continuation)
+    (env_pair (env_key) (env_value))
+  )
+)
