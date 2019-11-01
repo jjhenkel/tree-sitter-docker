@@ -286,8 +286,8 @@ ENV \
 
 (dockerfile
   (comment)
+  (line_continuation)
   (env
-    (line_continuation)
     (env_pair (env_key) (env_value))
     (line_continuation)
     (env_pair (env_key) (env_value))
@@ -352,8 +352,8 @@ PG_DATA_DIR_DEFAULT=/var/lib/postgresql/9.3/main/
 
 (dockerfile
   (comment)
+  (line_continuation)
   (env
-    (line_continuation)
     (env_pair (env_key) (env_value))
     (line_continuation)
     (comment)
@@ -362,7 +362,7 @@ PG_DATA_DIR_DEFAULT=/var/lib/postgresql/9.3/main/
 )
 
 ===================================
-ENV bug from corpus 12
+ENV bug from corpus 13
 ===================================
 
 # Space after no-space \
@@ -374,8 +374,29 @@ ENABLE_LOGGER=true
 
 (dockerfile
   (comment)
+  (line_continuation)
   (env
+    (env_pair (env_key) (env_value))
     (line_continuation)
+    (env_pair (env_key) (env_value))
+  )
+)
+
+===================================
+ENV bug from corpus 14
+===================================
+
+# Bug with User in env_value
+ENV \ 
+HAPPYHEALTHCHECK=true\  
+ENABLE_LOGGER=User  
+  
+---
+
+(dockerfile
+  (comment)
+  (line_continuation)
+  (env
     (env_pair (env_key) (env_value))
     (line_continuation)
     (env_pair (env_key) (env_value))

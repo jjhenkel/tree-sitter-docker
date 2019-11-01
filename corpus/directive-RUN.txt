@@ -163,8 +163,8 @@ RUN \
 
 (dockerfile
   (comment)
+  (line_continuation)
   (run
-    (line_continuation)
     (line_continuation)
     (comment)
     (line_continuation)
@@ -202,7 +202,8 @@ RUN \
 
 (dockerfile 
   (comment)
-  (run (line_continuation) (line_continuation) (line_continuation))
+  (line_continuation) 
+  (run (line_continuation) (line_continuation))
 )
 
 ===================================
@@ -291,4 +292,33 @@ RUN apt-get update \
     (line_continuation)
     (line_continuation)
   )
+)
+
+===================================
+RUN bug from corpus 7
+===================================
+
+RUN foo \
+    
+# comment  
+    
+    bar
+
+---
+
+(dockerfile 
+  (run (line_continuation) (comment))
+)
+
+===================================
+RUN bug from corpus 8
+===================================
+
+RUN\
+    bar
+
+---
+
+(dockerfile 
+  (run)
 )

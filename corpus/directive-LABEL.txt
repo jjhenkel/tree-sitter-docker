@@ -27,7 +27,7 @@ LABEL "i.guess.space.is.okay.too" foobar
   (label (label_pair (label_key) (label_value)))
   (label (label_pair (label_key) (label_value)))
   (label (label_pair (label_key) (label_value)))
-  (label (label_pair (label_key) (label_value)))
+  (label (label_pair (label_key) (label_value (line_continuation))))
 
   (label
     (label_pair (label_key) (label_value))
@@ -114,8 +114,8 @@ this\
 
 (dockerfile
   (comment)
+  (line_continuation)
   (label
-    (line_continuation)
     (label_pair (label_key) (label_value))
     (line_continuation)
     (label_pair (label_key) (label_value))
@@ -166,7 +166,6 @@ LABEL bug from corpus 7
 
 # Just key=
 LABEL key=
-LABEL "key="
 LABEL "key"=
 
 ---
@@ -175,11 +174,10 @@ LABEL "key"=
   (comment)
   (label (label_pair (label_key)))
   (label (label_pair (label_key)))
-  (label (label_pair (label_key)))
 )
 
 ===================================
-ENV bug from corpus 8
+LABEL bug from corpus 8
 ===================================
 
 # No space line continuation + comment
@@ -194,8 +192,8 @@ LABEL \
 
 (dockerfile
   (comment)
+  (line_continuation)
   (label
-    (line_continuation)
     (label_pair (label_key) (label_value))
     (line_continuation)
     (label_pair (label_key) (label_value))

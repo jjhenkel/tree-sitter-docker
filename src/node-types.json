@@ -123,23 +123,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "user_group",
-          "named": true
-        },
-        {
-          "type": "user_group_id",
-          "named": true
-        },
-        {
-          "type": "user_id",
-          "named": true
-        },
-        {
-          "type": "user_name",
+          "type": "user",
           "named": true
         }
       ]
@@ -664,6 +652,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
         {
           "type": "label_pair",
           "named": true
@@ -1316,10 +1308,6 @@
   },
   {
     "type": "hc_malformed",
-    "named": true
-  },
-  {
-    "type": "label_value",
     "named": true
   },
   {

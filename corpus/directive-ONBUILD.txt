@@ -114,8 +114,8 @@ ONBUILD COPY --chown=odoo:odoo  cfg.d                       "${ODOO_RC}"
   (onbuild (copy (path) (path)))
   (onbuild (copy (path) (path)))
   (onbuild (copy (path) (path)))
-  (onbuild (copy (chown (user_id) (user_group_id)) (path) (path)))
-  (onbuild (copy (chown (user_name) (user_group)) (path) (path (docker_variable))))
+  (onbuild (copy (chown (user (user_id) (user_group_id))) (path) (path)))
+  (onbuild (copy (chown (user (user_name) (user_group))) (path) (path (docker_variable))))
 )
 
 ===================================

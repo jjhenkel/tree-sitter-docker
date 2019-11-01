@@ -15,7 +15,8 @@ STOPSIGNAL \
     (comment)
     (stopsignal (signal_name))
     (stopsignal (signal_num))
-    (stopsignal (line_continuation) (signal_num))
+    (line_continuation)
+    (stopsignal (signal_num))
 )
 
 ===================================

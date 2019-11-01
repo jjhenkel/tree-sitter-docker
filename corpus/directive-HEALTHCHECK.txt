@@ -42,7 +42,8 @@ HEALTHCHECK \
     (line_continuation)
     (hc_command)
   )
-  (healthcheck (line_continuation) (hc_command))
+  (line_continuation)
+  (healthcheck (hc_command))
 )
 
 ===================================

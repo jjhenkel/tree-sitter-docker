@@ -16,90 +16,79 @@ module.exports = grammar({
     [ $.user_name ],
     [ $.json_array ],
     [ $.env_pair_eq ],
+    [ $.label_pair_eq ],
     [ $.env_value ]
   ],
 
   externals: $ => [
+    $._directive_start,
     $.escape_directive,
     $.line_continuation,
     $._template_expr_at_symbols_start_ex,
     $._digest_start_ex,
     $._json_array_start,
     $._anything_ex,
+    $._malformed_empty_directive
   ],
 
   rules: {
     // ############### TOP LEVEL ############################################ /
     dockerfile: $ => seq(
-      optional($.escape_directive),
+      optional(choice(
+        $.escape_directive,
+        seq($._blank_line, $.escape_directive)
+      )),
       repeat(
         field('directives', $._directive)
       ),
     ),
 
     _directive: $ => choice(
-      $.add,
-      $.arg,
-      $.cmd,
-      $.copy,
-      $.entrypoint,
-      $.env,
-      $.expose,
-      $.from,
-      $.healthcheck,
-      $.label,
-      $.maintainer,
-      $.onbuild,
-      $.run,
-      $.shell,
-      $.stopsignal,
-      $.user,
-      $.volume,
-      $.workdir,
+      $._d_add,
+      $._d_arg,
+      $._d_cmd,
+      $._d_copy,
+      $._d_entrypoint,
+      $._d_env,
+      $._d_expose,
+      $._d_from,
+      $._d_healthcheck,
+      $._d_label,
+      $._d_maintainer,
+      $._d_onbuild,
+      $._d_run,
+      $._d_shell,
+      $._d_stopsignal,
+      $._d_user,
+      $._d_volume,
+      $._d_workdir,
       $.malformed_empty_directive,
       $._blank_line,
     ),
 
-    malformed_empty_directive: $ => choice(
-      new RegExp(any_casing('ADD').source + '\n'),
-      new RegExp(any_casing('ARG').source + '\n'),
-      new RegExp(any_casing('CMD').source + '\n'),
-      new RegExp(any_casing('COPY').source + '\n'),
-      new RegExp(any_casing('ENTRYPOINT').source + '\n'),
-      new RegExp(any_casing('ENV').source + '\n'),
-      new RegExp(any_casing('EXPOSE').source + '\n'),
-      new RegExp(any_casing('FROM').source + '\n'),
-      new RegExp(any_casing('HEALTHCHECK').source + '\n'),
-      new RegExp(any_casing('LABEL').source + '\n'),
-      new RegExp(any_casing('MAINTAINER').source + '\n'),
-      new RegExp(any_casing('ONBUILD').source + '\n'),
-      new RegExp(any_casing('RUN').source + '\n'),
-      new RegExp(any_casing('SHELL').source + '\n'),
-      new RegExp(any_casing('STOPSIGNAL').source + '\n'),
-      new RegExp(any_casing('USER').source + '\n'),
-      new RegExp(any_casing('VOLUME').source + '\n'),
-      new RegExp(any_casing('WORKDIR').source + '\n'),
-    ),
+    malformed_empty_directive: $ => $._malformed_empty_directive,
 
     // ############### DIRECTIVES ########################################### /
-    add: $ => directive($, 'ADD', choice(
+    _d_add: $ => directive($, 'ADD', $.add),
+    add: $ => choice(
       $._paths, $.json_array
-    )),
+    ),
 
-    arg: $ => directive($, 'ARG', seq(
+    _d_arg: $ => directive($, 'ARG', $.arg),
+    arg: $ => seq(
       optional(token.immediate(/"/)),
       $.arg_name, optional(choice(
         seq('=', $.arg_default),
         seq(/ |\t/, alias($.arg_default, $.arg_malformed_default))
       )),
       optional(token.immediate(prec(-10, /"/)))
-    )),
+    ),
 
-    cmd: $ => directive($, 'CMD', seq(
-      $._anything_or_json_array
-    )),
+    _d_cmd: $ => directive($, 'CMD', $.cmd),
+    cmd: $ => $._anything_or_json_array,
 
-    copy: $ => directive($, 'COPY', seq(
+    _d_copy: $ => directive($, 'COPY', $.copy),
+    copy: $ => seq(
       repeat(choice(
         $._chown,
         $._from_layer
@@ -108,24 +97,24 @@ module.exports = grammar({
         $._paths,
         $.json_array
       )
-    )),
+    ),
 
-    entrypoint: $ => directive($, 'ENTRYPOINT', seq(
-      $._anything_or_json_array
-    )),
+    _d_entrypoint: $ => directive($, 'ENTRYPOINT', $.entrypoint),
+    entrypoint: $ => $._anything_or_json_array,
 
-    env: $ => directive($, 'ENV', seq(
-      $._env_pairs
-    )),
+    _d_env: $ => directive($, 'ENV', $.env),
+    env: $ => $._env_pairs,
 
-    expose: $ => directive($, 'EXPOSE', choice(
+    _d_expose: $ => directive($, 'EXPOSE', $.expose),
+    expose: $ => choice(
       $.mapped_no_lhs,
       repeat1(
         maybe_double_quoted($._port_spec)
       )
-    )),
+    ),
 
-    from: $ => directive($, 'FROM', seq(
+    _d_from: $ => directive($, 'FROM', $.from),
+    from: $ => seq(
       optional(seq(
         '--platform=',
         $.platform
@@ -141,68 +130,68 @@ module.exports = grammar({
       optional(seq(
         $._space_no_newline, any_casing('AS'), $._space_no_newline, $.as_name
       ))
-    )),
+    ),
 
-    healthcheck: $ => directive($, 'HEALTHCHECK', choice(
+    _d_healthcheck: $ => directive($, 'HEALTHCHECK', $.healthcheck),
+    healthcheck: $ => choice(
       $.hc_none,
       seq(
         repeat($._hc_options),
         $._hc_command
       ),
       $.hc_malformed
-    )),
+    ),
 
-    label: $ => directive($, 'LABEL', seq(
-      $._labels
-    )),
+    _d_label: $ => directive($, 'LABEL', $.label),
+    label: $ => $._labels,
 
-    maintainer: $ => directive($, 'MAINTAINER', seq(
-      $._anything
-    )),
+    _d_maintainer: $ => directive($, 'MAINTAINER', $.maintainer),
+    maintainer: $ => $._anything,
 
-    onbuild: $ => directive($, 'ONBUILD', choice(
-      $.add,
-      $.arg,
-      $.cmd,
-      $.copy,
-      $.entrypoint,
-      $.env,
-      $.expose,
-      $.healthcheck,
-      $.label,
-      $.run,
-      $.shell,
-      $.stopsignal,
-      $.user,
-      $.volume,
-      $.workdir
-    )),
+    _d_onbuild: $ => directive($, 'ONBUILD', $.onbuild),
+    onbuild: $ => choice(
+      seq(any_casing('ADD'), $._space_no_newline, $.add),
+      seq(any_casing('ARG'), $._space_no_newline, $.arg),
+      seq(any_casing('CMD'), $._space_no_newline, $.cmd),
+      seq(any_casing('COPY'), $._space_no_newline, $.copy),
+      seq(any_casing('ENTRYPOINT'), $._space_no_newline, $.entrypoint),
+      seq(any_casing('ENV'), $._space_no_newline, $.env),
+      seq(any_casing('EXPOSE'), $._space_no_newline, $.expose),
+      seq(any_casing('HEALTHCHECK'), $._space_no_newline, $.healthcheck),
+      seq(any_casing('LABEL'), $._space_no_newline, $.label),
+      seq(any_casing('RUN'), $._space_no_newline, $.run),
+      seq(any_casing('SHELL'), $._space_no_newline, $.shell),
+      seq(any_casing('STOPSIGNAL'), $._space_no_newline, $.stopsignal),
+      seq(any_casing('USER'), $._space_no_newline, $.user),
+      seq(any_casing('VOLUME'), $._space_no_newline, $.volume),
+      seq(any_casing('WORKDIR'), $._space_no_newline, $.workdir)
+    ),
 
-    run: $ => directive($, 'RUN', seq(
-      $._anything_or_json_array
-    )),
+    _d_run: $ => directive($, 'RUN', $.run),
+    run: $ => $._anything_or_json_array,
     
-    shell: $ => directive($, 'SHELL', seq(
-      $.json_array
-    )),
+    _d_shell: $ => directive($, 'SHELL', $.shell),
+    shell: $ => $.json_array,
 
-    stopsignal: $ => directive($, 'STOPSIGNAL', choice(
+    _d_stopsignal: $ => directive($, 'STOPSIGNAL', $.stopsignal),
+    stopsignal: $ => choice(
       $.signal_name, $.signal_num
-    )),
+    ),
 
-    user: $ => directive($, 'USER', choice(
+    _d_user: $ => directive($, 'USER', $.user),
+    user: $ => choice(
       maybe_double_quoted(seq($.user_name, optional(seq(':', $.user_group)))),
       maybe_double_quoted(seq($.user_id, optional(seq(':', $.user_group_id))))
-    )),
+    ),
 
-    volume: $ => directive($, 'VOLUME', choice(
+    _d_volume: $ => directive($, 'VOLUME', $.volume),
+    volume: $ => choice(
       $._paths,
       $.json_array
-    )),
+    ),
 
-    workdir: $ => directive($, 'WORKDIR', seq(
-      $.path
-    )),
+    _d_workdir: $ => directive($, 'WORKDIR', $.workdir),
+    workdir: $ => $.path,
 
     // ############### PLUMBING FOR 'ADD' ################################### /
 
@@ -235,10 +224,7 @@ module.exports = grammar({
       $,  /[^\$\s\{\}%<>=\?]+/
     ),
 
-    chown: $ => choice(
-      seq($.user_name, optional(seq(':', $.user_group))),
-      seq($.user_id, optional(seq(':', $.user_group_id)))
-    ),
+    chown: $ => $.user,
 
     // ############### PLUMBING FOR 'ENTRYPOINT' ############################ /
     // ############### PLUMBING FOR 'ENV' ################################### /
@@ -407,7 +393,11 @@ module.exports = grammar({
       seq(
         alias($.label_pair_eq, $.label_pair),
         repeat(seq(
-          choice($._space_no_newline, $.line_continuation),
+          choice(
+            $._space_no_newline,
+            $.line_continuation
+          ),
+          repeat(choice($.comment, $._space_no_newline)),
           alias($.label_pair_eq, $.label_pair))
         ),
         optional($._space_no_newline)
@@ -419,7 +409,7 @@ module.exports = grammar({
       optional(token.immediate(prec(-10, '"'))),
       $.label_key,
       token.immediate('='),
-      $.label_value,
+      alias($.env_value, $.label_value),
       optional(token.immediate(prec(-10, '"')))
     ),
     label_pair_no_value: $ => seq(
@@ -437,11 +427,6 @@ module.exports = grammar({
         token.immediate(/"[^\n"=]*"/)
       )
     ),
-
-    label_value: $ => token.immediate(
-      /([^\s\\'"]|\\[^\s]|\\ |"([^\n\r"\\]|\\[ \t]*\r?\n|\\[^\n])*"|'([^\n\r']|\\'|\\[ \t]*\r?\n|\\[^\n])*')+/
-    ),
-
 
     // ############### PLUMBING FOR 'MAINTAINER' ############################ /
     // ############### PLUMBING FOR 'ONBUILD' ############################### /
@@ -477,7 +462,7 @@ module.exports = grammar({
       seq(
         token.immediate('"'),
         repeat1(prec.right(maybe_var_interpolation(
-          $, /[^"\n\$]*/
+          $, /[^"\n\$]+/
         ))),
         token.immediate('"')
       ),
@@ -521,7 +506,7 @@ module.exports = grammar({
       maybe_var_interpolation($, /[^$\}\{\n]*/)
     ),
 
-    _docker_variable: $ => token.immediate(/[^\-\/\}\{\$"\s:=]+/),
+    _docker_variable: $ => token.immediate(/[^\-\/\}\{\$"\s:=\\]+/),
 
     // ############### OUT-OF-DOCKER TEMPLATING ############################# /
     template_expr_at_symbols: $ => /[^@\n]+/,
@@ -596,8 +581,9 @@ module.exports = grammar({
 
 function directive ($, name, body_rule) {
   return seq(
+    $._directive_start,
     new RegExp(
-      any_casing(name.toUpperCase()).source + /[\t\f\r\v ]+/.source
+      any_casing(name.toUpperCase()).source + /([\t\f\r\v ]+|\\[\t\f\r\v ]*(\r?\n)|`[\t\f\r\v ]*(\r?\n))/.source
     ),
     body_rule
   );

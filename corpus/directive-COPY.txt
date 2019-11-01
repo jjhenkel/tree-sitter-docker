@@ -38,7 +38,8 @@ COPY \
 ---
 
 (dockerfile
-  (copy (line_continuation) (path) (line_continuation) (path))
+  (line_continuation)
+  (copy (path) (line_continuation) (path))
 )
 
 ===================================
@@ -73,14 +74,14 @@ COPY \
 (dockerfile
   (comment)
   (copy
-    (chown (user_name) (user_group))
+    (chown (user (user_name) (user_group)))
     (from_layer)
     (path)
     (path)
   )
   (copy
     (from_layer)
-    (chown (user_name) (user_group))
+    (chown (user (user_name) (user_group)))
     (path)
     (path)
   )
@@ -98,11 +99,11 @@ COPY \
   (copy (from_layer) (path) (path) (path) (path))
 
   (comment)
+  (line_continuation)
   (copy
-    (line_continuation)
     (from_layer)
     (line_continuation)
-    (chown (user_name) (user_group))
+    (chown (user (user_name) (user_group)))
     (line_continuation)
     (line_continuation)
     (path)
