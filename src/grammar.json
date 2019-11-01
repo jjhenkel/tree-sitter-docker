@@ -2473,17 +2473,8 @@
                   {
                     "type": "REPEAT",
                     "content": {
-                      "type": "SEQ",
-                      "members": [
-                        {
-                          "type": "SYMBOL",
-                          "name": "comment"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "_space_no_newline"
-                        }
-                      ]
+                      "type": "SYMBOL",
+                      "name": "comment"
                     }
                   },
                   {

@@ -248,8 +248,11 @@ module.exports = grammar({
       seq(
         alias($.env_pair_eq, $.env_pair),
         repeat(seq(
-          choice($._space_no_newline, $.line_continuation),
-          repeat(seq($.comment, $._space_no_newline)),
+          choice(
+            $._space_no_newline,
+            $.line_continuation
+          ),
+          repeat($.comment),
           alias($.env_pair_eq, $.env_pair)
         )),
         optional($._space_no_newline)
