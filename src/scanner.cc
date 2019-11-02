@@ -350,6 +350,12 @@ namespace {
 #endif
 
                 if (result == 1) {
+                    // _ANYTHING_EX takes precedence over _DIRECTIVE_START
+                    if (valid_symbols[_ANYTHING_EX]) {
+                        lexer->mark_end(lexer);
+                        lexer->result_symbol = _ANYTHING_EX;
+                        return true;
+                    }
                     lexer->result_symbol = _DIRECTIVE_START;
                     return true;
                 } else if (result == 2 && valid_symbols[_ANYTHING_EX]) {

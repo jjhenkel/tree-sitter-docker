@@ -322,3 +322,17 @@ RUN\
 (dockerfile 
   (run)
 )
+
+===================================
+RUN bug from corpus 9
+===================================
+
+RUN echo "\n\
+user nobody root;\n\
+" >> /app/.heroku/php/etc/nginx/nginx.conf
+
+---
+
+(dockerfile 
+  (run (line_continuation) (line_continuation))
+)
