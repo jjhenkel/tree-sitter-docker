@@ -287,7 +287,7 @@ module.exports = grammar({
         token.immediate(/'+/)
       ),
       $.line_continuation
-    )), optional(token.immediate('$'))),
+    )), optional(token.immediate(prec(-10, '$')))),
 
     // ############### PLUMBING FOR 'EXPOSE' ################################ /
     _port_spec: $ => prec.left(choice(
@@ -592,7 +592,18 @@ function directive ($, name, body_rule) {
     body_rule
   );
 
-  if (name != "RUN") {
+  NO_INLINE_COMMENTS = [
+    "ARG",
+    "CMD",
+    "ENTRYPOINT",
+    "ENV",
+    "EXPOSE",
+    "LABEL",
+    "ONBUILD",
+    "RUN"
+  ];
+
+  if (!NO_INLINE_COMMENTS.includes(name)) {
     return seq(directive_rule, optional($.inline_comment))
   } else {
     return directive_rule;
