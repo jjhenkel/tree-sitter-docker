@@ -285,7 +285,8 @@ module.exports = grammar({
           token.immediate(/([^\n\r'\\]|\\'|\\[^\n\r])+/)
         )),
         token.immediate(/'+/)
-      )
+      ),
+      $.line_continuation
     )),
 
     // ############### PLUMBING FOR 'EXPOSE' ################################ /

@@ -178,8 +178,7 @@ ENV	DOCKER_CROSSPLATFORMS	\
   (env
     (env_pair
       (env_key)
-      (line_continuation)
-      (env_value (line_continuation) (line_continuation))
+      (env_value (line_continuation) (line_continuation) (line_continuation))
     )
   )
 )
@@ -400,5 +399,36 @@ ENABLE_LOGGER=User
     (env_pair (env_key) (env_value))
     (line_continuation)
     (env_pair (env_key) (env_value))
+  )
+)
+
+===================================
+ENV bug from corpus 15
+===================================
+
+# Issue with no-space line continuation in env_value
+ENV PACKAGES=alpine-baselayout,\
+alpine-keys,\
+apk-tools,\
+busybox,\
+libc-utils,\
+xz
+
+---
+
+
+(dockerfile
+  (comment)
+  (env
+    (env_pair
+      (env_key)
+      (env_value
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+        (line_continuation)
+      )
+    )
   )
 )

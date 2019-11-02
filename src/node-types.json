@@ -414,6 +414,10 @@
         {
           "type": "docker_variable",
           "named": true
+        },
+        {
+          "type": "line_continuation",
+          "named": true
         }
       ]
     }
