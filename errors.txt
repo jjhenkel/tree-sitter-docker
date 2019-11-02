@@ -35,14 +35,6 @@
 ./sources/184682557.Dockerfile
 ./sources/184682559.Dockerfile
 ./sources/189697480.Dockerfile
-./sources/190482798.Dockerfile
-./sources/190482800.Dockerfile
-./sources/190482802.Dockerfile
-./sources/190482804.Dockerfile
-./sources/190482806.Dockerfile
-./sources/190482808.Dockerfile
-./sources/190482810.Dockerfile
-./sources/190482812.Dockerfile
 ./sources/191684677.Dockerfile
 ./sources/194993545.Dockerfile
 ./sources/195984271.Dockerfile

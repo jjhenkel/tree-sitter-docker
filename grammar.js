@@ -267,7 +267,7 @@ module.exports = grammar({
       )
     ),
 
-    env_value: $ => repeat1(choice(
+    env_value: $ => seq(repeat1(choice(
       repeat1(prec.right(maybe_var_interpolation(
         $, /(\$\$|[^\s\\$"']|\\( |\t)*[^\s])+/, (r) => token.immediate(r)
       ))),
@@ -287,7 +287,7 @@ module.exports = grammar({
         token.immediate(/'+/)
       ),
       $.line_continuation
-    )),
+    )), optional(token.immediate('$'))),
 
     // ############### PLUMBING FOR 'EXPOSE' ################################ /
     _port_spec: $ => prec.left(choice(

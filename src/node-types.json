@@ -1279,6 +1279,10 @@
     "named": false
   },
   {
+    "type": "$",
+    "named": false
+  },
+  {
     "type": "-",
     "named": false
   },
@@ -1317,10 +1321,6 @@
   {
     "type": "signal_num",
     "named": true
-  },
-  {
-    "type": "$",
-    "named": false
   },
   {
     "type": "{",

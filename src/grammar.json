@@ -2830,132 +2830,15 @@
       ]
     },
     "env_value": {
-      "type": "REPEAT1",
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "REPEAT1",
-            "content": {
-              "type": "PREC_RIGHT",
-              "value": 0,
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "IMMEDIATE_TOKEN",
-                    "content": {
-                      "type": "PATTERN",
-                      "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\( |\\t)*[^\\s])+"
-                    }
-                  },
-                  {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "CHOICE",
-                        "members": [
-                          {
-                            "type": "SEQ",
-                            "members": [
-                              {
-                                "type": "STRING",
-                                "value": "$"
-                              },
-                              {
-                                "type": "SYMBOL",
-                                "name": "docker_variable"
-                              }
-                            ]
-                          },
-                          {
-                            "type": "SEQ",
-                            "members": [
-                              {
-                                "type": "IMMEDIATE_TOKEN",
-                                "content": {
-                                  "type": "PATTERN",
-                                  "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\( |\\t)*[^\\s])+\\$"
-                                }
-                              },
-                              {
-                                "type": "SYMBOL",
-                                "name": "docker_variable"
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "type": "REPEAT",
-                        "content": {
-                          "type": "CHOICE",
-                          "members": [
-                            {
-                              "type": "SEQ",
-                              "members": [
-                                {
-                                  "type": "STRING",
-                                  "value": "$"
-                                },
-                                {
-                                  "type": "SYMBOL",
-                                  "name": "docker_variable"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "SEQ",
-                              "members": [
-                                {
-                                  "type": "IMMEDIATE_TOKEN",
-                                  "content": {
-                                    "type": "PATTERN",
-                                    "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\( |\\t)*[^\\s])+\\$"
-                                  }
-                                },
-                                {
-                                  "type": "SYMBOL",
-                                  "name": "docker_variable"
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        "type": "CHOICE",
-                        "members": [
-                          {
-                            "type": "IMMEDIATE_TOKEN",
-                            "content": {
-                              "type": "PATTERN",
-                              "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\( |\\t)*[^\\s])+"
-                            }
-                          },
-                          {
-                            "type": "BLANK"
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            }
-          },
-          {
-            "type": "SEQ",
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "CHOICE",
             "members": [
               {
-                "type": "IMMEDIATE_TOKEN",
-                "content": {
-                  "type": "STRING",
-                  "value": "\""
-                }
-              },
-              {
-                "type": "REPEAT",
+                "type": "REPEAT1",
                 "content": {
                   "type": "PREC_RIGHT",
                   "value": 0,
@@ -2966,7 +2849,7 @@
                         "type": "IMMEDIATE_TOKEN",
                         "content": {
                           "type": "PATTERN",
-                          "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+"
+                          "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\( |\\t)*[^\\s])+"
                         }
                       },
                       {
@@ -2995,7 +2878,7 @@
                                     "type": "IMMEDIATE_TOKEN",
                                     "content": {
                                       "type": "PATTERN",
-                                      "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+\\$"
+                                      "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\( |\\t)*[^\\s])+\\$"
                                     }
                                   },
                                   {
@@ -3031,7 +2914,7 @@
                                       "type": "IMMEDIATE_TOKEN",
                                       "content": {
                                         "type": "PATTERN",
-                                        "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+\\$"
+                                        "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\( |\\t)*[^\\s])+\\$"
                                       }
                                     },
                                     {
@@ -3050,7 +2933,7 @@
                                 "type": "IMMEDIATE_TOKEN",
                                 "content": {
                                   "type": "PATTERN",
-                                  "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+"
+                                  "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\( |\\t)*[^\\s])+"
                                 }
                               },
                               {
@@ -3065,65 +2948,202 @@
                 }
               },
               {
-                "type": "CHOICE",
+                "type": "SEQ",
                 "members": [
                   {
-                    "type": "STRING",
-                    "value": "$"
+                    "type": "IMMEDIATE_TOKEN",
+                    "content": {
+                      "type": "STRING",
+                      "value": "\""
+                    }
                   },
                   {
-                    "type": "BLANK"
+                    "type": "REPEAT",
+                    "content": {
+                      "type": "PREC_RIGHT",
+                      "value": 0,
+                      "content": {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "IMMEDIATE_TOKEN",
+                            "content": {
+                              "type": "PATTERN",
+                              "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+"
+                            }
+                          },
+                          {
+                            "type": "SEQ",
+                            "members": [
+                              {
+                                "type": "CHOICE",
+                                "members": [
+                                  {
+                                    "type": "SEQ",
+                                    "members": [
+                                      {
+                                        "type": "STRING",
+                                        "value": "$"
+                                      },
+                                      {
+                                        "type": "SYMBOL",
+                                        "name": "docker_variable"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "SEQ",
+                                    "members": [
+                                      {
+                                        "type": "IMMEDIATE_TOKEN",
+                                        "content": {
+                                          "type": "PATTERN",
+                                          "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+\\$"
+                                        }
+                                      },
+                                      {
+                                        "type": "SYMBOL",
+                                        "name": "docker_variable"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "REPEAT",
+                                "content": {
+                                  "type": "CHOICE",
+                                  "members": [
+                                    {
+                                      "type": "SEQ",
+                                      "members": [
+                                        {
+                                          "type": "STRING",
+                                          "value": "$"
+                                        },
+                                        {
+                                          "type": "SYMBOL",
+                                          "name": "docker_variable"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "SEQ",
+                                      "members": [
+                                        {
+                                          "type": "IMMEDIATE_TOKEN",
+                                          "content": {
+                                            "type": "PATTERN",
+                                            "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+\\$"
+                                          }
+                                        },
+                                        {
+                                          "type": "SYMBOL",
+                                          "name": "docker_variable"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "type": "CHOICE",
+                                "members": [
+                                  {
+                                    "type": "IMMEDIATE_TOKEN",
+                                    "content": {
+                                      "type": "PATTERN",
+                                      "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+"
+                                    }
+                                  },
+                                  {
+                                    "type": "BLANK"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "$"
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "IMMEDIATE_TOKEN",
+                    "content": {
+                      "type": "STRING",
+                      "value": "\""
+                    }
                   }
                 ]
               },
               {
-                "type": "IMMEDIATE_TOKEN",
-                "content": {
-                  "type": "STRING",
-                  "value": "\""
-                }
-              }
-            ]
-          },
-          {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "IMMEDIATE_TOKEN",
-                "content": {
-                  "type": "STRING",
-                  "value": "'"
-                }
-              },
-              {
-                "type": "REPEAT",
-                "content": {
-                  "type": "PREC_RIGHT",
-                  "value": 0,
-                  "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "IMMEDIATE_TOKEN",
+                    "content": {
+                      "type": "STRING",
+                      "value": "'"
+                    }
+                  },
+                  {
+                    "type": "REPEAT",
+                    "content": {
+                      "type": "PREC_RIGHT",
+                      "value": 0,
+                      "content": {
+                        "type": "IMMEDIATE_TOKEN",
+                        "content": {
+                          "type": "PATTERN",
+                          "value": "([^\\n\\r'\\\\]|\\\\'|\\\\[^\\n\\r])+"
+                        }
+                      }
+                    }
+                  },
+                  {
                     "type": "IMMEDIATE_TOKEN",
                     "content": {
                       "type": "PATTERN",
-                      "value": "([^\\n\\r'\\\\]|\\\\'|\\\\[^\\n\\r])+"
+                      "value": "'+"
                     }
                   }
-                }
+                ]
               },
               {
-                "type": "IMMEDIATE_TOKEN",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "'+"
-                }
+                "type": "SYMBOL",
+                "name": "line_continuation"
               }
             ]
-          },
-          {
-            "type": "SYMBOL",
-            "name": "line_continuation"
           }
-        ]
-      }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "STRING",
+                "value": "$"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
     },
     "_port_spec": {
       "type": "PREC_LEFT",
