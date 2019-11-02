@@ -150,3 +150,15 @@ COPY --from=osquery /osquery /home/"$OSQUERY_BUILD_USER"/osquery
 (dockerfile
   (copy (from_layer) (path) (path (docker_variable)))
 )
+
+===================================
+Edge case from corpus 4
+===================================
+
+COPY ${CATALINA_HOME}/conf/. ${docker-plugin.resource.tomcat-users.xml}
+
+---
+
+(dockerfile
+  (copy (path (docker_variable)) (path (docker_variable)))
+)

@@ -507,7 +507,9 @@ module.exports = grammar({
       maybe_var_interpolation($, /[^$\}\{\n]*/)
     ),
 
-    _docker_variable: $ => token.immediate(/[^\-\/\}\{\$"\s:=\\]+/),
+    _docker_variable: $ => token.immediate(
+      /([^\-\/\}\{\$"\s:=\\]|[^\-\/\}\{\$"\s:=\\][-+][^\-\/\}\{\$"\s:=\\])+/
+    ),
 
     // ############### OUT-OF-DOCKER TEMPLATING ############################# /
     template_expr_at_symbols: $ => /[^@\n]+/,
