@@ -522,9 +522,10 @@ module.exports = grammar({
 
     // ############### VARIOUS SPACING ###################################### /
     _space: $ => token(prec(-11, /\s/)),
-    _blank_line: $ => /[\t\f\r\v ]*\n/,
+    _blank_line: $ => /[ \t\f\r\v\xA0\u1680\u180e\u2000-\u200a\u202f\u205f\u3000]*\n/,
     _space_no_newline: $ => /[\t\f\r\v ]+/,
     comment: $ => /#[^\n]*(\n|\r)*/,
+    inline_comment: $ => token.immediate(/[\t\f\r\v ]+#[^\n]*\r?\n/),
     // line_continuation: $ => token(prec(-1, /\\+\s*\n/)),
 
     // ############### MODIFIED JSON EXCERPT ################################ /
@@ -583,13 +584,19 @@ module.exports = grammar({
 // ############### UTILITY FUNCTIONS TO BUILD RULES ########################### /
 
 function directive ($, name, body_rule) {
-  return seq(
+  const directive_rule = seq(
     $._directive_start,
     new RegExp(
       any_casing(name.toUpperCase()).source + /([\t\f\r\v ]+|\\[\t\f\r\v ]*(\r?\n)|`[\t\f\r\v ]*(\r?\n))/.source
     ),
     body_rule
   );
+
+  if (name != "RUN") {
+    return seq(directive_rule, optional($.inline_comment))
+  } else {
+    return directive_rule;
+  }
 }
 
 function any_casing (token) { 

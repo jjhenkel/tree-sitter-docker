@@ -12,7 +12,7 @@ STOPSIGNAL \
 
 (dockerfile 
     (stopsignal (signal_name))
-    (comment)
+    (inline_comment)
     (stopsignal (signal_name))
     (stopsignal (signal_num))
     (line_continuation)

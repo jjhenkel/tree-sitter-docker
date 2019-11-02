@@ -27,3 +27,32 @@ testing
     (maintainer)
     (run (line_continuation) (line_continuation))
 ) 
+
+===================================
+Tests for '_anything' + inline comments
+===================================
+
+FROM golang+systemd # TODO: need image with systemd and golang
+RUN echo a # TODO: update packages
+
+---
+
+(dockerfile
+    (from (image))
+    (inline_comment)
+    (run)
+)
+
+===================================
+Tests for '_anything' + spaces
+===================================
+
+# This file has some unicode chars and weird spaces
+RUN chmod 700 /flag
+
+ 
+# 清除
+
+---
+
+(dockerfile (comment) (run) (comment))
