@@ -432,13 +432,3 @@ xz
     )
   )
 )
-
-===================================
-ENV bug from corpus 16
-===================================
-
-ENV ARGUMENTS $args$
-
----
-
-(dockerfile (env (env_pair (env_key) (env_value (docker_variable)))))
