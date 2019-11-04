@@ -259,9 +259,10 @@ module.exports = grammar({
 
     env_key: $ => choice(
       seq('$', $.docker_variable),
-      choice(
-        token.immediate(/[^\s"\\`=$]*/),
-        token.immediate(/"[^\n"=]*"/)
+      token.immediate(/"[^\n"=]*"/),
+      seq(
+        token.immediate(/[^\s"\\`=$:]*/),
+        optional($.variable_default_value)
       )
     ),
 
@@ -494,7 +495,14 @@ module.exports = grammar({
           $.variable_substring_expansion
         )),
         token.immediate('}')
-      )
+      ),
+      $.bash_subshell_expression
+    ),
+
+    bash_subshell_expression: $ => seq(
+      token.immediate('('),
+      /[^\n\)]*/,
+      token.immediate(')')
     ),
 
     variable_default_value: $ => seq(
@@ -513,7 +521,7 @@ module.exports = grammar({
     ),
 
     _docker_variable: $ => token.immediate(
-      /([^\-\/\}\{\$"\s:=\\]|[^\-\/\}\{\$"\s:=\\][-+][^\-\/\}\{\$"\s:=\\])+/
+      /([^\(\-\/\}\{\$"\s:=\\]|[^\(\-\/\}\{\$"\s:=\\][-+][^\(\-\/\}\{\$"\s:=\\])+/
     ),
 
     // ############### OUT-OF-DOCKER TEMPLATING ############################# /

@@ -3086,21 +3086,33 @@
           ]
         },
         {
-          "type": "CHOICE",
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "\"[^\\n\"=]*\""
+          }
+        },
+        {
+          "type": "SEQ",
           "members": [
             {
               "type": "IMMEDIATE_TOKEN",
               "content": {
                 "type": "PATTERN",
-                "value": "[^\\s\"\\\\`=$]*"
+                "value": "[^\\s\"\\\\`=$:]*"
               }
             },
             {
-              "type": "IMMEDIATE_TOKEN",
-              "content": {
-                "type": "PATTERN",
-                "value": "\"[^\\n\"=]*\""
-              }
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "variable_default_value"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             }
           ]
         }
@@ -11338,6 +11350,33 @@
               }
             }
           ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bash_subshell_expression"
+        }
+      ]
+    },
+    "bash_subshell_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "("
+          }
+        },
+        {
+          "type": "PATTERN",
+          "value": "[^\\n\\)]*"
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": ")"
+          }
         }
       ]
     },
@@ -11672,7 +11711,7 @@
       "type": "IMMEDIATE_TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "([^\\-\\/\\}\\{\\$\"\\s:=\\\\]|[^\\-\\/\\}\\{\\$\"\\s:=\\\\][-+][^\\-\\/\\}\\{\\$\"\\s:=\\\\])+"
+        "value": "([^\\(\\-\\/\\}\\{\\$\"\\s:=\\\\]|[^\\(\\-\\/\\}\\{\\$\"\\s:=\\\\][-+][^\\(\\-\\/\\}\\{\\$\"\\s:=\\\\])+"
       }
     },
     "template_expr_at_symbols": {

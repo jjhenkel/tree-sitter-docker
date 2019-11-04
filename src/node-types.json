@@ -138,6 +138,11 @@
     }
   },
   {
+    "type": "bash_subshell_expression",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "chown",
     "named": true,
     "fields": {},
@@ -237,6 +242,10 @@
       "multiple": false,
       "required": false,
       "types": [
+        {
+          "type": "bash_subshell_expression",
+          "named": true
+        },
         {
           "type": "variable_default_value",
           "named": true
@@ -399,6 +408,10 @@
       "types": [
         {
           "type": "docker_variable",
+          "named": true
+        },
+        {
+          "type": "variable_default_value",
           "named": true
         }
       ]
@@ -1310,6 +1323,14 @@
   },
   {
     "type": "'",
+    "named": false
+  },
+  {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
     "named": false
   },
   {
