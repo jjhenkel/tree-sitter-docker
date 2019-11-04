@@ -274,7 +274,7 @@ module.exports = grammar({
       seq(
         token.immediate('"'),
         repeat(prec.right(maybe_var_interpolation(
-          $, /(\$\$|[^\n\r"\\$]|\\[^\n\r])+/, (r) => token.immediate(r)
+          $, /(\$\$|[^\n\r"\\$]|\\[^\n\r])+/, (r) => token.immediate(prec(1, r))
         ))),
         optional('$'),
         token.immediate('"')

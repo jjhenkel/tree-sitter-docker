@@ -3135,8 +3135,12 @@
                       {
                         "type": "IMMEDIATE_TOKEN",
                         "content": {
-                          "type": "PATTERN",
-                          "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+"
+                          "type": "PREC",
+                          "value": 1,
+                          "content": {
+                            "type": "PATTERN",
+                            "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+"
+                          }
                         }
                       },
                       {
@@ -3164,8 +3168,12 @@
                                   {
                                     "type": "IMMEDIATE_TOKEN",
                                     "content": {
-                                      "type": "PATTERN",
-                                      "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+\\$"
+                                      "type": "PREC",
+                                      "value": 1,
+                                      "content": {
+                                        "type": "PATTERN",
+                                        "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+\\$"
+                                      }
                                     }
                                   },
                                   {
@@ -3200,8 +3208,12 @@
                                     {
                                       "type": "IMMEDIATE_TOKEN",
                                       "content": {
-                                        "type": "PATTERN",
-                                        "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+\\$"
+                                        "type": "PREC",
+                                        "value": 1,
+                                        "content": {
+                                          "type": "PATTERN",
+                                          "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+\\$"
+                                        }
                                       }
                                     },
                                     {
@@ -3219,8 +3231,12 @@
                               {
                                 "type": "IMMEDIATE_TOKEN",
                                 "content": {
-                                  "type": "PATTERN",
-                                  "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+"
+                                  "type": "PREC",
+                                  "value": 1,
+                                  "content": {
+                                    "type": "PATTERN",
+                                    "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+"
+                                  }
                                 }
                               },
                               {

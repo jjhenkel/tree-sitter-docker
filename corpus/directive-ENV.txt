@@ -432,3 +432,27 @@ xz
     )
   )
 )
+
+===================================
+ENV bug from corpus 16
+===================================
+
+# Issue with comment-like in env_value
+ENV KEY="#Value"
+ENV KEY="value ${var} #value "
+ENV KEY=" #"
+
+---
+
+(dockerfile
+  (comment)
+  (env
+    (env_pair (env_key) (env_value))
+  )
+  (env
+    (env_pair (env_key) (env_value (docker_variable)))
+  )
+  (env
+    (env_pair (env_key) (env_value))
+  )
+)
