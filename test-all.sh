@@ -1,10 +1,8 @@
 #!/bin/bash
 
-export PATH=$PATH:`pwd`/node_modules/.bin/
+./bin/tree-sitter generate
 
-tree-sitter generate
-
-find ./sources -type f | sort | xargs -n 1 -P 7 -i{} bash -c "tree-sitter parse {} > ./asts/\$(basename {}).ast"
+find ./sources -type f | sort | xargs -n 1 -P 7 -i{} bash -c "./bin/tree-sitter parse {} > ./asts/\$(basename {}).ast"
 
 for RANDOM_TARGET in $(find ./sources -type f | sort); do
   echo "${RANDOM_TARGET}" >&2

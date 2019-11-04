@@ -250,7 +250,6 @@ namespace {
             std::cout << valid_symbols[_JSON_ARRAY_START] << " ";
             std::cout << valid_symbols[_ANYTHING_EX] << " ";
             std::cout << valid_symbols[_MALFORMED_EMPTY_DIRECTIVE] << std::endl;
-            std::cout << lexer->get_column(lexer) << std::endl;
             std::cout << (was_just_started ? "Just started." : "Continuing.") << std::endl;
             std::cout << lexer->lookahead << " " << (char)lexer->lookahead << std::endl;
 #endif
@@ -336,7 +335,7 @@ namespace {
             }
 
             bool chomped_spaces = false;
-            if (valid_symbols[_DIRECTIVE_START] && lexer->get_column(lexer) == 0 || was_just_started) {
+            if (valid_symbols[_DIRECTIVE_START] && (lexer->at_column_zero(lexer) || was_just_started)) {
                 // Slurp spaces
                 while (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
                     skip(lexer);

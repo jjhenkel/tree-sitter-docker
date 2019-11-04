@@ -1,12 +1,10 @@
 #!/bin/bash
 
-export PATH=$PATH:`pwd`/node_modules/.bin/
-
-tree-sitter generate
+./bin/tree-sitter generate
 
 for RANDOM_TARGET in $(cat ./errors.txt); do
   echo "${RANDOM_TARGET}" >&2
-  tree-sitter parse "${RANDOM_TARGET}" > ./asts/$(basename "${RANDOM_TARGET}").ast
+  ./bin/tree-sitter parse "${RANDOM_TARGET}" > ./asts/$(basename "${RANDOM_TARGET}").ast
   
   if grep -qF 'ERROR' ./asts/$(basename "${RANDOM_TARGET}").ast; then
     echo "${RANDOM_TARGET}"

@@ -51,7 +51,22 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
+      "types": [
+        {
+          "type": "docker_variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "arg_malformed_default",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
       "types": [
         {
           "type": "docker_variable",
@@ -142,8 +157,8 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
         {
           "type": "json_array",
@@ -337,8 +352,8 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
         {
           "type": "json_array",
@@ -414,7 +429,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "docker_variable",
@@ -529,8 +544,8 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
         {
           "type": "json_array",
@@ -560,7 +575,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "hc_command",
@@ -715,6 +730,25 @@
     }
   },
   {
+    "type": "label_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "docker_variable",
+          "named": true
+        },
+        {
+          "type": "line_continuation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "maintainer",
     "named": true,
     "fields": {}
@@ -854,7 +888,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "docker_variable",
@@ -884,7 +918,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "docker_variable",
@@ -934,7 +968,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "docker_variable",
@@ -969,7 +1003,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "docker_variable",
@@ -999,8 +1033,8 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
         {
           "type": "json_array",
@@ -1267,39 +1301,11 @@
     }
   },
   {
-    "type": "=",
-    "named": false
-  },
-  {
     "type": "\"",
-    "named": false
-  },
-  {
-    "type": "--platform=",
-    "named": false
-  },
-  {
-    "type": ":",
     "named": false
   },
   {
     "type": "$",
-    "named": false
-  },
-  {
-    "type": "--chown=",
-    "named": false
-  },
-  {
-    "type": "\"",
-    "named": false
-  },
-  {
-    "type": "=",
-    "named": false
-  },
-  {
-    "type": "\"",
     "named": false
   },
   {
@@ -1307,31 +1313,23 @@
     "named": false
   },
   {
+    "type": ",",
+    "named": false
+  },
+  {
     "type": "-",
     "named": false
   },
   {
-    "type": "/",
+    "type": "--chown=",
     "named": false
-  },
-  {
-    "type": "hc_none",
-    "named": true
   },
   {
     "type": "--interval",
     "named": false
   },
   {
-    "type": "hc_interval",
-    "named": true
-  },
-  {
-    "type": "--timeout",
-    "named": false
-  },
-  {
-    "type": "--start-period",
+    "type": "--platform=",
     "named": false
   },
   {
@@ -1339,31 +1337,19 @@
     "named": false
   },
   {
-    "type": "hc_malformed",
-    "named": true
-  },
-  {
-    "type": "signal_num",
-    "named": true
-  },
-  {
-    "type": "$",
+    "type": "--start-period",
     "named": false
   },
   {
-    "type": "\\",
+    "type": "--timeout",
     "named": false
   },
   {
-    "type": "{",
+    "type": "/",
     "named": false
   },
   {
-    "type": "}",
-    "named": false
-  },
-  {
-    "type": ":-",
+    "type": ":",
     "named": false
   },
   {
@@ -1371,8 +1357,48 @@
     "named": false
   },
   {
-    "type": ":",
+    "type": ":-",
     "named": false
+  },
+  {
+    "type": "=",
+    "named": false
+  },
+  {
+    "type": "\\",
+    "named": false
+  },
+  {
+    "type": "]",
+    "named": false
+  },
+  {
+    "type": "comment",
+    "named": true
+  },
+  {
+    "type": "hc_interval",
+    "named": true
+  },
+  {
+    "type": "hc_malformed",
+    "named": true
+  },
+  {
+    "type": "hc_none",
+    "named": true
+  },
+  {
+    "type": "inline_comment",
+    "named": true
+  },
+  {
+    "type": "json_array_extraneous_char",
+    "named": true
+  },
+  {
+    "type": "signal_num",
+    "named": true
   },
   {
     "type": "template_expr_at_symbols",
@@ -1387,27 +1413,11 @@
     "named": true
   },
   {
-    "type": "comment",
-    "named": true
-  },
-  {
-    "type": "inline_comment",
-    "named": true
-  },
-  {
-    "type": ",",
+    "type": "{",
     "named": false
   },
   {
-    "type": "]",
-    "named": false
-  },
-  {
-    "type": "json_array_extraneous_char",
-    "named": true
-  },
-  {
-    "type": "'",
+    "type": "}",
     "named": false
   }
 ]
