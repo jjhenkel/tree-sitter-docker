@@ -543,6 +543,7 @@ module.exports = grammar({
         optional(seq(
           $.json_array_item, repeat(seq(",", $.json_array_item))
         )),
+        optional(','), // Allow for trailing ,
         ']',
         optional($.json_array_extraneous_char)
       ),

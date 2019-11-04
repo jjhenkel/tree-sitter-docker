@@ -130,3 +130,20 @@ CMD [ "`this should still` work" ]
 ---
 
 (dockerfile (cmd (json_array (json_array_item))))
+
+===================================
+CMD allow trailing comma
+===================================
+
+CMD [ "this", "should", "be", "okay", ]
+CMD [ "this", "should", "be", "okay",]
+CMD [ "this", "should", "be", "okay",\
+]
+
+---
+
+(dockerfile
+  (cmd (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item)))
+  (cmd (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item)))
+  (cmd (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item) (line_continuation)))
+)

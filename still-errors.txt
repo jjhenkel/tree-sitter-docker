@@ -1,4 +1,3 @@
-./sources/152406244.Dockerfile
 ./sources/164000669.Dockerfile
 ./sources/167471909.Dockerfile
 ./sources/170549333.Dockerfile
