@@ -38,30 +38,28 @@ module.exports = grammar({
         $.escape_directive,
         seq($._blank_line, $.escape_directive)
       )),
-      repeat(
-        field('directives', $._directive)
-      ),
+      repeat($._directive),
     ),
 
     _directive: $ => choice(
-      $._d_add,
-      $._d_arg,
-      $._d_cmd,
-      $._d_copy,
-      $._d_entrypoint,
-      $._d_env,
-      $._d_expose,
-      $._d_from,
-      $._d_healthcheck,
-      $._d_label,
-      $._d_maintainer,
-      $._d_onbuild,
-      $._d_run,
-      $._d_shell,
-      $._d_stopsignal,
-      $._d_user,
-      $._d_volume,
-      $._d_workdir,
+      alias($._d_add, $.directive),
+      alias($._d_arg, $.directive),
+      alias($._d_cmd, $.directive),
+      alias($._d_copy, $.directive),
+      alias($._d_entrypoint, $.directive),
+      alias($._d_env, $.directive),
+      alias($._d_expose, $.directive),
+      alias($._d_from, $.directive),
+      alias($._d_healthcheck, $.directive),
+      alias($._d_label, $.directive),
+      alias($._d_maintainer, $.directive),
+      alias($._d_onbuild, $.directive),
+      alias($._d_run, $.directive),
+      alias($._d_shell, $.directive),
+      alias($._d_stopsignal, $.directive),
+      alias($._d_user, $.directive),
+      alias($._d_volume, $.directive),
+      alias($._d_workdir, $.directive),
       $.malformed_empty_directive,
       $._blank_line,
     ),
@@ -608,7 +606,7 @@ function directive ($, name, body_rule) {
   ];
 
   if (!NO_INLINE_COMMENTS.includes(name)) {
-    return seq(directive_rule, optional($.inline_comment))
+    return seq(directive_rule, optional($.inline_comment));
   } else {
     return directive_rule;
   }

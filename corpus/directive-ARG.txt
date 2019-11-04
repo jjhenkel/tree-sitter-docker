@@ -10,10 +10,10 @@ ARG test123
 ---
 
 (dockerfile 
-    (arg (arg_name))
-    (arg (arg_name) (arg_default))
-    (arg (arg_name))
-    (arg (arg_name))
+    (directive (arg (arg_name)))
+    (directive (arg (arg_name) (arg_default)))
+    (directive (arg (arg_name)))
+    (directive (arg (arg_name)))
 )
 
 ===================================
@@ -37,9 +37,9 @@ ARG WATCH_OUT_FOR_THIS='test \
 ---
 
 (dockerfile
-    (arg (arg_name) (arg_default (line_continuation) (line_continuation)))
-    (arg (arg_name) (arg_default (line_continuation) (line_continuation)))
-    (arg (arg_name) (arg_default (line_continuation) (line_continuation) (line_continuation)))
+    (directive (arg (arg_name) (arg_default (line_continuation) (line_continuation))))
+    (directive (arg (arg_name) (arg_default (line_continuation) (line_continuation))))
+    (directive (arg (arg_name) (arg_default (line_continuation) (line_continuation) (line_continuation))))
 )
 
 ===================================
@@ -53,7 +53,7 @@ ARG PIXIECORE_CONTEXT="$PIXIECORE_SANDBOX"/context
 
 (dockerfile
   (comment)
-  (arg (arg_name) (arg_default (docker_variable)))
+  (directive (arg (arg_name) (arg_default (docker_variable))))
 )
 
 ===================================
@@ -67,7 +67,7 @@ ARG 7ZIP_LOCAL=/7zip
 
 (dockerfile
   (comment)
-  (arg (arg_name) (arg_default))
+  (directive (arg (arg_name) (arg_default)))
 )
 
 ===================================
@@ -81,7 +81,7 @@ ARG JETTY_VERSION 9.3.8.v20160314
 
 (dockerfile
   (comment)
-  (arg (arg_name) (arg_malformed_default))
+  (directive (arg (arg_name) (arg_malformed_default)))
 )
 
 ===================================
@@ -95,12 +95,12 @@ ARG NIFI_BINARY_PATH=${NIFI_BINARY_PATH:-/nifi/${NIFI_VERSION}/nifi-${NIFI_VERSI
 
 (dockerfile
   (comment)
-  (arg
+  (directive (arg
     (arg_name)
     (arg_default
       (docker_variable (variable_default_value (docker_variable) (docker_variable)))
     )
-  )
+  ))
 )
 
 ===================================
@@ -114,8 +114,8 @@ ARG PS1="[candidates-web] \u@\h:\w\n$ "
 
 (dockerfile
   (comment)
-  (arg
+  (directive (arg
     (arg_name)
     (arg_default)
-  )
+  ))
 )

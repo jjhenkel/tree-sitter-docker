@@ -18,13 +18,13 @@ RUN dnf -y -q install \
 ---
 
 (dockerfile
-  (arg (arg_name) (arg_default))
-  (from 
+  (directive (arg (arg_name) (arg_default)))
+  (directive (from 
     (repository (docker_variable))
     (image)
     (tag)
-  )
-  (run
+  ))
+  (directive (run
     (line_continuation)
     (line_continuation)
     (line_continuation)
@@ -33,7 +33,7 @@ RUN dnf -y -q install \
     (line_continuation)
     (line_continuation)
     (line_continuation)
-  )
+  ))
 )
 
 ===================================
@@ -63,18 +63,18 @@ ENTRYPOINT ["java","-Dspring.profiles.active=docker","-Djava.security.egd=file:/
 ---
 
 (dockerfile
-  (from (image) (tag))
-  (volume (json_array (json_array_item) (json_array_item) (json_array_item)))
-  (env (env_pair (env_key) (env_value)))
-  (run 
+  (directive (from (image) (tag)))
+  (directive (volume (json_array (json_array_item) (json_array_item) (json_array_item))))
+  (directive (env (env_pair (env_key) (env_value))))
+  (directive (run 
     (line_continuation)
     (line_continuation)
     (comment)
     (line_continuation)
-  )
-  (add (path) (path))
-  (expose (port))
-  (entrypoint (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item)))
+  ))
+  (directive (add (path) (path)))
+  (directive (expose (port)))
+  (directive (entrypoint (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item))))
 )
 
 ===================================
@@ -101,9 +101,9 @@ USER biodocker
 ---
 
 (dockerfile
-  (from (repository) (image) (tag))
-  (maintainer)
-  (label
+  (directive (from (repository) (image) (tag)))
+  (directive (maintainer))
+  (directive (label
     (label_pair (label_key) (label_value))
     (line_continuation)
     (label_pair (label_key) (label_value))
@@ -123,10 +123,10 @@ USER biodocker
     (label_pair (label_key) (label_value))
     (line_continuation)
     (label_pair (label_key) (label_value))
-  )
-  (env (env_pair (env_key) (env_value)))
-  (run)
-  (user (user_name))
+  ))
+  (directive (env (env_pair (env_key) (env_value))))
+  (directive (run))
+  (directive (user (user_name)))
 )
 
 ===================================
@@ -154,20 +154,20 @@ ENTRYPOINT ["python", "autosploit.py"]
 ---
 
 (dockerfile
-  (from (repository) (image))
-  (run
+  (directive (from (repository) (image)))
+  (directive (run
     (line_continuation)
     (line_continuation)
     (line_continuation)
     (line_continuation)
     (line_continuation)
     (line_continuation)
-  )
-  (run)
-  (copy (path) (path))
-  (workdir (path))
-  (expose (port) (port) (port))
-  (entrypoint (json_array (json_array_item) (json_array_item)))
+  ))
+  (directive (run))
+  (directive (copy (path) (path)))
+  (directive (workdir (path)))
+  (directive (expose (port) (port) (port)))
+  (directive (entrypoint (json_array (json_array_item) (json_array_item))))
   (comment)
 )
 
@@ -268,15 +268,15 @@ USER circleci
   (comment)
   (comment)
   (comment)
-  (from (repository) (image) (tag))
+  (directive (from (repository) (image) (tag)))
   (comment)
-  (run)
+  (directive (run))
   (comment)
-  (user (user_name))
+  (directive (user (user_name)))
   (comment)
-  (run (line_continuation))
-  (env (env_pair (env_key) (env_value)))
-  (run 
+  (directive (run (line_continuation)))
+  (directive (env (env_pair (env_key) (env_value))))
+  (directive (run 
     (line_continuation)
     (line_continuation)
     (line_continuation)
@@ -312,9 +312,9 @@ USER circleci
     (line_continuation)
     (line_continuation)
     (line_continuation)
-  )
-  (env (env_pair (env_key) (env_value)))
-  (run
+  ))
+  (directive (env (env_pair (env_key) (env_value))))
+  (directive (run
     (line_continuation)
     (line_continuation)
     (line_continuation)
@@ -330,10 +330,10 @@ USER circleci
     (line_continuation)
     (line_continuation)
     (line_continuation)
-  )
+  ))
   (comment)
-  (run)
-  (user (user_name))
+  (directive (run))
+  (directive (user (user_name)))
 )
 
 ===================================
@@ -366,23 +366,23 @@ ENV name=value \
 ---
 
 (dockerfile
-  (from (image))
-  (env (env_pair (env_key) (env_value)))
-  (env (env_pair (env_key) (env_value)))
-  (env (env_pair (env_key) (env_value)) (env_pair (env_key) (env_value)))
-  (env (env_pair (env_key) (env_value)))
-  (env (env_pair (env_key) (env_value)))
-  (env (env_pair (env_key) (env_value)))
-  (env (env_pair (env_key) (env_value)))
-  (env (env_pair (env_key) (env_value)) (env_pair (env_key) (env_value)))
-  (env (env_pair (env_key) (env_value)))
-  (env (env_pair (env_key) (env_value)))
-  (env (env_pair (env_key) (env_value)))
-  (env (env_pair (env_key) (env_value)))
-  (env (env_pair (env_key) (env_value)))
+  (directive (from (image)))
+  (directive (env (env_pair (env_key) (env_value))))
+  (directive (env (env_pair (env_key) (env_value))))
+  (directive (env (env_pair (env_key) (env_value)) (env_pair (env_key) (env_value))))
+  (directive (env (env_pair (env_key) (env_value))))
+  (directive (env (env_pair (env_key) (env_value))))
+  (directive (env (env_pair (env_key) (env_value))))
+  (directive (env (env_pair (env_key) (env_value))))
+  (directive (env (env_pair (env_key) (env_value)) (env_pair (env_key) (env_value))))
+  (directive (env (env_pair (env_key) (env_value))))
+  (directive (env (env_pair (env_key) (env_value))))
+  (directive (env (env_pair (env_key) (env_value))))
+  (directive (env (env_pair (env_key) (env_value))))
+  (directive (env (env_pair (env_key) (env_value))))
   (comment)
   (comment)
-  (env
+  (directive (env
     (env_pair (env_key) (env_value))
     (line_continuation)
     (env_pair (env_key) (env_value))
@@ -392,5 +392,5 @@ ENV name=value \
     (env_pair (env_key) (env_value))
     (line_continuation)
     (env_pair (env_key) (env_value))
-  )
+  ))
 )

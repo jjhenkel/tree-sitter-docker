@@ -18,22 +18,22 @@ ENV myCat fluffy
 ---
 
 (dockerfile
-  (env (env_pair (env_key) (env_value)))
-  (env (env_pair (env_key) (env_value)))
+  (directive (env (env_pair (env_key) (env_value))))
+  (directive (env (env_pair (env_key) (env_value))))
 
-  (env (env_pair (env_key) (env_value)))
-  (env (env_pair (env_key) (env_value)))
+  (directive (env (env_pair (env_key) (env_value))))
+  (directive (env (env_pair (env_key) (env_value))))
 
-  (env
+  (directive (env
     (env_pair (env_key) (env_value))
     (env_pair (env_key) (env_value))
     (line_continuation)
     (env_pair (env_key) (env_value))
-  )
+  ))
 
-  (env (env_pair (env_key) (env_value)))
-  (env (env_pair (env_key) (env_value)))
-  (env (env_pair (env_key) (env_value)))
+  (directive (env (env_pair (env_key) (env_value))))
+  (directive (env (env_pair (env_key) (env_value))))
+  (directive (env (env_pair (env_key) (env_value))))
 )
 
 ===================================
@@ -50,9 +50,9 @@ ENV ROOT_USER_DN=${ROOT_USER_DN:-"cn=Directory Manager"}
 
 (dockerfile
   (comment)
-  (env (env_pair (env_key) (env_value (docker_variable (variable_default_value)))))
+  (directive (env (env_pair (env_key) (env_value (docker_variable (variable_default_value))))))
   (comment)
-  (env (env_pair (env_key) (env_value (docker_variable (variable_default_value)))))
+  (directive (env (env_pair (env_key) (env_value (docker_variable (variable_default_value))))))
 )
 
 ===================================
@@ -69,9 +69,9 @@ ENV ROOT_USER_DN=${ROOT_USER_DN:-'cn=Directory Manager'}
 
 (dockerfile
   (comment)
-  (env (env_pair (env_key) (env_value)))
+  (directive (env (env_pair (env_key) (env_value))))
   (comment)
-  (env (env_pair (env_key) (env_value (docker_variable (variable_default_value)))))
+  (directive (env (env_pair (env_key) (env_value (docker_variable (variable_default_value))))))
 )
 
 ===================================
@@ -116,7 +116,7 @@ ENV buildDeps=' \
 
 (dockerfile
   (comment)
-  (env
+  (directive (env
     (env_pair
       (env_key)
       (env_value
@@ -137,8 +137,8 @@ ENV buildDeps=' \
         (line_continuation)
       )
     )
-  )
-  (env
+  ))
+  (directive (env
     (env_pair
       (env_key)
       (env_value
@@ -159,7 +159,7 @@ ENV buildDeps=' \
         (line_continuation)
       )
     )
-  )
+  ))
 )
 
 
@@ -175,12 +175,12 @@ ENV	DOCKER_CROSSPLATFORMS	\
 ---
 
 (dockerfile
-  (env
+  (directive (env
     (env_pair
       (env_key)
       (env_value (line_continuation) (line_continuation) (line_continuation))
     )
-  )
+  ))
 )
 
 ===================================
@@ -196,12 +196,12 @@ ENV CC="ccache $CC" CCACHE_DIR=/tmp/.ccache CCACHE_NOCOMPRESS=1 $ENV1=yes
 (dockerfile
   (comment)
   (comment)
-  (env
+  (directive (env
     (env_pair (env_key) (env_value (docker_variable)))
     (env_pair (env_key) (env_value))
     (env_pair (env_key) (env_value))
     (env_pair (env_key (docker_variable)) (env_value))
-  )
+  ))
 )
 
 ===================================
@@ -215,9 +215,9 @@ ENV KEY=
 
 (dockerfile
   (comment)
-  (env
+  (directive (env
     (env_pair (env_key))
-  )
+  ))
 )
 
 ===================================
@@ -233,12 +233,12 @@ ENV ASPNETCORE_URLS=http://+:80 \
 
 (dockerfile
   (comment)
-  (env
+  (directive (env
     (env_pair (env_key) (env_value))
     (line_continuation)
     (comment)
     (env_pair (env_key) (env_value))
-  )
+  ))
 )
 
 ===================================
@@ -257,7 +257,7 @@ ENV TERM="xterm" \
 
 (dockerfile
   (comment)
-  (env
+  (directive (env
     (env_pair (env_key) (env_value))
     (line_continuation)
     (env_pair (env_key) (env_value))
@@ -267,7 +267,7 @@ ENV TERM="xterm" \
     (env_pair (env_key) (env_value))
     (line_continuation)
     (env_pair (env_key) (env_value))
-  )
+  ))
 )
 
 ===================================
@@ -285,14 +285,16 @@ ENV \
 
 (dockerfile
   (comment)
-  (line_continuation)
-  (env
-    (env_pair (env_key) (env_value))
+  (directive 
     (line_continuation)
-    (env_pair (env_key) (env_value))
-    (line_continuation)
-    (comment)
-    (env_pair (env_key) (env_value))
+    (env
+      (env_pair (env_key) (env_value))
+      (line_continuation)
+      (env_pair (env_key) (env_value))
+      (line_continuation)
+      (comment)
+      (env_pair (env_key) (env_value))
+    )
   )
 )
 
@@ -311,8 +313,7 @@ CARGO_TARGET_POWERPC64_UNKNOWN_LINUX_GNU_RUNNER=true \
 
 (dockerfile
   (comment)
-  (env
-    
+  (directive (env
     (env_pair (env_key) (env_value))
     (line_continuation)
     (comment)
@@ -320,7 +321,7 @@ CARGO_TARGET_POWERPC64_UNKNOWN_LINUX_GNU_RUNNER=true \
     (env_pair (env_key) (env_value))
     (line_continuation)
     (env_pair (env_key) (env_value))
-  )
+  ))
 )
 
 ===================================
@@ -334,7 +335,7 @@ ENV TF_BUCKET="$${NAMESPACE}-$${STAGE}-terraform-state"
 
 (dockerfile
   (comment)
-  (env (env_pair (env_key) (env_value)))
+  (directive (env (env_pair (env_key) (env_value))))
 )
 
 ===================================
@@ -351,12 +352,14 @@ PG_DATA_DIR_DEFAULT=/var/lib/postgresql/9.3/main/
 
 (dockerfile
   (comment)
-  (line_continuation)
-  (env
-    (env_pair (env_key) (env_value))
+  (directive 
     (line_continuation)
-    (comment)
-    (env_pair (env_key) (env_value))
+    (env
+      (env_pair (env_key) (env_value))
+      (line_continuation)
+      (comment)
+      (env_pair (env_key) (env_value))
+    )
   )
 )
 
@@ -373,11 +376,13 @@ ENABLE_LOGGER=true
 
 (dockerfile
   (comment)
-  (line_continuation)
-  (env
-    (env_pair (env_key) (env_value))
+  (directive 
     (line_continuation)
-    (env_pair (env_key) (env_value))
+    (env
+      (env_pair (env_key) (env_value))
+      (line_continuation)
+      (env_pair (env_key) (env_value))
+    )
   )
 )
 
@@ -394,11 +399,13 @@ ENABLE_LOGGER=User
 
 (dockerfile
   (comment)
-  (line_continuation)
-  (env
-    (env_pair (env_key) (env_value))
+  (directive 
     (line_continuation)
-    (env_pair (env_key) (env_value))
+    (env
+      (env_pair (env_key) (env_value))
+      (line_continuation)
+      (env_pair (env_key) (env_value))
+    )
   )
 )
 
@@ -419,7 +426,7 @@ xz
 
 (dockerfile
   (comment)
-  (env
+  (directive (env
     (env_pair
       (env_key)
       (env_value
@@ -430,7 +437,7 @@ xz
         (line_continuation)
       )
     )
-  )
+  ))
 )
 
 ===================================
@@ -446,15 +453,15 @@ ENV KEY=" #"
 
 (dockerfile
   (comment)
-  (env
+  (directive (env
     (env_pair (env_key) (env_value))
-  )
-  (env
+  ))
+  (directive (env
     (env_pair (env_key) (env_value (docker_variable)))
-  )
-  (env
+  ))
+  (directive (env
     (env_pair (env_key) (env_value))
-  )
+  ))
 )
 
 ===================================
@@ -483,23 +490,25 @@ ENV \
 ---
 
 (dockerfile
-  (line_continuation)
-  (comment)
-  (env
-    (env_pair (env_key) (env_value))
+  (directive
     (line_continuation)
     (comment)
-    (comment)
-    (comment)
+    (env
     (env_pair (env_key) (env_value))
-    (line_continuation)
-    (comment)
-    (comment)
-    (comment)
-    (comment)
-    (comment)
-    (comment)
-    (comment)
-    (env_pair (env_key) (env_value))
+      (line_continuation)
+      (comment)
+      (comment)
+      (comment)
+      (env_pair (env_key) (env_value))
+      (line_continuation)
+      (comment)
+      (comment)
+      (comment)
+      (comment)
+      (comment)
+      (comment)
+      (comment)
+      (env_pair (env_key) (env_value))
+    )
   )
 )

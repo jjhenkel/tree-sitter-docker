@@ -10,10 +10,10 @@ WORKDIR $DIRPATH/$DIRNAME
 ---
 
 (dockerfile 
-    (workdir (path))
-    (workdir (path))
-    (workdir (path))
-    (workdir (path (docker_variable) (docker_variable)))
+    (directive (workdir (path)))
+    (directive (workdir (path)))
+    (directive (workdir (path)))
+    (directive (workdir (path (docker_variable) (docker_variable))))
 )
 
 ===================================
@@ -26,8 +26,8 @@ WORKDIR "/redis/here/"
 ---
 
 (dockerfile
-    (workdir (path))
-    (workdir (path))
+    (directive (workdir (path)))
+    (directive (workdir (path)))
 )
 
 ===================================
@@ -40,8 +40,8 @@ WORKDIR ' same here/ they/ are fine'
 ---
 
 (dockerfile
-    (workdir (path))
-    (workdir (path))
+    (directive (workdir (path)))
+    (directive (workdir (path)))
 )
 
 ===================================
@@ -55,7 +55,7 @@ WORKDIR $app$/requirements.txt
 
 (dockerfile
     (comment)
-    (workdir (path (docker_variable)))
+    (directive (workdir (path (docker_variable))))
 )
 
 ===================================
@@ -69,5 +69,5 @@ WORKDIR /home/$VIRTUSER/$PROG-$VERS
 
 (dockerfile
     (comment)
-    (workdir (path (docker_variable) (docker_variable) (docker_variable)))
+    (directive (workdir (path (docker_variable) (docker_variable) (docker_variable))))
 )

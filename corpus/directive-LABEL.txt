@@ -24,30 +24,30 @@ LABEL "i.guess.space.is.okay.too" foobar
 ---
 
 (dockerfile
-  (label (label_pair (label_key) (label_value)))
-  (label (label_pair (label_key) (label_value)))
-  (label (label_pair (label_key) (label_value)))
-  (label (label_pair (label_key) (label_value (line_continuation))))
+  (directive (label (label_pair (label_key) (label_value))))
+  (directive (label (label_pair (label_key) (label_value))))
+  (directive (label (label_pair (label_key) (label_value))))
+  (directive (label (label_pair (label_key) (label_value (line_continuation)))))
 
-  (label
+  (directive (label
     (label_pair (label_key) (label_value))
     (label_pair (label_key) (label_value))
     (label_pair (label_key) (label_value))
-  )
+  ))
 
-  (label
+  (directive (label
     (label_pair (label_key) (label_value))
     (line_continuation)
     (label_pair (label_key) (label_value))
     (line_continuation)
     (label_pair (label_key) (label_value))
-  )
+  ))
 
-  (label (label_pair (label_key) (label_value)))
+  (directive (label (label_pair (label_key) (label_value))))
   
-  (label (label_pair (label_key) (label_value)))
-  (label (label_pair (label_key) (label_value)))
-  (label (label_pair (label_key) (label_value)))
+  (directive (label (label_pair (label_key) (label_value))))
+  (directive (label (label_pair (label_key) (label_value))))
+  (directive (label (label_pair (label_key) (label_value))))
 )
 
 ===================================
@@ -61,7 +61,7 @@ LABEL key = "space around equals WHY?"
 
 (dockerfile
   (comment)
-  (label (label_pair (label_key) (label_value)))
+  (directive (label (label_pair (label_key) (label_value))))
 )
 
 ===================================
@@ -75,7 +75,7 @@ LABEL repository.socrata/runit-bionic-python:2.7=""
 
 (dockerfile
   (comment)
-  (label (label_pair (label_key) (label_value)))
+  (directive (label (label_pair (label_key) (label_value))))
 )
 
 
@@ -90,7 +90,7 @@ LABEL maintainer this person <this@person.com> and this person <other@gmail.com>
 
 (dockerfile
   (comment)
-  (label (label_pair (label_key) (label_value)))
+  (directive (label (label_pair (label_key) (label_value))))
 )
 
 ===================================
@@ -114,16 +114,18 @@ this\
 
 (dockerfile
   (comment)
-  (line_continuation)
-  (label
-    (label_pair (label_key) (label_value))
+  (directive 
     (line_continuation)
-    (label_pair (label_key) (label_value))
+    (label
+      (label_pair (label_key) (label_value))
+      (line_continuation)
+      (label_pair (label_key) (label_value))
+    )
   )
   (line_continuation)
-  (label
+  (directive (label
     (label_pair (label_key) (label_value (line_continuation)))
-  )
+  ))
 )
 
 ===================================
@@ -134,7 +136,7 @@ LABEL Descripción="Mi servicio web"
 
 ---
 
-(dockerfile (label (label_pair (label_key) (label_value))))
+(dockerfile (directive (label (label_pair (label_key) (label_value)))))
 
 ===================================
 LABEL bug from corpus 6
@@ -151,13 +153,13 @@ LABEL test=foo \
 (dockerfile
   (comment)
   (comment)
-  (label
+  (directive (label
     (label_pair (label_key) (label_value))
     (line_continuation)
     (label_pair (label_key) (label_value))
     (line_continuation)
     (label_pair (label_key) (label_value))
-  )
+  ))
 )
 
 ===================================
@@ -172,8 +174,8 @@ LABEL "key"=
 
 (dockerfile
   (comment)
-  (label (label_pair (label_key)))
-  (label (label_pair (label_key)))
+  (directive (label (label_pair (label_key))))
+  (directive (label (label_pair (label_key))))
 )
 
 ===================================
@@ -192,13 +194,15 @@ LABEL \
 
 (dockerfile
   (comment)
-  (line_continuation)
-  (label
-    (label_pair (label_key) (label_value))
+  (directive 
     (line_continuation)
-    (label_pair (label_key) (label_value))
-    (line_continuation)
-    (comment)
-    (label_pair (label_key) (label_value))
+    (label
+      (label_pair (label_key) (label_value))
+      (line_continuation)
+      (label_pair (label_key) (label_value))
+      (line_continuation)
+      (comment)
+      (label_pair (label_key) (label_value))
+    )
   )
 )

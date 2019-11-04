@@ -23,21 +23,21 @@ CMD ["gunicorn", "app:app", "-b", "0.0.0.0:80", "--log-file", "-", "--access-log
 
 (dockerfile 
   (comment)
-  (cmd (json_array (json_array_item) (json_array_item)))
-  (cmd (json_array (json_array_item)))
-  (cmd (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item)))
-  (cmd (json_array (json_array_item) (json_array_item)))
-  (cmd (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item)))
-  (cmd (json_array (json_array_item)))
-  (cmd (json_array (json_array_item) (json_array_item)))
-  (cmd (json_array (json_array_item)))
-  (cmd (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item)))
-  (cmd (json_array (json_array_item) (json_array_item)))
-  (cmd (json_array (json_array_item) (json_array_item)))
-  (cmd (json_array (json_array_item) (json_array_item)))
-  (cmd (json_array (json_array_item) (json_array_item)))
-  (cmd (json_array (json_array_item)))
-  (cmd (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item)))
+  (directive (cmd (json_array (json_array_item) (json_array_item))))
+  (directive (cmd (json_array (json_array_item))))
+  (directive (cmd (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item))))
+  (directive (cmd (json_array (json_array_item) (json_array_item))))
+  (directive (cmd (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item))))
+  (directive (cmd (json_array (json_array_item))))
+  (directive (cmd (json_array (json_array_item) (json_array_item))))
+  (directive (cmd (json_array (json_array_item))))
+  (directive (cmd (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item))))
+  (directive (cmd (json_array (json_array_item) (json_array_item))))
+  (directive (cmd (json_array (json_array_item) (json_array_item))))
+  (directive (cmd (json_array (json_array_item) (json_array_item))))
+  (directive (cmd (json_array (json_array_item) (json_array_item))))
+  (directive (cmd (json_array (json_array_item))))
+  (directive (cmd (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item) (json_array_item))))
 )
 
 ===================================
@@ -50,8 +50,8 @@ CMD "[\"echo\", \"Phew, I just managed to escaped those double quotes\"]"
 ---
 
 (dockerfile
-  (cmd (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item)))
-  (cmd)
+  (directive (cmd (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item))))
+  (directive (cmd))
 )
 
 ===================================
@@ -73,10 +73,10 @@ CMD [ \
 ---
 
 (dockerfile 
-  (cmd (json_array (line_continuation) (json_array_item) (json_array_item) (line_continuation)))
-  (cmd (json_array (json_array_item) (json_array_item) (line_continuation)))
-  (cmd (json_array (line_continuation) (json_array_item) (json_array_item) (line_continuation) (line_continuation)))
-  (cmd (json_array (line_continuation) (json_array_item) (json_array_item)))
+  (directive (cmd (json_array (line_continuation) (json_array_item) (json_array_item) (line_continuation))))
+  (directive (cmd (json_array (json_array_item) (json_array_item) (line_continuation))))
+  (directive (cmd (json_array (line_continuation) (json_array_item) (json_array_item) (line_continuation) (line_continuation))))
+  (directive (cmd (json_array (line_continuation) (json_array_item) (json_array_item))))
 )
 
 
@@ -90,8 +90,8 @@ CMD []
 ---
 
 (dockerfile 
-  (cmd)
-  (cmd (json_array))
+  (directive (cmd))
+  (directive (cmd (json_array)))
 )
 
 ===================================
@@ -108,7 +108,7 @@ CMD [ "do \
 ---
 
 (dockerfile
-  (cmd
+  (directive (cmd
     (json_array
       (json_array_item
         (line_continuation)  
@@ -118,7 +118,7 @@ CMD [ "do \
       )
       (line_continuation)  
     )
-  )
+  ))
 )
 
 ===================================
@@ -129,7 +129,7 @@ CMD [ "`this should still` work" ]
 
 ---
 
-(dockerfile (cmd (json_array (json_array_item))))
+(dockerfile (directive (cmd (json_array (json_array_item)))))
 
 ===================================
 CMD allow trailing comma
@@ -143,7 +143,7 @@ CMD [ "this", "should", "be", "okay",\
 ---
 
 (dockerfile
-  (cmd (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item)))
-  (cmd (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item)))
-  (cmd (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item) (line_continuation)))
+  (directive (cmd (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item))))
+  (directive (cmd (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item))))
+  (directive (cmd (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item) (line_continuation))))
 )

@@ -10,12 +10,12 @@ CMD [ 'and unfortunately,', 'this'  ]%
 
 (dockerfile
   (comment)
-  (cmd 
+  (directive (cmd 
     (json_array (json_array_item) (json_array_extraneous_char))
-  )
-  (cmd 
+  ))
+  (directive (cmd 
     (json_array (json_array_item) (json_array_item) (json_array_extraneous_char))
-  )
+  ))
 )
 
 ===================================
@@ -30,12 +30,12 @@ CMD [ 'and unfortunately,', 'this]
 
 (dockerfile
   (comment)
-  (cmd 
+  (directive (cmd 
     (json_array (json_array_item_missing_quote))
-  )
-  (cmd 
+  ))
+  (directive (cmd 
     (json_array (json_array_item) (json_array_item_missing_quote))
-  )
+  ))
 )
 
 ===================================
@@ -51,10 +51,10 @@ CMD ["this is not]]
 
 (dockerfile
   (comment)
-  (cmd 
+  (directive (cmd 
     (json_array (json_array_item))
-  )
-  (cmd 
+  ))
+  (directive (cmd 
     (json_array (json_array_item_missing_quote))
-  )
+  ))
 )

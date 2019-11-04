@@ -31,24 +31,24 @@ COPY --from=builder C:\out\index-prospect\IndexProspectHandler .
 
 (dockerfile
   (escape_directive)
-  (from (repository) (image) (tag) (as_name))
-  (workdir (path))
-  (copy (path) (path))
-  (run)
-  (copy (path) (path))
-  (run)
+  (directive (from (repository) (image) (tag) (as_name)))
+  (directive (workdir (path)))
+  (directive (copy (path) (path)))
+  (directive (run))
+  (directive (copy (path) (path)))
+  (directive (run))
   (comment)
-  (from (repository) (image) (tag))
-  (shell (json_array (json_array_item) (json_array_item) (json_array_item)))
-  (run)
-  (workdir (path))
-  (cmd)
-  (env
+  (directive (from (repository) (image) (tag)))
+  (directive (shell (json_array (json_array_item) (json_array_item) (json_array_item))))
+  (directive (run))
+  (directive (workdir (path)))
+  (directive (cmd))
+  (directive (env
     (env_pair (env_key) (env_value))
     (line_continuation)
     (env_pair (env_key) (env_value))
-  )
-  (copy (from_layer) (path) (path))
+  ))
+  (directive (copy (from_layer) (path) (path)))
 ) 
 
 ===================================
@@ -66,9 +66,9 @@ ENV GOPATH `
 
 (dockerfile
   (escape_directive)
-  (from (image))
-  (maintainer)
-  (env (env_pair (env_key) (env_value (line_continuation))))
+  (directive (from (image)))
+  (directive (maintainer))
+  (directive (env (env_pair (env_key) (env_value (line_continuation)))))
 )
 
 ===================================
@@ -90,7 +90,7 @@ ENV GOPATH \
   (comment)
   (comment)
   (comment)
-  (from (image))
-  (maintainer)
-  (env (env_pair (env_key) (env_value (line_continuation))))
+  (directive (from (image)))
+  (directive (maintainer))
+  (directive (env (env_pair (env_key) (env_value (line_continuation)))))
 )

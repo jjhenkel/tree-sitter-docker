@@ -37,12 +37,8 @@
         {
           "type": "REPEAT",
           "content": {
-            "type": "FIELD",
-            "name": "directives",
-            "content": {
-              "type": "SYMBOL",
-              "name": "_directive"
-            }
+            "type": "SYMBOL",
+            "name": "_directive"
           }
         }
       ]
@@ -51,76 +47,166 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "_d_add"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_d_add"
+          },
+          "named": true,
+          "value": "directive"
         },
         {
-          "type": "SYMBOL",
-          "name": "_d_arg"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_d_arg"
+          },
+          "named": true,
+          "value": "directive"
         },
         {
-          "type": "SYMBOL",
-          "name": "_d_cmd"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_d_cmd"
+          },
+          "named": true,
+          "value": "directive"
         },
         {
-          "type": "SYMBOL",
-          "name": "_d_copy"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_d_copy"
+          },
+          "named": true,
+          "value": "directive"
         },
         {
-          "type": "SYMBOL",
-          "name": "_d_entrypoint"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_d_entrypoint"
+          },
+          "named": true,
+          "value": "directive"
         },
         {
-          "type": "SYMBOL",
-          "name": "_d_env"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_d_env"
+          },
+          "named": true,
+          "value": "directive"
         },
         {
-          "type": "SYMBOL",
-          "name": "_d_expose"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_d_expose"
+          },
+          "named": true,
+          "value": "directive"
         },
         {
-          "type": "SYMBOL",
-          "name": "_d_from"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_d_from"
+          },
+          "named": true,
+          "value": "directive"
         },
         {
-          "type": "SYMBOL",
-          "name": "_d_healthcheck"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_d_healthcheck"
+          },
+          "named": true,
+          "value": "directive"
         },
         {
-          "type": "SYMBOL",
-          "name": "_d_label"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_d_label"
+          },
+          "named": true,
+          "value": "directive"
         },
         {
-          "type": "SYMBOL",
-          "name": "_d_maintainer"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_d_maintainer"
+          },
+          "named": true,
+          "value": "directive"
         },
         {
-          "type": "SYMBOL",
-          "name": "_d_onbuild"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_d_onbuild"
+          },
+          "named": true,
+          "value": "directive"
         },
         {
-          "type": "SYMBOL",
-          "name": "_d_run"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_d_run"
+          },
+          "named": true,
+          "value": "directive"
         },
         {
-          "type": "SYMBOL",
-          "name": "_d_shell"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_d_shell"
+          },
+          "named": true,
+          "value": "directive"
         },
         {
-          "type": "SYMBOL",
-          "name": "_d_stopsignal"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_d_stopsignal"
+          },
+          "named": true,
+          "value": "directive"
         },
         {
-          "type": "SYMBOL",
-          "name": "_d_user"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_d_user"
+          },
+          "named": true,
+          "value": "directive"
         },
         {
-          "type": "SYMBOL",
-          "name": "_d_volume"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_d_volume"
+          },
+          "named": true,
+          "value": "directive"
         },
         {
-          "type": "SYMBOL",
-          "name": "_d_workdir"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_d_workdir"
+          },
+          "named": true,
+          "value": "directive"
         },
         {
           "type": "SYMBOL",

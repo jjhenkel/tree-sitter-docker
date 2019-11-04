@@ -8,8 +8,8 @@ ADD [ "/target/foo bar.tx", "/app" ]
 ---
 
 (dockerfile
-  (add (path) (path))
-  (add (json_array (json_array_item) (json_array_item)))
+  (directive (add (path) (path)))
+  (directive (add (json_array (json_array_item) (json_array_item))))
 )
 
 ===================================
@@ -23,8 +23,8 @@ EXPOSE 9091
 ---
 
 (dockerfile 
-  (add (path) (path))
-  (expose (port))
+  (directive (add (path) (path)))
+  (directive (expose (port)))
 )
 
 ===================================
@@ -36,7 +36,7 @@ ADD entrypoint.sh entrypoint.sh
 ---
 
 (dockerfile
-  (add (path) (path))
+  (directive (add (path) (path)))
 )
 
 ===================================
@@ -50,7 +50,7 @@ ADD \conf\ /.znc
 
 (dockerfile
   (comment)
-  (add (path) (path))
+  (directive (add (path) (path)))
 )
 
 ===================================
@@ -64,7 +64,7 @@ ADD conf\\" /.znc
 
 (dockerfile
   (comment)
-  (add (path) (path))
+  (directive (add (path) (path)))
 )
 
 ===================================
@@ -78,5 +78,5 @@ ADD $app$ /home/user/$app$
 
 (dockerfile
   (comment)
-  (add (path (docker_variable)) (path (docker_variable)))
+  (directive (add (path (docker_variable)) (path (docker_variable))))
 )

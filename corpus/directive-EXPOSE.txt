@@ -10,10 +10,10 @@ EXPOSE :1543
 ---
 
 (dockerfile
-  (expose (port))
-  (expose (port (port_protocol)))
-  (expose (port (port_protocol)))
-  (expose (mapped_no_lhs (port)))
+  (directive (expose (port)))
+  (directive (expose (port (port_protocol))))
+  (directive (expose (port (port_protocol))))
+  (directive (expose (mapped_no_lhs (port))))
 )
 
 ===================================
@@ -28,11 +28,11 @@ EXPOSE 7800-7900:7800-7900 9000-9100:9000-9100
 ---
 
 (dockerfile
-  (expose (port_range))
-  (expose (port_range (port_protocol) (port_protocol)))
-  (expose (port_range (port_protocol) (port_protocol)))
-  (expose
+  (directive (expose (port_range)))
+  (directive (expose (port_range (port_protocol) (port_protocol))))
+  (directive (expose (port_range (port_protocol) (port_protocol))))
+  (directive (expose
     (mapped_port (port_range) (port_range))
     (mapped_port (port_range) (port_range))
-  )
+  ))
 ) 

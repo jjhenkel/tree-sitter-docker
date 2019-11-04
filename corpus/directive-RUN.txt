@@ -83,46 +83,46 @@ this is some more useful stuff
 ---
 
 (dockerfile
-  (run)
-  (run)
-  (run)
-  (run (line_continuation) (comment))
-  (run (line_continuation) (comment) (comment))
-  (run (line_continuation) (comment))
-  (run
+  (directive (run))
+  (directive (run))
+  (directive (run))
+  (directive (run (line_continuation) (comment)))
+  (directive (run (line_continuation) (comment) (comment)))
+  (directive (run (line_continuation) (comment)))
+  (directive (run
     (line_continuation)
     (line_continuation)
     (line_continuation)
-  )
-  (run (line_continuation))
-  (run
+  ))
+  (directive (run (line_continuation)))
+  (directive (run
     (line_continuation)
     (line_continuation)
     (line_continuation)
-  )
-  (run (line_continuation))
-  (run
-    (line_continuation)
-    (line_continuation)
-    (line_continuation)
-    (line_continuation)
-    (line_continuation)
-  )
-  (run (line_continuation))
-  (run (line_continuation))
-  (run (line_continuation) (line_continuation))
-  (run (line_continuation))
-  (run
+  ))
+  (directive (run (line_continuation)))
+  (directive (run
     (line_continuation)
     (line_continuation)
     (line_continuation)
     (line_continuation)
     (line_continuation)
+  ))
+  (directive (run (line_continuation)))
+  (directive (run (line_continuation)))
+  (directive (run (line_continuation) (line_continuation)))
+  (directive (run (line_continuation)))
+  (directive (run
     (line_continuation)
-  )
-  (run (line_continuation))
-  (run (line_continuation) (line_continuation))
-  (run (line_continuation) (comment) (comment))
+    (line_continuation)
+    (line_continuation)
+    (line_continuation)
+    (line_continuation)
+    (line_continuation)
+  ))
+  (directive (run (line_continuation)))
+  (directive (run (line_continuation) (line_continuation)))
+  (directive (run (line_continuation) (comment) (comment)))
 ) 
 
 ===================================
@@ -139,9 +139,9 @@ USER root
 
 (dockerfile 
   (comment)
-  (run)
+  (directive (run))
   (comment)
-  (user (user_name))
+  (directive (user (user_name)))
 )
 
 ===================================
@@ -163,15 +163,17 @@ RUN \
 
 (dockerfile
   (comment)
-  (line_continuation)
-  (run
+  (directive 
     (line_continuation)
-    (comment)
-    (line_continuation)
-    (comment)
-    (line_continuation)
-    (line_continuation)
-    (comment)
+    (run
+      (line_continuation)
+      (comment)
+      (line_continuation)
+      (comment)
+      (line_continuation)
+      (line_continuation)
+      (comment)
+    )
   )
 )
 
@@ -186,7 +188,7 @@ RUN do the \\
 
 ---
 
-(dockerfile (comment) (comment) (run (line_continuation)))
+(dockerfile (comment) (comment) (directive (run (line_continuation))))
 
 ===================================
 RUN bug from corpus 3
@@ -202,8 +204,10 @@ RUN \
 
 (dockerfile 
   (comment)
-  (line_continuation) 
-  (run (line_continuation) (line_continuation))
+  (directive 
+    (line_continuation) 
+    (run (line_continuation) (line_continuation))
+  )
 )
 
 ===================================
@@ -230,7 +234,7 @@ RUN env \
 (dockerfile
   (comment)
   (comment)
-  (run
+  (directive (run
     (line_continuation)
     (line_continuation)
     (line_continuation)
@@ -242,7 +246,7 @@ RUN env \
     (line_continuation)
     (line_continuation)
     (line_continuation)
-  )
+  ))
 )
 
 ===================================
@@ -261,13 +265,13 @@ RUN apt-get update \
 
 (dockerfile
   (comment)
-  (run
+  (directive (run
     (line_continuation)
     (line_continuation)
     (line_continuation)
     (line_continuation)
     (comment)
-  )
+  ))
 )
 
 ===================================
@@ -288,10 +292,10 @@ RUN apt-get update \
 (dockerfile
   (comment)
   (comment)
-  (run
+  (directive (run
     (line_continuation)
     (line_continuation)
-  )
+  ))
 )
 
 ===================================
@@ -307,7 +311,7 @@ RUN foo \
 ---
 
 (dockerfile 
-  (run (line_continuation) (comment))
+  (directive (run (line_continuation) (comment)))
 )
 
 ===================================
@@ -320,7 +324,7 @@ RUN\
 ---
 
 (dockerfile 
-  (run)
+  (directive (run))
 )
 
 ===================================
@@ -334,5 +338,5 @@ user nobody root;\n\
 ---
 
 (dockerfile 
-  (run (line_continuation) (line_continuation))
+  (directive (run (line_continuation) (line_continuation)))
 )

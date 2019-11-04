@@ -11,9 +11,9 @@ SHELL [ "/bin/sh",\
 ---
 
 (dockerfile 
-    (shell (json_array (json_array_item) (json_array_item) (json_array_item)))
-    (shell (json_array (json_array_item) (json_array_item)))
-    (shell (json_array (json_array_item) (json_array_item)))
-    (shell (json_array (json_array_item) (line_continuation) (json_array_item)))
+    (directive (shell (json_array (json_array_item) (json_array_item) (json_array_item))))
+    (directive (shell (json_array (json_array_item) (json_array_item))))
+    (directive (shell (json_array (json_array_item) (json_array_item))))
+    (directive (shell (json_array (json_array_item) (line_continuation) (json_array_item))))
 )
 

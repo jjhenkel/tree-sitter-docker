@@ -23,21 +23,21 @@ ONBUILD ADD rsyslog.d/* /etc/rsyslog.d/
 
 (dockerfile
   (comment)
-  (onbuild (add (path) (path)))
-  (onbuild (add (path) (path)))
-  (onbuild (add (path) (path)))
-  (onbuild (add (path) (path)))
-  (onbuild (add (path) (path)))
-  (onbuild (add (path) (path)))
-  (onbuild (add (path) (path)))
-  (onbuild (add (path) (path)))
-  (onbuild (add (path) (path)))
-  (onbuild (add (path) (path)))
-  (onbuild (add (path) (path)))
-  (onbuild (add (path) (path)))
-  (onbuild (add (path) (path)))
-  (onbuild (add (path) (path)))
-  (onbuild (add (path) (path)))
+  (directive (onbuild (add (path) (path))))
+  (directive (onbuild (add (path) (path))))
+  (directive (onbuild (add (path) (path))))
+  (directive (onbuild (add (path) (path))))
+  (directive (onbuild (add (path) (path))))
+  (directive (onbuild (add (path) (path))))
+  (directive (onbuild (add (path) (path))))
+  (directive (onbuild (add (path) (path))))
+  (directive (onbuild (add (path) (path))))
+  (directive (onbuild (add (path) (path))))
+  (directive (onbuild (add (path) (path))))
+  (directive (onbuild (add (path) (path))))
+  (directive (onbuild (add (path) (path))))
+  (directive (onbuild (add (path) (path))))
+  (directive (onbuild (add (path) (path))))
 )
 
 ===================================
@@ -56,12 +56,12 @@ ONBUILD ARG STORM_URL=''
 
 (dockerfile
   (comment)
-  (onbuild (arg (arg_name)))
-  (onbuild (arg (arg_name) (arg_default)))
-  (onbuild (arg (arg_name)))
-  (onbuild (arg (arg_name) (arg_default)))
-  (onbuild (arg (arg_name) (arg_default)))
-  (onbuild (arg (arg_name) (arg_default)))
+  (directive (onbuild (arg (arg_name))))
+  (directive (onbuild (arg (arg_name) (arg_default))))
+  (directive (onbuild (arg (arg_name))))
+  (directive (onbuild (arg (arg_name) (arg_default))))
+  (directive (onbuild (arg (arg_name) (arg_default))))
+  (directive (onbuild (arg (arg_name) (arg_default))))
 )
 
 ===================================
@@ -80,12 +80,12 @@ ONBUILD CMD cd /home/user/meteor-app/bundle/programs/server/ && ./
 
 (dockerfile
   (comment)
-  (onbuild (cmd (json_array (json_array_item))))
-  (onbuild (cmd (json_array (json_array_item) (json_array_item))))
-  (onbuild (cmd (json_array (json_array_item) (json_array_item))))
-  (onbuild (cmd (json_array (json_array_item))))
-  (onbuild (cmd (json_array)))
-  (onbuild (cmd))
+  (directive (onbuild (cmd (json_array (json_array_item)))))
+  (directive (onbuild (cmd (json_array (json_array_item) (json_array_item)))))
+  (directive (onbuild (cmd (json_array (json_array_item) (json_array_item)))))
+  (directive (onbuild (cmd (json_array (json_array_item)))))
+  (directive (onbuild (cmd (json_array))))
+  (directive (onbuild (cmd)))
 )
 
 ===================================
@@ -107,15 +107,15 @@ ONBUILD COPY --chown=odoo:odoo  cfg.d                       "${ODOO_RC}"
 
 (dockerfile
   (comment)
-  (onbuild (copy (path) (path (docker_variable))))
-  (onbuild (copy (path) (path)))
-  (onbuild (copy (path) (path) (path)))
-  (onbuild (copy (path) (path)))
-  (onbuild (copy (path) (path)))
-  (onbuild (copy (path) (path)))
-  (onbuild (copy (path) (path)))
-  (onbuild (copy (chown (user (user_id) (user_group_id))) (path) (path)))
-  (onbuild (copy (chown (user (user_name) (user_group))) (path) (path (docker_variable))))
+  (directive (onbuild (copy (path) (path (docker_variable)))))
+  (directive (onbuild (copy (path) (path))))
+  (directive (onbuild (copy (path) (path) (path))))
+  (directive (onbuild (copy (path) (path))))
+  (directive (onbuild (copy (path) (path))))
+  (directive (onbuild (copy (path) (path))))
+  (directive (onbuild (copy (path) (path))))
+  (directive (onbuild (copy (chown (user (user_id) (user_group_id))) (path) (path))))
+  (directive (onbuild (copy (chown (user (user_name) (user_group))) (path) (path (docker_variable)))))
 )
 
 ===================================
@@ -131,9 +131,9 @@ ONBUILD ENTRYPOINT exec /usr/bin/contrainer watch
 
 (dockerfile
   (comment)
-  (onbuild (entrypoint (json_array (json_array_item) (json_array_item) (json_array_item))))
-  (onbuild (entrypoint (json_array)))
-  (onbuild (entrypoint))
+  (directive (onbuild (entrypoint (json_array (json_array_item) (json_array_item) (json_array_item)))))
+  (directive (onbuild (entrypoint (json_array))))
+  (directive (onbuild (entrypoint)))
 )
 
 ===================================
@@ -154,14 +154,14 @@ ONBUILD ENV APT_GET_INSTALL $APT_GET_INSTALL
 
 (dockerfile
   (comment)
-  (onbuild (env (env_pair (env_key) (env_value))))
-  (onbuild (env (env_pair (env_key) (env_value (docker_variable)))))
-  (onbuild (env (env_pair (env_key) (env_value (docker_variable)))))
-  (onbuild (env (env_pair (env_key) (env_value (docker_variable))) (env_pair (env_key) (env_value (docker_variable)))))
-  (onbuild (env (env_pair (env_key) (env_value (docker_variable (variable_default_value))))))
-  (onbuild (env (env_pair (env_key) (env_value (docker_variable)))))
-  (onbuild (env (env_pair (env_key) (env_value))))
-  (onbuild (env (env_pair (env_key) (env_value (docker_variable)))))
+  (directive (onbuild (env (env_pair (env_key) (env_value)))))
+  (directive (onbuild (env (env_pair (env_key) (env_value (docker_variable))))))
+  (directive (onbuild (env (env_pair (env_key) (env_value (docker_variable))))))
+  (directive (onbuild (env (env_pair (env_key) (env_value (docker_variable))) (env_pair (env_key) (env_value (docker_variable))))))
+  (directive (onbuild (env (env_pair (env_key) (env_value (docker_variable (variable_default_value)))))))
+  (directive (onbuild (env (env_pair (env_key) (env_value (docker_variable))))))
+  (directive (onbuild (env (env_pair (env_key) (env_value)))))
+  (directive (onbuild (env (env_pair (env_key) (env_value (docker_variable))))))
 )
 
 ===================================
@@ -183,14 +183,14 @@ ONBUILD RUN sh $METEORD_DIR/build_app.sh
 
 (dockerfile
   (comment)
-  (onbuild (run))
-  (onbuild (run))
-  (onbuild (run))
+  (directive (onbuild (run)))
+  (directive (onbuild (run)))
+  (directive (onbuild (run)))
   (comment)
-  (onbuild (run))
-  (onbuild (run))
-  (onbuild (run))
-  (onbuild (run))
+  (directive (onbuild (run)))
+  (directive (onbuild (run)))
+  (directive (onbuild (run)))
+  (directive (onbuild (run)))
 )
 
 ===================================
@@ -204,7 +204,7 @@ ONBUILD SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 
 (dockerfile
   (comment)
-  (onbuild (shell (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item))))
+  (directive (onbuild (shell (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item)))))
 )
 
 ===================================
@@ -220,9 +220,9 @@ ONBUILD WORKDIR $APP_HOME
 
 (dockerfile
   (comment)
-  (onbuild (workdir (path)))
-  (onbuild (workdir (path)))
-  (onbuild (workdir (path (docker_variable))))
+  (directive (onbuild (workdir (path))))
+  (directive (onbuild (workdir (path))))
+  (directive (onbuild (workdir (path (docker_variable)))))
 )
 
 ===================================
@@ -241,10 +241,10 @@ ONBUILD USER app:group
 
 (dockerfile
   (comment)
-  (onbuild (user (user_name (docker_variable))))
-  (onbuild (user (user_name (docker_variable))))
-  (onbuild (user (user_id)))
-  (onbuild (user (user_id)))
-  (onbuild (user (user_name)))
-  (onbuild (user (user_name) (user_group)))
+  (directive (onbuild (user (user_name (docker_variable)))))
+  (directive (onbuild (user (user_name (docker_variable)))))
+  (directive (onbuild (user (user_id))))
+  (directive (onbuild (user (user_id))))
+  (directive (onbuild (user (user_name))))
+  (directive (onbuild (user (user_name) (user_group))))
 )

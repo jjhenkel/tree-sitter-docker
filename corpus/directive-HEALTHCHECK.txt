@@ -20,30 +20,30 @@ HEALTHCHECK \
 ---
 
 (dockerfile
-  (healthcheck (hc_none))
-  (healthcheck
+  (directive (healthcheck (hc_none)))
+  (directive (healthcheck
     (hc_interval)
     (hc_timeout)
     (line_continuation)
     (hc_command)
-  )
-  (healthcheck
+  ))
+  (directive (healthcheck
     (hc_timeout)
     (line_continuation)
     (hc_interval)
     (line_continuation)
     (hc_command)
-  )
-  (healthcheck
+  ))
+  (directive (healthcheck
     (hc_interval)
     (hc_timeout)
     (hc_retries)
     (hc_start_period)
     (line_continuation)
     (hc_command)
-  )
-  (line_continuation)
-  (healthcheck (hc_command))
+  ))
+  (directive (line_continuation)
+  (healthcheck (hc_command)))
 )
 
 ===================================
@@ -60,6 +60,6 @@ HEALTHCHECK CONNECT TCP 7000
 
 (dockerfile
   (malformed_empty_directive)
-  (healthcheck)
-  (healthcheck (hc_malformed))
+  (directive (healthcheck))
+  (directive (healthcheck (hc_malformed)))
 )

@@ -11,11 +11,11 @@ FROM ${var1}image
 ---
 
 (dockerfile 
-  (from (image))
-  (from (image (docker_variable)))
-  (from (image (docker_variable)))
-  (from (image (docker_variable)))
-  (from (image (docker_variable)))
+  (directive (from (image)))
+  (directive (from (image (docker_variable))))
+  (directive (from (image (docker_variable))))
+  (directive (from (image (docker_variable))))
+  (directive (from (image (docker_variable))))
 )
 
 ===================================
@@ -31,11 +31,11 @@ FROM image:${var1}tag
 ---
 
 (dockerfile
-  (from (image) (tag))
-  (from (image) (tag (docker_variable)))
-  (from (image) (tag (docker_variable)))
-  (from (image) (tag (docker_variable)))
-  (from (image) (tag (docker_variable)))
+  (directive (from (image) (tag)))
+  (directive (from (image) (tag (docker_variable))))
+  (directive (from (image) (tag (docker_variable))))
+  (directive (from (image) (tag (docker_variable))))
+  (directive (from (image) (tag (docker_variable))))
 )
 
 ===================================
@@ -51,11 +51,11 @@ FROM ${var1}repo/image
 ---
 
 (dockerfile 
-  (from (repository) (image))
-  (from (repository (docker_variable)) (image))
-  (from (repository (docker_variable)) (image))
-  (from (repository (docker_variable)) (image))
-  (from (repository (docker_variable)) (image))
+  (directive (from (repository) (image)))
+  (directive (from (repository (docker_variable)) (image)))
+  (directive (from (repository (docker_variable)) (image)))
+  (directive (from (repository (docker_variable)) (image)))
+  (directive (from (repository (docker_variable)) (image)))
 )
 
 ===================================
@@ -66,7 +66,7 @@ FROM repo/image:tag
 
 ---
 
-(dockerfile (from (repository) (image) (tag)))
+(dockerfile (directive (from (repository) (image) (tag))))
 
 ===================================
 FROM image and sha256:digest
@@ -76,7 +76,7 @@ FROM image@sha256:digest
 
 ---
 
-(dockerfile (from (image) (digest)))
+(dockerfile (directive (from (image) (digest))))
 
 ===================================
 FROM image, tag, and sha256:digest
@@ -86,7 +86,7 @@ FROM image:tag@sha256:digest
 
 ---
 
-(dockerfile (from (image) (tag) (digest)))
+(dockerfile (directive (from (image) (tag) (digest))))
 
 ===================================
 FROM repo, image, and sha256:digest
@@ -96,7 +96,7 @@ FROM repo/image@sha256:digest
 
 ---
 
-(dockerfile (from (repository) (image) (digest)))
+(dockerfile (directive (from (repository) (image) (digest))))
 
 ===================================
 FROM repo, image, tag, and sha256:digest
@@ -106,7 +106,7 @@ FROM repo/image:tag@sha256:digest
 
 ---
 
-(dockerfile (from (repository) (image) (tag) (digest)))
+(dockerfile (directive (from (repository) (image) (tag) (digest))))
 
 ===================================
 FROM image and name
@@ -116,7 +116,7 @@ FROM image AS name
 
 ---
 
-(dockerfile (from (image) (as_name)))
+(dockerfile (directive (from (image) (as_name))))
 
 ===================================
 FROM image, tag, and name
@@ -126,7 +126,7 @@ FROM image:tag AS name
 
 ---
 
-(dockerfile (from (image) (tag) (as_name)))
+(dockerfile (directive (from (image) (tag) (as_name))))
 
 ===================================
 FROM repo, image, and name
@@ -136,7 +136,7 @@ FROM repo/image AS name
 
 ---
 
-(dockerfile (from (repository) (image) (as_name)))
+(dockerfile (directive (from (repository) (image) (as_name))))
 
 ===================================
 FROM repo, image, tag, and name
@@ -146,7 +146,7 @@ FROM repo/image:tag AS name
 
 ---
 
-(dockerfile (from (repository) (image) (tag) (as_name)))
+(dockerfile (directive (from (repository) (image) (tag) (as_name))))
 
 ===================================
 FROM image, sha256:digest, and name
@@ -156,7 +156,7 @@ FROM image@sha256:digest AS name
 
 ---
 
-(dockerfile (from (image) (digest) (as_name)))
+(dockerfile (directive (from (image) (digest) (as_name))))
 
 ===================================
 FROM image, tag, sha256:digest, and name
@@ -166,7 +166,7 @@ FROM image:tag@sha256:digest AS name
 
 ---
 
-(dockerfile (from (image) (tag) (digest) (as_name)))
+(dockerfile (directive (from (image) (tag) (digest) (as_name))))
 
 ===================================
 FROM repo, image, sha256:digest, and name
@@ -176,7 +176,7 @@ FROM repo/image@sha256:digest AS name
 
 ---
 
-(dockerfile (from (repository) (image) (digest) (as_name)))
+(dockerfile (directive (from (repository) (image) (digest) (as_name))))
 
 ===================================
 FROM repo, image, tag, sha256:digest, and name
@@ -186,7 +186,7 @@ FROM repo/image:tag@sha256:digest AS name
 
 ---
 
-(dockerfile (from (repository) (image) (tag) (digest) (as_name)))
+(dockerfile (directive (from (repository) (image) (tag) (digest) (as_name))))
 
 ===================================
 FROM multi-part repo, image
@@ -217,22 +217,22 @@ FROM ${var1}repo1/${var1}repo2/image
 
 (dockerfile
   (comment)
-  (from (repository) (image))
+  (directive (from (repository) (image)))
   (comment)
-  (from (repository (docker_variable)) (image))
-  (from (repository (docker_variable)) (image))
-  (from (repository (docker_variable)) (image))
-  (from (repository (docker_variable)) (image))
+  (directive (from (repository (docker_variable)) (image)))
+  (directive (from (repository (docker_variable)) (image)))
+  (directive (from (repository (docker_variable)) (image)))
+  (directive (from (repository (docker_variable)) (image)))
   (comment)
-  (from (repository (docker_variable)) (image))
-  (from (repository (docker_variable)) (image))
-  (from (repository (docker_variable)) (image))
-  (from (repository (docker_variable)) (image))
+  (directive (from (repository (docker_variable)) (image)))
+  (directive (from (repository (docker_variable)) (image)))
+  (directive (from (repository (docker_variable)) (image)))
+  (directive (from (repository (docker_variable)) (image)))
   (comment)
-  (from (repository (docker_variable) (docker_variable)) (image))
-  (from (repository (docker_variable) (docker_variable)) (image))
-  (from (repository (docker_variable) (docker_variable)) (image))
-  (from (repository (docker_variable) (docker_variable)) (image))
+  (directive (from (repository (docker_variable) (docker_variable)) (image)))
+  (directive (from (repository (docker_variable) (docker_variable)) (image)))
+  (directive (from (repository (docker_variable) (docker_variable)) (image)))
+  (directive (from (repository (docker_variable) (docker_variable)) (image)))
 )
 
 ===================================
@@ -248,14 +248,14 @@ FROM amberframework/amber:v{{ amber_version }}
 ---
 
 (dockerfile
-  (from (repository) (image) (tag (template_expr_curly_braces)))
-  (from (repository) (image) (tag (template_expr_curly_braces)))
-  (from (image (template_expr_curly_braces)))
-  (from (repository (template_expr_curly_braces) (template_expr_curly_braces))
+  (directive (from (repository) (image) (tag (template_expr_curly_braces))))
+  (directive (from (repository) (image) (tag (template_expr_curly_braces))))
+  (directive (from (image (template_expr_curly_braces))))
+  (directive (from (repository (template_expr_curly_braces) (template_expr_curly_braces))
         (image (template_expr_curly_braces))
         (tag (template_expr_curly_braces))
-  )
-  (from (repository) (image) (tag (template_expr_curly_braces)))
+  ))
+  (directive (from (repository) (image) (tag (template_expr_curly_braces))))
 ) 
 
 ===================================
@@ -271,14 +271,14 @@ FROM amberframework/amber:v@@ amber_version @@
 ---
 
 (dockerfile
-  (from (repository) (image) (tag (template_expr_at_symbols)))
-  (from (repository) (image) (tag (template_expr_at_symbols)))
-  (from (image (template_expr_at_symbols)))
-  (from (repository (template_expr_at_symbols) (template_expr_at_symbols))
+  (directive (from (repository) (image) (tag (template_expr_at_symbols))))
+  (directive (from (repository) (image) (tag (template_expr_at_symbols))))
+  (directive (from (image (template_expr_at_symbols))))
+  (directive (from (repository (template_expr_at_symbols) (template_expr_at_symbols))
         (image (template_expr_at_symbols))
         (tag (template_expr_at_symbols))
-  )
-  (from (repository) (image) (tag (template_expr_at_symbols)))
+  ))
+  (directive (from (repository) (image) (tag (template_expr_at_symbols))))
 ) 
 
 ===================================
@@ -295,12 +295,12 @@ FROM %%DOCKER_NAMESPACE%%/%%DOCKER_PREFIX%%openstack-base-alpine:%%DOCKER_TAG%%
 ---
 
 (dockerfile
-  (from (repository) (image) (tag (template_expr_percent_signs)) (as_name))
-  (from (repository) (image) (tag (template_expr_percent_signs)) (as_name))
-  (from (repository) (image (template_expr_percent_signs)))
-  (from (repository) (image (template_expr_percent_signs)))
-  (from (image (template_expr_percent_signs)))
-  (from (repository (template_expr_percent_signs)) (image (template_expr_percent_signs)) (tag (template_expr_percent_signs)))
+  (directive (from (repository) (image) (tag (template_expr_percent_signs)) (as_name)))
+  (directive (from (repository) (image) (tag (template_expr_percent_signs)) (as_name)))
+  (directive (from (repository) (image (template_expr_percent_signs))))
+  (directive (from (repository) (image (template_expr_percent_signs))))
+  (directive (from (image (template_expr_percent_signs))))
+  (directive (from (repository (template_expr_percent_signs)) (image (template_expr_percent_signs)) (tag (template_expr_percent_signs))))
 ) 
 
 ===================================
@@ -317,12 +317,12 @@ FROM node:<%= nodeVersion %> as foo
 ---
 
 (dockerfile
-  (from (image (template_expr_less_than)))
-  (from (repository) (image) (tag (template_expr_less_than)))
-  (from (image (template_expr_less_than) (template_expr_less_than)))
-  (from (image) (tag (template_expr_less_than)))
-  (from (image) (tag (template_expr_less_than)))
-  (from (image) (tag (template_expr_less_than)) (as_name))
+  (directive (from (image (template_expr_less_than))))
+  (directive (from (repository) (image) (tag (template_expr_less_than))))
+  (directive (from (image (template_expr_less_than) (template_expr_less_than))))
+  (directive (from (image) (tag (template_expr_less_than))))
+  (directive (from (image) (tag (template_expr_less_than))))
+  (directive (from (image) (tag (template_expr_less_than)) (as_name)))
 )
 
 ===================================
@@ -334,7 +334,7 @@ FROM ${ARCH}mono:5-slim
 
 ---
 
-(dockerfile (comment) (from (image (docker_variable)) (tag)))
+(dockerfile (comment) (directive (from (image (docker_variable)) (tag))))
 
 ===================================
 Edge case from corpus 2
@@ -345,7 +345,7 @@ FROM 0xacab.org:4567/leap/bitmask_android/android-sdk:latest
 
 ---
 
-(dockerfile (comment) (from (repository) (image) (tag)))
+(dockerfile (comment) (directive (from (repository) (image) (tag))))
 
 ===================================
 Edge case from corpus 3
@@ -361,8 +361,8 @@ FROM {{ awx_web_image }}:{{ awx_version }}
 (dockerfile 
   (comment) 
   (comment) 
-  (from (repository) (image) (tag (template_expr_curly_braces) (template_expr_curly_braces))) 
-  (from (image (template_expr_curly_braces)) (tag (template_expr_curly_braces)))
+  (directive (from (repository) (image) (tag (template_expr_curly_braces) (template_expr_curly_braces))))
+  (directive (from (image (template_expr_curly_braces)) (tag (template_expr_curly_braces))))
 )
 
 ===================================
@@ -374,11 +374,11 @@ FROM nvidia/cudagl${ARCH:+-$ARCH}:${CUDA}-base-ubuntu${UBUNTU_VERSION} as base
 ---
 
 (dockerfile
-  (from (repository)
+  (directive (from (repository)
         (image (docker_variable (variable_this_or_null (docker_variable))))
         (tag (docker_variable) (docker_variable)) 
         (as_name)
-  )
+  ))
 ) 
 
 ===================================
@@ -392,9 +392,9 @@ FROM httpd:${APACHE_VERSION:+${APACHE_VERSION}-}alpine
 
 (dockerfile
   (comment)
-  (from (image)
+  (directive (from (image)
         (tag (docker_variable (variable_this_or_null (docker_variable)))) 
-  )
+  ))
 )
 
 ===================================
@@ -408,11 +408,11 @@ FROM repo/image:tag-i-guess:but-theres-this-extra AS build-stage
 
 (dockerfile
   (comment)
-  (from
+  (directive (from
     (repository)
     (image)
     (tag)
     (malformed_tag_with_colons)
     (as_name)
-  )
+  ))
 )

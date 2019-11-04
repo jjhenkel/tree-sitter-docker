@@ -11,12 +11,16 @@ STOPSIGNAL \
 ---
 
 (dockerfile 
-    (stopsignal (signal_name))
-    (inline_comment)
-    (stopsignal (signal_name))
-    (stopsignal (signal_num))
-    (line_continuation)
-    (stopsignal (signal_num))
+    (directive 
+        (stopsignal (signal_name))
+        (inline_comment)
+    )
+    (directive (stopsignal (signal_name)))
+    (directive (stopsignal (signal_num)))
+    (directive 
+        (line_continuation)
+        (stopsignal (signal_num))
+    )
 )
 
 ===================================
@@ -27,5 +31,5 @@ STOPSIGNAL SIGTERM+3
 
 ---
 
-(dockerfile (stopsignal (signal_name)))
+(dockerfile (directive (stopsignal (signal_name))))
 
