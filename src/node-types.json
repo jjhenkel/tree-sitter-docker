@@ -12,6 +12,10 @@
           "named": true
         },
         {
+          "type": "line_continuation",
+          "named": true
+        },
+        {
           "type": "path",
           "named": true
         }
@@ -166,6 +170,10 @@
         },
         {
           "type": "json_array",
+          "named": true
+        },
+        {
+          "type": "line_continuation",
           "named": true
         },
         {
@@ -1233,6 +1241,10 @@
           "named": true
         },
         {
+          "type": "line_continuation",
+          "named": true
+        },
+        {
           "type": "path",
           "named": true
         }
@@ -1336,6 +1348,10 @@
   },
   {
     "type": "$",
+    "named": false
+  },
+  {
+    "type": "\\",
     "named": false
   },
   {

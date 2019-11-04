@@ -136,7 +136,7 @@ Edge case from corpus 2
 # Confusion w/ json_array
 COPY [^p]*.conf /etc/postgresql/conf.d/  
 
---- 
+---
 
 (dockerfile
   (comment)
@@ -165,4 +165,18 @@ COPY ${CATALINA_HOME}/conf/. ${docker-plugin.resource.tomcat-users.xml}
 
 (dockerfile
   (directive (copy (path (docker_variable)) (path (docker_variable))))
+)
+
+===================================
+Edge case from corpus 5
+===================================
+
+COPY --from=builder /usr/local/bin/bundle \
+					/usr/local/bin/bundler\
+					/usr/local/bin/gem 
+
+---
+
+(dockerfile
+  (directive (copy (from_layer) (path) (line_continuation) (path) (line_continuation) (path)))
 )

@@ -458,9 +458,13 @@ module.exports = grammar({
 
     // ############### MISC. UTILITIES ###################################### /
     path: $ => repeat1(prec.right(choice(
-      seq(maybe_var_interpolation(
-        $, /([^"\s\$]|\\"|\\'|\$\/)+/, (r) => token.immediate(r)
-      ), optional(token.immediate('$'))),
+      seq(
+        maybe_var_interpolation(
+          $, /([^"\s\$\\]|\\+[^\s]|\$\/)+/, (r) => token.immediate(r)
+        ),
+        optional(token.immediate('$')),
+        optional(token.immediate(prec(-1, '\\')))
+      ),
       seq(
         token.immediate('"'),
         repeat1(prec.right(maybe_var_interpolation(
@@ -473,7 +477,7 @@ module.exports = grammar({
 
     _paths: $ => seq(
       $.path,
-      repeat(seq($._space_no_newline, $.path))
+      repeat(seq(choice($._space_no_newline, $.line_continuation), $.path))
     ),
     
     _anything: $ => repeat1($._anything_ex),

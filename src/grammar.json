@@ -10977,7 +10977,7 @@
                       "type": "IMMEDIATE_TOKEN",
                       "content": {
                         "type": "PATTERN",
-                        "value": "([^\"\\s\\$]|\\\\\"|\\\\'|\\$\\/)+"
+                        "value": "([^\"\\s\\$\\\\]|\\\\+[^\\s]|\\$\\/)+"
                       }
                     },
                     {
@@ -11006,7 +11006,7 @@
                                   "type": "IMMEDIATE_TOKEN",
                                   "content": {
                                     "type": "PATTERN",
-                                    "value": "([^\"\\s\\$]|\\\\\"|\\\\'|\\$\\/)+\\$"
+                                    "value": "([^\"\\s\\$\\\\]|\\\\+[^\\s]|\\$\\/)+\\$"
                                   }
                                 },
                                 {
@@ -11042,7 +11042,7 @@
                                     "type": "IMMEDIATE_TOKEN",
                                     "content": {
                                       "type": "PATTERN",
-                                      "value": "([^\"\\s\\$]|\\\\\"|\\\\'|\\$\\/)+\\$"
+                                      "value": "([^\"\\s\\$\\\\]|\\\\+[^\\s]|\\$\\/)+\\$"
                                     }
                                   },
                                   {
@@ -11061,7 +11061,7 @@
                               "type": "IMMEDIATE_TOKEN",
                               "content": {
                                 "type": "PATTERN",
-                                "value": "([^\"\\s\\$]|\\\\\"|\\\\'|\\$\\/)+"
+                                "value": "([^\"\\s\\$\\\\]|\\\\+[^\\s]|\\$\\/)+"
                               }
                             },
                             {
@@ -11081,6 +11081,25 @@
                       "content": {
                         "type": "STRING",
                         "value": "$"
+                      }
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "IMMEDIATE_TOKEN",
+                      "content": {
+                        "type": "PREC",
+                        "value": -1,
+                        "content": {
+                          "type": "STRING",
+                          "value": "\\"
+                        }
                       }
                     },
                     {
@@ -11237,8 +11256,17 @@
             "type": "SEQ",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "_space_no_newline"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_space_no_newline"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "line_continuation"
+                  }
+                ]
               },
               {
                 "type": "SYMBOL",
