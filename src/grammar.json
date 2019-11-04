@@ -11614,7 +11614,7 @@
     },
     "comment": {
       "type": "PATTERN",
-      "value": "#[^\\n]*(\\n|\\r)*"
+      "value": "#[^\\n]*([\\t\\f\\r\\v ]*\\n)*"
     },
     "inline_comment": {
       "type": "IMMEDIATE_TOKEN",

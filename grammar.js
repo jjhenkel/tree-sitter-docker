@@ -527,7 +527,7 @@ module.exports = grammar({
     _space: $ => token(prec(-11, /\s/)),
     _blank_line: $ => /[ \t\f\r\v\xA0\u1680\u180e\u2000-\u200a\u202f\u205f\u3000]*\n/,
     _space_no_newline: $ => /[\t\f\r\v ]+/,
-    comment: $ => /#[^\n]*(\n|\r)*/,
+    comment: $ => /#[^\n]*([\t\f\r\v ]*\n)*/,
     inline_comment: $ => token.immediate(/[\t\f\r\v ]+#[^\n]*\r?\n/),
     // line_continuation: $ => token(prec(-1, /\\+\s*\n/)),
 

@@ -456,3 +456,50 @@ ENV KEY=" #"
     (env_pair (env_key) (env_value))
   )
 )
+
+===================================
+ENV bug from corpus 17
+===================================
+
+ENV \
+  # a
+  TERM=xterm \
+
+  ## ---
+  ## b
+  #  c
+  DRUPAL_DOCROOT=/var/www/html \
+  ### d
+  # weird whitespace coming up
+   
+  # e 
+  # f
+   
+  # g
+  # h
+  # i
+  DRUPAL_MAKE_BRANCH=master
+
+---
+
+(dockerfile
+  (line_continuation)
+  (comment)
+  (env
+    (env_pair (env_key) (env_value))
+    (line_continuation)
+    (comment)
+    (comment)
+    (comment)
+    (env_pair (env_key) (env_value))
+    (line_continuation)
+    (comment)
+    (comment)
+    (comment)
+    (comment)
+    (comment)
+    (comment)
+    (comment)
+    (env_pair (env_key) (env_value))
+  )
+)
