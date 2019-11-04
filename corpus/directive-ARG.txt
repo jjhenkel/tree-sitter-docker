@@ -102,3 +102,20 @@ ARG NIFI_BINARY_PATH=${NIFI_BINARY_PATH:-/nifi/${NIFI_VERSION}/nifi-${NIFI_VERSI
     )
   )
 )
+
+===================================
+ARG bug from corpus 5
+===================================
+
+# Having '$' in there is the issue
+ARG PS1="[candidates-web] \u@\h:\w\n$ "
+
+---
+
+(dockerfile
+  (comment)
+  (arg
+    (arg_name)
+    (arg_default)
+  )
+)

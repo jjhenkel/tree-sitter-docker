@@ -202,7 +202,7 @@ module.exports = grammar({
     arg_default: $ => repeat1(
       choice(
         /'([^\n'\\]|\\[^\s])*'/,
-        prec.right(maybe_var_interpolation($, /([^\n\\\$]|\\[^\s])*/))
+        prec.right(maybe_var_interpolation($, /([^\n\\\$]|\\[^\s]|\$+[ "'])*/))
       )
     ),
 
