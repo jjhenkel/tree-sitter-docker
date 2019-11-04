@@ -55,7 +55,6 @@ that would be super hard to support and are infrequent).
 ./sources/155895545.Dockerfile|||FROM %BASE
 ./sources/155895546.Dockerfile|||FROM %BASE
 ./sources/155895547.Dockerfile|||FROM %BASE
-./sources/155895547.Dockerfile|||FROM %BASE
 ./sources/155895549.Dockerfile|||FROM %BASE
 ./sources/155895550.Dockerfile|||FROM %BASE
 ./sources/155895552.Dockerfile|||FROM %BASE
@@ -106,10 +105,11 @@ that would be super hard to support and are infrequent).
 ./sources/251727872.Dockerfile|||FROM image_with_empty_tag:
 ./sources/252769747.Dockerfile|||ENV ["as", "json", "array", "not", "allowed"]
 ./sources/252773736.Dockerfile|||comment without the leading '#'
-./sources/252773736.Dockerfile|||comment without the leading '#'
+./sources/252773737.Dockerfile|||comment without the leading '#'
 ./sources/252773759.Dockerfile|||HEALTHECK --interval=10s \--timeout=why CMD /blah.sh
 ./sources/252775360.Dockerfile|||comment without the leading '#'
 ./sources/252776367.Dockerfile|||CMD ["./json_array" "-style"] && mixed with other style
+./sources/252777373.Dockerfile|||CMD ["a", "b"]"]
 ./sources/252781431.Dockerfile|||ONBUILD : RUN echo why do this
 ./sources/252784999.Dockerfile|||missing line continuation in run
 ./sources/252787019.Dockerfile|||HEALTHECK \--interval=why \--timeout=why ...
@@ -126,6 +126,7 @@ that would be super hard to support and are infrequent).
 ./sources/311966904.Dockerfile|||EXPOSE PORT
 ./sources/323890436.Dockerfile|||Double colon in FROM "FROM blah/blah::blah"
 ./sources/339301097.Dockerfile|||FROM:%{almost_docker_variable}
+./sources/345737825.Dockerfile|||FROM %(almost_docker_variable)
 ./sources/346805945.Dockerfile|||FROM:%(almost_docker_variable)
 ./sources/347362954.Dockerfile|||FROM repo/image:
 ./sources/351396254.Dockerfile|||EXPOSE 80;
