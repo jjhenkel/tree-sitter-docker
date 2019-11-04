@@ -122,7 +122,7 @@ module.exports = grammar({
       optional($.repository),
       $.image,
       optional(seq(
-        ':', $.tag
+        ':', $.tag, optional(seq(':', $.malformed_tag_with_colons))
       )),
       optional(seq(
         $._digest_start_ex, $.digest
@@ -342,6 +342,9 @@ module.exports = grammar({
 
     image: $ => maybe_var_or_template_interpolation($, FROM_PART_REGEX),
     tag: $ => maybe_var_or_template_interpolation($, FROM_PART_REGEX),
+    malformed_tag_with_colons: $ => prec(-1, maybe_var_interpolation(
+      $, /[^\$\s\/@\{\}%<>=\?]+/, (r) => token.immediate(prec(-1, r))
+    )),
     digest: $ => maybe_var_or_template_interpolation($, /[^\$\s\/@\{\}%<>=\?]+/),
     as_name: $ => maybe_var_or_template_interpolation($, FROM_PART_REGEX),
 

@@ -32,7 +32,6 @@ that would be super hard to support and are infrequent).
 ./sources/317646528.Dockerfile # ENV line_continuation then comments
 ./sources/324839563.Dockerfile # More tricky trailing \ with escape=`
 ./sources/332063161.Dockerfile # '#' in env_value
-./sources/332516105.Dockerfile # '-' in as_name 
 ./sources/348580446.Dockerfile # ENV key\ (no-space line_continuation)
 ./sources/356952324.Dockerfile
 ./sources/360538798.Dockerfile
@@ -125,6 +124,7 @@ that would be super hard to support and are infrequent).
 ./sources/299773398.Dockerfile|||Bad FROM statement
 ./sources/311966904.Dockerfile|||EXPOSE PORT
 ./sources/323890436.Dockerfile|||Double colon in FROM "FROM blah/blah::blah"
+./sources/332516105.Dockerfile|||':' in tag
 ./sources/339301097.Dockerfile|||FROM:%{almost_docker_variable}
 ./sources/345737825.Dockerfile|||FROM %(almost_docker_variable)
 ./sources/346805945.Dockerfile|||FROM:%(almost_docker_variable)

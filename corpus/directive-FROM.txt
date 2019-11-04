@@ -396,3 +396,23 @@ FROM httpd:${APACHE_VERSION:+${APACHE_VERSION}-}alpine
         (tag (docker_variable (variable_this_or_null (docker_variable)))) 
   )
 )
+
+===================================
+Edge case from corpus 6
+===================================
+
+# Support detecting a malformed tag that has extra colons
+FROM repo/image:tag-i-guess:but-theres-this-extra AS build-stage
+
+---
+
+(dockerfile
+  (comment)
+  (from
+    (repository)
+    (image)
+    (tag)
+    (malformed_tag_with_colons)
+    (as_name)
+  )
+)

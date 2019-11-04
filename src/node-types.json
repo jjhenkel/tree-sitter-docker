@@ -474,6 +474,10 @@
           "named": true
         },
         {
+          "type": "malformed_tag_with_colons",
+          "named": true
+        },
+        {
           "type": "platform",
           "named": true
         },
@@ -718,6 +722,21 @@
     "type": "malformed_empty_directive",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "malformed_tag_with_colons",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "docker_variable",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "mapped_no_lhs",
