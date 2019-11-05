@@ -119,3 +119,25 @@ ARG PS1="[candidates-web] \u@\h:\w\n$ "
     (arg_default)
   ))
 )
+
+===================================
+ARG bug from corpus 6
+===================================
+
+# Support escaping '$'
+ARG KEY=$$VALUE
+ARG KEY="$$VALUE"
+
+---
+
+(dockerfile
+  (comment)
+  (directive (arg
+    (arg_name)
+    (arg_default)
+  ))
+  (directive (arg
+    (arg_name)
+    (arg_default)
+  ))
+)

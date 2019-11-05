@@ -71,3 +71,17 @@ WORKDIR /home/$VIRTUSER/$PROG-$VERS
     (comment)
     (directive (workdir (path (docker_variable) (docker_variable) (docker_variable))))
 )
+
+===================================
+WORKDIR bug from corpus 3
+===================================
+
+# Support escaping '$'
+WORKDIR $$NIFI_HOME
+
+---
+
+(dockerfile
+    (comment)
+    (directive (workdir (path)))
+)

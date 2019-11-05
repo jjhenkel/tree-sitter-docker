@@ -202,7 +202,7 @@ module.exports = grammar({
     arg_default: $ => repeat1(
       choice(
         /'([^\n'\\]|\\[^\s])*'/,
-        prec.right(maybe_var_interpolation($, /([^\n\\\$]|\\[^\s]|\$+[ "'])*/))
+        prec.right(maybe_var_interpolation($, /([^\n\\\$]|\\[^\s]|\$+[ "']|\$\$)*/))
       )
     ),
 
@@ -468,7 +468,7 @@ module.exports = grammar({
     path: $ => repeat1(prec.right(choice(
       seq(
         maybe_var_interpolation(
-          $, /([^"\s\$\\]|\\+[^\s]|\$\/)+/, (r) => token.immediate(r)
+          $, /([^"\s\$\\]|\\+[^\s]|\$\/|\$\$)+/, (r) => token.immediate(r)
         ),
         optional(token.immediate('$')),
         optional(token.immediate(prec(-1, '\\')))
@@ -476,7 +476,7 @@ module.exports = grammar({
       seq(
         token.immediate('"'),
         repeat1(prec.right(maybe_var_interpolation(
-          $, /[^"\n\$]+/
+          $, /([^"\n\$]|\$\$)+/
         ))),
         token.immediate('"')
       ),
