@@ -284,20 +284,27 @@ module.exports = grammar({
       seq(
         token.immediate('"'),
         repeat(prec.right(maybe_var_interpolation(
-          $, /(\$\$|[^\n\r"\\$]|\\[^\n\r])+/, (r) => token.immediate(prec(1, r))
+          $, /(\$\$|[^\n\r"\\$]|\\( |\t)*[^\s])+/, (r) => token.immediate(prec(1, r))
         ))),
         optional('$'),
-        token.immediate('"')
+        choice(
+          $.malformed_missing_close_quote,
+          token.immediate('"')
+        )
       ),
       seq(
         token.immediate("'"),
         repeat(prec.right(
-          token.immediate(/([^\n\r'\\]|\\'|\\[^\n\r])+/)
+          token.immediate(/([^\n\r'\\]|\\'|\\( |\t)*[^\s])+/)
         )),
         token.immediate(/'+/)
       ),
       $.line_continuation
     )),
+
+    malformed_missing_close_quote: $ => token.immediate(
+      prec(-10, /\r?\n/)
+    ),
 
     // ############### PLUMBING FOR 'EXPOSE' ################################ /
     _port_spec: $ => prec.left(choice(

@@ -124,7 +124,7 @@ this\
   )
   (line_continuation)
   (directive (label
-    (label_pair (label_key) (label_value (line_continuation)))
+    (label_pair (label_key) (label_value (line_continuation) (line_continuation) (line_continuation) (line_continuation)))
   ))
 )
 
@@ -219,4 +219,29 @@ LABEL "This isn't valid "
 (dockerfile
   (comment)
   (directive (label (malformed_label_just_quoted_value)))
+)
+
+===================================
+LABEL bug from corpus 10
+===================================
+
+# Permissive: detect malformed labels
+LABEL vendor=Microsoft\ Corp \
+com.microsoft.product="OMS Container Docker Provider" \
+com.microsoft.version="1.0.0-17
+
+(dockerfile
+  (comment)
+  (label
+    (label_pair (label_key) (label_value))
+    (line_continuation)
+    (label_pair (label_key) (label_value))
+    (line_continuation)
+    (label_pair
+      (label_key)
+      (label_value
+        (malformed_missing_close_quote)
+      )
+    )
+  )
 )

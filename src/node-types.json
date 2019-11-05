@@ -459,6 +459,10 @@
         {
           "type": "line_continuation",
           "named": true
+        },
+        {
+          "type": "malformed_missing_close_quote",
+          "named": true
         }
       ]
     }
@@ -772,6 +776,10 @@
         },
         {
           "type": "line_continuation",
+          "named": true
+        },
+        {
+          "type": "malformed_missing_close_quote",
           "named": true
         }
       ]
@@ -1446,6 +1454,10 @@
   },
   {
     "type": "json_array_extraneous_char",
+    "named": true
+  },
+  {
+    "type": "malformed_missing_close_quote",
     "named": true
   },
   {

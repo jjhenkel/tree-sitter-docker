@@ -3386,7 +3386,7 @@
                           "value": 1,
                           "content": {
                             "type": "PATTERN",
-                            "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+"
+                            "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\( |\\t)*[^\\s])+"
                           }
                         }
                       },
@@ -3419,7 +3419,7 @@
                                       "value": 1,
                                       "content": {
                                         "type": "PATTERN",
-                                        "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+\\$"
+                                        "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\( |\\t)*[^\\s])+\\$"
                                       }
                                     }
                                   },
@@ -3459,7 +3459,7 @@
                                         "value": 1,
                                         "content": {
                                           "type": "PATTERN",
-                                          "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+\\$"
+                                          "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\( |\\t)*[^\\s])+\\$"
                                         }
                                       }
                                     },
@@ -3482,7 +3482,7 @@
                                   "value": 1,
                                   "content": {
                                     "type": "PATTERN",
-                                    "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\[^\\n\\r])+"
+                                    "value": "(\\$\\$|[^\\n\\r\"\\\\$]|\\\\( |\\t)*[^\\s])+"
                                   }
                                 }
                               },
@@ -3510,11 +3510,20 @@
                 ]
               },
               {
-                "type": "IMMEDIATE_TOKEN",
-                "content": {
-                  "type": "STRING",
-                  "value": "\""
-                }
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "malformed_missing_close_quote"
+                  },
+                  {
+                    "type": "IMMEDIATE_TOKEN",
+                    "content": {
+                      "type": "STRING",
+                      "value": "\""
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -3537,7 +3546,7 @@
                     "type": "IMMEDIATE_TOKEN",
                     "content": {
                       "type": "PATTERN",
-                      "value": "([^\\n\\r'\\\\]|\\\\'|\\\\[^\\n\\r])+"
+                      "value": "([^\\n\\r'\\\\]|\\\\'|\\\\( |\\t)*[^\\s])+"
                     }
                   }
                 }
@@ -3556,6 +3565,17 @@
             "name": "line_continuation"
           }
         ]
+      }
+    },
+    "malformed_missing_close_quote": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": -10,
+        "content": {
+          "type": "PATTERN",
+          "value": "\\r?\\n"
+        }
       }
     },
     "_port_spec": {
