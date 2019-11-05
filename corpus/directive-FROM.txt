@@ -416,3 +416,18 @@ FROM repo/image:tag-i-guess:but-theres-this-extra AS build-stage
     (as_name)
   ))
 )
+===================================
+Edge case from corpus 7
+===================================
+
+# ' and ( in docker variable
+FROM ${project.project(':cassandra').stackwork.imageId}
+
+---
+
+(dockerfile
+  (comment)
+  (directive (from
+    (image (docker_variable))
+  ))
+)

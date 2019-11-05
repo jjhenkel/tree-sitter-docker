@@ -3099,7 +3099,7 @@
               "type": "IMMEDIATE_TOKEN",
               "content": {
                 "type": "PATTERN",
-                "value": "[^\\s\"\\\\`=$:]*"
+                "value": "([^\\s\"\\\\`=$:]|:[^\\s\"\\\\`=$\\-+])*"
               }
             },
             {
@@ -3108,6 +3108,18 @@
                 {
                   "type": "SYMBOL",
                   "name": "variable_default_value"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": ":+"
                 },
                 {
                   "type": "BLANK"
@@ -11711,7 +11723,7 @@
       "type": "IMMEDIATE_TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "([^\\(\\-\\/\\}\\{\\$\"\\s:=\\\\]|[^\\(\\-\\/\\}\\{\\$\"\\s:=\\\\][-+][^\\(\\-\\/\\}\\{\\$\"\\s:=\\\\])+"
+        "value": "('[^$'\\n\\\\]*'|[^\\(\\-\\/\\}\\{\\$\"'\\s:=\\\\]\\(?|[^\\(\\-\\/\\}\\{\\$\"\\s:=\\\\][-+][^\\(\\-\\/\\}\\{\\$\"\\s:=\\\\])+"
       }
     },
     "template_expr_at_symbols": {

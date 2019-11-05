@@ -261,8 +261,9 @@ module.exports = grammar({
       seq('$', $.docker_variable),
       token.immediate(/"[^\n"=]*"/),
       seq(
-        token.immediate(/[^\s"\\`=$:]*/),
-        optional($.variable_default_value)
+        token.immediate(/([^\s"\\`=$:]|:[^\s"\\`=$\-+])*/),
+        optional($.variable_default_value),
+        optional(/:+/)
       )
     ),
 
@@ -521,7 +522,7 @@ module.exports = grammar({
     ),
 
     _docker_variable: $ => token.immediate(
-      /([^\(\-\/\}\{\$"\s:=\\]|[^\(\-\/\}\{\$"\s:=\\][-+][^\(\-\/\}\{\$"\s:=\\])+/
+      /('[^$'\n\\]*'|[^\(\-\/\}\{\$"'\s:=\\]\(?|[^\(\-\/\}\{\$"\s:=\\][-+][^\(\-\/\}\{\$"\s:=\\])+/
     ),
 
     // ############### OUT-OF-DOCKER TEMPLATING ############################# /
