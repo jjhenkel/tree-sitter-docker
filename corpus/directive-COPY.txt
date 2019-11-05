@@ -194,3 +194,17 @@ COPY create-definitions.sh \ /opt/
   (comment)
   (directive (copy (path) (path) (path)))
 )
+
+===================================
+Edge case from corpus 7
+===================================
+
+# Issue here was single quotes
+COPY --chown='user:group' path path
+
+---
+
+(dockerfile
+  (comment)
+  (directive (copy (chown (user (user_name) (user_group))) (path) (path)))
+)

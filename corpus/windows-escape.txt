@@ -75,6 +75,34 @@ ENV GOPATH `
 Escape ` Test 3
 ===================================
 
+# escape=` 
+
+# Bug with no-space windows line continuation
+ENV Metrics:Enabled=true `
+    Metrics:Port=50505 `
+    APP_ROOT=C:\save-prospect-handler`
+    CONNECTIONSTRINGS_CONFIG_PATH=""
+
+---
+
+(dockerfile
+  (escape_directive)
+  (comment)
+  (directive (env
+    (env_pair (env_key) (env_value))
+    (line_continuation)
+    (env_pair (env_key) (env_value))
+    (line_continuation)
+    (env_pair (env_key) (env_value))
+    (line_continuation)
+    (env_pair (env_key) (env_value))
+  ))
+)
+
+===================================
+Escape ` Test 4
+===================================
+
 # Comment here makes the escape directive not an escape
 # since it needs to be first thing in file if it exists
 # escape=`

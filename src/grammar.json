@@ -1352,6 +1352,49 @@
               "type": "SEQ",
               "members": [
                 {
+                  "type": "STRING",
+                  "value": "'"
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "user_name"
+                    },
+                    {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SEQ",
+                          "members": [
+                            {
+                              "type": "STRING",
+                              "value": ":"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "user_group"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "BLANK"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "STRING",
+                  "value": "'"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
                   "type": "SYMBOL",
                   "name": "user_name"
                 },
@@ -1423,6 +1466,49 @@
                 {
                   "type": "STRING",
                   "value": "\""
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "'"
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "user_id"
+                    },
+                    {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SEQ",
+                          "members": [
+                            {
+                              "type": "STRING",
+                              "value": ":"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "user_group_id"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "BLANK"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "STRING",
+                  "value": "'"
                 }
               ]
             },
@@ -3177,7 +3263,7 @@
                     "type": "IMMEDIATE_TOKEN",
                     "content": {
                       "type": "PATTERN",
-                      "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\( |\\t)*[^\\s])+"
+                      "value": "(\\$\\$|[^\\s\\\\$\"'`]|\\\\( |\\t)*[^\\s]|`( |\\t)*[^\\s])+"
                     }
                   },
                   {
@@ -3206,7 +3292,7 @@
                                 "type": "IMMEDIATE_TOKEN",
                                 "content": {
                                   "type": "PATTERN",
-                                  "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\( |\\t)*[^\\s])+\\$"
+                                  "value": "(\\$\\$|[^\\s\\\\$\"'`]|\\\\( |\\t)*[^\\s]|`( |\\t)*[^\\s])+\\$"
                                 }
                               },
                               {
@@ -3242,7 +3328,7 @@
                                   "type": "IMMEDIATE_TOKEN",
                                   "content": {
                                     "type": "PATTERN",
-                                    "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\( |\\t)*[^\\s])+\\$"
+                                    "value": "(\\$\\$|[^\\s\\\\$\"'`]|\\\\( |\\t)*[^\\s]|`( |\\t)*[^\\s])+\\$"
                                   }
                                 },
                                 {
@@ -3261,7 +3347,7 @@
                             "type": "IMMEDIATE_TOKEN",
                             "content": {
                               "type": "PATTERN",
-                              "value": "(\\$\\$|[^\\s\\\\$\"']|\\\\( |\\t)*[^\\s])+"
+                              "value": "(\\$\\$|[^\\s\\\\$\"'`]|\\\\( |\\t)*[^\\s]|`( |\\t)*[^\\s])+"
                             }
                           },
                           {

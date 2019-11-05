@@ -180,8 +180,8 @@ module.exports = grammar({
 
     _d_user: $ => directive($, 'USER', $.user),
     user: $ => choice(
-      maybe_double_quoted(seq($.user_name, optional(seq(':', $.user_group)))),
-      maybe_double_quoted(seq($.user_id, optional(seq(':', $.user_group_id))))
+      maybe_quoted(seq($.user_name, optional(seq(':', $.user_group)))),
+      maybe_quoted(seq($.user_id, optional(seq(':', $.user_group_id))))
     ),
 
     _d_volume: $ => directive($, 'VOLUME', $.volume),
@@ -279,7 +279,7 @@ module.exports = grammar({
 
     env_value: $ => repeat1(choice(
       repeat1(prec.right(maybe_var_interpolation(
-        $, /(\$\$|[^\s\\$"']|\\( |\t)*[^\s])+/, (r) => token.immediate(r)
+        $, /(\$\$|[^\s\\$"'`]|\\( |\t)*[^\s]|`( |\t)*[^\s])+/, (r) => token.immediate(r)
       ))),
       seq(
         token.immediate('"'),
@@ -649,6 +649,14 @@ function any_casing (token) {
 function maybe_double_quoted (rule) { 
   return choice(
     seq('"', rule, '"'), rule
+  );
+}
+
+function maybe_quoted (rule) { 
+  return choice(
+    seq('"', rule, '"'), 
+    seq("'", rule, "'"), 
+    rule
   );
 }
 
