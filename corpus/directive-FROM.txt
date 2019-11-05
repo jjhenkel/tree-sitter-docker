@@ -416,6 +416,7 @@ FROM repo/image:tag-i-guess:but-theres-this-extra AS build-stage
     (as_name)
   ))
 )
+
 ===================================
 Edge case from corpus 7
 ===================================
@@ -429,5 +430,25 @@ FROM ${project.project(':cassandra').stackwork.imageId}
   (comment)
   (directive (from
     (image (docker_variable))
+  ))
+)
+
+===================================
+Edge case from corpus 8
+===================================
+
+# Issue with space after tag and no as_name
+FROM repo/image:tag 
+FROM repo/image:tag   
+
+---
+
+(dockerfile
+  (comment)
+  (directive (from
+    (repository) (image) (tag)
+  ))
+  (directive (from
+    (repository) (image) (tag)
   ))
 )

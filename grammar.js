@@ -127,7 +127,8 @@ module.exports = grammar({
       )),
       optional(seq(
         $._space_no_newline, any_casing('AS'), $._space_no_newline, $.as_name
-      ))
+      )),
+      optional($._space_no_newline)
     ),
 
     _d_healthcheck: $ => directive($, 'HEALTHCHECK', $.healthcheck),

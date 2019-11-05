@@ -724,6 +724,18 @@
               "type": "BLANK"
             }
           ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_space_no_newline"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
