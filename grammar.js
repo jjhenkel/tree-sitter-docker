@@ -263,7 +263,7 @@ module.exports = grammar({
       seq('$', $.docker_variable),
       token.immediate(/"[^\n"=]*"/),
       seq(
-        token.immediate(/([^\s"\\`=$:]|:[^\s"\\`=$\-+])*/),
+        token.immediate(/([^\s"\\`=$:#]|:[^\s"\\`=$\-+])+/),
         optional($.variable_default_value),
         optional(/:+/)
       )

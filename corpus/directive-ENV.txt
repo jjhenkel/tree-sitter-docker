@@ -534,3 +534,30 @@ ENV buildDependencies\
     ))
   )
 )
+
+===================================
+ENV bug from corpus 19
+===================================
+
+# Lots of comments here is the issue 
+ENV \
+  ####################
+  ###   Required   ###
+  ####################
+  APP_ID= \
+  KEY=VALUE
+
+---
+
+(dockerfile
+  (comment)
+  (directive
+    (line_continuation)
+    (comment)
+    (env
+      (env_pair (comment) (comment) (env_key))
+      (line_continuation)
+      (env_pair (env_key) (env_value))
+    )
+  )
+)
