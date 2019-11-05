@@ -247,11 +247,20 @@ module.exports = grammar({
 
     env_pair_eq: $ => seq(
       optional($._space_no_newline),
-      optional(token.immediate(prec(-10, '"'))),
-      $.env_key,
-      token.immediate('='),
-      optional($.env_value),
-      optional(token.immediate(prec(-10, '"')))
+      choice(
+        seq(
+          $.env_key,
+          token.immediate('='),
+          optional($.env_value)
+        ),
+        seq(
+          token.immediate(prec(-10, '"')),
+          $.env_key,
+          token.immediate('='),
+          optional($.env_value),
+          token.immediate(prec(-10, '"'))
+        )
+      )
     ),
     env_pair: $ => seq(
       $.env_key,
