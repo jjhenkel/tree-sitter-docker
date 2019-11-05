@@ -180,3 +180,17 @@ COPY --from=builder /usr/local/bin/bundle \
 (dockerfile
   (directive (copy (from_layer) (path) (line_continuation) (path) (line_continuation) (path)))
 )
+
+===================================
+Edge case from corpus 6
+===================================
+
+# Allow single \ 
+COPY create-definitions.sh \ /opt/
+
+---
+
+(dockerfile
+  (comment)
+  (directive (copy (path) (path) (path)))
+)

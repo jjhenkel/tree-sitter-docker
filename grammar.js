@@ -489,7 +489,8 @@ module.exports = grammar({
         ))),
         token.immediate('"')
       ),
-      token.immediate(/'([^\\'\n]|\\[^\n])+'/)
+      token.immediate(/'([^\\'\n]|\\[^\n])+'/),
+      token.immediate(prec(-1, '\\'))
     ))),
 
     _paths: $ => seq(
