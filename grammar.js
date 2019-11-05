@@ -395,6 +395,7 @@ module.exports = grammar({
 
     // ############### PLUMBING FOR 'LABEL' ################################# /
     _labels: $ => choice(
+      $.malformed_label_just_quoted_value,
       $.label_pair,
       alias($.label_pair_no_value, $.label_pair),
       seq(
@@ -410,6 +411,8 @@ module.exports = grammar({
         optional($._space_no_newline)
       )
     ),
+
+    malformed_label_just_quoted_value: $ => prec(-1, /"[^\\\n"]+"\r?\n/),
     
     label_pair_eq: $ => seq(
       optional($._space_no_newline),

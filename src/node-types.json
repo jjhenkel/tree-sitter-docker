@@ -712,6 +712,10 @@
         {
           "type": "line_continuation",
           "named": true
+        },
+        {
+          "type": "malformed_label_just_quoted_value",
+          "named": true
         }
       ]
     }
@@ -781,6 +785,11 @@
   },
   {
     "type": "malformed_empty_directive",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "malformed_label_just_quoted_value",
     "named": true,
     "fields": {}
   },

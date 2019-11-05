@@ -8285,6 +8285,10 @@
       "members": [
         {
           "type": "SYMBOL",
+          "name": "malformed_label_just_quoted_value"
+        },
+        {
+          "type": "SYMBOL",
           "name": "label_pair"
         },
         {
@@ -8369,6 +8373,14 @@
           ]
         }
       ]
+    },
+    "malformed_label_just_quoted_value": {
+      "type": "PREC",
+      "value": -1,
+      "content": {
+        "type": "PATTERN",
+        "value": "\"[^\\\\\\n\"]+\"\\r?\\n"
+      }
     },
     "label_pair_eq": {
       "type": "SEQ",

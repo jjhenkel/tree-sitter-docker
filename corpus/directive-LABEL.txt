@@ -206,3 +206,17 @@ LABEL \
     )
   )
 )
+
+===================================
+LABEL bug from corpus 9
+===================================
+
+# Permissive: detect malformed labels
+LABEL "This isn't valid "
+
+---
+
+(dockerfile
+  (comment)
+  (directive (label (malformed_label_just_quoted_value)))
+)
