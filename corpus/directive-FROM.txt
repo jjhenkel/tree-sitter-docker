@@ -468,3 +468,25 @@ FROM node:8.11.3-alpine as run time
     (image) (tag) (as_name) (malformed_as_name_with_spaces)
   ))
 )
+
+===================================
+Edge case from corpus 10
+===================================
+
+# Permissive: handle these exceptions 
+FROM %(almost_docker_variable)
+FROM %{almost_docker_variable}
+FROM %almost_docker_variable
+FROM #{almost_docker_variable}
+FROM #(almost_docker_variable)
+
+---
+
+(dockerfile
+  (comment)
+  (directive (from (image (quasi_docker_variable))))
+  (directive (from (image (quasi_docker_variable))))
+  (directive (from (image (quasi_docker_variable))))
+  (directive (from (image (quasi_docker_variable))))
+  (directive (from (image (quasi_docker_variable))))
+)

@@ -1,5 +1,6 @@
 
 const FROM_PART_REGEX = /[^\$\s\/:@\{\}%<>=\?]+/;
+const DOCKER_VARIABLE_REGEX = /('[^$'\n\\]*'|[^\(\-\/\}\{\$"'\s:=\\]\(?|[^\(\-\/\}\{\$"\s:=\\][-+][^\(\-\/\}\{\$"\s:=\\])+/;
 
 module.exports = grammar({
   name: 'docker',
@@ -268,7 +269,7 @@ module.exports = grammar({
     ),
 
     env_key: $ => choice(
-      seq('$', $.docker_variable),
+      $.docker_variable,
       token.immediate(/"[^\n"=]*"/),
       seq(
         token.immediate(/([^\s"\\`=$:#]|:[^\s"\\`=$\-+])+/),
@@ -278,18 +279,20 @@ module.exports = grammar({
     ),
 
     env_value: $ => repeat1(choice(
-      repeat1(prec.right(maybe_var_interpolation(
-        $, /(\$\$|[^\s\\$"'`]|\\( |\t)*[^\s]|`( |\t)*[^\s])+/, (r) => token.immediate(r)
-      ))),
+      seq(
+        repeat1(prec.right(maybe_var_interpolation(
+          $, /(\$\$|[^\s\\$"'`]|\\( |\t)*[^\s]|`( |\t)*[^\s])+/, (r) => token.immediate(r)
+        ))),
+        optional('$')
+      ),
       seq(
         token.immediate('"'),
         repeat(prec.right(maybe_var_interpolation(
-          $, /(\$\$|[^\n\r"\\$]|\\( |\t)*[^\s])+/, (r) => token.immediate(prec(1, r))
+          $, /(\$[$ \t]|[^\n\r"\\$]|\\( |\t)*[^\s])+/, (r) => token.immediate(prec(1, r))
         ))),
-        optional('$'),
         choice(
           $.malformed_missing_close_quote,
-          token.immediate('"')
+          token.immediate(/\$*"/)
         )
       ),
       seq(
@@ -330,12 +333,12 @@ module.exports = grammar({
     port_protocol: $ => seq('/', choice(
       any_casing('UDP'),
       any_casing('TCP'),
-      seq('$', $.docker_variable)
+      $.docker_variable
     )),
 
     // ############### PLUMBING FOR 'FROM' ################################## /
     platform: $ => choice(
-      seq('$', $.docker_variable),
+      $.docker_variable,
       FROM_PART_REGEX
     ),
 
@@ -357,14 +360,23 @@ module.exports = grammar({
       '/'
     ),
 
-    image: $ => maybe_var_or_template_interpolation($, FROM_PART_REGEX),
-    tag: $ => maybe_var_or_template_interpolation($, FROM_PART_REGEX),
+    image: $ => choice(
+      maybe_var_or_template_interpolation($, FROM_PART_REGEX),
+      $.quasi_docker_variable
+    ),
+    tag: $ => choice(
+      maybe_var_or_template_interpolation($, FROM_PART_REGEX),
+      $.quasi_docker_variable
+    ),
+    digest: $ => maybe_var_or_template_interpolation($, /[^\$\s\/@\{\}%<>=\?]+/),
+    as_name: $ => maybe_var_or_template_interpolation($, FROM_PART_REGEX),
+   
+    malformed_as_name_with_spaces: $ => prec.right(
+      repeat1(choice($._space_no_newline, FROM_PART_REGEX))
+    ),
     malformed_tag_with_colons: $ => prec(-1, maybe_var_interpolation(
       $, /[^\$\s\/@\{\}%<>=\?]+/, (r) => token.immediate(prec(-1, r))
     )),
-    digest: $ => maybe_var_or_template_interpolation($, /[^\$\s\/@\{\}%<>=\?]+/),
-    as_name: $ => maybe_var_or_template_interpolation($, FROM_PART_REGEX),
-    malformed_as_name_with_spaces: $ => prec.right(repeat1(choice($._space_no_newline, FROM_PART_REGEX))),
 
     // ############### PLUMBING FOR 'HEALTHCHECK' ########################### /
     hc_none: $ => any_casing('NONE'),
@@ -446,7 +458,7 @@ module.exports = grammar({
     label_pair: $ => seq($.label_key, $._space_no_newline, alias($._anything, $.label_value)),
 
     label_key: $ => choice(
-      seq('$', $.docker_variable),
+      $.docker_variable,
       choice(
         token.immediate(/[^\s"\\`=$]*/),
         token.immediate(/"[^\n"=]*"/)
@@ -508,10 +520,9 @@ module.exports = grammar({
 
     // ############### DOCKER VARIABLE HANDLING ############################# /
     docker_variable: $ => choice(
-      $._docker_variable,
+      $._docker_variable_1,
       seq(
-        token.immediate('{'),
-        $._docker_variable,
+        $._docker_variable_2,
         optional(choice(
           $.variable_default_value,
           $.variable_this_or_null,
@@ -522,10 +533,15 @@ module.exports = grammar({
       $.bash_subshell_expression
     ),
 
+    _docker_variable_1: $ => token(
+      new RegExp(/\$/.source + DOCKER_VARIABLE_REGEX.source)
+    ),
+    _docker_variable_2: $ => token(
+      new RegExp(/\${/.source + DOCKER_VARIABLE_REGEX.source)
+    ),
+
     bash_subshell_expression: $ => seq(
-      token.immediate('('),
-      /[^\n\)]*/,
-      token.immediate(')')
+      /\$\([^\n\)]*\)/,
     ),
 
     variable_default_value: $ => seq(
@@ -543,8 +559,8 @@ module.exports = grammar({
       maybe_var_interpolation($, /[^$\}\{\n]*/)
     ),
 
-    _docker_variable: $ => token.immediate(
-      /('[^$'\n\\]*'|[^\(\-\/\}\{\$"'\s:=\\]\(?|[^\(\-\/\}\{\$"\s:=\\][-+][^\(\-\/\}\{\$"\s:=\\])+/
+    quasi_docker_variable: $ => prec(-10,
+      /(%|#)({|\()?('[^$'\n\\]*'|[^\(\-\/\}\{\$"'\s:=\\%]\(?|[^\(\-\/\}\{\$"\s:=\\%][-+][^\(\-\/\}\{\$"\s:=\\%])+(}|\))?\s/
     ),
 
     // ############### OUT-OF-DOCKER TEMPLATING ############################# /
@@ -581,7 +597,7 @@ module.exports = grammar({
         )),
         optional(','), // Allow for trailing ,
         ']',
-        optional($.json_array_extraneous_char)
+        optional($.json_array_extraneous_chars)
       ),
       seq(
         $._json_array_start,
@@ -590,7 +606,7 @@ module.exports = grammar({
       )
     ),
 
-    json_array_extraneous_char: $ => token(prec(-15, /[^\s]/)),
+    json_array_extraneous_chars: $ => token(prec(-15, /[^\s]+/)),
     json_array_item_missing_quote: $ => choice(
       prec(-1, /"([^\\"\n\]]|\\[^\n\]])+\]+[ \v\t\r]*\n/),
       prec(-1, /'([^\\'\n\]]|\\[^\n\]])+\]+[ \v\t\r]*\n/)
@@ -695,16 +711,16 @@ function maybe_var_interpolation ($, regex, wrapper) {
     // (2) ${var}|something${var}(${var}|something${var})*something?
     seq(
       choice(
-        seq('$', $.docker_variable),
+        $.docker_variable,
         seq(
-          wrapper ? wrapper(new RegExp(regex.source + '\\$')) : new RegExp(regex.source + '\\$'),
+          wrapper ? wrapper(regex) : regex,
           $.docker_variable
         )
       ),
       repeat(choice(
-        seq('$', $.docker_variable),
+        $.docker_variable,
         seq(
-          wrapper ? wrapper(new RegExp(regex.source + '\\$')) : token.immediate(new RegExp(regex.source + '\\$')),
+          wrapper ? wrapper(regex) : token.immediate(regex),
           $.docker_variable
         )
       )),

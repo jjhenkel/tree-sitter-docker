@@ -5,16 +5,20 @@ Permissive JSON array handling 1
 # Support extra char at end
 CMD ["We see this"];
 CMD [ 'and unfortunately,', 'this'  ]%
+CMD [ 'and unfortunately,', 'this'  ]%sdfsdf
 
 ---
 
 (dockerfile
   (comment)
   (directive (cmd 
-    (json_array (json_array_item) (json_array_extraneous_char))
+    (json_array (json_array_item) (json_array_extraneous_chars))
   ))
   (directive (cmd 
-    (json_array (json_array_item) (json_array_item) (json_array_extraneous_char))
+    (json_array (json_array_item) (json_array_item) (json_array_extraneous_chars))
+  ))
+  (directive (cmd 
+    (json_array (json_array_item) (json_array_item) (json_array_extraneous_chars))
   ))
 )
 

@@ -650,6 +650,10 @@
           "named": true
         },
         {
+          "type": "quasi_docker_variable",
+          "named": true
+        },
+        {
           "type": "template_expr_at_symbols",
           "named": true
         },
@@ -677,7 +681,7 @@
       "required": false,
       "types": [
         {
-          "type": "json_array_extraneous_char",
+          "type": "json_array_extraneous_chars",
           "named": true
         },
         {
@@ -1050,6 +1054,11 @@
     }
   },
   {
+    "type": "quasi_docker_variable",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "repository",
     "named": true,
     "fields": {},
@@ -1144,6 +1153,10 @@
       "types": [
         {
           "type": "docker_variable",
+          "named": true
+        },
+        {
+          "type": "quasi_docker_variable",
           "named": true
         },
         {
@@ -1365,14 +1378,6 @@
     "named": false
   },
   {
-    "type": "(",
-    "named": false
-  },
-  {
-    "type": ")",
-    "named": false
-  },
-  {
     "type": ",",
     "named": false
   },
@@ -1453,7 +1458,7 @@
     "named": true
   },
   {
-    "type": "json_array_extraneous_char",
+    "type": "json_array_extraneous_chars",
     "named": true
   },
   {
@@ -1475,10 +1480,6 @@
   {
     "type": "template_expr_percent_signs",
     "named": true
-  },
-  {
-    "type": "{",
-    "named": false
   },
   {
     "type": "}",

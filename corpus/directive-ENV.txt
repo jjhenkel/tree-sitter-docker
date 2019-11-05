@@ -582,3 +582,19 @@ ENV "key="
   (directive (env (malformed_env_pair) (line_continuation) (malformed_env_pair)))
   (directive (env (malformed_env_pair)))
 )
+
+===================================
+ENV bug from corpus 21
+===================================
+
+# Issues with $
+ENV WORD="$(bash_subshell_expression)\\$"
+ENV ARGUMENTS $args$
+
+---
+
+(dockerfile
+  (comment)
+  (directive (env (env_pair (env_key) (env_value (docker_variable (bash_subshell_expression))))))
+  (directive (env (env_pair (env_key) (env_value (docker_variable)))))
+)
