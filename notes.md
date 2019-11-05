@@ -95,6 +95,7 @@ that would be super hard to support and are infrequent).
 ./sources/221607520.Dockerfile|||ENV WORD="$(value)\\$"
 ./sources/221607521.Dockerfile|||ENV WORD="$(value)\\$"
 ./sources/226119246.Dockerfile|||ENV KEY \\\n\\\t#php\\\n\\\tlocation ~ \\\\.php$ {\\\n\\\t}
+./sources/227186278.Dockerfile|||EXPOSE ${BAD DOCKER VAR WITH SPACES}
 ./sources/234276543.Dockerfile|||FROM repo/image:tagwith:colon
 ./sources/241644712.Dockerfile|||FROM why_have_a_line_continuation \
 ./sources/242704403.Dockerfile|||HEALTHECK CMD ["./json_array" "-style"] || exit 1
