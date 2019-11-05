@@ -448,6 +448,9 @@ ENV bug from corpus 16
 ENV KEY="#Value"
 ENV KEY="value ${var} #value "
 ENV KEY=" #"
+ENV KEY="\
+# comment
+VALUE"
 
 ---
 
@@ -461,6 +464,9 @@ ENV KEY=" #"
   ))
   (directive (env
     (env_pair (env_key) (env_value))
+  ))
+  (directive (env
+    (env_pair (env_key) (env_value (line_continuation) (comment)))
   ))
 )
 
@@ -598,3 +604,59 @@ ENV ARGUMENTS $args$
   (directive (env (env_pair (env_key) (env_value (docker_variable (bash_subshell_expression))))))
   (directive (env (env_pair (env_key) (env_value (docker_variable)))))
 )
+
+===================================
+ENV bug from corpus 22
+===================================
+
+# Issues with variable default
+ENV KEY ${VAR:-$VAR}
+
+---
+
+(dockerfile
+  (comment)
+  (directive (env
+    (env_pair
+      (env_key)
+      (env_value (docker_variable
+        (variable_default_value (docker_variable))
+      ))
+    )
+  ))
+) 
+
+===================================
+ENV bug from corpus 23
+===================================
+
+# Issues with ` `
+ENV DIRECTORY=`pwd`
+ENV KEY `pwgen -Bs1 12`
+ENV KEY=\
+  `echo "hi" ; echo 'hello'`
+
+---
+
+
+(dockerfile
+  (comment)
+  (directive (env (env_pair (env_key) (env_value))))
+  (directive (env (env_pair (env_key) (env_value))))
+  (directive (env (env_pair (env_key) (env_value (line_continuation)))))
+)
+
+===================================
+ENV bug from corpus 24
+===================================
+
+# Issues with just $
+ENV KEY $
+
+---
+
+(dockerfile
+  (comment)
+  (directive (env (env_pair (env_key) (env_value))))
+)
+

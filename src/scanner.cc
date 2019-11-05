@@ -321,7 +321,7 @@ namespace {
 
             if (valid_symbols[LINE_CONTINUATION] && lexer->lookahead == '\\' && !windows_escape) {
                 while (lexer->lookahead == '\\') { advance(lexer); }
-                while (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+                while (lexer->lookahead == ' ' || lexer->lookahead == '\t' || lexer->lookahead == '\\') {
                     advance(lexer);
                 } 
                 if (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->lookahead == 0) {

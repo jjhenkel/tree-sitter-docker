@@ -102,6 +102,9 @@ that would be super hard to support and are infrequent).
 ./sources/242704491.Dockerfile|||HEALTHECK CMD ["./json_array" "-style"] || exit 1
 ./sources/249315265.Dockerfile|||HEALTHECK --retries=3 cat /this_is_a_cmd_without_CMD
 ./sources/251727872.Dockerfile|||FROM image_with_empty_tag:
+./sources/252767356.Dockerfile|||Non-continuation newline in ENV KEY="Value " (so mismatched quotes)
+./sources/252767357.Dockerfile|||Non-continuation newline in ENV KEY="Value " (so mismatched quotes)
+./sources/252767358.Dockerfile|||Non-continuation newline in ENV KEY="Value " (so mismatched quotes)
 ./sources/252769747.Dockerfile|||ENV ["as", "json", "array", "not", "allowed"]
 ./sources/252773736.Dockerfile|||comment without the leading '#'
 ./sources/252773737.Dockerfile|||comment without the leading '#'
@@ -159,6 +162,7 @@ that would be super hard to support and are infrequent).
 ./sources/438887079.Dockerfile|||FROM #VAR1 and CMD ["#CMD"#VAR2]
 ./sources/438887080.Dockerfile|||FROM #VAR1
 ./sources/439883310.Dockerfile|||expose $port$
+./sources/439883313.Dockerfile|||expose $port$
 ./sources/457388513.Dockerfile|||Extraneous characters after CMD []
 ./sources/462009975.Dockerfile|||Mangled VOLUME statement
 ./sources/468362269.Dockerfile|||Bad ARG: ARG VERSION>=0.0.0

@@ -278,32 +278,37 @@ module.exports = grammar({
       )
     ),
 
-    env_value: $ => repeat1(choice(
-      seq(
-        repeat1(prec.right(maybe_var_interpolation(
-          $, /(\$\$|[^\s\\$"'`]|\\( |\t)*[^\s]|`( |\t)*[^\s])+/, (r) => token.immediate(r)
-        ))),
-        optional('$')
-      ),
-      seq(
-        token.immediate('"'),
-        repeat(prec.right(maybe_var_interpolation(
-          $, /(\$[$ \t]|[^\n\r"\\$]|\\( |\t)*[^\s])+/, (r) => token.immediate(prec(1, r))
-        ))),
-        choice(
-          $.malformed_missing_close_quote,
-          token.immediate(/\$*"/)
-        )
-      ),
-      seq(
-        token.immediate("'"),
-        repeat(prec.right(
-          token.immediate(/([^\n\r'\\]|\\'|\\( |\t)*[^\s])+/)
-        )),
-        token.immediate(/'+/)
-      ),
-      $.line_continuation
-    )),
+    env_value: $ => choice(
+      /"[\t\f\r\v ]*#+[\t\f\r\v ]*"/, // special case 1
+      /\$/, // special case 2
+      /[a-zA-Z]:(((\\|\/)[a-zA-Z0-9_@\-^!#$%&+={}\[\]\.]+)+(\\|\/)?)/, // special case 3 (window pat)
+      repeat1(choice(
+        seq(
+          repeat1(prec.right(maybe_var_interpolation(
+            $, /(\$\$|[^\s\\$"'`]|\\( |\t)*[^\s]|`( |\t)*[^\s]|`[^\n\\$`]+`)+/, (r) => token.immediate(r)
+          ))),
+          optional('$')
+        ),
+        seq(
+          token.immediate(/"#*/),
+          repeat(prec.right(maybe_var_interpolation(
+            $, /(\$[$ \t]|[^\n\r"\\$#]|\\+( |\t)*[^\\\s]|[^\n\r"\\$#]#[^\n\r"\\$#])+/, (r) => token.immediate(prec(1, r))
+          ))),
+          choice(
+            $.malformed_missing_close_quote,
+            token.immediate(/\$*#*"/)
+          )
+        ),
+        seq(
+          token.immediate("'"),
+          repeat(prec.right(
+            token.immediate(/([^\n\r'\\]|\\'|\\( |\t)*[^\s])+/)
+          )),
+          token.immediate(/'+/)
+        ),
+        $.line_continuation
+      ))
+    ),
 
     malformed_missing_close_quote: $ => token.immediate(
       prec(-10, /\r?\n/)
