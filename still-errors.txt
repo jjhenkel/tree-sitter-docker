@@ -15,8 +15,6 @@
 ./sources/199954068.Dockerfile
 ./sources/219498385.Dockerfile
 ./sources/227186278.Dockerfile
-./sources/232201790.Dockerfile
-./sources/232201792.Dockerfile
 ./sources/242704403.Dockerfile
 ./sources/242704437.Dockerfile
 ./sources/242704491.Dockerfile

@@ -75,6 +75,28 @@ ENV GOPATH `
 Escape ` Test 3
 ===================================
 
+# escape=`
+ENV HOMEDRIVE=C:\ `
+    HOMEPATH=Users\%USERNAME% `
+    HOMEPATH=C:\Users\%USERNAME%\
+
+---
+
+(dockerfile
+  (escape_directive)
+  (directive (env
+    (env_pair (env_key) (env_value))
+    (line_continuation)
+    (env_pair (env_key) (env_value))
+    (line_continuation)
+    (env_pair (env_key) (env_value))
+  ))
+)
+
+===================================
+Escape ` Test 4
+===================================
+
 # escape=` 
 
 # Bug with no-space windows line continuation

@@ -230,9 +230,11 @@ LABEL vendor=Microsoft\ Corp \
 com.microsoft.product="OMS Container Docker Provider" \
 com.microsoft.version="1.0.0-17
 
+---
+
 (dockerfile
   (comment)
-  (label
+  (directive (label
     (label_pair (label_key) (label_value))
     (line_continuation)
     (label_pair (label_key) (label_value))
@@ -243,5 +245,22 @@ com.microsoft.version="1.0.0-17
         (malformed_missing_close_quote)
       )
     )
-  )
+  ))
+)
+
+===================================
+LABEL bug from corpus 11
+===================================
+
+# Issue here was: DNS\ \(Patrowl 
+LABEL Name="Patrowl\ DNS\ \(Patrowl engine\)" Version="1.0.0"
+
+---
+
+(dockerfile 
+  (comment)
+  (directive (label
+    (label_pair (label_key) (label_value))
+    (label_pair (label_key) (label_value))
+  ))
 )

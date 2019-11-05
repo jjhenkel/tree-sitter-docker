@@ -281,18 +281,18 @@ module.exports = grammar({
     env_value: $ => choice(
       /"[\t\f\r\v ]*#+[\t\f\r\v ]*"/, // special case 1
       /\$/, // special case 2
-      /[a-zA-Z]:(((\\|\/)[a-zA-Z0-9_@\-^!#$%&+={}\[\]\.]+)+(\\|\/)?)/, // special case 3 (window pat)
+      prec(1, /[a-zA-Z]:(((\\|\/)[a-zA-Z0-9_@\-^!#$%&+={}\[\]\.]*)+(\\|\/)?)/), // special case 3 (windows path)
       repeat1(choice(
         seq(
           repeat1(prec.right(maybe_var_interpolation(
-            $, /(\$\$|[^\s\\$"'`]|\\( |\t)*[^\s]|`( |\t)*[^\s]|`[^\n\\$`]+`)+/, (r) => token.immediate(r)
+            $, /(\$\$|[^\s\\$"'`]|\\( |\t)*[^\s`]|`( |\t)*[^\s]|`[^\n\\$`]+`)+/, (r) => token.immediate(r)
           ))),
           optional('$')
         ),
         seq(
           token.immediate(/"#*/),
           repeat(prec.right(maybe_var_interpolation(
-            $, /(\$[$ \t]|[^\n\r"\\$#]|\\+( |\t)*[^\\\s]|[^\n\r"\\$#]#[^\n\r"\\$#])+/, (r) => token.immediate(prec(1, r))
+            $, /(\$[$ \t]|[^\n\r"\\$#]|\\(\\| |\t)*[^\\\s]|[^\n\r"\\$#]#[^\n\r"\\$#])+/, (r) => token.immediate(prec(1, r))
           ))),
           choice(
             $.malformed_missing_close_quote,
