@@ -12906,12 +12906,13 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       END_STATE();
     case 1145:
       ACCEPT_TOKEN(aux_sym__json_array_item_single_token1);
-      if (lookahead == '\n') ADVANCE(1130);
-      if (lookahead == '\'') ADVANCE(1129);
       if (lookahead == '\\') ADVANCE(1132);
-      if (('\t' <= lookahead && lookahead <= '\r') ||
+      if (lookahead == '\t' ||
+          ('' <= lookahead && lookahead <= '\r') ||
           lookahead == ' ') ADVANCE(1145);
-      if (lookahead != 0) ADVANCE(1145);
+      if (lookahead != 0 &&
+          lookahead != '\n' &&
+          lookahead != '\'') ADVANCE(1145);
       END_STATE();
     case 1146:
       ACCEPT_TOKEN(aux_sym__json_array_item_single_token1);
@@ -12922,12 +12923,13 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       END_STATE();
     case 1147:
       ACCEPT_TOKEN(aux_sym__json_array_item_double_token1);
-      if (lookahead == '\n') ADVANCE(1130);
-      if (lookahead == '"') ADVANCE(1129);
       if (lookahead == '\\') ADVANCE(1131);
-      if (('\t' <= lookahead && lookahead <= '\r') ||
+      if (lookahead == '\t' ||
+          ('' <= lookahead && lookahead <= '\r') ||
           lookahead == ' ') ADVANCE(1147);
-      if (lookahead != 0) ADVANCE(1147);
+      if (lookahead != 0 &&
+          lookahead != '\n' &&
+          lookahead != '"') ADVANCE(1147);
       END_STATE();
     case 1148:
       ACCEPT_TOKEN(aux_sym__json_array_item_double_token1);
@@ -42488,19 +42490,19 @@ static TSParseActionEntry ts_parse_actions[] = {
   [4246] = {.count = 1, .reusable = true}, SHIFT(1355),
   [4248] = {.count = 1, .reusable = true}, SHIFT(2164),
   [4250] = {.count = 1, .reusable = true}, SHIFT(1619),
-  [4252] = {.count = 1, .reusable = false}, SHIFT(1597),
+  [4252] = {.count = 1, .reusable = true}, SHIFT(1597),
   [4254] = {.count = 1, .reusable = false}, SHIFT(1557),
   [4256] = {.count = 2, .reusable = false}, REDUCE(aux_sym_env_value_repeat5, 2), SHIFT_REPEAT(1556),
   [4259] = {.count = 1, .reusable = true}, REDUCE(aux_sym_env_value_repeat5, 2),
-  [4261] = {.count = 1, .reusable = false}, SHIFT(1594),
+  [4261] = {.count = 1, .reusable = true}, SHIFT(1594),
   [4263] = {.count = 1, .reusable = true}, REDUCE(aux_sym__json_array_item_double, 2),
-  [4265] = {.count = 2, .reusable = false}, REDUCE(aux_sym__json_array_item_double, 2), SHIFT_REPEAT(1560),
+  [4265] = {.count = 2, .reusable = true}, REDUCE(aux_sym__json_array_item_double, 2), SHIFT_REPEAT(1560),
   [4268] = {.count = 1, .reusable = true}, SHIFT(2165),
   [4270] = {.count = 1, .reusable = true}, SHIFT(849),
   [4272] = {.count = 1, .reusable = true}, SHIFT(850),
   [4274] = {.count = 1, .reusable = true}, SHIFT(2189),
   [4276] = {.count = 1, .reusable = true}, REDUCE(aux_sym__json_array_item_single, 2),
-  [4278] = {.count = 2, .reusable = false}, REDUCE(aux_sym__json_array_item_single, 2), SHIFT_REPEAT(1565),
+  [4278] = {.count = 2, .reusable = true}, REDUCE(aux_sym__json_array_item_single, 2), SHIFT_REPEAT(1565),
   [4281] = {.count = 2, .reusable = true}, REDUCE(sym_user_name, 6), SHIFT(1672),
   [4284] = {.count = 1, .reusable = true}, SHIFT(956),
   [4286] = {.count = 1, .reusable = true}, SHIFT(1201),
@@ -42524,9 +42526,9 @@ static TSParseActionEntry ts_parse_actions[] = {
   [4325] = {.count = 1, .reusable = false}, SHIFT(1593),
   [4327] = {.count = 1, .reusable = true}, SHIFT(429),
   [4329] = {.count = 1, .reusable = true}, SHIFT(1673),
-  [4331] = {.count = 1, .reusable = false}, SHIFT(1565),
+  [4331] = {.count = 1, .reusable = true}, SHIFT(1565),
   [4333] = {.count = 2, .reusable = true}, REDUCE(sym_user_name, 6), SHIFT(1180),
-  [4336] = {.count = 1, .reusable = false}, SHIFT(1560),
+  [4336] = {.count = 1, .reusable = true}, SHIFT(1560),
   [4338] = {.count = 1, .reusable = false}, REDUCE(aux_sym_from_layer_repeat4, 3),
   [4340] = {.count = 1, .reusable = true}, REDUCE(aux_sym_from_layer_repeat4, 3),
   [4342] = {.count = 1, .reusable = true}, SHIFT(1335),

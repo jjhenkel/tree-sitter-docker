@@ -3,8 +3,6 @@
 ./sources/227186278.Dockerfile
 ./sources/232201790.Dockerfile
 ./sources/232201792.Dockerfile
-./sources/252782233.Dockerfile
 ./sources/260130616.Dockerfile
 ./sources/262565861.Dockerfile
-./sources/282786208.Dockerfile
 ./sources/324839563.Dockerfile

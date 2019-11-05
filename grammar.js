@@ -489,7 +489,7 @@ module.exports = grammar({
         ))),
         token.immediate('"')
       ),
-      token.immediate(/'(?:[^\\'\n]|\\[^\n])+'/)
+      token.immediate(/'([^\\'\n]|\\[^\n])+'/)
     ))),
 
     _paths: $ => seq(
@@ -585,8 +585,8 @@ module.exports = grammar({
 
     json_array_extraneous_char: $ => token(prec(-15, /[^\s]/)),
     json_array_item_missing_quote: $ => choice(
-      prec(-1, /"(?:[^\\"\n\]]|\\[^\n\]])+\]+[ \v\t\r]*\n/),
-      prec(-1, /'(?:[^\\'\n\]]|\\[^\n\]])+\]+[ \v\t\r]*\n/)
+      prec(-1, /"([^\\"\n\]]|\\[^\n\]])+\]+[ \v\t\r]*\n/),
+      prec(-1, /'([^\\'\n\]]|\\[^\n\]])+\]+[ \v\t\r]*\n/)
     ),
 
     json_array_item: $ => choice(
@@ -601,11 +601,11 @@ module.exports = grammar({
     ),
 
     _json_array_item_single: $ => repeat1(
-      token.immediate(/(?:[^\\'\n]|\\[^\n])+/)
+      token.immediate(prec(1, /([^\\'\n]|\\[^\n])+/))
     ),
 
     _json_array_item_double: $ => repeat1(
-      token.immediate(/(?:[^\\"\n]|\\[^\n])+/)
+      token.immediate(prec(1, /([^\\"\n]|\\[^\n])+/))
     ),
 
   }

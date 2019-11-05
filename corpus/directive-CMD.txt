@@ -113,7 +113,6 @@ CMD [ "do \
       (json_array_item
         (line_continuation)  
         (line_continuation)  
-        (comment)
         (line_continuation)  
       )
       (line_continuation)  
@@ -146,4 +145,16 @@ CMD [ "this", "should", "be", "okay",\
   (directive (cmd (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item))))
   (directive (cmd (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item))))
   (directive (cmd (json_array (json_array_item) (json_array_item) (json_array_item) (json_array_item) (line_continuation))))
+)
+
+===================================
+CMD comment like entries
+===================================
+
+CMD ["-c", "#careful"]
+
+---
+
+(dockerfile
+  (directive (cmd (json_array (json_array_item) (json_array_item))))
 )
