@@ -253,7 +253,7 @@ module.exports = grammar({
     ),
     env_pair: $ => seq(
       $.env_key,
-      $._space_no_newline,
+      choice($._space_no_newline, $.line_continuation),
       $.env_value
     ),
 

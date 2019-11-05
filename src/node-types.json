@@ -432,6 +432,10 @@
         {
           "type": "env_value",
           "named": true
+        },
+        {
+          "type": "line_continuation",
+          "named": true
         }
       ]
     }

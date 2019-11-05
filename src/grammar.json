@@ -3060,8 +3060,17 @@
           "name": "env_key"
         },
         {
-          "type": "SYMBOL",
-          "name": "_space_no_newline"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_space_no_newline"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "line_continuation"
+            }
+          ]
         },
         {
           "type": "SYMBOL",

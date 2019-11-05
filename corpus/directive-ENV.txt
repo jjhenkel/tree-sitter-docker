@@ -512,3 +512,25 @@ ENV \
     )
   )
 )
+
+===================================
+ENV bug from corpus 18
+===================================
+
+# No-space line_continuation with env_key<space>env_value form
+ENV buildDependencies\
+  wget unzip python build-essential g++ flex bison gperf\
+  ruby perl libsqlite3-dev libssl-dev libpng-dev
+
+---
+
+(dockerfile
+  (comment)
+  (directive
+    (env (env_pair
+      (env_key)
+      (line_continuation)
+      (env_value (line_continuation))
+    ))
+  )
+)
