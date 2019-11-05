@@ -561,3 +561,24 @@ ENV \
     )
   )
 )
+
+===================================
+ENV bug from corpus 20
+===================================
+
+# Quoted key=value pair
+ENV "SERVICE_NAME=searchEngine"  
+
+ENV "ALERTMANAGER_BIN=/bin/alertmanager" \  
+"WEBHOOK_URL=http://alert:8080/"  
+
+ENV "key="
+
+---
+
+(dockerfile
+  (comment)
+  (directive (env (malformed_env_pair)))
+  (directive (env (malformed_env_pair) (line_continuation) (malformed_env_pair)))
+  (directive (env (malformed_env_pair)))
+)

@@ -394,6 +394,10 @@
         {
           "type": "line_continuation",
           "named": true
+        },
+        {
+          "type": "malformed_env_pair",
+          "named": true
         }
       ]
     }
@@ -785,6 +789,11 @@
   },
   {
     "type": "malformed_empty_directive",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "malformed_env_pair",
     "named": true,
     "fields": {}
   },

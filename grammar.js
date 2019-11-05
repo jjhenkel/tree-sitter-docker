@@ -232,35 +232,34 @@ module.exports = grammar({
       $.env_key,
       $.env_pair,
       seq(
-        alias($.env_pair_eq, $.env_pair),
+        choice(
+          alias($.env_pair_eq, $.env_pair),
+          $.malformed_env_pair
+        ),
         repeat(seq(
           choice(
             $._space_no_newline,
             $.line_continuation
           ),
           repeat(choice($.comment, $._space_no_newline)),
-          alias($.env_pair_eq, $.env_pair)
+          choice(
+            alias($.env_pair_eq, $.env_pair),
+            $.malformed_env_pair
+          )
         )),
         optional($._space_no_newline)
       )
     ),
 
+    malformed_env_pair: $ => prec(1,
+      /"[^"\n=]+=[^"\n=]*"/
+    ),
+
     env_pair_eq: $ => seq(
       optional($._space_no_newline),
-      choice(
-        seq(
-          $.env_key,
-          token.immediate('='),
-          optional($.env_value)
-        ),
-        seq(
-          token.immediate(prec(-10, '"')),
-          $.env_key,
-          token.immediate('='),
-          optional($.env_value),
-          token.immediate(prec(-10, '"'))
-        )
-      )
+      $.env_key,
+      token.immediate('='),
+      optional($.env_value)
     ),
     env_pair: $ => seq(
       $.env_key,
