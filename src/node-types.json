@@ -507,6 +507,10 @@
           "named": true
         },
         {
+          "type": "malformed_as_name_with_spaces",
+          "named": true
+        },
+        {
           "type": "malformed_tag_with_colons",
           "named": true
         },
@@ -767,6 +771,11 @@
   },
   {
     "type": "maintainer",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "malformed_as_name_with_spaces",
     "named": true,
     "fields": {}
   },

@@ -452,3 +452,19 @@ FROM repo/image:tag
     (repository) (image) (tag)
   ))
 )
+
+===================================
+Edge case from corpus 9
+===================================
+
+# Feature: support bad as_names (that have spaces)
+FROM node:8.11.3-alpine as run time
+
+---
+
+(dockerfile
+  (comment)
+  (directive (from
+    (image) (tag) (as_name) (malformed_as_name_with_spaces)
+  ))
+)

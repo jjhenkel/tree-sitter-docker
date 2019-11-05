@@ -126,7 +126,8 @@ module.exports = grammar({
         $._digest_start_ex, $.digest
       )),
       optional(seq(
-        $._space_no_newline, any_casing('AS'), $._space_no_newline, $.as_name
+        $._space_no_newline, any_casing('AS'), $._space_no_newline, $.as_name,
+        optional(seq($._space_no_newline, $.malformed_as_name_with_spaces))
       )),
       optional($._space_no_newline)
     ),
@@ -348,6 +349,7 @@ module.exports = grammar({
     )),
     digest: $ => maybe_var_or_template_interpolation($, /[^\$\s\/@\{\}%<>=\?]+/),
     as_name: $ => maybe_var_or_template_interpolation($, FROM_PART_REGEX),
+    malformed_as_name_with_spaces: $ => prec.right(repeat1(choice($._space_no_newline, FROM_PART_REGEX))),
 
     // ############### PLUMBING FOR 'HEALTHCHECK' ########################### /
     hc_none: $ => any_casing('NONE'),
