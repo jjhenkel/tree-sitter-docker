@@ -171,7 +171,7 @@ module.exports = grammar({
     run: $ => $._anything_or_json_array,
     
     _d_shell: $ => directive($, 'SHELL', $.shell),
-    shell: $ => $.json_array,
+    shell: $ => $._anything_or_json_array,
 
     _d_stopsignal: $ => directive($, 'STOPSIGNAL', $.stopsignal),
     stopsignal: $ => choice(

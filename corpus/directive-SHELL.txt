@@ -7,6 +7,7 @@ SHELL ["powershell",  "-command"]
 SHELL [ "/bin/sh", "-c"]
 SHELL [ "/bin/sh",\
   "-c"]
+SHELL "bin/sh"
 
 ---
 
@@ -15,5 +16,6 @@ SHELL [ "/bin/sh",\
     (directive (shell (json_array (json_array_item) (json_array_item))))
     (directive (shell (json_array (json_array_item) (json_array_item))))
     (directive (shell (json_array (json_array_item) (line_continuation) (json_array_item))))
+    (directive (shell))
 )
 

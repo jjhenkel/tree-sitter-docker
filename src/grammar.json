@@ -1216,7 +1216,7 @@
     },
     "shell": {
       "type": "SYMBOL",
-      "name": "json_array"
+      "name": "_anything_or_json_array"
     },
     "_d_stopsignal": {
       "type": "SEQ",
