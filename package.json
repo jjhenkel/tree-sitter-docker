@@ -2,7 +2,7 @@
   "name": "tree-sitter-docker",
   "version": "1.0.0",
   "description": "Tree-sitter parser for Dockerfiles.",
-  "main": "index.js",
+  "main": "bindings/node",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,9 +11,9 @@
   "dependencies": {
     "monaco-editor": "^0.18.1",
     "nan": "^2.14.0",
-    "tree-sitter": "^0.15.14"
+    "tree-sitter": "^0.15.15"
   },
   "devDependencies": {
-    "tree-sitter-cli": "^0.15.9"
+    "tree-sitter-cli": "^0.20.0"
   }
 }

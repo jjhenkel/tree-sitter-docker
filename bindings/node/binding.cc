@@ -4,7 +4,7 @@
 
 using namespace v8;
 
-extern "C" TSLanguage * tree_sitter_DOCKER();
+extern "C" TSLanguage * tree_sitter_docker();
 
 namespace {
 
@@ -17,12 +17,12 @@ void Init(Local<Object> exports, Local<Object> module) {
 
   Local<Function> constructor = Nan::GetFunction(tpl).ToLocalChecked();
   Local<Object> instance = constructor->NewInstance(Nan::GetCurrentContext()).ToLocalChecked();
-  Nan::SetInternalFieldPointer(instance, 0, tree_sitter_DOCKER());
+  Nan::SetInternalFieldPointer(instance, 0, tree_sitter_docker());
 
-  Nan::Set(instance, Nan::New("name").ToLocalChecked(), Nan::New("DOCKER").ToLocalChecked());
+  Nan::Set(instance, Nan::New("name").ToLocalChecked(), Nan::New("docker").ToLocalChecked());
   Nan::Set(module, Nan::New("exports").ToLocalChecked(), instance);
 }
 
-NODE_MODULE(tree_sitter_DOCKER_binding, Init)
+NODE_MODULE(tree_sitter_docker_binding, Init)
 
 }  // namespace

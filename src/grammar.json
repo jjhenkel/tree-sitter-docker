@@ -11853,6 +11853,7 @@
       "env_value"
     ]
   ],
+  "precedences": [],
   "externals": [
     {
       "type": "SYMBOL",

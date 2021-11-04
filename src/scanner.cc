@@ -34,7 +34,11 @@ namespace {
 
         unsigned serialize(char *buffer) {
             buffer[0] = windows_escape;
-            return 1;
+            buffer[1] = comment_seen;
+#ifdef DEBUG_PRINT
+            std::cout << "Serialized comment_seen=" << comment_seen << std::endl;
+#endif
+            return 2;
         }
 
 #ifdef DEBUG_PRINT
@@ -61,10 +65,15 @@ namespace {
             if (length == 0) {
                 windows_escape = false; // Default escape is '\'
                 just_started = true;
+                comment_seen = false;
             } else {
                 windows_escape = buffer[0];
+                comment_seen = buffer[1];
                 just_started = false;
             }
+#ifdef DEBUG_PRINT
+            std::cout << "De-serialized comment_seen=" << comment_seen << std::endl;
+#endif
 #ifdef DEBUG_PRINT
             _debug_str = "";
             _marked = "";
@@ -242,6 +251,7 @@ namespace {
             just_started = false;
 
 #ifdef DEBUG_PRINT
+            std::cout << comment_seen << " ";
             std::cout << valid_symbols[_DIRECTIVE_START] << " ";
             std::cout << valid_symbols[ESCAPE_DIRECTIVE] << " ";
             std::cout << valid_symbols[LINE_CONTINUATION] << " ";
@@ -335,7 +345,7 @@ namespace {
             }
 
             bool chomped_spaces = false;
-            if (valid_symbols[_DIRECTIVE_START] && (lexer->at_column_zero(lexer) || was_just_started)) {
+            if (valid_symbols[_DIRECTIVE_START] && (lexer->get_column(lexer) == 0 || was_just_started)) {
                 // Slurp spaces
                 while (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
                     skip(lexer);
@@ -584,7 +594,7 @@ namespace {
         }
 
         bool windows_escape;
-        bool comment_seen;
+        bool comment_seen = false;
         bool just_started = true;
       
 #ifdef DEBUG_PRINT
