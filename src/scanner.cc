@@ -82,7 +82,7 @@ namespace {
 
         bool eat_spaces_including_line_continuation(TSLexer *lexer, bool have_backslash = false) {
             
-            while (true) {
+            while (!lexer->eof(lexer)) {
                 while (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
                     skip(lexer);
                 }
@@ -136,7 +136,7 @@ namespace {
         int consume_json_array_item (TSLexer *lexer, char quote) {
             advance(lexer);
 
-            while (true) {
+            while (!lexer->eof(lexer)) {
                 bool last_nonspace_was_close_bracket = false;
                 while (
                     lexer->lookahead != quote 
@@ -452,7 +452,7 @@ namespace {
                 advance(lexer);
                 lexer->mark_end(lexer);
 
-                while (true) {
+                while (!lexer->eof(lexer)) {
                     if (!eat_spaces_including_line_continuation(lexer)) { return false; }
                     
                     if (lexer->lookahead == '"') {
